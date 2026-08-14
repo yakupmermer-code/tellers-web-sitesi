@@ -60,7 +60,7 @@ export default function HakkimizdaPage() {
     <>
       {/* ── Daraltılmış ana slide ── */}
       <section className="relative mt-24 overflow-hidden">
-        <MediaReveal>
+        <MediaReveal parallax>
           <Image
             src="/assets/about/hero.png"
             alt="tellers hakkında"
@@ -120,7 +120,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Manifesto görseli (netlik) ── */}
-      <MediaReveal>
+      <MediaReveal parallax>
         <Image
           src="/assets/about/hakkimizda-metni.png"
           alt="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"
@@ -324,7 +324,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── İmaj 2 ── */}
-      <MediaReveal>
+      <MediaReveal parallax>
         <Image
           src="/assets/about/hakkimizda-imaj-2.png"
           alt="tellers stüdyosundan bir kare"

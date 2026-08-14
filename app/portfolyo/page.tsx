@@ -17,7 +17,7 @@ export default function PortfolyoPage() {
     <>
       {/* ── Ana slide: marka ismi/detay yok ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal parallax>
           <Image
             src="/assets/portfolio/hero.png"
             alt="tellers portfolyo"

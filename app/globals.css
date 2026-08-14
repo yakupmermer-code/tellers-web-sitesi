@@ -55,3 +55,27 @@ body {
 .hairline {
   border-color: var(--line);
 }
+
+/* Temanın imza link hover'ı: kısa alt çizgi hover'da tam genişliğe uzar */
+.link-grow {
+  position: relative;
+}
+.link-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1.5px;
+  width: 14px;
+  background: currentColor;
+  transition: width 0.5s var(--ease-lux);
+}
+.link-grow:hover::after,
+.group:hover .link-grow::after {
+  width: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-grow::after {
+    transition: none;
+  }
+}

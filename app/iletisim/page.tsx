@@ -17,7 +17,7 @@ export default function IletisimPage() {
     <>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal parallax>
           <Image
             src="/assets/contact/hero.png"
             alt="tellers ile iletişime geçin"

@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* ── İMAJ BÖLÜCÜ (iki beyaz alan arka arkaya gelmesin) — yükseklik +%20 ── */}
-      <MediaReveal>
+      <MediaReveal parallax>
         <Image
           src="/assets/home/imaj-bolucu.png"
           alt="Markanız konuşuyor ama anlaşılmıyor mu? Bilgi bollaştı, anlam kıtlaştı."
@@ -191,7 +191,7 @@ export default function HomePage() {
       </section>
 
       {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
-      <MediaReveal>
+      <MediaReveal parallax>
         <Image
           src="/assets/home/yarim-slide-4.png"
           alt="7 yıl deneyim, +32 global marka, 3 kıta, 15 ülke, aylık +2000 lead akışı"

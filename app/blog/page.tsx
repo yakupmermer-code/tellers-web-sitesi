@@ -35,7 +35,7 @@ function WideCard({ blog: b }: { blog: Blog }) {
           <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/60 md:text-lg">
             {b.excerpt}
           </p>
-          <span className="mt-6 text-sm font-bold text-navy">
+          <span className="link-grow mt-6 w-max text-sm font-bold text-navy">
             Yazıyı okuyun →
           </span>
         </div>
@@ -55,7 +55,7 @@ export default function BlogPage() {
       <h1 className="sr-only">tellers Blog</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal parallax>
           <Image
             src="/assets/blog/hero.png"
             alt="tellers blog"

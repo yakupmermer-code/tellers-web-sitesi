@@ -46,7 +46,7 @@ export default function HizmetlerimizPage() {
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal parallax>
           <Image
             src="/assets/services/hero.png"
             alt="tellers hizmetleri"
@@ -115,7 +115,7 @@ export default function HizmetlerimizPage() {
               <Link
                 key={s.slug}
                 href={`#${s.slug}`}
-                className="text-[12px] uppercase tracking-[0.16em] text-white/80 transition-colors duration-500 hover:text-white"
+                className="link-grow text-[12px] uppercase tracking-[0.16em] text-white/80 transition-colors duration-500 hover:text-white"
               >
                 {s.titleTr}
               </Link>
