@@ -19,8 +19,13 @@ const fadeVariants: Variants = {
   }),
 };
 
-/* Maske reveal: içerik, gizli bir kutunun içinden yukarı kayarak çıkar
-   (temadaki başlık davranışı). Dış katman kırpar, iç katman kayar. */
+/*
+ * Maske reveal: içerik, kırpan kutunun içinden yukarı kayarak çıkar.
+ * KRİTİK: whileInView DIŞ (kırpılmayan) katmanda durur; iç katman variant
+ * kalıtımıyla oynar. Gözlemci kırpılmış iç katmana konursa eleman "hiç
+ * görünmez" sayılır ve animasyon asla tetiklenmez (IO, overflow-hidden
+ * atalarına göre kesişim ölçer).
+ */
 const maskInnerVariants: Variants = {
   hidden: { y: "112%" },
   visible: (delay: number = 0) => ({
@@ -29,8 +34,7 @@ const maskInnerVariants: Variants = {
   }),
 };
 
-/* Hareket azaltma tercihi: hareketsiz ama yine de yumuşak bir görünüş —
-   tamamen ölü değil (opacity animasyonu vestibüler açıdan güvenlidir). */
+/* Hareket azaltma tercihi: hareketsiz ama yine de yumuşak bir görünüş. */
 const reducedVariants: Variants = {
   hidden: { opacity: 0 },
   visible: (delay: number = 0) => ({
@@ -59,18 +63,21 @@ export default function Reveal({
 
   if (mask && !reduced) {
     return (
-      <div className={`overflow-hidden ${className ?? ""}`}>
+      <motion.div
+        className={`overflow-hidden ${className ?? ""}`}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
+        {/* pb: ğ/ç/y gibi harf kuyrukları kırpılmasın */}
         <motion.div
-          className="reveal"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          className="reveal pb-[0.12em]"
           variants={maskInnerVariants}
           custom={delay}
         >
           {children}
         </motion.div>
-      </div>
+      </motion.div>
     );
   }
 

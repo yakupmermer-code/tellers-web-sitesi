@@ -74,8 +74,8 @@ export default function HomePage() {
 
       {/* ── 22.872.000 $ + HİZMET LİSTESİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-40">
-        <Reveal mask>
-          <div className="md:sticky md:top-32">
+        <div className="md:sticky md:top-32 md:self-start">
+          <Reveal mask>
             <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-7xl">
               <CountUp value="22.872.000 $" />
             </h2>
@@ -84,8 +84,8 @@ export default function HomePage() {
               <em className="font-didot italic">yönettiğimiz</em> toplam reklam
               bütçesi.
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
         <div className="flex flex-col">
           {SERVICES.map((s, i) => (
             <Reveal key={s.slug} delay={0.05 * i}>
@@ -124,13 +124,15 @@ export default function HomePage() {
 
       {/* ── SLOGAN + ANLAM FELSEFESİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
-        <Reveal mask>
-          <h2 className="md:sticky md:top-32 text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
-            Duyulan unutulur,
-            <br />
-            <em className="font-didot font-normal italic">anlaşılan</em> kalır.
-          </h2>
-        </Reveal>
+        <div className="md:sticky md:top-32 md:self-start">
+          <Reveal mask>
+            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
+              Duyulan unutulur,
+              <br />
+              <em className="font-didot font-normal italic">anlaşılan</em> kalır.
+            </h2>
+          </Reveal>
+        </div>
         <Reveal delay={0.1}>
           <div className="flex flex-col gap-6 text-lg leading-relaxed text-ink/75">
             <p>

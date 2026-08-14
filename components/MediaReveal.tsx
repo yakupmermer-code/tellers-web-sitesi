@@ -1,15 +1,21 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
 
 const EASE = [0.32, 0.72, 0, 1] as const;
 
+/*
+ * KRİTİK: whileInView DIŞ katmanda durur; clipPath/scale animasyonu İÇ
+ * katmanda variant kalıtımıyla oynar. Gözlemci clipPath'le kırpılmış
+ * elemana konursa eleman "hiç görünmez" sayılır ve animasyon asla
+ * tetiklenmez (IO, kırpılmış görünür alanı ölçer).
+ */
+
 /**
- * Temadaki görsel davranışlarının üstüne çıkan sürüm:
- * - Açılış: perde gibi AŞAĞIDAN YUKARI açılan clip-path wipe + 1.16 ölçekten
- *   oturma (editoryal imza reveal).
- * - parallax: scroll'a bağlı dikey kayma; ölçeği İÇ katman taşır.
+ * Temadaki görsel davranışları:
+ * - Açılış: perde gibi AŞAĞIDAN YUKARI açılan clip-path wipe + ölçek oturması.
+ * - parallax: scroll'a bağlı dikey kayma; ölçeği ayrı iç katman taşır.
  * - kenburns: oturduktan sonra çok yavaş zoom, SINIRLI tekrar (WCAG 2.2.2).
  * DOM yapısı reduced-motion'da da sabittir; `reveal` sınıfı noscript
  * kurtarması içindir.
@@ -57,7 +63,7 @@ export default function MediaReveal({
     };
   }, [parallax, reduced]);
 
-  const inner = parallax ? (
+  const media = parallax ? (
     <div
       ref={innerRef}
       style={reduced ? undefined : { transform: "scale(1.12)" }}
@@ -68,46 +74,55 @@ export default function MediaReveal({
     children
   );
 
-  /* Perde reveal: clipPath alttan açılır; parallax'ta ölçek iç katmanda,
-     normalde dış katman 1.16'dan oturur. */
-  const hidden = {
-    clipPath: "inset(100% 0% 0% 0%)",
-    ...(parallax ? {} : { scale: 1.16 }),
-  };
-  const visible = kenburns
-    ? {
-        clipPath: "inset(0% 0% 0% 0%)",
-        scale: [1.16, 1, 1.06],
-        transition: {
-          clipPath: { duration: 1.1, ease: EASE },
-          scale: {
-            duration: 14,
-            times: [0, 0.12, 1],
-            ease: "linear" as const,
-            repeat: 3,
-            repeatType: "reverse" as const,
+  const clipVariants: Variants = {
+    hidden: {
+      clipPath: "inset(100% 0% 0% 0%)",
+      ...(parallax ? {} : { scale: 1.16 }),
+    },
+    visible: kenburns
+      ? {
+          clipPath: "inset(0% 0% 0% 0%)",
+          scale: [1.16, 1, 1.06],
+          transition: {
+            clipPath: { duration: 1.1, ease: EASE },
+            scale: {
+              duration: 14,
+              times: [0, 0.12, 1],
+              ease: "linear",
+              repeat: 3,
+              repeatType: "reverse",
+            },
+          },
+        }
+      : {
+          clipPath: "inset(0% 0% 0% 0%)",
+          ...(parallax ? {} : { scale: 1 }),
+          transition: {
+            clipPath: { duration: 1.1, ease: EASE },
+            scale: { duration: 1.5, ease: EASE },
           },
         },
-      }
-    : {
-        clipPath: "inset(0% 0% 0% 0%)",
-        ...(parallax ? {} : { scale: 1 }),
-        transition: {
-          clipPath: { duration: 1.1, ease: EASE },
-          scale: { duration: 1.5, ease: EASE },
-        },
-      };
+  };
+
+  if (reduced) {
+    return (
+      <div ref={outerRef} className={`overflow-hidden ${className ?? ""}`}>
+        <div className="reveal">{media}</div>
+      </div>
+    );
+  }
 
   return (
-    <div ref={outerRef} className={`overflow-hidden ${className ?? ""}`}>
-      <motion.div
-        className="reveal"
-        initial={reduced ? false : hidden}
-        whileInView={reduced ? undefined : visible}
-        viewport={{ once: true, margin: "-60px" }}
-      >
-        {inner}
+    <motion.div
+      ref={outerRef}
+      className={`overflow-hidden ${className ?? ""}`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+    >
+      <motion.div className="reveal" variants={clipVariants}>
+        {media}
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
