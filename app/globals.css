@@ -1,0 +1,57 @@
+@import url("https://fonts.cdnfonts.com/css/avenir-next-lt-pro");
+@import url("https://fonts.cdnfonts.com/css/didot");
+@import "tailwindcss";
+
+:root {
+  --navy: #0a0a47;
+  --ink: #111114;
+  --paper: #ffffff;
+  --mist: #f5f5f2;
+  --line: rgba(10, 10, 71, 0.1);
+  --ease-lux: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --font-sans: "Avenir Next LT Pro", "Avenir Next", Avenir, system-ui, sans-serif;
+  --font-didot: "Didot", "GFS Didot", "Playfair Display", serif;
+}
+
+html {
+  /* Sabit header (6rem) çapa linklerde başlığı ezmesin */
+  scroll-padding-top: 7rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* Didot serif vurgular */
+.font-didot {
+  font-family: var(--font-didot);
+  font-weight: 400;
+}
+
+/* İnce çizgi */
+.hairline {
+  border-color: var(--line);
+}
