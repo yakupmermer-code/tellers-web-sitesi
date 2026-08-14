@@ -7,13 +7,20 @@ export const SITE = {
   email: "hello@tellers.email",
   instagram: "https://www.instagram.com/tellersturkiye/",
   linkedin: "https://www.linkedin.com/company/v-v-creative-communication-agency/",
-  // TODO: Telefon ve WhatsApp numarası ekipten gelecek — gelince tek yerden güncellenir.
-  phone: "+90XXXXXXXXXX",
-  whatsapp: "https://wa.me/90XXXXXXXXXX",
+  phone: "+905308176337",
+  phoneDisplay: "0530 817 63 37",
+  whatsapp: "https://wa.me/905308176337",
+  address:
+    "Kalaba Mahallesi Kütükçü Alibey Cad. No: 2 Ankara Üniversitesi Teknokent A Blok Kat: 1 Ofis: 105/A Keçiören / Ankara",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(
+      "Ankara Üniversitesi Teknokent A Blok, Kalaba Mahallesi Kütükçü Alibey Caddesi No:2, Keçiören/Ankara"
+    ),
 } as const;
 
-/** Numara henüz placeholder ise tel/WhatsApp linkleri basılmaz (kırık link gitmesin). */
-export const PHONE_READY = !SITE.phone.includes("X");
+/** Numara ekipten geldi (2026-08-14) — tel/WhatsApp linkleri artık aktif. */
+export const PHONE_READY = true;
 
 export const NAV = [
   { label: "Ana Sayfa", href: "/" },

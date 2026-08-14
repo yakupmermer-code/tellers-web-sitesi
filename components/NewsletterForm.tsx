@@ -25,7 +25,7 @@ export default function NewsletterForm() {
     <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-4">
       <label
         htmlFor="newsletter-email"
-        className="text-[11px] uppercase tracking-[0.2em] text-ink/40"
+        className="text-[11px] uppercase tracking-[0.2em] text-navy/40"
       >
         E-posta adresiniz
       </label>
@@ -37,7 +37,7 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="ornek@sirketiniz.com"
-          className="w-full border-b border-navy/20 bg-transparent py-3 text-lg outline-none transition-colors duration-500 placeholder:text-ink/30 focus:border-navy"
+          className="w-full border-b border-navy/20 bg-transparent py-3 text-lg outline-none transition-colors duration-500 placeholder:text-navy/30 focus:border-navy"
         />
         <button
           type="submit"
@@ -50,7 +50,7 @@ export default function NewsletterForm() {
         </button>
       </div>
       {submitted && (
-        <p role="status" className="text-sm leading-relaxed text-ink/60">
+        <p role="status" className="text-sm leading-relaxed text-navy/60">
           E-posta uygulamanız açılmadıysa bize doğrudan{" "}
           <a href={`mailto:${SITE.email}`} className="font-bold text-navy underline underline-offset-4">
             {SITE.email}

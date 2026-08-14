@@ -5,7 +5,6 @@ import RefLogoBand from "@/components/RefLogoBand";
 import ClosingCta from "@/components/ClosingCta";
 import BlogSlider from "@/components/BlogSlider";
 import HeroVideo from "@/components/HeroVideo";
-import HeroTitle from "@/components/HeroTitle";
 import CountUp from "@/components/CountUp";
 import MediaReveal from "@/components/MediaReveal";
 import { SERVICES } from "@/content/services";
@@ -21,8 +20,9 @@ export default function HomePage() {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-navy/80 via-navy/25 to-transparent"
         />
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col justify-between gap-10 px-5 pb-16 pt-40 md:flex-row md:items-end md:px-10 md:pb-20">
-          <HeroTitle />
+        {/* Ekip notu (2026-08-14): video üzerindeki slogan kaldırıldı — slogan
+            footer'da marka kimliğini koruyor, hero sade bir atmosfer videosu */}
+        <div className="relative z-10 mx-auto flex w-full justify-end px-5 pb-16 md:px-10 md:pb-20">
           <Reveal delay={0.15}>
             <ul className="flex flex-col gap-2 text-right text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-sm">
               <li>Performans Pazarlama</li>
@@ -42,17 +42,17 @@ export default function HomePage() {
             <br />
             tercihi, tellers.
           </h2>
-          <p className="mt-4 text-lg text-navy/70 md:text-xl">
+          <p className="mt-1.5 text-lg text-navy md:text-xl">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>
         </Reveal>
         <Reveal delay={0.1} className="flex flex-col justify-center">
-          <p className="text-lg leading-relaxed text-ink/75 md:text-xl">
+          <p className="text-lg leading-relaxed text-navy md:text-xl">
             7 yılda, 3 kıta ve 15 ülkede; sağlık, otomotiv, spor ve kozmetik
             sektörlerindeki ortaklarımızla onlarca iletişim stratejisi ve
             kampanyaya imza attık.
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-ink/75 md:text-xl">
+          <p className="mt-6 text-lg leading-relaxed text-navy md:text-xl">
             Bugün ise, Birleşik Krallık, Avrupa ve Ortadoğu pazarlarındaki
             markalarımızla faaliyetlerimizi devam ettiriyoruz.
           </p>
@@ -79,7 +79,7 @@ export default function HomePage() {
             <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-7xl">
               <CountUp value="22.872.000 $" />
             </h2>
-            <p className="mt-4 text-lg text-navy/70 md:text-xl">
+            <p className="mt-1.5 text-lg text-navy md:text-xl">
               Bugüne kadar{" "}
               <em className="font-didot italic">yönettiğimiz</em> toplam reklam
               bütçesi.
@@ -99,7 +99,7 @@ export default function HomePage() {
                     <h3 className="text-[26px] font-bold tracking-tight text-navy md:text-[33px]">
                       {s.titleTr}
                     </h3>
-                    <p className="mt-3 max-w-xl leading-relaxed text-ink/60">
+                    <p className="mt-3 max-w-xl leading-relaxed text-navy/60">
                       {s.homeBlurb}
                     </p>
                   </div>
@@ -110,15 +110,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── İMAJ BÖLÜCÜ (iki beyaz alan arka arkaya gelmesin) — yükseklik +%20 ── */}
+      {/* ── İMAJ BÖLÜCÜ — ekipten gelen gerçek video ── */}
       <MediaReveal parallax>
-        <Image
-          src="/assets/home/imaj-bolucu.png"
-          alt="Markanız konuşuyor ama anlaşılmıyor mu? Bilgi bollaştı, anlam kıtlaştı."
-          width={1920}
-          height={545}
+        <video
+          src="/assets/home/imaj-bolucu.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="Markanız konuşuyor ama anlaşılmıyor mu?"
           className="aspect-[1920/654] w-full object-cover"
-          sizes="100vw"
         />
       </MediaReveal>
 
@@ -134,7 +136,7 @@ export default function HomePage() {
           </Reveal>
         </div>
         <Reveal delay={0.1}>
-          <div className="flex flex-col gap-6 text-lg leading-relaxed text-ink/75">
+          <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
             <p>
               tellers&apos;ın amacı, markaların yalnızca duyulmasını değil
               gerçekten anlaşılmasını sağlamaktır. Çünkü iletişim, bir ses
@@ -156,40 +158,60 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── PORTFOLYO ÖNE ÇIKANLAR — düzenli grid, tek hiza ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-32">
-        <div className="grid gap-6 md:grid-cols-2">
-          <Reveal>
-            <Link href="/portfolyo/mastercard" className="group block overflow-hidden">
+      {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ── */}
+      <section className="flex flex-col gap-6 px-5 pb-6 md:px-10">
+        <Reveal>
+          <Link href="/portfolyo/mastercard" className="group block overflow-hidden">
+            <Image
+              src="/assets/brands/mastercard/slider.png"
+              alt="MasterCard — Above The Line kampanyaları"
+              width={1920}
+              height={900}
+              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+              sizes="100vw"
+            />
+            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
+              MasterCard
+            </p>
+          </Link>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <Link href="/portfolyo/bardahl" className="group block overflow-hidden">
+            <Image
+              src="/assets/brands/bardahl/slide.png"
+              alt="Bardahl — Türkiye marka konumlandırması"
+              width={1920}
+              height={900}
+              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+              sizes="100vw"
+            />
+            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
+              Bardahl
+            </p>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* ── 3'LÜ GRİD GÖRSEL ALANI (My Nova / Savron / Tyre Supply) ── */}
+      <section className="grid gap-6 px-5 pb-24 md:grid-cols-3 md:px-10 md:pb-32">
+        {[
+          { src: "/assets/brands/mynova/banner.png", alt: "My Nova Dental Clinic", href: "/portfolyo/my-nova" },
+          { src: "/assets/brands/savron/banner.png", alt: "Savron Smart Medya", href: "/portfolyo/savron-smart-media" },
+          { src: "/assets/brands/tyresupply/banner.png", alt: "Tyre Supply", href: "/portfolyo/tyre-supply" },
+        ].map((item, i) => (
+          <Reveal key={item.href} delay={0.05 * i}>
+            <Link href={item.href} className="group block overflow-hidden">
               <Image
-                src="/assets/brands/mastercard/slider.png"
-                alt="MasterCard — Above The Line kampanyaları"
-                width={960}
-                height={720}
-                className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
-                sizes="(min-width: 768px) 50vw, 100vw"
+                src={item.src}
+                alt={item.alt}
+                width={640}
+                height={640}
+                className="aspect-square w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                sizes="(min-width: 768px) 33vw, 100vw"
               />
-              <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy/70">
-                MasterCard
-              </p>
             </Link>
           </Reveal>
-          <Reveal delay={0.08}>
-            <Link href="/portfolyo/bardahl" className="group block overflow-hidden">
-              <Image
-                src="/assets/brands/bardahl/slide.png"
-                alt="Bardahl — Türkiye marka konumlandırması"
-                width={960}
-                height={720}
-                className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-              <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy/70">
-                Bardahl
-              </p>
-            </Link>
-          </Reveal>
-        </div>
+        ))}
       </section>
 
       {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
@@ -212,7 +234,7 @@ export default function HomePage() {
             <em className="font-didot font-normal italic">anlamın mekansal</em>{" "}
             organizasyonudur.
           </h2>
-          <p className="mt-4 text-lg text-ink/50">
+          <p className="mt-4 text-lg text-navy/50">
             Tasarım, anlamın görünür biçimi.
           </p>
         </Reveal>
@@ -243,7 +265,7 @@ export default function HomePage() {
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="mt-10 flex max-w-none flex-col gap-6 text-lg leading-relaxed text-ink/75 md:text-xl">
+          <div className="mt-10 flex max-w-none flex-col gap-6 text-lg leading-relaxed text-navy/75 md:text-xl">
             <p>
               Tellers, veriye yalnızca bir sayı dizisi olarak bakmaz. Veri,
               insan davranışının sessiz hikâyesidir. Rakamların ardındaki
@@ -267,14 +289,27 @@ export default function HomePage() {
               href="/hizmetlerimiz"
               className="group relative block overflow-hidden"
             >
-              <Image
-                src={s.slide}
-                alt={`${s.titleTr} — ${s.summary}`}
-                width={1920}
-                height={900}
-                className="h-auto w-full transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
-                sizes="100vw"
-              />
+              {s.slideVideo ? (
+                <video
+                  src={s.slideVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${s.titleTr} — ${s.summary}`}
+                  className="h-auto w-full transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                />
+              ) : (
+                <Image
+                  src={s.slide}
+                  alt={`${s.titleTr} — ${s.summary}`}
+                  width={1920}
+                  height={900}
+                  className="h-auto w-full transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                  sizes="100vw"
+                />
+              )}
               <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-navy/70 via-navy/10 to-transparent p-6 md:p-14">
                 <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                   {s.eyebrow}
@@ -291,16 +326,9 @@ export default function HomePage() {
         ))}
       </section>
 
-      {/* ── BLOG — 4'lü slider ── */}
+      {/* ── BLOG — 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
       <section className="py-24 md:py-40">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal mask>
-            <h2 className="text-4xl font-bold tracking-tight text-navy md:text-6xl">
-              Blog
-            </h2>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1} className="mt-12">
+        <Reveal>
           <BlogSlider />
         </Reveal>
       </section>

@@ -8,7 +8,7 @@ export default function NotFound() {
         Aradığınız sayfa <em className="font-didot font-normal italic">anlamını</em>{" "}
         yitirmiş.
       </h1>
-      <p className="mt-4 max-w-md text-base text-ink/60">
+      <p className="mt-4 max-w-md text-base text-navy/60">
         Bu bağlantı taşınmış ya da hiç var olmamış olabilir.
       </p>
       <Link

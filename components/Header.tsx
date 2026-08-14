@@ -91,7 +91,7 @@ export default function Header() {
                         : "text-white/70 hover:text-white"
                       : active
                         ? "text-navy"
-                        : "text-ink/60 hover:text-navy"
+                        : "text-navy/60 hover:text-navy"
                   }`}
                 >
                   {item.label}
@@ -165,7 +165,7 @@ export default function Header() {
                 initial={{ y: 48, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
-                className="mt-10 flex gap-6 text-[12px] uppercase tracking-[0.2em] text-ink/50"
+                className="mt-10 flex gap-6 text-[12px] uppercase tracking-[0.2em] text-navy/50"
               >
                 <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
                   Instagram

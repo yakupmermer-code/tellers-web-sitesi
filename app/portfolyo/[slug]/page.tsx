@@ -32,10 +32,10 @@ export default async function MarkaDetayPage({
   const brand = getBrand((await params).slug);
   if (!brand) notFound();
 
-  // Mevcut markadan sonraki 4 marka (dairesel) — her sayfada farklı öneri çıkar
+  // Mevcut markadan sonraki 3 marka (dairesel) — her sayfada farklı öneri çıkar
   const idx = BRANDS.findIndex((b) => b.slug === brand.slug);
   const others = Array.from(
-    { length: 4 },
+    { length: 3 },
     (_, i) => BRANDS[(idx + 1 + i) % BRANDS.length]
   );
 
@@ -86,11 +86,11 @@ export default async function MarkaDetayPage({
             {brand.headline}
           </h1>
           {brand.subheadline && (
-            <p className="mt-4 text-lg text-ink/60">{brand.subheadline}</p>
+            <p className="mt-4 text-lg text-navy/60">{brand.subheadline}</p>
           )}
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="flex flex-col gap-6 text-lg leading-relaxed text-ink/75">
+          <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
             {brand.intro.split("\n\n").map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -117,7 +117,7 @@ export default async function MarkaDetayPage({
                 key={k}
                 className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
               >
-                <dt className="text-[12px] uppercase tracking-[0.18em] text-ink/40">
+                <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
                   {k}
                 </dt>
                 <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
@@ -205,7 +205,9 @@ export default async function MarkaDetayPage({
             );
             return (
               <Reveal key={i}>
-                <div className="grid gap-6 md:grid-cols-[2fr_3fr]">
+                {/* items-stretch: dikey görsel (tall) yatay çiftin (pair) toplam
+                    yüksekliğine hizalanır — ekip notu: "sol alan kesiliyor" */}
+                <div className="grid items-stretch gap-6 md:grid-cols-[2fr_3fr]">
                   {g.flip ? (
                     <>
                       {pair}
@@ -233,7 +235,7 @@ export default async function MarkaDetayPage({
                 <h3 className="text-5xl font-bold tracking-tight text-navy md:text-6xl">
                   <CountUp value={r.value} />
                 </h3>
-                <p className="mt-3 text-base leading-relaxed text-ink/60">
+                <p className="mt-3 text-base leading-relaxed text-navy/60">
                   {r.label}
                 </p>
               </Reveal>
@@ -249,23 +251,28 @@ export default async function MarkaDetayPage({
             Diğer Projeler
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {others.map((b, i) => (
             <Reveal key={b.slug} delay={0.05 * i}>
               <Link href={`/portfolyo/${b.slug}`} className="group block">
-                <div className="overflow-hidden">
+                <div className="relative overflow-hidden">
                   <Image
                     src={b.banner}
                     alt={b.name}
-                    width={640}
-                    height={480}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    width={760}
+                    height={950}
+                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+                  <p className="absolute bottom-5 left-5 text-xl font-bold tracking-tight text-white md:text-2xl">
+                    {b.name}
+                  </p>
                 </div>
-                <p className="mt-3 text-sm uppercase tracking-[0.14em] text-navy">
-                  {b.name}
-                </p>
+                <div className="mt-4 flex items-baseline justify-between border-t hairline pt-3">
+                  <p className="text-sm text-navy/70">{b.listService}</p>
+                  <p className="text-sm text-navy/50">{b.year}</p>
+                </div>
               </Link>
             </Reveal>
           ))}

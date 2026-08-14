@@ -18,14 +18,15 @@ export default function PortfolyoPage() {
       {/* ── Ana slide: marka ismi/detay yok ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>
-          <Image
-            src="/assets/portfolio/hero.png"
-            alt="tellers portfolyo"
-            width={1920}
-            height={900}
-            priority
+          <video
+            src="/assets/portfolio/hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="tellers portfolyo"
             className="max-h-[78dvh] w-full object-cover"
-            sizes="100vw"
           />
         </MediaReveal>
       </section>
@@ -40,7 +41,7 @@ export default function PortfolyoPage() {
           </h1>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="flex flex-col gap-6 text-lg leading-relaxed text-ink/75">
+          <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
             <p>
               Bir form, bir renk, bir tipografi seçimi bile, insanın algılama
               biçimini değiştirir. Biz tasarımı bir &ldquo;son dokunuş&rdquo;
@@ -56,13 +57,14 @@ export default function PortfolyoPage() {
         </Reveal>
       </section>
 
-      {/* ── Marka bannerları ── */}
+      {/* ── Marka bannerları — temadaki gibi görsel üzerine metin overlay,
+          altında çizgi + hizmet + yıl (ekip notu 2026-08-14) ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
         <div className="grid gap-6 sm:grid-cols-2">
           {BRANDS.map((b, i) => (
             <Reveal key={b.slug} delay={0.04 * (i % 2)}>
               <Link href={`/portfolyo/${b.slug}`} className="group block">
-                <div className="overflow-hidden">
+                <div className="relative overflow-hidden">
                   <Image
                     src={b.banner}
                     alt={`${b.name} — ${b.headline}`}
@@ -71,14 +73,14 @@ export default function PortfolyoPage() {
                     className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
                     sizes="(min-width: 640px) 50vw, 100vw"
                   />
-                </div>
-                <div className="mt-4 flex items-baseline justify-between">
-                  <p className="text-sm uppercase tracking-[0.14em] text-navy">
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+                  <p className="absolute bottom-5 left-5 text-2xl font-bold tracking-tight text-white md:text-3xl">
                     {b.name}
                   </p>
-                  <span className="text-xs text-ink/40 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
-                    →
-                  </span>
+                </div>
+                <div className="mt-4 flex items-baseline justify-between border-t hairline pt-3">
+                  <p className="text-sm text-navy/70">{b.listService}</p>
+                  <p className="text-sm text-navy/50">{b.year}</p>
                 </div>
               </Link>
             </Reveal>

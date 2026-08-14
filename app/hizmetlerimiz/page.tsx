@@ -47,14 +47,15 @@ export default function HizmetlerimizPage() {
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>
-          <Image
-            src="/assets/services/hero.png"
-            alt="tellers hizmetleri"
-            width={1920}
-            height={860}
-            priority
+          <video
+            src="/assets/services/hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="tellers hizmetleri"
             className="max-h-[72dvh] w-full object-cover"
-            sizes="100vw"
           />
         </MediaReveal>
       </section>
@@ -68,16 +69,16 @@ export default function HizmetlerimizPage() {
               className="grid gap-10 border-t hairline py-16 first:border-t-0 md:grid-cols-[1.4fr_1fr] md:gap-24 md:py-24"
             >
               <div>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-ink/40">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-navy/40">
                   {s.eyebrow}
                 </span>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy md:text-5xl">
+                <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-5xl">
                   {s.titleEn}
                 </h2>
-                <p className="mt-4 text-lg font-bold text-navy/80">
+                <p className="mt-2 text-lg font-bold text-navy">
                   {s.tagline}
                 </p>
-                <p className="mt-6 text-lg leading-relaxed text-ink/70">
+                <p className="mt-4 text-lg leading-relaxed text-navy/80">
                   {s.detail}
                 </p>
               </div>
@@ -107,20 +108,26 @@ export default function HizmetlerimizPage() {
             className="h-auto w-full"
             sizes="100vw"
           />
-          <nav
-            aria-label="Hizmetlere hızlı erişim"
-            className="absolute inset-y-0 right-5 hidden flex-col items-end justify-center gap-2 md:right-14 md:flex"
-          >
-            {SERVICES.map((s) => (
-              <Link
-                key={s.slug}
-                href={`#${s.slug}`}
-                className="link-grow text-[12px] uppercase tracking-[0.16em] text-white/80 transition-colors duration-500 hover:text-white"
-              >
-                {s.titleTr}
-              </Link>
-            ))}
-          </nav>
+          <div className="absolute inset-y-0 right-5 hidden flex-col items-end justify-center gap-5 md:right-14 md:flex">
+            <Link
+              href="/portfolyo"
+              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+            >
+              Portföyümüzü İnceleyin
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+                ↗
+              </span>
+            </Link>
+            <Link
+              href="/iletisim"
+              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+            >
+              Bizimle İletişime Geçin
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+                ↗
+              </span>
+            </Link>
+          </div>
         </div>
       </Reveal>
 
@@ -133,7 +140,7 @@ export default function HizmetlerimizPage() {
           <p className="mt-2 text-[12px] uppercase tracking-[0.2em] text-navy/60">
             Operasyonel Taahhütler
           </p>
-          <p className="mt-8 max-w-4xl text-lg leading-relaxed text-ink/70 md:text-xl">
+          <p className="mt-8 max-w-4xl text-lg leading-relaxed text-navy/70 md:text-xl">
             Gürültünün içinde{" "}
             <em className="font-didot italic text-navy">netlik üretir</em>;
             netliği stratejiye, stratejiyi deneyime, deneyimi{" "}
@@ -158,7 +165,7 @@ export default function HizmetlerimizPage() {
                   <h3 className="text-xl font-bold tracking-tight text-navy md:text-2xl">
                     {item.t}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-ink/60">
+                  <p className="mt-2 text-base leading-relaxed text-navy/60">
                     {item.d}
                   </p>
                 </div>
@@ -168,16 +175,9 @@ export default function HizmetlerimizPage() {
         </div>
       </section>
 
-      {/* ── Blog 4'lü slider ── */}
+      {/* ── Blog 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
       <section className="pb-24 md:pb-36">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal mask>
-            <h2 className="text-3xl font-bold tracking-tight text-navy md:text-5xl">
-              Blog
-            </h2>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1} className="mt-10">
+        <Reveal>
           <BlogSlider />
         </Reveal>
       </section>

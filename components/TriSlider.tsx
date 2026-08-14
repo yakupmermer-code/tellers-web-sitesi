@@ -29,9 +29,9 @@ export default function TriSlider({ items }: { items: Item[] }) {
             <Image
               src={item.src}
               alt={item.alt}
-              width={900}
-              height={680}
-              className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+              width={760}
+              height={950}
+              className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
               sizes="(min-width: 768px) 33vw, 85vw"
             />
           );

@@ -3,6 +3,8 @@ export type Blog = {
   title: string;
   excerpt: string;
   image: string;
+  /** Yayın tarihi — "14 Ağustos 2026, Cuma" formatında (detay sayfasında gösterilir) */
+  date: string;
   /** Basit markdown: ## başlık, - madde, 1. sıralı madde, boş satır paragraf ayracı */
   body: string;
   cta: { label: string; href: string };
@@ -16,6 +18,7 @@ export const BLOGS: Blog[] = [
     excerpt:
       "Reklam yatırımlarının beklenen sonuçları vermemesinin nedeni çoğu zaman bütçenin büyüklüğü değil, stratejik uyumsuzluktur.",
     image: "/assets/blog/blog-1.png",
+    date: "14 Ağustos 2026, Cuma",
     body: `Pazarlama ve marka yöneticilerinin en çok zorlandığı anlardan biri şudur: Yönetim kuruluna veya yatırımcılara sunulan yüksek pazarlama bütçeleri onaylanır, dijital mecralara ve kampanyalara ciddi kaynaklar aktarılır; ancak günün sonunda elde edilen ciro ve büyüme oranları beklentilerin çok altında kalır.
 
 Bu senaryoda genellikle ilk refleks bütçenin yetersiz olduğunu düşünmek ya da mecraları suçlamaktır. Oysa gerçek çok daha yalındır: Reklam yatırımlarının beklenen sonuçları vermemesinin ana nedeni bütçenin küçüklüğü değil, sistemdeki stratejik uyumsuzluktur.
@@ -53,6 +56,7 @@ Pazarlama Bütçenizi Ölçülebilir Büyümeye Dönüştürün`,
     excerpt:
       "Yoğun iletişim trafiğinde öne çıkmanın yolu daha fazla içerik üretmek değil, markaya kalıcı değer katan anlamlı bir iletişim stratejisi oluşturmaktır.",
     image: "/assets/blog/blog-2.png",
+    date: "07 Ağustos 2026, Cuma",
     body: `Sabah gözünüzü açtığınız andan itibaren kaç farklı mesajın, reklamın ya da bildirimin radarına giriyorsunuz? Yüzlerce, belki de binlerce… Günümüz dünyası tam anlamıyla devasa bir gürültü odası. Ancak dürüst olalım: Bu kadar sesin arasında kaç tanesi gerçekten zihninizde bir iz bırakıyor? Markaların daha yüksek sesle bağırdığı, ekranların durmaksızın içerikle dolup taştığı bu dijital çağda, çoğu mesaj henüz kullanıcı ekranı kaydırmadan unutulup gidiyor.
 
 Çünkü temel bir gerçek var: Yoğun iletişim trafiğinde öne çıkmanın ve iz bırakmanın yolu daha fazla içerik üretmek ya da reklam bütçesini iki katına çıkarmak değildir. Asıl mesele, gürültüyü artıran bir ses olmak yerine, karmaşanın içinden sıyrılan berrak bir sinyal üretebilmektir. İşte bu noktada karşımıza tellers'ın iletişim stratejilerinde merkeze aldığı ezber bozan bir kavram çıkıyor: Anlam Mimarisi.
@@ -101,6 +105,7 @@ Sonuç olarak; dijital çağın getirdiği bu bilgi gürültüsünde markalar i�
     excerpt:
       "Yaratıcılık yalnızca ilhamla gelişen sezgisel bir süreç değildir; doğru yöntemlerle etkisi analiz edilebilir ve sürekli geliştirilebilir.",
     image: "/assets/blog/blog-3.png",
+    date: "31 Temmuz 2026, Cuma",
     body: `Reklam dünyasında uzun yıllar boyunca yaratıcılığın ilhamla gelen, sadece "hissettiren" ama ölçülemeyen bir sanat olduğu savunuldu. Peki, izleyicide sadece hoş bir duygu bırakan ama marka değerine, hatırlanırlığa veya satışlara katkı sağlamayan bir fikir gerçekten başarılı sayılabilir mi?
 
 Netlikten yoksun bir yaratıcılık süs, empatiden yoksun bir performans pazarlama stratejisi ise gürültüdür. Günümüz dijital pazarlama dünyasında duygusal yaratıcılık ve veri sanılanın aksine birbirinin rakibi değil, tamamlayıcısıdır.
@@ -133,6 +138,7 @@ Sadece bütçe harcayan "güzel görünen" fikirler dönemi kapanmıştır; yeri
     excerpt:
       "Etkili tasarım yalnızca estetik değil; kullanıcı deneyimini güçlendiren, mesajı netleştiren ve marka algısını destekleyen stratejik bir araçtır.",
     image: "/assets/blog/blog-4.png",
+    date: "24 Temmuz 2026, Cuma",
     body: `Bir web sitesinde, ambalajda ya da sosyal medya görselinde şık bir tipografi ve göz alıcı renkler görmek ilk anda herkesi etkiler. Ancak pazarlama dünyasında sıkça düşülen bir tuzak vardır: Tasarımı yalnızca göze hoş gelen bir "süsleme" veya projeye eklenen bir "son dokunuş" olarak görmek.
 
 Peki, arkasında stratejik bir akıl barındırmayan, sadece estetik görünen bir tasarım markanıza gerçekten hizmet eder mi?
@@ -164,6 +170,7 @@ Arkasına bir gerekçe koyamadığınız hiçbir görsel karar, markanıza kalı
     excerpt:
       "Yapay zekânın içerik üretimini hızlandırdığı bir dönemde, markaları farklılaştıran en önemli unsur özgün kişilik ve tutarlı iletişimdir.",
     image: "/assets/blog/blog-5.png",
+    date: "17 Temmuz 2026, Cuma",
     body: `Yapay zekâ araçlarının yaygınlaşmasıyla birlikte içerik üretmek hiç olmadığı kadar hızlı, kolay ve ucuz hale geldi. Ancak bu durum beraberinde büyük bir tehlikeyi getirdi: Dijital evreni saran, birbirine benzeyen, ruhsuz ve derinliksiz içerik gürültüsü. Birkaç saniyede üretilen yüzeysel metinlerin ve sıradan görsellerin arasında markaların gürültüye karışıp kaybolması kaçınılmaz bir hale geldi.
 
 Böyle bir dönemde markaları birbirinden ayıran ve öne çıkaran asıl unsur ne kadar çok içerik ürettikleri değil; sahip oldukları özgün marka kişiliği ve sundukları tutarlı iletişim dilidir.
@@ -194,6 +201,7 @@ Sonuç olarak; yapay zekâ içeriği sıradanlaştırırken, marka kişiliği on
     excerpt:
       "Yanlış ajans seçiminin maliyeti yalnızca bütçe kaybıyla sınırlı değildir; zaman, itibar ve büyüme fırsatları da bu süreçten doğrudan etkilenir.",
     image: "/assets/blog/blog-6.png",
+    date: "10 Temmuz 2026, Cuma",
     body: `Marka yöneticileri için ajans değişimi veya yeni bir iletişim ortağı seçimi heyecan verici bir adım olarak başlar. Ancak yanlış bir reklam ajansı kararı alındığında, tablonun gerçek faturası kısa sürede ortaya çıkar. Sektörde çoğu zaman sadece harcanan ajans bütçesine odaklanılsa da, yanlış ajans seçiminin gizli maliyeti finansal kaybın çok daha ötesine geçer.
 
 Peki, görünmeyen bu kayıplar nelerdir ve markayı riske atmadan doğru stratejik iletişim danışmanlığı ortağı nasıl bulunur?
@@ -229,6 +237,7 @@ Reklam dünyasında en değerli alan gürültülü bir ses yarışına girmek de
     excerpt:
       "Dijital krizlerde atılan her adım marka algısını şekillendirir. Doğru zamanda geliştirilen iletişim stratejisi, itibarın korunmasında belirleyici rol oynar.",
     image: "/assets/blog/blog-7.png",
+    date: "03 Temmuz 2026, Cuma",
     body: `Sosyal medyanın hız katsayısının tavan yaptığı günümüzde, bir markanın yıllar süren disiplinli çalışmayla inşa ettiği itibar, birkaç saat içinde büyüyen bir dijital linç dalgasıyla sarsılabilir. Kriz anlarında marka yöneticilerinin karşı karşıya kaldığı en kritik ikilem ise nettir: Hızla bir açıklama yapıp rüzgârı göğüslemek mi, yoksa durumun berraklaşmasını bekleyip stratejik bir sessizliğe bürünmek mi?
 
 Dijital krizlerde atılan her adım marka algısını doğrudan şekillendirir. Doğru zamanda ve doğru tonda kurgulanan bir kriz iletişimi stratejisi, yalnızca zararı engellemekle kalmaz; markanın kitle nezdindeki güvenilirliğini uzun vadede pekiştirebilir.
@@ -261,6 +270,7 @@ Dijital krizlerde asıl mesele "sessizlik" ya da "hız" arasında ikili bir seç
     excerpt:
       "Reklam harcamalarının ciroya dönüşmemesi çoğu zaman teknik kurgu ve veri hatalarından kaynaklanır. Doğru kurgulanan performans pazarlama stratejisi, bütçeyi boşa harcamak yerine sürdürülebilir büyüme ve yüksek ROAS sağlar.",
     image: "/assets/blog/blog-8.png",
+    date: "26 Haziran 2026, Cuma",
     body: `Pazarlama dünyasında en sık karşılaşılan senaryolardan biri şudur: Google veya Meta reklamlarına her ay ciddi bütçeler aktarılır, tıklama sayıları yüksek görünür ancak günün sonunda kasaya giren ciro beklentiyi karşılamaz. Pano ekranlarında yeşil yanan grafikler, ticari gerçeklikle örtüşmediğinde reklam bütçesinin boşa gittiği hissi kaçınılmaz olur.
 
 Peki, tıklama almasına rağmen dönüşüm getirmeyen dijital reklam kampanyalarının arkasındaki temel sorun nedir?

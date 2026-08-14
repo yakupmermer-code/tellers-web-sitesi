@@ -10,8 +10,9 @@ export type Service = {
   tagline: string;
   /** Sağdaki madde listesi */
   items: string[];
-  /** Ana sayfa hizmet slide görseli */
+  /** Ana sayfa hizmet slide görseli (video varsa slideVideo öncelikli) */
   slide: string;
+  slideVideo?: string;
   /** Ana sayfadaki kısa tanım (2.png yanındaki liste) */
   homeBlurb: string;
 };
@@ -36,6 +37,7 @@ export const SERVICES: Service[] = [
       "Potansiyel Müşteri Oluşturma Sistemleri",
     ],
     slide: "/assets/services/performance-marketing-slide.png",
+    slideVideo: "/assets/services/performance-marketing-slide.mp4",
     homeBlurb:
       "Veriye odaklı stratejilerle markanızı doğru hedef kitleyle buluşturuyor, reklam yatırımlarınızı ölçülebilir verilerle en verimli şekilde yöneterek sürekli optimizasyon ve analitik raporlamalarla maksimum ROI ve nitelikli lead almanızı sağlıyoruz.",
   },
@@ -58,6 +60,7 @@ export const SERVICES: Service[] = [
       "Dijital PR ve Kampanya Planlama",
     ],
     slide: "/assets/services/digital-marketing-slide.png",
+    slideVideo: "/assets/services/digital-marketing-slide.mp4",
     homeBlurb:
       "Sosyal medya, değişken pazar dinamiklerine uygun içerik kurguları ve dijital reklam çözümleriyle markanızın dijital dünyada sürdürülebilir büyümesini sağlıyor, marka sadakati yaratıp; markanız için sürdürülebilir varlık sağlıyoruz.",
   },
@@ -80,6 +83,7 @@ export const SERVICES: Service[] = [
       "Marka Konumlandırma ve Kılavuz İlkeleri",
     ],
     slide: "/assets/services/branding-slide.png",
+    slideVideo: "/assets/services/branding-slide.mp4",
     homeBlurb:
       "Markanızı rakiplerinden ayrıştıran güçlü bir kimlik oluşturuyor, her temas noktasında tutarlı ve güven veren bir marka deneyimi sunuyoruz.",
   },
@@ -102,6 +106,7 @@ export const SERVICES: Service[] = [
       "Kampanya Kreatif Yönetimi",
     ],
     slide: "/assets/services/creative-design-slide.png",
+    slideVideo: "/assets/services/creative-design-slide.mp4",
     homeBlurb:
       "Yaratıcılığı stratejiyle birleştirerek markanızı hem dijital hem de basılı mecralarda etkileyici tasarımlar ve özgün içeriklerle anlatıyoruz.",
   },

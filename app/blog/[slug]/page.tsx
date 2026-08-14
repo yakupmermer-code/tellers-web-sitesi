@@ -88,6 +88,14 @@ export default async function BlogDetayPage({
             {blog.title}
           </h1>
         </Reveal>
+        <Reveal delay={0.03} className="mt-5">
+          <p className="text-lg leading-relaxed text-navy/70">{blog.excerpt}</p>
+        </Reveal>
+        <Reveal delay={0.05} className="mt-4">
+          <p className="text-sm text-navy/50">
+            <span className="font-bold text-navy">tellers</span> — {blog.date}
+          </p>
+        </Reveal>
         <Reveal delay={0.08} className="mt-12">
           <Image
             src={blog.image}
@@ -100,7 +108,7 @@ export default async function BlogDetayPage({
           />
         </Reveal>
         <Reveal delay={0.12}>
-          <div className="mt-12 flex flex-col gap-6 text-lg text-ink/75">
+          <div className="mt-12 flex flex-col gap-6 text-lg text-navy/75">
             {renderBody(blog.body)}
           </div>
           <Link

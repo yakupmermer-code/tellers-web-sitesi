@@ -23,7 +23,7 @@ export default function KapanisSection({
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-ink/60 md:text-lg">
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-navy/60 md:text-lg">
             Sorularınız, işbirlikleri ve yeni projeler için proje
             koordinatörlerimiz ile birebir görüşme sağlayabilirsiniz.
           </p>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import ClosingCta from "@/components/ClosingCta";
 import MediaReveal from "@/components/MediaReveal";
@@ -18,14 +17,15 @@ export default function IletisimPage() {
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>
-          <Image
-            src="/assets/contact/hero.png"
-            alt="tellers ile iletişime geçin"
-            width={1920}
-            height={760}
-            priority
+          <video
+            src="/assets/contact/hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="tellers ile iletişime geçin"
             className="max-h-[64dvh] w-full object-cover"
-            sizes="100vw"
           />
         </MediaReveal>
       </section>
@@ -36,7 +36,7 @@ export default function IletisimPage() {
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Bize ulaşın
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink/60 md:text-xl">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-navy/60 md:text-xl">
             Bir fikre, bir projeye ya da sadece bir merhaba — dinlemeye hazırız.
           </p>
         </Reveal>
@@ -48,7 +48,7 @@ export default function IletisimPage() {
           <h2 className="text-2xl font-bold tracking-tight text-navy md:text-3xl">
             Birlikte çalışalım
           </h2>
-          <ul className="mt-8 flex flex-col gap-4 text-base leading-relaxed text-ink/65">
+          <ul className="mt-8 flex flex-col gap-4 text-base leading-relaxed text-navy/65">
             <li>Hızlı geri dönüş, şeffaf iletişim.</li>
             <li>Veriyle gerekçelendirilmiş kararlar.</li>
             <li>Uçtan uca proje yönetimi.</li>
@@ -78,7 +78,7 @@ export default function IletisimPage() {
               </span>
             </a>
             <a
-              href="https://maps.google.com/?q=Istanbul"
+              href={SITE.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
@@ -89,6 +89,15 @@ export default function IletisimPage() {
               </span>
             </a>
           </div>
+          <p className="mt-8 max-w-sm text-sm leading-relaxed text-navy/50">
+            {SITE.address}
+          </p>
+          <a
+            href={`tel:${SITE.phone}`}
+            className="mt-2 block w-max text-sm font-bold text-navy"
+          >
+            {SITE.phoneDisplay}
+          </a>
         </Reveal>
         <Reveal delay={0.1}>
           <ContactForm />

@@ -75,9 +75,9 @@ export default function ContactForm({
 
   const rowCls =
     "grid gap-2 border-b border-navy/15 py-6 md:grid-cols-[220px_1fr] md:items-center";
-  const labelCls = "text-[12px] uppercase tracking-[0.18em] text-ink/40";
+  const labelCls = "text-[12px] uppercase tracking-[0.18em] text-navy/40";
   const inputCls =
-    "w-full bg-transparent text-lg text-navy outline-none placeholder:text-ink/30";
+    "w-full bg-transparent text-lg text-navy outline-none placeholder:text-navy/30";
 
   return (
     <form onSubmit={handleSubmit} aria-label={isKariyer ? "Başvuru formu" : "İletişim formu"}>
@@ -203,7 +203,7 @@ export default function ContactForm({
         </span>
       </button>
       {submitted && (
-        <p role="status" className="mt-6 text-sm leading-relaxed text-ink/60">
+        <p role="status" className="mt-6 text-sm leading-relaxed text-navy/60">
           E-posta uygulamanız açıldıysa mesajınızı oradan gönderebilirsiniz.
           Açılmadıysa bize doğrudan{" "}
           <a href={`mailto:${SITE.email}`} className="font-bold text-navy underline underline-offset-4">

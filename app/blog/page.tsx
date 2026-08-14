@@ -32,7 +32,7 @@ function WideCard({ blog: b }: { blog: Blog }) {
           <h2 className="text-2xl font-bold leading-snug tracking-tight text-navy md:text-4xl">
             {b.title}
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/60 md:text-lg">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-navy/60 md:text-lg">
             {b.excerpt}
           </p>
           <span className="link-grow mt-6 w-max text-sm font-bold text-navy">
@@ -90,7 +90,7 @@ export default function BlogPage() {
                 <h2 className="mt-5 text-lg font-bold leading-snug tracking-tight text-navy md:text-xl">
                   {b.title}
                 </h2>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink/55">
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-navy/55">
                   {b.excerpt}
                 </p>
               </Link>

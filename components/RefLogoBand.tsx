@@ -2,24 +2,25 @@ import Image from "next/image";
 import { REF_LOGOS } from "@/content/site";
 
 /**
- * Referans logo bandı — lacivert fon, beyaz BÜYÜK logolar.
- * Yakup notu (2026-08-13): logolar KAYMAZ (sabit grid), büyük görünür,
- * tüm referanslar sığana kadar satır eklenir.
+ * Referans logo bandı — temadaki gibi ince lacivert şerit, logolar küçük ve
+ * sürekli kayan (marquee). Yakup notu (2026-08-14): "2 parmak genişliğinde
+ * lacivert alan, logolar küçülsün, tek satırda 6 logo yan yana, sürekli dönsün."
  */
 export default function RefLogoBand() {
+  const logos = [...REF_LOGOS, ...REF_LOGOS]; // kesintisiz döngü için çift liste
   return (
-    <section aria-label="Referanslarımız" className="bg-navy py-16 md:py-24">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-2 items-center gap-x-10 gap-y-14 px-6 sm:grid-cols-3 md:gap-x-16 md:gap-y-20 md:px-12 lg:grid-cols-4">
-        {REF_LOGOS.map((logo) => (
-          <div key={logo.file} className="flex items-center justify-center">
-            <Image
-              src={`/assets/ref-logos/${logo.file}.png`}
-              alt={logo.name}
-              width={400}
-              height={200}
-              className="h-auto max-h-[76px] w-auto max-w-[66%] object-contain opacity-95 brightness-0 invert md:max-h-[102px]"
-            />
-          </div>
+    <section aria-label="Referanslarımız" className="overflow-hidden bg-navy py-8 md:py-10">
+      <div className="animate-marquee flex w-max items-center gap-16 md:gap-20">
+        {logos.map((logo, i) => (
+          <Image
+            key={`${logo.file}-${i}`}
+            src={`/assets/ref-logos/${logo.file}.png`}
+            alt={i < REF_LOGOS.length ? logo.name : ""}
+            aria-hidden={i >= REF_LOGOS.length}
+            width={200}
+            height={80}
+            className="h-8 w-auto max-w-[140px] flex-none object-contain opacity-90 brightness-0 invert md:h-10"
+          />
         ))}
       </div>
     </section>
