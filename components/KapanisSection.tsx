@@ -15,11 +15,14 @@ export default function KapanisSection({
   return (
     <>
       <section className="bg-paper py-24 md:py-40">
-        <Reveal className="mx-auto max-w-[1100px] px-5 text-center md:px-10">
-          <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-7xl">
-            Duyulan unutulur,{" "}
-            <em className="font-didot font-normal italic">anlaşılan</em> kalır.
-          </h2>
+        <div className="mx-auto max-w-[1100px] px-5 text-center md:px-10">
+          <Reveal mask>
+            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-7xl">
+              Duyulan unutulur,{" "}
+              <em className="font-didot font-normal italic">anlaşılan</em> kalır.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-ink/60 md:text-lg">
             Sorularınız, işbirlikleri ve yeni projeler için proje
             koordinatörlerimiz ile birebir görüşme sağlayabilirsiniz.
@@ -52,7 +55,8 @@ export default function KapanisSection({
               </a>
             )}
           </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
       {withRefLogos && <RefLogoBand />}
     </>

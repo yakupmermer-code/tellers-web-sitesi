@@ -36,7 +36,7 @@ export default function HomePage() {
 
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Global devlerin
             <br />
@@ -74,7 +74,7 @@ export default function HomePage() {
 
       {/* ── 22.872.000 $ + HİZMET LİSTESİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-40">
-        <Reveal>
+        <Reveal mask>
           <div className="md:sticky md:top-32">
             <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-7xl">
               <CountUp value="22.872.000 $" />
@@ -124,7 +124,7 @@ export default function HomePage() {
 
       {/* ── SLOGAN + ANLAM FELSEFESİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
-        <Reveal>
+        <Reveal mask>
           <h2 className="md:sticky md:top-32 text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
             Duyulan unutulur,
             <br />
@@ -204,7 +204,7 @@ export default function HomePage() {
 
       {/* ── TASARIM MANİFESTOSU (5.png) ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-40">
-        <Reveal>
+        <Reveal mask>
           <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-6xl">
             Tasarım, tellers için estetik değil,{" "}
             <em className="font-didot font-normal italic">anlamın mekansal</em>{" "}
@@ -218,7 +218,7 @@ export default function HomePage() {
 
       {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI + VİDEO ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-32">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
             İletişim; <em className="font-didot font-normal italic">anlamın</em>
             <br />
@@ -233,7 +233,7 @@ export default function HomePage() {
 
       {/* ── VERİ; ANLAMIN KÖKENİ ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-40">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
             Veri; <em className="font-didot font-normal italic">anlamın</em>
             <br />
@@ -292,7 +292,7 @@ export default function HomePage() {
       {/* ── BLOG — 4'lü slider ── */}
       <section className="py-24 md:py-40">
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal>
+          <Reveal mask>
             <h2 className="text-4xl font-bold tracking-tight text-navy md:text-6xl">
               Blog
             </h2>

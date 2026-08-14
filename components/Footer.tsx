@@ -51,7 +51,7 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
+                className="link-grow w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
               >
                 {item.label}
               </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
               <Link
                 key={s}
                 href="/hizmetlerimiz"
-                className="w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
+                className="link-grow w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
               >
                 {s}
               </Link>
@@ -86,7 +86,7 @@ export default function Footer() {
               href={SITE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
             >
               LinkedIn
             </a>
@@ -94,13 +94,13 @@ export default function Footer() {
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
             >
               Instagram
             </a>
             <a
               href={`mailto:${SITE.email}`}
-              className="w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-ink/70 transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-navy"
             >
               {SITE.email}
             </a>

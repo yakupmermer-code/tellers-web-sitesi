@@ -84,7 +84,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                  className={`group/nav relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                     onDarkHero
                       ? active
                         ? "text-white"
@@ -98,7 +98,7 @@ export default function Header() {
                   <span
                     className={`absolute -bottom-1.5 left-0 h-px transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                       onDarkHero ? "bg-white" : "bg-navy"
-                    } ${active ? "w-full" : "w-0"}`}
+                    } ${active ? "w-full" : "w-0 group-hover/nav:w-full"}`}
                   />
                 </Link>
               );

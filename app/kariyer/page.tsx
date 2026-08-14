@@ -14,7 +14,7 @@ export default function KariyerPage() {
   return (
     <>
       <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-36 md:px-10 md:pt-48">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Kariyer
           </h1>

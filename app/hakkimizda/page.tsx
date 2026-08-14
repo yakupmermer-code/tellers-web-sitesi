@@ -75,7 +75,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Global devlerin tercihi ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Global devlerin tercihi, tellers.
           </h1>
@@ -133,7 +133,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Dinozor ajanslara veda + kreatif görsel ── */}
       <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-5xl">
             Eski kafalı dinozor ajanslara veda edin.
             <br />
@@ -160,7 +160,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Vizyon ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Yakın gelecekte tellers.
           </h2>
@@ -182,7 +182,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Misyon ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Bugün tellers.
           </h2>
@@ -217,7 +217,7 @@ export default function HakkimizdaPage() {
 
       {/* ── tellers'ın Pratik Testleri ── */}
       <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             tellers&apos;ın Pratik Testleri
           </h2>
@@ -259,7 +259,7 @@ export default function HakkimizdaPage() {
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
-            <Reveal>
+            <Reveal mask>
               <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
                 Veriyle şekillenen{" "}
                 <em className="font-didot font-normal italic">küresel</em> etki.

@@ -81,7 +81,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Başlık + tanıtım ── */}
       <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-navy md:text-5xl">
             {brand.headline}
           </h1>
@@ -100,7 +100,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Operasyon Detayları ── */}
       <section className="mx-auto grid max-w-[1440px] gap-12 border-t hairline px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-2xl font-bold tracking-tight text-navy md:text-4xl">
             Operasyon Detayları
           </h2>
@@ -244,7 +244,7 @@ export default async function MarkaDetayPage({
 
       {/* ── More Projects ── */}
       <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10 md:py-32">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-3xl font-bold tracking-tight text-navy md:text-5xl">
             Diğer Projeler
           </h2>

@@ -126,7 +126,7 @@ export default function HizmetlerimizPage() {
 
       {/* ── Nasıl Yaparız? + Operasyonel Taahhütler ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-6xl">
             Nasıl Yaparız?
           </h2>
@@ -171,7 +171,7 @@ export default function HizmetlerimizPage() {
       {/* ── Blog 4'lü slider ── */}
       <section className="pb-24 md:pb-36">
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal>
+          <Reveal mask>
             <h2 className="text-3xl font-bold tracking-tight text-navy md:text-5xl">
               Blog
             </h2>

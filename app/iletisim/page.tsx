@@ -32,7 +32,7 @@ export default function IletisimPage() {
 
       {/* ── Başlık ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
             Bize ulaşın
           </h1>

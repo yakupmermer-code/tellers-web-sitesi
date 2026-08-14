@@ -32,7 +32,7 @@ export default function PortfolyoPage() {
 
       {/* ── Tasarım felsefesi (temanın orijinal yerleşimi) ── */}
       <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-5xl">
             Tasarım, tellers için estetik değil,{" "}
             <em className="font-didot font-normal italic">anlamın mekansal</em>{" "}

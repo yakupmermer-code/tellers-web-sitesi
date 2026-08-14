@@ -83,7 +83,7 @@ export default async function BlogDetayPage({
   return (
     <>
       <article className="mx-auto max-w-[900px] px-5 pb-24 pt-36 md:px-10 md:pt-44">
-        <Reveal>
+        <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-5xl">
             {blog.title}
           </h1>
@@ -117,7 +117,7 @@ export default async function BlogDetayPage({
 
       {/* Diğer yazılar */}
       <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10">
-        <Reveal>
+        <Reveal mask>
           <h2 className="text-2xl font-bold tracking-tight text-navy md:text-4xl">
             Diğer Yazılar
           </h2>
