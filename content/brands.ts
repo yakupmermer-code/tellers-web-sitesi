@@ -78,7 +78,12 @@ export const BRANDS: Brand[] = [
     listService: "Dijital Pazarlama",
     year: "2020-2022",
     hero: { type: "image", src: "/assets/brands/bardahl/slide.png" },
-    services: ["Dijital Pazarlama", "Kreatif Tasarım Hizmetleri", "Web Site Tasarımı"],
+    services: [
+      "Dijital Pazarlama",
+      "Performans Pazarlama",
+      "Kreatif Tasarım Hizmetleri",
+      "Web Site Tasarımı",
+    ],
     headline: "Bardahl Türkiye Marka Konumlandırması",
     intro:
       "Motor yağı sektörünün küresel liderlerinden Bardahl'ın Türkiye pazarına giriş, marka konumlandırması ve ürün satış adımlarını çizgi altı ve çizgi üstü, tüm mecralarda yönettik.",
@@ -86,7 +91,12 @@ export const BRANDS: Brand[] = [
       musteri: "Bardahl",
       tarih: "02.12.2020 - 07.05.2022",
       sure: "17 ay",
-      proje: ["Performans Pazarlama", "Dijital Pazarlama", "Kreatif Tasarım"],
+      proje: [
+        "Dijital Pazarlama",
+        "Performans Pazarlama",
+        "Kreatif Tasarım Hizmetleri",
+        "Web Site Tasarımı",
+      ],
     },
     gallery: [
       {
@@ -227,7 +237,7 @@ export const BRANDS: Brand[] = [
     services: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Otomotiv Sektöründe Dijital Pazarlama",
     intro:
-      "Tyre Supply'ın dijital pazarlama operasyonunu stratejik bir yaklaşımla yöneterek, hedef kitlesiyle etkin şekilde buluşmasını ve nitelikli müşteri taleplerinin artırılmasını hedefledik. Reklam stratejileri doğrultusunda kampanya kurguları ve kreatif içerikler geliştirerek dijital reklam çalışmalarını yönettik. Bunun yanı sıra mailing, e-posta imzası, kartvizit ve sipariş formları gibi kurumsal iletişim materyallerini hazırlayarak markanın dijital iletişim süreçlerini destekledik.",
+      "Otomotiv sektörünün büyük lastik tedarikçilerinden Tyre Supply ile marka konumlandırması, iletişim stratejisi ve dijital pazarlama operasyonlarında birlikte çalıştık. Reklam stratejileri doğrultusunda B2B ve B2C kampanya kurguları ve kreatif içerikler geliştirerek markamızın dijital reklam çalışmalarını hem Türkiye hem de Almanya pazarında yöneterek hedef kitle ile buluştuk. Bu hizmetlerin yanı sıra ATL (Çizgi Altı Reklamcılık) reklam çalışmalarının yönetim ve üretimlerini gerçekleştirdik.",
     meta: {
       musteri: "Tyre Supply",
       tarih: "14.06.2024 - 02.05.2025",
@@ -258,7 +268,8 @@ export const BRANDS: Brand[] = [
     year: "2022-2023",
     hero: { type: "image", src: "/assets/brands/savronik/banner.png" },
     services: ["Yaratıcı Marka Tanıtım Filmi", "Prodüksiyon", "Marka Konumlandırma"],
-    headline: "Yaratıcı Marka Tanıtım Filmi",
+    headline:
+      "Savunma Sektöründe Yaratıcı Marka Tanıtım Filmi",
     intro:
       "Savronik'in teknoloji ve mühendislikteki öncü gücünü, markanın vizyonunu yansıtan bütünleşik yaratıcı bir marka tanıtım filmiyle hayata geçirdik.",
     meta: {
@@ -288,7 +299,7 @@ export const BRANDS: Brand[] = [
     headline:
       "Türkiye'nin İlk ve Tek Akıllı Sulama Sistemlerinde Dijital Pazarlama",
     intro:
-      "Akıllı sulama sistemleri üreticisi Atlantis'in uluslararası pazardaki algısını güçlendirmek ve marka konumlandırmasını sağlamak adına sosyal medya stratejisini ve reklam kreatiflerini sıfırdan ele aldık. Markanın web site tasarım ve yazılımını ve görsel iletişim dilini küresel hedef kitlenin beklentilerine göre kurguladık.\n\nVeri odaklı performans pazarlama ve dijital pazarlama stratejilerimiz ile markanın global ölçekteki potansiyel alıcılardan nitelikli lead toplamasını sağladık ve uluslararası satış kanallarını doğrudan besledik.",
+      "Akıllı sulama sistemleri üreticisi Atlantis'in uluslararası pazardaki algısını güçlendirmek ve marka konumlandırmasını sağlamak adına sosyal medya stratejisini ve reklam kreatiflerini sıfırdan ele aldık. Markanın web site tasarım ve yazılımını ve görsel iletişim dilini küresel hedef kitlenin beklentilerine göre kurguladık. Veri odaklı performans pazarlama ve dijital pazarlama stratejilerimiz ile markanın global ölçekteki potansiyel alıcılardan nitelikli lead toplamasını sağladık ve uluslararası satış kanallarını doğrudan besledik.",
     meta: {
       musteri: "Atlantis Center Pivot & Lineer Sulama Sistemleri",
       tarih: "01.02.2024 - 01.11.2024",
@@ -323,15 +334,21 @@ export const BRANDS: Brand[] = [
     listService: "Post-Prodüksiyon",
     year: "2018",
     hero: { type: "image", src: "/assets/brands/raymondweil/banner.png" },
-    services: ["Post-Prodüksiyon", "Motion Design"],
+    services: [
+      "Post-Prodüksiyon",
+      "Yaratıcı Konsept Tasarımı",
+    ],
     headline: "Statik Görselden Dinamik İçeriğe",
     intro:
-      "Lüks saat sektörünün köklü markalarından Raymond Weil'in dijital mecralardaki görsel algısını güçlendirmek amacıyla gelişmiş dijital post-prodüksiyon tekniklerimizi devreye soktuk. Markanın kaliteli ürün fotoğraflarını ve statik görsellerini akıcı, dinamik video içeriklerine dönüştürerek hedef kitle nezdinde yüksek dikkat çekicilik ve estetik bir dijital deneyim sunduk.",
+      "Lüks saat sektörünün köklü markalarından Raymond Weil'in lüks, zamansız ve sofistike marka imajını konumlandırmak ve dijital mecralardaki varlığını güçlendirmek amacıyla gelişmiş dijital post-prodüksiyon teknikleri kullandık.\n\nBu çalışmayla yalnızca bir ürün görseli oluşturmak yerine, lüks saat markalarının dijital iletişiminde ihtiyaç duyduğu görsel deneyimi tasarladık. Marka estetiği ile güncel dijital içerik trendlerini bir araya getirerek, sosyal medya ve dijital platformlarda kullanılabilecek dikkat çekici kreatifler ortaya çıkardık.",
     meta: {
       musteri: "Raymond Weil",
       tarih: "2017",
-      sure: "—", // Ekipten bekleniyor (dökümanda XXXX)
-      proje: ["Post-Prodüksiyon", "Motion Design"],
+      sure: "3 ay", // Ekipten bekleniyor (dökümanda XXXX)
+      proje: [
+        "Post-Prodüksiyon",
+        "Yaratıcı Konsept Tasarımı",
+      ],
     },
     // Döküman: "yan yana 3 tane olacak şekilde" → 3 sütun
     gallery: [
@@ -359,9 +376,10 @@ export const BRANDS: Brand[] = [
       poster: "/assets/brands/bfit/banner.jpg",
     },
     services: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
-    headline: "Spor Sektöründe Yeniden Markalama",
+    headline:
+      "Türkiye\'nin En Büyük Spor Franchise Markasına Markalama",
     intro:
-      "Türkiye'nin en büyük spor franchise markası olan bfit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Yenilenen marka imajımız ve dijital pazarlama operasyonlarımızla, her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
+      "Türkiye'nin en büyük spor franchise markası olan bfit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Ölçülebilir veri odaklı performans pazarlama operasyonumuz ile markamızın franchise satışları için lead akışı sağlıyor; dijital pazarlama operasyonumuz ve yaratıcı konsept tasarımlarımız ile marka konumlandırması ve tüm hedef kitle iletişimlerini yöneterek her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
     meta: {
       musteri: "bfit",
       tarih: "01.12.2024 - Devam Ediyor",
@@ -439,7 +457,7 @@ export const BRANDS: Brand[] = [
     ],
     headline: "Spor Sektöründe Performans Pazarlama",
     intro:
-      "Premium Gym'in kurumsal kimliğini sıfırdan inşa ederek pazardaki konumunu güçlendirdik. Veri odaklı dijital reklam stratejileri, yaratıcı sosyal medya yönetimi ve gerilla pazarlama aksiyonlarıyla bütünleşik bir marka deneyimi sunarken, sürdürülebilir aylık ve yıllık üye kazanımı sağladık.",
+      "Premium Gym'in kurumsal kimliğini yeniden inşa ederek marka konumlandırması gerçekleştirdik.\n\nDijital iletişim stratejileri, yaratıcı konsept çalışmaları ve gerilla kampanya kurgularımızla bütünleşik bir marka deneyimi kurgulayarak marka sadakati inşa ettik ve topluluk iletişimi gerçekleştirdik.\n\nVeri odaklı performans pazarlama stratejilerimiz ile markamız için aylık ve yıllık üye kazanımı sağladık.",
     meta: {
       musteri: "PREMIUM GYM",
       tarih: "02.02.2023 - 23.08.2024",
@@ -479,11 +497,11 @@ export const BRANDS: Brand[] = [
     services: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Organik Gıda Sektöründe Markalama",
     intro:
-      "DEDEBIO markasının pazardaki konumunu güçlendirmek ve hedef kitlesiyle güncel bir iletişim dili kurmak amacıyla marka yenileme sürecini gerçekleştirdik. Yenilenen marka kimliğini ve konumlandırmasını, stratejik sosyal medya operasyonlarımızla destekleyerek markanın dijitaldeki bilinirliğini, güvenilirliğini ve etkileşim oranlarını artırdık.",
+      "DEDEBIO markasının pazardaki konumunu güçlendirmek ve hedef kitlesiyle güncel bir iletişim dili yakalaması sağlamak amacıyla marka yenileme sürecini gerçekleştirdik. Yenilenen marka kimliği ile marka konumlandırmasını gerçekleştirip, stratejik dijital pazarlama operasyonlarımızla markanın dijitaldeki bilinirliğini, güvenilirliğini ve etkileşim oranlarını artırdık.",
     meta: {
       musteri: "DEDEBIO",
       tarih: "2023",
-      sure: "—", // Ekipten bekleniyor (dökümanda XXXX)
+      sure: "8 Ay", // Ekipten bekleniyor (dökümanda XXXX)
       proje: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     },
     // Döküman: "yan yana 2 tane"
@@ -510,14 +528,18 @@ export const BRANDS: Brand[] = [
       poster: "/assets/brands/bni/banner.png",
     },
     services: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
-    headline: "Networking Sektörü",
+    headline:
+      "Dünyanın En Büyük Networking Markasına Dijital Pazarlama",
     intro:
-      "Dünyanın en büyük iş yönlendirme organizasyonu olan markamız BNI için geliştirdiğimiz iletişim stratejisi ve kreatif konsept ile markanın dijital konumlandırmasını yeniledik. Performans odaklı sosyal medya operasyonumuz ile birlikte nitelikli üye kazanımı ve güçlü bir ağ etkileşimi elde ettik.",
+      "Dünyanın en büyük iş yönlendirme organizasyonu olan BNI için geliştirdiğimiz iletişim stratejisi ve kreatif konsept ile markanın dijital konumlandırmasını sağlayıp, marka bilinirliğini artırdık. Bütüncül dijital pazarlama operasyonlarımız ile markanın dijital varlığını yaratıp; ülke genelindeki tüm BNI gruplarının bütüncül bir iletişim dili yürütmesini sağlarken yaratıcı konsept kurgularımız Amerika'da BNI'ın kurucusu Ivan Misner'e kadar uzandı.",
     meta: {
       musteri: "BNI",
       tarih: "2020 - 2022",
       sure: "2 yıl",
-      proje: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
+      proje: [
+        "Dijital Pazarlama",
+        "Kreatif Tasarım Hizmetleri",
+      ],
     },
     // Döküman: "yan yana 2, altına yine ikili → 4'lü grid"
     gallery: [
@@ -546,13 +568,14 @@ export const BRANDS: Brand[] = [
       poster: "/assets/brands/minousha/banner.jpg",
     },
     services: ["Post-Prodüksiyon", "Prodüksiyon", "Cast", "Kreatif Tasarım Hizmetleri"],
-    headline: "Moda Sektöründe Post Prodüksiyon",
+    headline:
+      "El Yapımı Niş Kıyafetlerde Marka Konumlandırma",
     intro:
-      "Minousha'nın dijital iletişiminde kullanılmak üzere kreatif tasarım, cast seçimi, prodüksiyon ve post-prodüksiyon süreçlerini yönettik. Gerçekleştirdiğimiz çekimleri kurgu ve post-prodüksiyon çalışmalarıyla tamamlayarak, markanın görsel dünyasını yansıtan özgün ve etkileyici video içerikleri ürettik.",
+      "Minousha'nın dijital marka konumlandırmasını sağlamak adına yaratıcı konsept kurgularımız ile marka tanıtım filmi kurgulayıp; prodüksiyon ve post-prodüksiyon süreçlerini yürüttük.",
     meta: {
       musteri: "Minousha",
-      tarih: "2018", // Ekip teyidi bekleniyor (dökümanda soru işaretli)
-      sure: "—",
+      tarih: "2017", // Ekip teyidi bekleniyor (dökümanda soru işaretli)
+      sure: "3 Ay",
       proje: ["Post-Prodüksiyon", "Prodüksiyon", "Cast", "Kreatif Tasarım Hizmetleri"],
     },
   },
@@ -563,10 +586,15 @@ export const BRANDS: Brand[] = [
     listService: "Markalama & Dijital Pazarlama",
     year: "2020-2021",
     hero: { type: "image", src: "/assets/brands/anatolianstars/hero.png" },
-    services: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri", "Web Site Tasarımı"],
-    headline: "Uluslararası Gıda Taşımacılığı Markalama",
+    services: [
+      "Markalama",
+      "Kreatif Tasarım Hizmetleri",
+      "Web Site Tasarımı",
+    ],
+    headline:
+      "Uluslararası Gıda Taşımacılığında Markalama",
     intro:
-      "Anatolian Stars için gerçekleştirdiğimiz markalama operasyonumuz ile markamız dünyaya açıldı ve Türkiye'nin eşsiz topraklarında yetişen meyve ve sebzeleri ihraç etmeye başladı.",
+      "Türkiye'de yetiştirilen taze meyve ve sebzelerin uluslararası pazarlara ihracatını gerçekleştiren Anatolian Stars için markalama ve yaratıcı konsept çalışmalarını üstlendik. Markanın Türkiye'nin güçlü tarım kültürünü, ürün kalitesini ve uluslararası ticaret vizyonunu yansıtan güvenilir ve güçlü bir marka kimliğine sahip olması için stratejik bir iletişim yaklaşımı geliştirdik.",
     meta: {
       musteri: "Anatolian Stars",
       tarih: "12.09.2020 - 02.04.2021",
@@ -628,15 +656,26 @@ export const BRANDS: Brand[] = [
     listService: "Post-Prodüksiyon & Marka Tanıtım Filmi",
     year: "2018",
     hero: { type: "image", src: "/assets/brands/quiprive/banner.jpg" },
-    services: ["Prodüksiyon", "Post-Prodüksiyon", "Marka Tanıtım Filmi"],
-    headline: "Marka Tanıtım Filmi ve Post-Prodüksiyon",
+    services: [
+      "Prodüksiyon",
+      "Post-Prodüksiyon",
+      "Marka Tanıtım Filmi",
+      "Dijital Pazarlama",
+    ],
+    headline:
+      "Özel Tasarım Moda Sektöründe Marka Konumlandırma",
     intro:
-      "QUI Prive markasının pazar segmentasyonunu ve prestijini güçlendirmek adına uçtan uca prodüksiyon ve post-prodüksiyon süreçlerini üstlendik. Markanın hikayesini ve premium çizgisini hedef kitleye etkileyici bir görsel dille aktaran marka tanıtım filmlerini kurgulayarak, markanın dijital ve kurumsal mecralardaki imajını en üst seviyeye taşıdık.",
+      "Özel tasarım kıyafetleriyle özgün stil ve güçlü marka algısını bir araya getiren Qui Privé için, markanın dijital dünyadaki görünürlüğünü ve iletişim gücünü artırmaya yönelik uçtan uca kreatif çalışmalar gerçekleştirdik.\n\nProje kapsamında markanın estetik dünyasını ve tasarım anlayışını yansıtan yaratıcı dijital konsept kurguları geliştirdik; bu konseptleri profesyonel prodüksiyon ve post-prodüksiyon süreçleriyle görsel bir marka deneyimine dönüştürdük. Her içerikte kıyafetlerin tasarım detaylarını, koleksiyonun karakterini ve Qui Privé'nin özgün stilini ön plana çıkaran güçlü bir görsel dil oluşturduk.",
     meta: {
       musteri: "QUI prive",
-      tarih: "—", // Ekipten bekleniyor (dökümanda ??)
-      sure: "—",
-      proje: ["Prodüksiyon", "Post-Prodüksiyon", "Marka Tanıtım Filmi"],
+      tarih: "2017", // Ekipten bekleniyor (dökümanda ??)
+      sure: "8 Ay",
+      proje: [
+        "Prodüksiyon",
+        "Post-Prodüksiyon",
+        "Marka Tanıtım Filmi",
+        "Dijital Pazarlama",
+      ],
     },
     // Döküman: "yan yana 3 tane"
     gallery: [
