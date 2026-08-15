@@ -52,8 +52,9 @@ export default function RootLayout({
             643px'i (logo + slogan) kalıcı olarak kırpıldı. Doğru karşılığı
             kapanış görselini sabitlemek ama o görselin içindeki tıklama
             alanları yüzdeyle konumlandığı için kırpma onları kaydırıyor.
-            Çözüm için ya footer kısaltılmalı ya da kapanış görseli
-            tıklama alanlarıyla birlikte yeniden kurgulanmalı. */}
+            KARAR (Yakup, 2026-08-15): footer kısaltılmayacak, bu efekt
+            UYGULANMAYACAK — sayfa mevcut hâliyle doğru çalışıyor.
+            Yeniden açılırsa tek yol footer'ı ~750px'e indirmek. */}
         <main id="icerik" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
