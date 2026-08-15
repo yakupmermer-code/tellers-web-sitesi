@@ -261,6 +261,19 @@ export default function HomePage() {
               inline
             />
           </Reveal>
+          {/* İçerik dökümanı: "Bu [slogan] alanı 'İletişim; Anlamın Dolaşımı'
+              alanının altına alacağız." (ana_safya_slogan_imaj.png)
+              Gerçek marka videosu geldiğinde bu görselin yerini alacak. */}
+          <Reveal delay={0.15} className="mt-6">
+            <Image
+              src="/assets/home/slogan-banner.png"
+              alt="Duyulan unutulur, anlaşılan kalır — tellers, gerçek bir ajans deneyimi"
+              width={1920}
+              height={800}
+              className="h-auto w-full"
+              sizes="100vw"
+            />
+          </Reveal>
         </section>
       </div>
 

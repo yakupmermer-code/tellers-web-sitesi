@@ -157,6 +157,9 @@ export const BRANDS: Brand[] = [
         rightTop: "/assets/brands/mynova/nova-ana-slide.png",
         rightBottom: "/assets/brands/mynova/gorsel-3.png",
       },
+      // Döküman: bu üçlü alanın görselleri arasında Mannheim postu da var
+      // ("linkteki görseller yukarıdaki 3'lü alanın ölçülerine göre").
+      { kind: "image", src: "/assets/brands/mynova/mannheim.png" },
       {
         kind: "tri",
         left: { type: "image", src: "/assets/brands/mynova/darwin-chair.jpg" },
@@ -483,6 +486,7 @@ export const BRANDS: Brand[] = [
           { type: "video", src: "/assets/brands/premiumgym/g6.mp4" },
           { type: "image", src: "/assets/brands/premiumgym/g7.jpg" },
           { type: "image", src: "/assets/brands/premiumgym/g8.jpg" },
+          { type: "image", src: "/assets/brands/premiumgym/g9.jpg" },
         ],
       },
     ],

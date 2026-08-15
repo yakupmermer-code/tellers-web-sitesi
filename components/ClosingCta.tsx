@@ -36,17 +36,22 @@ export default function ClosingCta({
                 (kırık tel: linki kullanıcıya gitmesin). */}
             {PHONE_READY && (
               <>
+                {/* Konumlar görselin İÇİNE basılı yazılara göre ölçüldü
+                    (sayfa_bitiş_imajı.png 1920x1080, 2. döküman sürümü):
+                    "görüşme planlayın."  x %33.8-47.1 · y %75.0-77.8
+                    "whatsapp'tan yazın." x %51.8-65.4 · y %75.0-77.8
+                    Görsel değişirse bu yüzdeler yeniden ölçülmeli. */}
                 <a
                   href={`tel:${SITE.phone}`}
                   aria-label="Görüşme planlayın — bizi arayın"
-                  className="absolute bottom-[14%] left-[30%] h-[10%] w-[18%] rounded-full transition-colors duration-500 hover:bg-white/10"
+                  className="absolute left-[32%] top-[73%] h-[7%] w-[17%] rounded-full transition-colors duration-500 hover:bg-white/10"
                 />
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp'tan yazın"
-                  className="absolute bottom-[14%] right-[30%] h-[10%] w-[18%] rounded-full transition-colors duration-500 hover:bg-white/10"
+                  className="absolute left-[51%] top-[73%] h-[7%] w-[16%] rounded-full transition-colors duration-500 hover:bg-white/10"
                 />
               </>
             )}
