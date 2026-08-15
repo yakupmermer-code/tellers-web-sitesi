@@ -368,8 +368,7 @@ export const BRANDS: Brand[] = [
       sure: "Devam Ediyor",
       proje: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
     },
-    // Döküman "yan yana 2, 4 satır = 8 banner" istiyor; 8 içerikten 6'sı
-    // Drive'da paylaşıma kapalı olduğu için şimdilik 2 kutu gösteriliyor.
+    // Döküman: "yan yana 2 tane, 4 satır aşağıya çoğalt = 8 banner"
     gallery: [
       {
         kind: "grid",
@@ -377,6 +376,12 @@ export const BRANDS: Brand[] = [
         items: [
           { type: "image", src: "/assets/brands/bfit/g1.jpg" },
           { type: "image", src: "/assets/brands/bfit/g2.jpg" },
+          { type: "image", src: "/assets/brands/bfit/g3.jpg" },
+          { type: "image", src: "/assets/brands/bfit/g4.jpg" },
+          { type: "video", src: "/assets/brands/bfit/g5.mp4" },
+          { type: "video", src: "/assets/brands/bfit/g6.mp4" },
+          { type: "image", src: "/assets/brands/bfit/g7.jpg" },
+          { type: "image", src: "/assets/brands/bfit/g8.jpg" },
         ],
       },
     ],
