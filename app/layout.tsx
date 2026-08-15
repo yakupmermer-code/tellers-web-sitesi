@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import { SITE } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -40,9 +41,19 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.cdnfonts.com" crossOrigin="" />
         {/* JS kapalıysa animasyonla gizlenen bölümleri görünür kıl */}
         <noscript>
-          <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+          <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
         </noscript>
+        <SmoothScroll />
         <Header />
+        {/* NOT (2026-08-15): temanın "footer altından çıkar" efekti (Arpeggio
+            section 19) burada UYGULANMADI. O efekt sabitlenen alanın ekran
+            yüksekliğine sığmasını gerektiriyor; bizim footer 1457px (ekran
+            814px) olduğu için `sticky bottom-0` denendiğinde footer'ın üst
+            643px'i (logo + slogan) kalıcı olarak kırpıldı. Doğru karşılığı
+            kapanış görselini sabitlemek ama o görselin içindeki tıklama
+            alanları yüzdeyle konumlandığı için kırpma onları kaydırıyor.
+            Çözüm için ya footer kısaltılmalı ya da kapanış görseli
+            tıklama alanlarıyla birlikte yeniden kurgulanmalı. */}
         <main id="icerik" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>

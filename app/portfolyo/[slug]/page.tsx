@@ -82,9 +82,17 @@ export default async function MarkaDetayPage({
       {/* ── Başlık + tanıtım ── */}
       <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
         <Reveal mask>
-          <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-navy md:text-5xl">
+          <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-navy md:text-[64px]">
             {brand.headline}
           </h1>
+          {/* Tema deseni (arpeggio /work/velocity-motors): büyük tanıtım
+              başlığının hemen altında, aynı sol hizada, ~2/3 puntoda marka
+              adı ikinci başlık olarak yer alır (temada 84px başlık → 56px ad).
+              Ekip notu: "MasterCard'ı Velocity Motors gibi yazalım —
+              yer ve başlık benzerliği olarak" (2026-08-15 teyidi). */}
+          <p className="mt-6 text-2xl font-bold leading-tight tracking-tight text-navy md:mt-8 md:text-[44px]">
+            {brand.name}
+          </p>
           {brand.subheadline && (
             <p className="mt-4 text-lg text-navy/60">{brand.subheadline}</p>
           )}
@@ -98,40 +106,46 @@ export default async function MarkaDetayPage({
         </Reveal>
       </section>
 
-      {/* ── Operasyon Detayları ── */}
-      <section className="mx-auto grid max-w-[1440px] gap-12 border-t hairline px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
-        <Reveal mask>
-          <h2 className="text-2xl font-bold tracking-tight text-navy md:text-4xl">
-            Operasyon Detayları
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <dl className="flex flex-col">
-            {[
-              ["Müşteri", brand.meta.musteri],
-              ["Operasyon Tarihi", brand.meta.tarih],
-              ["Operasyon Süresi", brand.meta.sure],
-              ["Proje", brand.meta.proje.join("\n")],
-            ].map(([k, v]) => (
-              <div
-                key={k}
-                className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
-              >
-                <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
-                  {k}
-                </dt>
-                <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
-                  {v}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-      </section>
+      {/* ── Operasyon Detayları ──
+          Gri fon (ekip notu 2026-08-14: "2 alanın da fonu beyaz kalmış, bir
+          alanın arka tarafı gri olmalı"): üstteki tanıtım metni beyaz kalır,
+          bu alan gri olur. Gri fon ayıracın kendisi olduğu için üstteki ince
+          çizgi kaldırıldı. */}
+      <div className="bg-mist">
+        <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
+          <Reveal mask>
+            <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[48px]">
+              Operasyon Detayları
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <dl className="flex flex-col">
+              {[
+                ["Müşteri", brand.meta.musteri],
+                ["Operasyon Tarihi", brand.meta.tarih],
+                ["Operasyon Süresi", brand.meta.sure],
+                ["Proje", brand.meta.proje.join("\n")],
+              ].map(([k, v]) => (
+                <div
+                  key={k}
+                  className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
+                >
+                  <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
+                    {k}
+                  </dt>
+                  <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
+                    {v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </section>
+      </div>
 
       {/* ── Galeri ── */}
       {brand.gallery && (
-        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-24 md:px-10 md:pb-32">
+        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32">
           {brand.gallery.map((g, i) => {
             if (g.kind === "image")
               return (
@@ -160,6 +174,48 @@ export default async function MarkaDetayPage({
                     aria-label={`${brand.name} video çalışması`}
                   />
                 </Reveal>
+              );
+            // Eşit kutulu grid (döküman: Atlantis 2'li, Sua 2'li, Utkan 3'lü)
+            if (g.kind === "grid")
+              return (
+                <div
+                  key={i}
+                  className={`grid gap-6 ${
+                    g.cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
+                  }`}
+                >
+                  {g.items.map((it, j) => (
+                    <Reveal key={it.src} delay={0.04 * (j % g.cols)}>
+                      <div className="overflow-hidden">
+                        {it.type === "video" ? (
+                          <video
+                            src={it.src}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                            className="aspect-[4/5] w-full object-cover"
+                            aria-label={`${brand.name} video çalışması ${j + 1}`}
+                          />
+                        ) : (
+                          <Image
+                            src={it.src}
+                            alt={`${brand.name} çalışması ${j + 1}`}
+                            width={1080}
+                            height={1350}
+                            className="aspect-[4/5] w-full object-cover"
+                            sizes={
+                              g.cols === 3
+                                ? "(min-width: 768px) 33vw, 100vw"
+                                : "(min-width: 768px) 50vw, 100vw"
+                            }
+                          />
+                        )}
+                      </div>
+                    </Reveal>
+                  ))}
+                </div>
               );
             // Üçlü grid: uzun alan bir yanda, iki yatay diğer yanda
             const tall = (
@@ -232,7 +288,7 @@ export default async function MarkaDetayPage({
           <div className="grid gap-12 border-t hairline pt-16 md:grid-cols-3">
             {brand.results.map((r, i) => (
               <Reveal key={r.value} delay={0.06 * i}>
-                <h3 className="text-5xl font-bold tracking-tight text-navy md:text-6xl">
+                <h3 className="text-5xl font-bold tracking-tight text-navy md:text-[96px]">
                   <CountUp value={r.value} />
                 </h3>
                 <p className="mt-3 text-base leading-relaxed text-navy/60">
@@ -247,7 +303,7 @@ export default async function MarkaDetayPage({
       {/* ── More Projects ── */}
       <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10 md:py-32">
         <Reveal mask>
-          <h2 className="text-3xl font-bold tracking-tight text-navy md:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[64px]">
             Diğer Projeler
           </h2>
         </Reveal>
@@ -265,7 +321,7 @@ export default async function MarkaDetayPage({
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
-                  <p className="absolute bottom-5 left-5 text-xl font-bold tracking-tight text-white md:text-2xl">
+                  <p className="absolute bottom-5 left-5 text-xl font-bold tracking-tight text-white md:text-[28px]">
                     {b.name}
                   </p>
                 </div>

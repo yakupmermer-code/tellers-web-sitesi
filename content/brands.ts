@@ -33,6 +33,16 @@ export type Brand = {
         /** true → uzun alan sağda (My Nova ikinci grid) */
         flip?: boolean;
       }
+    /**
+     * Eşit kutulu grid — içerik dökümanı her marka için farklı sütun sayısı
+     * istiyor (Atlantis 2'li, Sua Horeca 2'li, Utkan Yıldırım 3'lü).
+     * Kutular aynı en-boy oranında olur, medya object-cover ile oturur.
+     */
+    | {
+        kind: "grid";
+        cols: 2 | 3;
+        items: Array<{ type: "image" | "video"; src: string }>;
+      }
   >;
   /** Performance Results benzeri sayılar (yalnız My Nova) */
   results?: Array<{ value: string; label: string }>;
@@ -101,8 +111,9 @@ export const BRANDS: Brand[] = [
     listService: "Performans Pazarlama & Dijital Pazarlama",
     year: "2023-2025",
     hero: {
+      // Döküman: YatayVideoMyNova_3.mp4
       type: "video",
-      src: "/assets/brands/mynova/hero-video.mp4",
+      src: "/assets/brands/mynova/hero-yatay.mp4",
       poster: "/assets/brands/mynova/poster.jpg",
     },
     services: [
@@ -143,6 +154,18 @@ export const BRANDS: Brand[] = [
         rightBottom: "/assets/brands/mynova/sherlock.jpg",
         flip: true,
       },
+      // Döküman: 3 kreatif reels (Allen Eric Marshall / Theodor / Engin Yücetaş).
+      // NOT: dökümanda bu blok Performance Results'ın ALTINDA; sayfa şablonunda
+      // galeri her zaman results'tan önce geldiği için buraya alındı.
+      {
+        kind: "grid",
+        cols: 3,
+        items: [
+          { type: "video", src: "/assets/brands/mynova/r1.mp4" },
+          { type: "video", src: "/assets/brands/mynova/r2.mp4" },
+          { type: "video", src: "/assets/brands/mynova/r3.mp4" },
+        ],
+      },
     ],
     results: [
       { value: "+ %50", label: "Meta tarafından doğrulanmış %50'nin üzerinde reklam performansı." },
@@ -158,8 +181,8 @@ export const BRANDS: Brand[] = [
     year: "2022-2023",
     hero: {
       type: "video",
-      src: "/assets/brands/savron/kurumsal-video.mp4",
-      poster: "/assets/brands/savron/poster.jpg",
+      src: "/assets/brands/savron/hero.mp4",
+      poster: "/assets/brands/savron/banner.png",
     },
     services: [
       "Dijital Pazarlama",
@@ -181,6 +204,18 @@ export const BRANDS: Brand[] = [
         "Markalama",
       ],
     },
+    // Döküman: 3 story videosu (Akvaryum / Kaykay / Saat Kulesi)
+    gallery: [
+      {
+        kind: "grid",
+        cols: 3,
+        items: [
+          { type: "video", src: "/assets/brands/savron/g1.mp4" },
+          { type: "video", src: "/assets/brands/savron/g2.mp4" },
+          { type: "video", src: "/assets/brands/savron/g3.mp4" },
+        ],
+      },
+    ],
   },
   {
     slug: "tyre-supply",
@@ -188,7 +223,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/tyresupply/banner.png",
     listService: "Performans Pazarlama & Dijital Pazarlama",
     year: "2024-2025",
-    hero: { type: "image", src: "/assets/brands/tyresupply/banner.png" },
+    hero: { type: "image", src: "/assets/brands/tyresupply/hero.jpg" },
     services: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Otomotiv Sektöründe Dijital Pazarlama",
     intro:
@@ -199,6 +234,21 @@ export const BRANDS: Brand[] = [
       sure: "11 ay",
       proje: ["Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     },
+    // Döküman: "yan yana iki tane, 3 sıra" → 2 sütun × 3 satır
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "video", src: "/assets/brands/tyresupply/g1.mp4" },
+          { type: "image", src: "/assets/brands/tyresupply/g2.jpg" },
+          { type: "image", src: "/assets/brands/tyresupply/g3.jpg" },
+          { type: "image", src: "/assets/brands/tyresupply/g4.jpg" },
+          { type: "image", src: "/assets/brands/tyresupply/g5.jpg" },
+          { type: "image", src: "/assets/brands/tyresupply/g6.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "savronik",
@@ -224,16 +274,21 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/atlantis/banner.png",
     listService: "Performans Pazarlama & Dijital Pazarlama",
     year: "2024",
-    hero: { type: "image", src: "/assets/brands/atlantis/banner.png" },
+    hero: {
+      type: "video",
+      src: "/assets/brands/atlantis/hero.mp4",
+      poster: "/assets/brands/atlantis/banner.png",
+    },
     services: [
       "Dijital Pazarlama",
       "Performans Pazarlama",
       "Kreatif Tasarım Hizmetleri",
       "Web Site Tasarımı",
     ],
-    headline: "Akıllı Sulama Sistemlerinde Dijital Pazarlama",
+    headline:
+      "Türkiye'nin İlk ve Tek Akıllı Sulama Sistemlerinde Dijital Pazarlama",
     intro:
-      "Akıllı sulama sistemleri üreticisi Atlantis'in uluslararası pazardaki algısını güçlendirmek adına sosyal medya stratejisini ve reklam kreatiflerini baştan sona yeniledik. Markanın web sitesi altyapısını ve görsel iletişim dilini küresel hedef kitlenin beklentilerine göre optimize ettik. Veri odaklı performans pazarlama ve yenilenen sosyal medya kurgularımız sayesinde, markanın global ölçekteki potansiyel alıcılardan nitelikli lead toplamasını sağladık ve uluslararası satış kanallarını doğrudan besledik.",
+      "Akıllı sulama sistemleri üreticisi Atlantis'in uluslararası pazardaki algısını güçlendirmek ve marka konumlandırmasını sağlamak adına sosyal medya stratejisini ve reklam kreatiflerini sıfırdan ele aldık. Markanın web site tasarım ve yazılımını ve görsel iletişim dilini küresel hedef kitlenin beklentilerine göre kurguladık.\n\nVeri odaklı performans pazarlama ve dijital pazarlama stratejilerimiz ile markanın global ölçekteki potansiyel alıcılardan nitelikli lead toplamasını sağladık ve uluslararası satış kanallarını doğrudan besledik.",
     meta: {
       musteri: "Atlantis Center Pivot & Lineer Sulama Sistemleri",
       tarih: "01.02.2024 - 01.11.2024",
@@ -245,6 +300,21 @@ export const BRANDS: Brand[] = [
         "Web Site Tasarımı",
       ],
     },
+    // Döküman: "yan yana iki tane olacak şekilde 3 sıra" → 2 sütun × 3 satır
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/atlantis/g1.jpg" },
+          { type: "video", src: "/assets/brands/atlantis/g2.mp4" },
+          { type: "video", src: "/assets/brands/atlantis/g3.mp4" },
+          { type: "video", src: "/assets/brands/atlantis/g4.mp4" },
+          { type: "video", src: "/assets/brands/atlantis/g5.mp4" },
+          { type: "image", src: "/assets/brands/atlantis/g6.png" },
+        ],
+      },
+    ],
   },
   {
     slug: "raymond-weil",
@@ -263,6 +333,18 @@ export const BRANDS: Brand[] = [
       sure: "—", // Ekipten bekleniyor (dökümanda XXXX)
       proje: ["Post-Prodüksiyon", "Motion Design"],
     },
+    // Döküman: "yan yana 3 tane olacak şekilde" → 3 sütun
+    gallery: [
+      {
+        kind: "grid",
+        cols: 3,
+        items: [
+          { type: "video", src: "/assets/brands/raymondweil/g1.mp4" },
+          { type: "video", src: "/assets/brands/raymondweil/g2.mp4" },
+          { type: "video", src: "/assets/brands/raymondweil/g3.mp4" },
+        ],
+      },
+    ],
   },
   {
     slug: "bfit",
@@ -270,7 +352,12 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/bfit/banner.jpg",
     listService: "Markalama & Performans Pazarlama",
     year: "2023-Devam ediyor",
-    hero: { type: "image", src: "/assets/brands/bfit/banner.jpg" },
+    hero: {
+      // Döküman: bfit_tanitim_yatay.mp4
+      type: "video",
+      src: "/assets/brands/bfit/hero.mp4",
+      poster: "/assets/brands/bfit/banner.jpg",
+    },
     services: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
     headline: "Spor Sektöründe Yeniden Markalama",
     intro:
@@ -281,6 +368,18 @@ export const BRANDS: Brand[] = [
       sure: "Devam Ediyor",
       proje: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
     },
+    // Döküman "yan yana 2, 4 satır = 8 banner" istiyor; 8 içerikten 6'sı
+    // Drive'da paylaşıma kapalı olduğu için şimdilik 2 kutu gösteriliyor.
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/bfit/g1.jpg" },
+          { type: "image", src: "/assets/brands/bfit/g2.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "sua-horeca",
@@ -289,16 +388,35 @@ export const BRANDS: Brand[] = [
     listService: "Markalama & Kreatif Tasarım Hizmetleri",
     year: "2025-2026",
     hero: { type: "image", src: "/assets/brands/sua/banner.png" },
-    services: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
+    services: ["Markalama", "Dijital Pazarlama", "Kreatif Ajans Hizmetleri"],
     headline: "Doğal Kozmetik Sektöründe Markalama",
     intro:
-      "Doğal kozmetik markası SUA'nın pazardaki konumlandırmasını, marka kişiliğini, görsel imajını ve logo tasarımını yeniden kurgulayarak markayı rekabetçi bir segmentte hayata geçirdik.\n\nHedef kitle analizleri doğrultusunda geliştirdiğimiz iletişim stratejisi, kreatif tasarım dili ve bütünleşik dijital pazarlama operasyonlarımız sayesinde Sua'yı kısa sürede dinamik ve satış odaklı bir markaya dönüştürdük.",
+      "Sua Horeca için markanın doğal, premium ve güven veren kimliğini güçlü bir marka deneyimine dönüştürdük. Projenin merkezine markalama, dijital pazarlama ve yaratıcı konsept geliştirme süreçlerini alarak, Sua Horeca'nın hedef kitlesiyle güçlü bir bağ kurmasını sağlayan bütünsel bir iletişim dili oluşturduk.\n\nDijital pazarlama operasyonumuz ile marka konumlandırmasını gerçekleştirerek marka bilinirliği yaratıp; topluluk iletişimi gerçekleştirdik.",
     meta: {
       musteri: "SUA HORECA",
       tarih: "01.06.2025 - 21.02.2026",
       sure: "9 ay",
-      proje: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
+      proje: ["Markalama", "Dijital Pazarlama", "Kreatif Ajans Hizmetleri"],
     },
+    // Döküman: "yan yana 2 tane... 5 satır aşağıya çoğaltalım" → 2 sütun × 5 satır
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/sua/g1.png" },
+          { type: "video", src: "/assets/brands/sua/g2.mp4" },
+          { type: "video", src: "/assets/brands/sua/g3.mp4" },
+          { type: "video", src: "/assets/brands/sua/g4.mp4" },
+          { type: "image", src: "/assets/brands/sua/g5.jpg" },
+          { type: "image", src: "/assets/brands/sua/g6.jpg" },
+          { type: "image", src: "/assets/brands/sua/g7.jpg" },
+          { type: "video", src: "/assets/brands/sua/g8.mp4" },
+          { type: "image", src: "/assets/brands/sua/g9.png" },
+          { type: "image", src: "/assets/brands/sua/g10.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "premium-gym",
@@ -329,6 +447,22 @@ export const BRANDS: Brand[] = [
         "Etkinlik & Organizasyon",
       ],
     },
+    // Döküman 6 kutu diyor ama 8 içerik veriyor; 1'i (tasarım3.png) Drive'da paylaşıma kapalı → 7 gösteriliyor
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/premiumgym/g1.jpg" },
+          { type: "video", src: "/assets/brands/premiumgym/g2.mp4" },
+          { type: "video", src: "/assets/brands/premiumgym/g3.mp4" },
+          { type: "video", src: "/assets/brands/premiumgym/g4.mp4" },
+          { type: "video", src: "/assets/brands/premiumgym/g6.mp4" },
+          { type: "image", src: "/assets/brands/premiumgym/g7.jpg" },
+          { type: "image", src: "/assets/brands/premiumgym/g8.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "dedebio",
@@ -336,7 +470,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/dedebio/banner.png",
     listService: "Markalama & Kreatif Tasarım Hizmetleri",
     year: "2023",
-    hero: { type: "image", src: "/assets/brands/dedebio/banner.png" },
+    hero: { type: "image", src: "/assets/brands/dedebio/hero.png" },
     services: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Organik Gıda Sektöründe Markalama",
     intro:
@@ -347,6 +481,17 @@ export const BRANDS: Brand[] = [
       sure: "—", // Ekipten bekleniyor (dökümanda XXXX)
       proje: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     },
+    // Döküman: "yan yana 2 tane"
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/dedebio/g1.jpg" },
+          { type: "image", src: "/assets/brands/dedebio/g2.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "bni",
@@ -354,7 +499,11 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/bni/banner.png",
     listService: "Performans Pazarlama",
     year: "2020-2022",
-    hero: { type: "image", src: "/assets/brands/bni/banner.png" },
+    hero: {
+      type: "video",
+      src: "/assets/brands/bni/hero.mp4",
+      poster: "/assets/brands/bni/banner.png",
+    },
     services: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Networking Sektörü",
     intro:
@@ -365,6 +514,19 @@ export const BRANDS: Brand[] = [
       sure: "2 yıl",
       proje: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
     },
+    // Döküman: "yan yana 2, altına yine ikili → 4'lü grid"
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/bni/g1.jpg" },
+          { type: "image", src: "/assets/brands/bni/g2.jpg" },
+          { type: "video", src: "/assets/brands/bni/g3.mp4" },
+          { type: "video", src: "/assets/brands/bni/g4.mp4" },
+        ],
+      },
+    ],
   },
   {
     slug: "minousha",
@@ -372,7 +534,12 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/minousha/banner.jpg",
     listService: "Post-Prodüksiyon & Prodüksiyon & Cast",
     year: "2018",
-    hero: { type: "image", src: "/assets/brands/minousha/banner.jpg" },
+    hero: {
+      // Döküman: media10.mp4
+      type: "video",
+      src: "/assets/brands/minousha/hero.mp4",
+      poster: "/assets/brands/minousha/banner.jpg",
+    },
     services: ["Post-Prodüksiyon", "Prodüksiyon", "Cast", "Kreatif Tasarım Hizmetleri"],
     headline: "Moda Sektöründe Post Prodüksiyon",
     intro:
@@ -390,7 +557,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/anatolianstars/banner.jpg",
     listService: "Markalama & Dijital Pazarlama",
     year: "2020-2021",
-    hero: { type: "image", src: "/assets/brands/anatolianstars/banner.jpg" },
+    hero: { type: "image", src: "/assets/brands/anatolianstars/hero.png" },
     services: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri", "Web Site Tasarımı"],
     headline: "Uluslararası Gıda Taşımacılığı Markalama",
     intro:
@@ -401,6 +568,17 @@ export const BRANDS: Brand[] = [
       sure: "7 ay",
       proje: ["Markalama", "Dijital Pazarlama", "Kreatif Tasarım Hizmetleri", "Web Site Tasarımı"],
     },
+    // Döküman: "yan yana 2 tane"
+    gallery: [
+      {
+        kind: "grid",
+        cols: 2,
+        items: [
+          { type: "image", src: "/assets/brands/anatolianstars/g1.jpg" },
+          { type: "image", src: "/assets/brands/anatolianstars/g2.jpg" },
+        ],
+      },
+    ],
   },
   {
     slug: "utkan-yildirim",
@@ -409,16 +587,34 @@ export const BRANDS: Brand[] = [
     listService: "Dijital Pazarlama & Performans Pazarlama",
     year: "2023",
     hero: { type: "image", src: "/assets/brands/utkanyildirim/banner.jpg" },
-    services: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
+    services: ["Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     headline: "Mimarlık Sektöründe Dijital Pazarlama",
     intro:
-      "Utkan Yıldırım Design markasının dijitaldeki pazar payını ve marka bilinirliğini artırmak amacıyla bütüncül bir dijital pazarlama kurgusu hayata geçirdik. Markanın estetik çizgisini yansıtan statik içerikler ve yüksek etkileşim odaklı Reels videolarından oluşan aylık sosyal medya içerik takvimlerini yönetirken; performans pazarlama operasyonlarımızla hedef kitleye doğrudan ulaşarak markaya nitelikli müşteri talepleri ve dönüşüm kazandırdık.",
+      "Utkan Yıldırım Design markasının marka konumlandırmasını inşa etmek ve marka bilinirliğini artırmak amacıyla bütüncül bir dijital pazarlama kurgusu hayata geçirdik. Markanın estetik çizgisini yansıtan statik içerikler ve yüksek etkileşim odaklı Reels kurgularımız ile hedef kitleye doğrudan ulaşarak markaya nitelikli müşteri talepleri ve dönüşüm kazandırdık.",
     meta: {
       musteri: "Utkan Yıldırım Design",
       tarih: "2023",
-      sure: "3 ay",
-      proje: ["Dijital Pazarlama", "Performans Pazarlama", "Kreatif Tasarım Hizmetleri"],
+      sure: "9 ay",
+      proje: ["Dijital Pazarlama", "Kreatif Tasarım Hizmetleri"],
     },
+    // Döküman: "yan yana 3 tane... her satırda 3'lü banner ile 9'lu grid"
+    gallery: [
+      {
+        kind: "grid",
+        cols: 3,
+        items: [
+          { type: "image", src: "/assets/brands/utkanyildirim/g1.png" },
+          { type: "image", src: "/assets/brands/utkanyildirim/g2.jpg" },
+          { type: "image", src: "/assets/brands/utkanyildirim/g3.jpg" },
+          { type: "image", src: "/assets/brands/utkanyildirim/g4.jpg" },
+          { type: "image", src: "/assets/brands/utkanyildirim/g5.png" },
+          { type: "image", src: "/assets/brands/utkanyildirim/g6.jpg" },
+          { type: "video", src: "/assets/brands/utkanyildirim/g7.mp4" },
+          { type: "video", src: "/assets/brands/utkanyildirim/g8.mp4" },
+          { type: "video", src: "/assets/brands/utkanyildirim/g9.mp4" },
+        ],
+      },
+    ],
   },
   {
     slug: "qui-prive",
@@ -437,6 +633,18 @@ export const BRANDS: Brand[] = [
       sure: "—",
       proje: ["Prodüksiyon", "Post-Prodüksiyon", "Marka Tanıtım Filmi"],
     },
+    // Döküman: "yan yana 3 tane"
+    gallery: [
+      {
+        kind: "grid",
+        cols: 3,
+        items: [
+          { type: "video", src: "/assets/brands/quiprive/g1.mp4" },
+          { type: "image", src: "/assets/brands/quiprive/g2.jpg" },
+          { type: "video", src: "/assets/brands/quiprive/g3.mp4" },
+        ],
+      },
+    ],
   },
 ];
 

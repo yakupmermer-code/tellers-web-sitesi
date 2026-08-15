@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <section className="flex min-h-[70dvh] flex-col items-center justify-center px-5 pt-24 text-center">
       <p className="font-didot text-lg italic text-navy/50">404</p>
-      <h1 className="mt-4 text-3xl font-bold tracking-tight text-navy md:text-5xl">
+      <h1 className="mt-4 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
         Aradığınız sayfa <em className="font-didot font-normal italic">anlamını</em>{" "}
         yitirmiş.
       </h1>

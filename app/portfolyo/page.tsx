@@ -34,7 +34,7 @@ export default function PortfolyoPage() {
       {/* ── Tasarım felsefesi (temanın orijinal yerleşimi) ── */}
       <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
         <Reveal mask>
-          <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-5xl">
+          <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Tasarım, tellers için estetik değil,{" "}
             <em className="font-didot font-normal italic">anlamın mekansal</em>{" "}
             organizasyonudur.
@@ -50,7 +50,7 @@ export default function PortfolyoPage() {
             </p>
             <p>
               Her görsel karar, bir düşüncenin fiziksel karşılığıdır. Bu yüzden
-              Tellers&apos;ın her projesi, bilgiden duyguya, kavramdan forma
+              tellers&apos;ın her projesi, bilgiden duyguya, kavramdan forma
               uzanan anlamın yolculuğu gibidir.
             </p>
           </div>
@@ -74,7 +74,7 @@ export default function PortfolyoPage() {
                     sizes="(min-width: 640px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
-                  <p className="absolute bottom-5 left-5 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  <p className="absolute bottom-5 left-5 text-2xl font-bold tracking-tight text-white md:text-[36px]">
                     {b.name}
                   </p>
                 </div>

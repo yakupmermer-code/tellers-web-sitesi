@@ -6,8 +6,12 @@ import { SITE, PHONE_READY } from "@/content/site";
 /**
  * Sayfa bitiş imajı — ekip fotoğrafı üzerinde iki tıklanabilir alan:
  * soldaki "görüşme planlayın." → arama, sağdaki "whatsapp'tan yazın." → WhatsApp.
- * Ekip notu gereği referans logo bandı bu görselin hemen altında verilir
- * (marka detay sayfalarında withRefLogos=false ile bant gizlenir).
+ * Linkler görselin İÇİNE basılı yazıların üstüne konumlanır; bu yüzden hedefleri
+ * KapanisSection'daki aynı iki cümleyle birebir aynı olmak zorunda.
+ * AÇIK KARAR (2026-08-15): revize dökümanı "soldaki maile" diyor ama görselde
+ * "görüşme planlayın." yazıyor — çelişki Yakup'a soruldu, cevap gelene kadar
+ * mevcut (tel:) davranış korunuyor.
+ * Ekip notu gereği referans logo bandı bu görselin hemen altında verilir.
  */
 export default function ClosingCta({
   withRefLogos = true,

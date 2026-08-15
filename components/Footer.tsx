@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
-            <h2 className="text-4xl font-bold tracking-tight text-navy md:text-6xl">
+            <h2 className="text-4xl font-bold tracking-tight text-navy md:text-[96px]">
               Birlikte çalışalım?
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-navy/70">

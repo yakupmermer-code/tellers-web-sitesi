@@ -37,22 +37,22 @@ export default function HomePage() {
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
-          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-6xl">
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Global devlerin
             <br />
             tercihi, tellers.
           </h2>
-          <p className="mt-1.5 text-lg text-navy md:text-xl">
+          <p className="mt-1.5 text-lg text-navy md:text-[22px]">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>
         </Reveal>
         <Reveal delay={0.1} className="flex flex-col justify-center">
-          <p className="text-lg leading-relaxed text-navy md:text-xl">
+          <p className="text-lg leading-relaxed text-navy md:text-[22px]">
             7 yılda, 3 kıta ve 15 ülkede; sağlık, otomotiv, spor ve kozmetik
             sektörlerindeki ortaklarımızla onlarca iletişim stratejisi ve
             kampanyaya imza attık.
           </p>
-          <p className="mt-6 text-lg leading-relaxed text-navy md:text-xl">
+          <p className="mt-6 text-lg leading-relaxed text-navy md:text-[22px]">
             Bugün ise, Birleşik Krallık, Avrupa ve Ortadoğu pazarlarındaki
             markalarımızla faaliyetlerimizi devam ettiriyoruz.
           </p>
@@ -76,10 +76,10 @@ export default function HomePage() {
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-40">
         <div className="md:sticky md:top-32 md:self-start">
           <Reveal mask>
-            <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-7xl">
+            <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-[112px]">
               <CountUp value="22.872.000 $" />
             </h2>
-            <p className="mt-1.5 text-lg text-navy md:text-xl">
+            <p className="mt-1.5 text-lg text-navy md:text-[22px]">
               Bugüne kadar{" "}
               <em className="font-didot italic">yönettiğimiz</em> toplam reklam
               bütçesi.
@@ -128,7 +128,7 @@ export default function HomePage() {
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
         <div className="md:sticky md:top-32 md:self-start">
           <Reveal mask>
-            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
+            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
               Duyulan unutulur,
               <br />
               <em className="font-didot font-normal italic">anlaşılan</em> kalır.
@@ -229,7 +229,7 @@ export default function HomePage() {
       {/* ── TASARIM MANİFESTOSU (5.png) ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-40">
         <Reveal mask>
-          <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-6xl">
+          <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-[96px]">
             Tasarım, tellers için estetik değil,{" "}
             <em className="font-didot font-normal italic">anlamın mekansal</em>{" "}
             organizasyonudur.
@@ -240,34 +240,44 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI + VİDEO ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-32">
-        <Reveal mask>
-          <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
-            İletişim; <em className="font-didot font-normal italic">anlamın</em>
-            <br />
-            dolaşımı.
-          </h2>
-        </Reveal>
-        {/* Ekip notu: bu alana marka videosu gelecek (çalışılıyor) — geçici atmosfer videosu */}
-        <Reveal delay={0.1} className="mt-12">
-          <HeroVideo className="aspect-video w-full rounded-none object-cover" inline />
-        </Reveal>
-      </section>
+      {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI + VİDEO ──
+          Gri fon (ekip notu 2026-08-14): üstteki "Tasarım manifestosu" ve
+          alttaki "Veri; anlamın kökeni" metin alanları arasına giren bu bölüm
+          gri fonla ayrılır — üç metin bloğu birbirine yapışık okunmasın. */}
+      <div className="bg-mist">
+        <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+          <Reveal mask>
+            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
+              İletişim;{" "}
+              <em className="font-didot font-normal italic">anlamın</em>
+              <br />
+              dolaşımı.
+            </h2>
+          </Reveal>
+          {/* Ekip notu: bu alana marka videosu gelecek (çalışılıyor) — geçici atmosfer videosu */}
+          <Reveal delay={0.1} className="mt-12">
+            <HeroVideo
+              className="aspect-video w-full rounded-none object-cover"
+              inline
+            />
+          </Reveal>
+        </section>
+      </div>
 
-      {/* ── VERİ; ANLAMIN KÖKENİ ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-40">
+      {/* ── VERİ; ANLAMIN KÖKENİ ──
+          pt: üstteki gri bandın kenarına yapışmasın. */}
+      <section className="mx-auto max-w-[1440px] px-5 pb-24 pt-24 md:px-10 md:pb-40 md:pt-32">
         <Reveal mask>
-          <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-6xl">
+          <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
             Veri; <em className="font-didot font-normal italic">anlamın</em>
             <br />
             kökeni.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="mt-10 flex max-w-none flex-col gap-6 text-lg leading-relaxed text-navy/75 md:text-xl">
+          <div className="mt-10 flex max-w-none flex-col gap-6 text-lg leading-relaxed text-navy/75 md:text-[22px]">
             <p>
-              Tellers, veriye yalnızca bir sayı dizisi olarak bakmaz. Veri,
+              tellers, veriye yalnızca bir sayı dizisi olarak bakmaz. Veri,
               insan davranışının sessiz hikâyesidir. Rakamların ardındaki
               niyeti, duyguyu, kültürel kodu çözümleyerek bilgiyi içgörüye,
               içgörüyü anlama dönüştürür. Bu süreçte anlam, soyut bir fikir
@@ -281,13 +291,23 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── HİZMETLER SLIDE'LARI ── */}
-      <section aria-label="Hizmetlerimiz">
+      {/* ── HİZMETLER SLIDE'LARI — üst üste sabitlenen kart yığını ──
+          Temanın (Arpeggio) imza efekti: her slide tam ekran yüksekliğinde ve
+          `sticky top-0` ile ekrana çakılır; kaydırdıkça bir sonraki slide
+          öncekinin ÜSTÜNE biner. Kapsayıcının yüksekliği kart sayısı × 100dvh
+          olarak kendiliğinden oluşur — ekstra JS gerekmez.
+          DİKKAT: sticky elemanlar Reveal ile SARILMAZ; Reveal transform
+          uyguluyor, transform'lu bir ata sticky'yi viewport'a değil kendine
+          göre sabitler ve efekt ölür. */}
+      <section aria-label="Hizmetlerimiz" className="relative">
         {SERVICES.map((s) => (
-          <Reveal key={s.slug}>
+          <div
+            key={s.slug}
+            className="sticky top-0 h-[100dvh] overflow-hidden"
+          >
             <Link
               href="/hizmetlerimiz"
-              className="group relative block overflow-hidden"
+              className="group relative block h-full w-full overflow-hidden"
             >
               {s.slideVideo ? (
                 <video
@@ -298,7 +318,7 @@ export default function HomePage() {
                   playsInline
                   preload="metadata"
                   aria-label={`${s.titleTr} — ${s.summary}`}
-                  className="h-auto w-full transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
                 />
               ) : (
                 <Image
@@ -306,7 +326,7 @@ export default function HomePage() {
                   alt={`${s.titleTr} — ${s.summary}`}
                   width={1920}
                   height={900}
-                  className="h-auto w-full transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
                   sizes="100vw"
                 />
               )}
@@ -314,15 +334,15 @@ export default function HomePage() {
                 <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                   {s.eyebrow}
                 </span>
-                <h3 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-6xl">
-                  {s.titleEn}
+                <h3 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-[96px]">
+                  {s.titleTr}
                 </h3>
                 <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
                   {s.summary}
                 </p>
               </div>
             </Link>
-          </Reveal>
+          </div>
         ))}
       </section>
 
@@ -333,8 +353,10 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── SAYFA BİTİŞ İMAJI ── (referans bandı sayfanın üstünde zaten var) */}
-      <ClosingCta withRefLogos={false} />
+      {/* ── SAYFA BİTİŞ İMAJI + referans logo bandı ──
+          Ekip notu (2026-08-14): logo bandı ekip görselinin hemen altında da
+          yer alacak (diğer tüm sayfalarla aynı kapanış deseni). */}
+      <ClosingCta />
     </>
   );
 }

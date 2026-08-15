@@ -29,7 +29,7 @@ function WideCard({ blog: b }: { blog: Blog }) {
           />
         </div>
         <div className="flex flex-col justify-center">
-          <h2 className="text-2xl font-bold leading-snug tracking-tight text-navy md:text-4xl">
+          <h2 className="text-2xl font-bold leading-snug tracking-tight text-navy md:text-[48px]">
             {b.title}
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-navy/60 md:text-lg">
@@ -72,25 +72,27 @@ export default function BlogPage() {
         {/* Geniş kart (temadaki 1. blog alanı) */}
         <WideCard blog={first} />
 
-        {/* Orta grid */}
-        <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Orta alan — ekip notu (2026-08-15): temadaki gibi İKİLİ banner
+            sıraları. Üstteki geniş kart → ikili banner satırları → footer'dan
+            hemen önce aynı geniş karttan bir tane daha. */}
+        <div className="grid gap-x-6 gap-y-16 md:grid-cols-2">
           {middle.map((b, i) => (
-            <Reveal key={b.slug} delay={0.04 * (i % 3)}>
+            <Reveal key={b.slug} delay={0.05 * (i % 2)}>
               <Link href={`/blog/${b.slug}`} className="group block">
                 <div className="overflow-hidden">
                   <Image
                     src={b.image}
                     alt={b.title}
-                    width={720}
-                    height={540}
+                    width={1200}
+                    height={900}
                     className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                   />
                 </div>
-                <h2 className="mt-5 text-lg font-bold leading-snug tracking-tight text-navy md:text-xl">
+                <h2 className="mt-6 text-xl font-bold leading-snug tracking-tight text-navy md:text-[30px]">
                   {b.title}
                 </h2>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-navy/55">
+                <p className="mt-3 line-clamp-2 text-base leading-relaxed text-navy/55 md:text-lg">
                   {b.excerpt}
                 </p>
               </Link>

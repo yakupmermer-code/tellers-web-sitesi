@@ -36,6 +36,10 @@ export default function ContactForm({
     isim: "",
     email: "",
     telefon: "",
+    /** Kariyer: LinkedIn / Behance / Portfolyo linki */
+    link: "",
+    /** Kariyer: seçilen CV dosyasının adı (dosyanın kendisi mailto ile gönderilemez) */
+    cvAd: "",
     mesaj: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -56,7 +60,11 @@ export default function ContactForm({
           `İsim: ${data.isim}`,
           `E-posta: ${data.email}`,
           `Telefon: ${data.telefon}`,
-          `İlgilenilen pozisyon: ${data.hizmet}`,
+          `Başvurulan pozisyon: ${data.hizmet}`,
+          `LinkedIn / Behance / Portfolyo: ${data.link || "—"}`,
+          data.cvAd
+            ? `CV: ${data.cvAd} — LÜTFEN BU DOSYAYI E-POSTAYA EKLEYİN`
+            : "CV: eklenmedi",
           "",
           data.mesaj,
         ]
@@ -123,7 +131,9 @@ export default function ContactForm({
       </div>
       <div className={rowCls}>
         <label htmlFor="cf-hizmet" className={labelCls}>
-          {isKariyer ? "İlgilendiğiniz Pozisyon *" : "İhtiyacınız Olan Hizmet *"}
+          {isKariyer
+            ? "Başvurmak İstediğin Pozisyon *"
+            : "İhtiyacınız Olan Hizmet *"}
         </label>
         {isKariyer ? (
           <input
@@ -175,9 +185,47 @@ export default function ContactForm({
           </select>
         </div>
       )}
+      {isKariyer && (
+        <>
+          <div className={rowCls}>
+            <label htmlFor="cf-link" className={labelCls}>
+              LinkedIn / Behance / Portfolyo Linki
+            </label>
+            <input
+              id="cf-link"
+              type="url"
+              value={data.link}
+              onChange={(e) => set("link", e.target.value)}
+              placeholder="https://..."
+              className={inputCls}
+            />
+          </div>
+          <div className={rowCls}>
+            <label htmlFor="cf-cv" className={labelCls}>
+              CV Yükle
+            </label>
+            <div>
+              <input
+                id="cf-cv"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={(e) => set("cvAd", e.target.files?.[0]?.name ?? "")}
+                className="w-full text-base text-navy file:mr-4 file:cursor-pointer file:rounded-full file:border file:border-navy/20 file:bg-transparent file:px-5 file:py-2 file:text-[12px] file:uppercase file:tracking-[0.18em] file:text-navy/70"
+              />
+              {/* Sitede backend yok: dosya sunucuya yüklenmez, başvuru
+                  e-posta istemcisi üzerinden gider. Kullanıcıya açıkça söyle. */}
+              <p className="mt-2 text-[12px] leading-relaxed text-navy/45">
+                {data.cvAd
+                  ? `“${data.cvAd}” seçildi — gönder’e bastığınızda açılan e-postaya bu dosyayı ekleyin.`
+                  : "Dosyanızı seçin; açılan e-posta penceresine ek olarak eklemeniz gerekir."}
+              </p>
+            </div>
+          </div>
+        </>
+      )}
       <div className={rowCls}>
         <label htmlFor="cf-mesaj" className={labelCls}>
-          {isKariyer ? "Kendinizden Bahsedin *" : "Projenizden Bahsedin *"}
+          {isKariyer ? "Kendinden Kısaca Bahset *" : "Projenizden Bahsedin *"}
         </label>
         <textarea
           id="cf-mesaj"

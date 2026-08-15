@@ -17,7 +17,7 @@ export default function KapanisSection({
       <section className="bg-paper py-24 md:py-40">
         <div className="mx-auto max-w-[1100px] px-5 text-center md:px-10">
           <Reveal mask>
-            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-7xl">
+            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[112px]">
               Duyulan unutulur,{" "}
               <em className="font-didot font-normal italic">anlaşılan</em> kalır.
             </h2>

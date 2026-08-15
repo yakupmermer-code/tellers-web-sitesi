@@ -72,8 +72,8 @@ export default function HizmetlerimizPage() {
                 <span className="text-[11px] uppercase tracking-[0.22em] text-navy/40">
                   {s.eyebrow}
                 </span>
-                <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-5xl">
-                  {s.titleEn}
+                <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
+                  {s.titleTr}
                 </h2>
                 <p className="mt-2 text-lg font-bold text-navy">
                   {s.tagline}
@@ -134,13 +134,13 @@ export default function HizmetlerimizPage() {
       {/* ── Nasıl Yaparız? + Operasyonel Taahhütler ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
         <Reveal mask>
-          <h2 className="text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-6xl">
+          <h2 className="text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-[96px]">
             Nasıl Yaparız?
           </h2>
           <p className="mt-2 text-[12px] uppercase tracking-[0.2em] text-navy/60">
             Operasyonel Taahhütler
           </p>
-          <p className="mt-8 max-w-4xl text-lg leading-relaxed text-navy/70 md:text-xl">
+          <p className="mt-8 max-w-4xl text-lg leading-relaxed text-navy/70 md:text-[22px]">
             Gürültünün içinde{" "}
             <em className="font-didot italic text-navy">netlik üretir</em>;
             netliği stratejiye, stratejiyi deneyime, deneyimi{" "}
@@ -162,7 +162,7 @@ export default function HizmetlerimizPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-xl font-bold tracking-tight text-navy md:text-2xl">
+                  <h3 className="text-xl font-bold tracking-tight text-navy md:text-[28px]">
                     {item.t}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-navy/60">
