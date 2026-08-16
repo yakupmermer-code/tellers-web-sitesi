@@ -219,6 +219,8 @@ export const BRANDS: Brand[] = [
     },
     // Döküman: 3 story videosu (Akvaryum / Kaykay / Saat Kulesi)
     gallery: [
+      // Ekip notu (2026-08-15): "Diğer Projeler"in üstündeki büyük görsel alanı
+      { kind: "image", src: "/assets/brands/savron/banner.png", wide: true },
       {
         kind: "grid",
         cols: 3,
@@ -368,7 +370,7 @@ export const BRANDS: Brand[] = [
   },
   {
     slug: "bfit",
-    name: "bfit",
+    name: "b-fit",
     banner: "/assets/brands/bfit/banner.jpg",
     listService: "Markalama & Performans Pazarlama",
     year: "2023-Devam ediyor",
@@ -382,9 +384,9 @@ export const BRANDS: Brand[] = [
     headline:
       "Türkiye\'nin En Büyük Spor Franchise Markasına Markalama",
     intro:
-      "Türkiye'nin en büyük spor franchise markası olan bfit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Ölçülebilir veri odaklı performans pazarlama operasyonumuz ile markamızın franchise satışları için lead akışı sağlıyor; dijital pazarlama operasyonumuz ve yaratıcı konsept tasarımlarımız ile marka konumlandırması ve tüm hedef kitle iletişimlerini yöneterek her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
+      "Türkiye'nin en büyük spor franchise markası olan b-fit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Ölçülebilir veri odaklı performans pazarlama operasyonumuz ile markamızın franchise satışları için lead akışı sağlıyor; dijital pazarlama operasyonumuz ve yaratıcı konsept tasarımlarımız ile marka konumlandırması ve tüm hedef kitle iletişimlerini yöneterek her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
     meta: {
-      musteri: "bfit",
+      musteri: "b-fit",
       tarih: "01.12.2024 - Devam Ediyor",
       sure: "Devam Ediyor",
       proje: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],
@@ -582,6 +584,11 @@ export const BRANDS: Brand[] = [
       sure: "3 Ay",
       proje: ["Post-Prodüksiyon", "Prodüksiyon", "Cast", "Kreatif Tasarım Hizmetleri"],
     },
+    // Ekip notu (2026-08-15): "Diğer Projeler"in üstündeki büyük görsel alanı.
+    // Döküman: "Bu büyük görsel alanına linkteki görsel eklenecek" (minousha.jpg)
+    gallery: [
+      { kind: "image", src: "/assets/brands/minousha/banner.jpg", wide: true },
+    ],
   },
   {
     slug: "anatolian-stars",

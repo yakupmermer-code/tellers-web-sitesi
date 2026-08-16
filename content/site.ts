@@ -39,7 +39,7 @@ export const REF_LOGOS = [
   { file: "bardahl", name: "Bardahl" },
   { file: "baush", name: "Bausch + Lomb" },
   { file: "bensecerim", name: "Ben Seçerim" },
-  { file: "bfit", name: "bfit" },
+  { file: "bfit", name: "b-fit" },
   { file: "bni", name: "BNI" },
   { file: "crowneplaza", name: "Crowne Plaza" },
   { file: "dedebio", name: "Dedebio" },
