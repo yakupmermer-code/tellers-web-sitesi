@@ -9,7 +9,10 @@ import { REF_LOGOS } from "@/content/site";
 export default function RefLogoBand() {
   const logos = [...REF_LOGOS, ...REF_LOGOS]; // kesintisiz döngü için çift liste
   return (
-    <section aria-label="Referanslarımız" className="overflow-hidden bg-navy py-8 md:py-10">
+    <section
+      aria-label="Referanslarımız"
+      className="overflow-hidden bg-navy py-8 md:py-10"
+    >
       <div className="animate-marquee flex w-max items-center gap-16 md:gap-20">
         {logos.map((logo, i) => (
           <Image

@@ -53,7 +53,9 @@ export default function ContactForm({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const subject = encodeURIComponent(
-      isKariyer ? `Kariyer başvurusu — ${data.isim}` : `Yeni proje talebi — ${data.isim}`
+      isKariyer
+        ? `Kariyer başvurusu — ${data.isim}`
+        : `Yeni proje talebi — ${data.isim}`,
     );
     const lines = isKariyer
       ? [
@@ -88,7 +90,10 @@ export default function ContactForm({
     "w-full bg-transparent text-lg text-navy outline-none placeholder:text-navy/30";
 
   return (
-    <form onSubmit={handleSubmit} aria-label={isKariyer ? "Başvuru formu" : "İletişim formu"}>
+    <form
+      onSubmit={handleSubmit}
+      aria-label={isKariyer ? "Başvuru formu" : "İletişim formu"}
+    >
       <div className={rowCls}>
         <label htmlFor="cf-isim" className={labelCls}>
           Ad Soyad *
@@ -243,10 +248,10 @@ export default function ContactForm({
       </div>
       <button
         type="submit"
-        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-8 py-4 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-8 py-4 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
       >
         {isKariyer ? "Başvurunuzu Gönderin" : "Gönderin"}
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
           ↗
         </span>
       </button>
@@ -254,7 +259,10 @@ export default function ContactForm({
         <p role="status" className="mt-6 text-sm leading-relaxed text-navy/60">
           E-posta uygulamanız açıldıysa mesajınızı oradan gönderebilirsiniz.
           Açılmadıysa bize doğrudan{" "}
-          <a href={`mailto:${SITE.email}`} className="font-bold text-navy underline underline-offset-4">
+          <a
+            href={`mailto:${SITE.email}`}
+            className="font-bold text-navy underline underline-offset-4"
+          >
             {SITE.email}
           </a>{" "}
           adresinden yazın.

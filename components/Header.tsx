@@ -6,8 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV, SITE } from "@/content/site";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { EASE } from "./motion";
 
 export default function Header() {
   const pathname = usePathname();
@@ -54,14 +53,18 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-[var(--ease-lux)] ${
           scrolled || open
             ? "bg-white/85 backdrop-blur-xl shadow-[0_1px_0_rgba(10,10,71,0.08)]"
             : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-24 max-w-[1440px] items-center justify-between px-5 md:px-10">
-          <Link href="/" aria-label="tellers ana sayfa" className="relative z-50">
+          <Link
+            href="/"
+            aria-label="tellers ana sayfa"
+            className="relative z-50"
+          >
             <Image
               src="/assets/logo/tellers-logo.png"
               alt="tellers"
@@ -74,7 +77,10 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Ana menü">
+          <nav
+            className="hidden items-center gap-8 lg:flex"
+            aria-label="Ana menü"
+          >
             {NAV.map((item) => {
               const active =
                 item.href === "/"
@@ -84,7 +90,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`group/nav relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  className={`group/nav relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[var(--ease-lux)] ${
                     onDarkHero
                       ? active
                         ? "text-white"
@@ -96,7 +102,7 @@ export default function Header() {
                 >
                   {item.label}
                   <span
-                    className={`absolute -bottom-1.5 left-0 h-px transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`absolute -bottom-1.5 left-0 h-px transition-all duration-500 ease-[var(--ease-lux)] ${
                       onDarkHero ? "bg-white" : "bg-navy"
                     } ${active ? "w-full" : "w-0 group-hover/nav:w-full"}`}
                   />
@@ -113,18 +119,14 @@ export default function Header() {
             className="relative z-50 flex h-11 w-11 items-center justify-center lg:hidden"
           >
             <span
-              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              onDarkHero ? "bg-white" : "bg-navy"
-            } ${
-                open ? "rotate-45" : "-translate-y-[4px]"
-              }`}
+              className={`absolute h-px w-6 transition-transform duration-500 ease-[var(--ease-lux)] ${
+                onDarkHero ? "bg-white" : "bg-navy"
+              } ${open ? "rotate-45" : "-translate-y-[4px]"}`}
             />
             <span
-              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              onDarkHero ? "bg-white" : "bg-navy"
-            } ${
-                open ? "-rotate-45" : "translate-y-[4px]"
-              }`}
+              className={`absolute h-px w-6 transition-transform duration-500 ease-[var(--ease-lux)] ${
+                onDarkHero ? "bg-white" : "bg-navy"
+              } ${open ? "-rotate-45" : "translate-y-[4px]"}`}
             />
           </button>
         </div>
@@ -144,7 +146,7 @@ export default function Header() {
           >
             <nav
               aria-label="Mobil menü"
-              className="flex h-full flex-col justify-center gap-2 px-8 pt-24"
+              className="flex h-full flex-col justify-center gap-2 overflow-y-auto px-8 py-28"
             >
               {NAV.map((item, i) => (
                 <motion.div
@@ -167,10 +169,18 @@ export default function Header() {
                 transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
                 className="mt-10 flex gap-6 text-[12px] uppercase tracking-[0.2em] text-navy/50"
               >
-                <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={SITE.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Instagram
                 </a>
-                <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={SITE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   LinkedIn
                 </a>
                 <a href={`mailto:${SITE.email}`}>E-Posta</a>

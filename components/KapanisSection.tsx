@@ -14,47 +14,48 @@ export default function KapanisSection({
 }) {
   return (
     <>
-      <section className="bg-paper py-24 md:py-40">
+      <section className="bg-paper py-28 md:py-40">
         <div className="mx-auto max-w-[1100px] px-5 text-center md:px-10">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[112px]">
               Duyulan unutulur,{" "}
-              <em className="font-didot font-normal italic">anlaşılan</em> kalır.
+              <em className="font-didot font-normal italic">anlaşılan</em>{" "}
+              kalır.
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-          <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-navy/60 md:text-lg">
-            Sorularınız, işbirlikleri ve yeni projeler için proje
-            koordinatörlerimiz ile birebir görüşme sağlayabilirsiniz.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-10">
-            {PHONE_READY ? (
-              <>
+            <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-navy/60 md:text-lg">
+              Sorularınız, işbirlikleri ve yeni projeler için proje
+              koordinatörlerimiz ile birebir görüşme sağlayabilirsiniz.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-10">
+              {PHONE_READY ? (
+                <>
+                  <a
+                    href={`tel:${SITE.phone}`}
+                    className="link-grow text-sm font-bold text-navy"
+                  >
+                    görüşme planlayın.
+                  </a>
+                  <a
+                    href={SITE.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-grow text-sm font-bold text-navy"
+                  >
+                    whatsapp&apos;tan yazın.
+                  </a>
+                </>
+              ) : (
+                /* Numara gelene kadar tıklanabilir olmayan tek CTA: e-posta */
                 <a
-                  href={`tel:${SITE.phone}`}
+                  href={`mailto:${SITE.email}`}
                   className="link-grow text-sm font-bold text-navy"
                 >
-                  görüşme planlayın.
+                  bize yazın: {SITE.email}
                 </a>
-                <a
-                  href={SITE.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-grow text-sm font-bold text-navy"
-                >
-                  whatsapp&apos;tan yazın.
-                </a>
-              </>
-            ) : (
-              /* Numara gelene kadar tıklanabilir olmayan tek CTA: e-posta */
-              <a
-                href={`mailto:${SITE.email}`}
-                className="link-grow text-sm font-bold text-navy"
-              >
-                bize yazın: {SITE.email}
-              </a>
-            )}
-          </div>
+              )}
+            </div>
           </Reveal>
         </div>
       </section>

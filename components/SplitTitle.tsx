@@ -22,9 +22,7 @@ export default function SplitTitle({
       className={`text-navy font-bold leading-[1.05] tracking-tight ${className}`}
     >
       {bold}{" "}
-      {accent && (
-        <em className="font-didot font-normal italic">{accent}</em>
-      )}
+      {accent && <em className="font-didot font-normal italic">{accent}</em>}
       {boldAfter && <> {boldAfter}</>}
     </Tag>
   );

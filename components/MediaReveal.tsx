@@ -1,6 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef, type ReactNode } from "react";
 
 /**
@@ -36,7 +41,11 @@ export default function MediaReveal({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [`-${amount}%`, `${amount}%`]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`-${amount}%`, `${amount}%`],
+  );
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, scaleTo, 1]);
 
   return (

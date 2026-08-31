@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
+import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -38,7 +38,7 @@ export default function KariyerPage() {
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Kariyer", yol: "/kariyer" },
-          ])
+          ]),
         )}
       />
       {/* ── Ana slide ── */}
@@ -57,7 +57,7 @@ export default function KariyerPage() {
       </section>
 
       {/* ── Giriş metni ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
         <Reveal mask>
           <h1 className="max-w-4xl text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir
@@ -79,7 +79,7 @@ export default function KariyerPage() {
       <div className="bg-mist">
         <section
           id="basvuru"
-          className="mx-auto max-w-[900px] px-5 py-24 md:px-10 md:py-32"
+          className="mx-auto max-w-[900px] px-5 py-28 md:px-10 md:py-32"
         >
           <Reveal mask>
             <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[48px]">
@@ -97,7 +97,7 @@ export default function KariyerPage() {
       </div>
 
       {/* ── Aradığımız ekip arkadaşı ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <Reveal mask>
             <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">

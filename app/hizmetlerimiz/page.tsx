@@ -70,12 +70,12 @@ export default function HizmetlerimizPage() {
           }),
           hizmetListesiSemasi(
             SERVICES.map((s) => ({ ad: s.titleTr, aciklama: s.summary })),
-            "/hizmetlerimiz"
+            "/hizmetlerimiz",
           ),
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Hizmetlerimiz", yol: "/hizmetlerimiz" },
-          ])
+          ]),
         )}
       />
       <h1 className="sr-only">Hizmetlerimiz</h1>
@@ -84,7 +84,7 @@ export default function HizmetlerimizPage() {
         <MediaReveal>
           <video
             src="/assets/services/hero.mp4"
-              poster="/assets/services/hero-poster.jpg"
+            poster="/assets/services/hero-poster.jpg"
             autoPlay
             muted
             loop
@@ -97,7 +97,7 @@ export default function HizmetlerimizPage() {
       </section>
 
       {/* ── 4 hizmet bloğu ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
         {SERVICES.map((s) => (
           <Reveal key={s.slug}>
             <article
@@ -111,9 +111,7 @@ export default function HizmetlerimizPage() {
                 <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
                   {s.titleTr}
                 </h2>
-                <p className="mt-2 text-lg font-bold text-navy">
-                  {s.tagline}
-                </p>
+                <p className="mt-2 text-lg font-bold text-navy">{s.tagline}</p>
                 <p className="mt-4 text-lg leading-relaxed text-navy/80">
                   {s.detail}
                 </p>
@@ -147,19 +145,19 @@ export default function HizmetlerimizPage() {
           <div className="absolute inset-y-0 right-5 hidden flex-col items-end justify-center gap-5 md:right-14 md:flex">
             <Link
               href="/portfolyo"
-              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
             >
               Portföyümüzü İnceleyin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>
             <Link
               href="/iletisim"
-              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
             >
               Bizimle İletişime Geçin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>
@@ -168,7 +166,7 @@ export default function HizmetlerimizPage() {
       </Reveal>
 
       {/* ── Nasıl Yaparız? + Operasyonel Taahhütler ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-[96px]">
             Nasıl Yaparız?
@@ -180,7 +178,9 @@ export default function HizmetlerimizPage() {
             Gürültünün içinde{" "}
             <em className="font-didot italic text-navy">netlik üretir</em>;
             netliği stratejiye, stratejiyi deneyime, deneyimi{" "}
-            <em className="font-didot italic text-navy">ölçülebilir büyümeye</em>{" "}
+            <em className="font-didot italic text-navy">
+              ölçülebilir büyümeye
+            </em>{" "}
             çeviririz. En yalın haliyle markalar için{" "}
             <em className="font-didot italic text-navy">davranış, kültür</em> ve{" "}
             <em className="font-didot italic text-navy">algı</em> düzeyinde{" "}
@@ -212,7 +212,7 @@ export default function HizmetlerimizPage() {
       </section>
 
       {/* ── Blog 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
-      <section className="pb-24 md:pb-36">
+      <section className="pb-28 md:pb-40">
         <Reveal>
           <BlogSlider />
         </Reveal>

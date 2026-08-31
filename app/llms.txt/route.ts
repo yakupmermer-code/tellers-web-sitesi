@@ -34,7 +34,7 @@ export function GET() {
     "## Hizmetler",
     "",
     ...SERVICES.map(
-      (s) => `- **${s.titleTr}**: ${s.summary} (${SITE_URL}/hizmetlerimiz)`
+      (s) => `- **${s.titleTr}**: ${s.summary} (${SITE_URL}/hizmetlerimiz)`,
     ),
     "",
     "## Portfolyo — markalar ve yapılan işler",
@@ -45,13 +45,13 @@ export function GET() {
       (b) =>
         `- [${b.name}](${SITE_URL}/portfolyo/${b.slug}) — ${b.headline}. ` +
         `Hizmetler: ${b.services.join(", ")}.` +
-        (b.tarihTeyitsiz ? "" : ` Dönem: ${b.year}.`)
+        (b.tarihTeyitsiz ? "" : ` Dönem: ${b.year}.`),
     ),
     "",
     "## Blog yazıları",
     "",
     ...BLOGS.map(
-      (b) => `- [${b.title}](${SITE_URL}/blog/${b.slug}) — ${b.excerpt}`
+      (b) => `- [${b.title}](${SITE_URL}/blog/${b.slug}) — ${b.excerpt}`,
     ),
     "",
     "## Diğer sayfalar",

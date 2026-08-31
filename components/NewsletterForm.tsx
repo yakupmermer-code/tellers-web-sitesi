@@ -15,14 +15,17 @@ export default function NewsletterForm() {
     e.preventDefault();
     const subject = encodeURIComponent("Yeni proje / iletişim talebi");
     const body = encodeURIComponent(
-      `Merhaba tellers ekibi,\n\nİletişime geçmek istiyorum.\n\nE-posta: ${email}`
+      `Merhaba tellers ekibi,\n\nİletişime geçmek istiyorum.\n\nE-posta: ${email}`,
     );
     window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col justify-center gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-center gap-4"
+    >
       <label
         htmlFor="newsletter-email"
         className="text-[11px] uppercase tracking-[0.2em] text-navy/40"
@@ -41,10 +44,10 @@ export default function NewsletterForm() {
         />
         <button
           type="submit"
-          className="group flex w-max items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+          className="group flex w-max items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
         >
           Gönderin
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
             ↗
           </span>
         </button>
@@ -52,7 +55,10 @@ export default function NewsletterForm() {
       {submitted && (
         <p role="status" className="text-sm leading-relaxed text-navy/60">
           E-posta uygulamanız açılmadıysa bize doğrudan{" "}
-          <a href={`mailto:${SITE.email}`} className="font-bold text-navy underline underline-offset-4">
+          <a
+            href={`mailto:${SITE.email}`}
+            className="font-bold text-navy underline underline-offset-4"
+          >
             {SITE.email}
           </a>{" "}
           adresinden yazın.

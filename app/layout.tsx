@@ -96,7 +96,11 @@ export default function RootLayout({
           İçeriğe atla
         </a>
         {/* Font CDN'ine erken bağlantı (render blokajını kısaltır) */}
-        <link rel="preconnect" href="https://fonts.cdnfonts.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://fonts.cdnfonts.com"
+          crossOrigin=""
+        />
         {/* JS kapalıysa animasyonla gizlenen bölümleri görünür kıl */}
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>

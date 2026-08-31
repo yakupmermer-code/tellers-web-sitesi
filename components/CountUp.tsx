@@ -37,9 +37,7 @@ export default function CountUp({
       const t = Math.min((now - start) / (duration * 1000), 1);
       const eased = 1 - Math.pow(1 - t, 4); // easeOutQuart — sonlara doğru yavaşlar
       const current = Math.round(target * eased);
-      const text = hasSep
-        ? current.toLocaleString("tr-TR")
-        : String(current);
+      const text = hasSep ? current.toLocaleString("tr-TR") : String(current);
       setDisplay(value.replace(raw, text));
       if (t < 1) raf = requestAnimationFrame(tick);
     };
@@ -48,7 +46,8 @@ export default function CountUp({
   }, [inView, reduced]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Sayı yoksa veya hareket azaltılmışsa direkt değeri göster
-  const text = !match || reduced ? value : (display ?? value.replace(match[0], "0"));
+  const text =
+    !match || reduced ? value : (display ?? value.replace(match[0], "0"));
 
   return (
     <span ref={ref} className={className}>

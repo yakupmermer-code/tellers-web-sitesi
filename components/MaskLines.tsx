@@ -26,11 +26,11 @@ export default function MaskLines({
 }: {
   lines: ReactNode[];
   /**
-   * Ekran okuyucunun okuyacağı tam metin. Satırlar <em> gibi etiket içeriyorsa
-   * ZORUNLU — yoksa o satırlar okunamaz. (Sadece string satırları birleştirmek
-   * sessiz metin kaybına yol açıyordu, code-reviewer bulgusu.)
+   * Ekran okuyucunun okuyacağı tam metin. TİP DÜZEYİNDE ZORUNLU: satırlar
+   * <em> gibi etiket içerdiğinde otomatik üretim sessizce metin kaybediyordu.
+   * "Yorumda zorunlu yazmak" yetmiyor — derleyici zorlamalı.
    */
-  label?: string;
+  label: string;
   className?: string;
   lineClassName?: string;
   delay?: number;
@@ -42,11 +42,7 @@ export default function MaskLines({
   const gorunur = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <Etiket
-      ref={ref}
-      className={className}
-      aria-label={label ?? lines.filter((l) => typeof l === "string").join(" ")}
-    >
+    <Etiket ref={ref} className={className} aria-label={label}>
       {lines.map((satir, i) => (
         <span key={i} aria-hidden className="block overflow-hidden">
           {/* pb: ğ/ç/y/ş kuyrukları kırpılmasın (Türkçe için 0.12em şart) */}

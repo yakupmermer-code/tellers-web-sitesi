@@ -102,7 +102,7 @@ export default async function BlogDetayPage({
   const idx = BLOGS.findIndex((b) => b.slug === blog.slug);
   const others = Array.from(
     { length: 3 },
-    (_, i) => BLOGS[(idx + 1 + i) % BLOGS.length]
+    (_, i) => BLOGS[(idx + 1 + i) % BLOGS.length],
   );
 
   return (
@@ -120,13 +120,13 @@ export default async function BlogDetayPage({
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Blog", yol: "/blog" },
             { ad: blog.title, yol: `/blog/${blog.slug}` },
-          ])
+          ]),
         )}
       />
       {/* Ekip notu (2026-08-14): başlık + "tellers — tarih" üstte kalır, hero
           görseli metin kolonundan çıkarılıp tam genişliğe alındı ve temanın
           perde açılma efekti (MediaReveal) ile açılır. */}
-      <article className="pb-24 pt-36 md:pt-44">
+      <article className="pb-28 pt-36 md:pt-44">
         <div className="mx-auto max-w-[900px] px-5 md:px-10">
           <Reveal mask>
             <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
@@ -172,10 +172,10 @@ export default async function BlogDetayPage({
             </div>
             <Link
               href={blog.cta.href}
-              className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+              className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
             >
               {blog.cta.label}
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>
@@ -184,7 +184,7 @@ export default async function BlogDetayPage({
       </article>
 
       {/* Diğer yazılar */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10">
         <Reveal mask>
           <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[48px]">
             Diğer Yazılar
@@ -200,7 +200,7 @@ export default async function BlogDetayPage({
                     alt={b.title}
                     width={640}
                     height={480}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
                     sizes="(min-width: 640px) 33vw, 100vw"
                   />
                 </div>

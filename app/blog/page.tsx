@@ -34,14 +34,17 @@ import type { Blog } from "@/content/blogs";
 function WideCard({ blog: b }: { blog: Blog }) {
   return (
     <Reveal>
-      <Link href={`/blog/${b.slug}`} className="group grid gap-8 md:grid-cols-2">
+      <Link
+        href={`/blog/${b.slug}`}
+        className="group grid gap-8 md:grid-cols-2"
+      >
         <div className="overflow-hidden">
           <Image
             src={b.image}
             alt={b.title}
             width={1200}
             height={800}
-            className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+            className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]"
             sizes="(min-width: 768px) 50vw, 100vw"
           />
         </div>
@@ -81,7 +84,7 @@ export default function BlogPage() {
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Blog", yol: "/blog" },
-          ])
+          ]),
         )}
       />
       <h1 className="sr-only">tellers Blog</h1>
@@ -100,7 +103,7 @@ export default function BlogPage() {
         </MediaReveal>
       </section>
 
-      <section className="mx-auto flex max-w-[1440px] flex-col gap-20 px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto flex max-w-[1440px] flex-col gap-20 px-5 py-28 md:px-10 md:py-40">
         {/* Geniş kart (temadaki 1. blog alanı) */}
         <WideCard blog={first} />
 
@@ -117,7 +120,7 @@ export default function BlogPage() {
                     alt={b.title}
                     width={1200}
                     height={900}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
                     sizes="(min-width: 768px) 50vw, 100vw"
                   />
                 </div>

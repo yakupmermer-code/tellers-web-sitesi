@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
+import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import KapanisSection from "@/components/KapanisSection";
@@ -47,7 +47,8 @@ const STATS = [
   },
   {
     value: "3 Kıta & 15 Ülke",
-    label: "Birleşik Krallık, Avrupa ve Ortadoğu'da aktif küresel operasyon ağı.",
+    label:
+      "Birleşik Krallık, Avrupa ve Ortadoğu'da aktif küresel operasyon ağı.",
   },
 ];
 
@@ -88,7 +89,7 @@ export default function HakkimizdaPage() {
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Hakkımızda", yol: "/hakkimizda" },
-          ])
+          ]),
         )}
       />
       {/* ── Daraltılmış ana slide ── */}
@@ -96,7 +97,7 @@ export default function HakkimizdaPage() {
         <MediaReveal>
           <video
             src="/assets/about/hero.mp4"
-              poster="/assets/about/hero-poster.jpg"
+            poster="/assets/about/hero-poster.jpg"
             autoPlay
             muted
             loop
@@ -109,7 +110,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Global devlerin tercihi ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
         <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Global devlerin tercihi, tellers.
@@ -125,14 +126,14 @@ export default function HakkimizdaPage() {
           tercihi" başlık alanından ayrılsın; gri fon ayıracın kendisi olduğu
           için üstteki ince çizgi kaldırıldı. */}
       <div className="bg-mist">
-        <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
           <Reveal>
             <p className="max-w-5xl text-2xl font-bold leading-snug tracking-tight text-navy md:text-[48px]">
-              7 yılda, 3 kıta, 15 ülkede Sağlık, Tarım, Savunma, Otomotiv, Spor ve
-              Kozmetik sektörlerindeki ortaklarıyla onlarca iletişim stratejisi ve
-              kampanyaya imza atan tellers, Birleşik Krallık, Avrupa ve Ortadoğu
-              pazarlarındaki markalarıyla iletişim faaliyetlerini devam
-              ettirmektedir.
+              7 yılda, 3 kıta, 15 ülkede Sağlık, Tarım, Savunma, Otomotiv, Spor
+              ve Kozmetik sektörlerindeki ortaklarıyla onlarca iletişim
+              stratejisi ve kampanyaya imza atan tellers, Birleşik Krallık,
+              Avrupa ve Ortadoğu pazarlarındaki markalarıyla iletişim
+              faaliyetlerini devam ettirmektedir.
             </p>
           </Reveal>
           <div className="mt-16 grid gap-10 md:grid-cols-2 md:gap-20">
@@ -140,19 +141,19 @@ export default function HakkimizdaPage() {
               <p className="text-lg leading-relaxed text-navy/75">
                 tellers&apos;ın amacı, markaların yalnızca duyulmasını değil
                 gerçekten anlaşılmasını sağlamaktır. Çünkü iletişim, bir ses
-                değil; bir anlam ilişkisidir. Anlam ilişkisi kurabilen her kampanya
-                ise sosyolojik bir iç görünün, psikolojik bir sezginin ve
-                ölçülebilir verilerin kesişiminde şekillenir.
+                değil; bir anlam ilişkisidir. Anlam ilişkisi kurabilen her
+                kampanya ise sosyolojik bir iç görünün, psikolojik bir sezginin
+                ve ölçülebilir verilerin kesişiminde şekillenir.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-lg leading-relaxed text-navy/75">
                 Bu yaklaşım, tellers&apos;ı klasik ajans anlayışının ötesine
                 taşır. Yaratıcılığı ölçülebilir, stratejiyi ise duygusal hale
-                getirir: veriyi sezgisel olarak okur, iletişimi sistematik olarak
-                kurar ve tasarımı bilimsel doğrulukla uygular. Böylece ortaya
-                çıkan her proje, sadece estetik bir ifade değil, ölçülebilir bir
-                &ldquo;anlam&rdquo; sistemidir.
+                getirir: veriyi sezgisel olarak okur, iletişimi sistematik
+                olarak kurar ve tasarımı bilimsel doğrulukla uygular. Böylece
+                ortaya çıkan her proje, sadece estetik bir ifade değil,
+                ölçülebilir bir &ldquo;anlam&rdquo; sistemidir.
               </p>
             </Reveal>
           </div>
@@ -172,7 +173,7 @@ export default function HakkimizdaPage() {
       </MediaReveal>
 
       {/* ── Dinozor ajanslara veda + kreatif görsel ── */}
-      <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
+      <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
           <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Eski kafalı dinozor ajanslara veda edin.
@@ -199,7 +200,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Vizyon ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
+      <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-40">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Yakın gelecekte tellers.
@@ -208,23 +209,23 @@ export default function HakkimizdaPage() {
         </Reveal>
         <Reveal delay={0.05} className="mt-8 max-w-3xl">
           <p className="text-xl font-bold leading-relaxed text-navy">
-            “Bilim, strateji ve kültür üzerine inşa edilmiş iletişimin,
-            referans temsilcilerinden bir tanesi olmak.”
+            “Bilim, strateji ve kültür üzerine inşa edilmiş iletişimin, referans
+            temsilcilerinden bir tanesi olmak.”
           </p>
           <p className="mt-6 text-lg leading-relaxed text-navy/80">
             Geleceğin en etkili sesine sahip markalar, şüphesiz en çok bağıran
             değil <em className="font-didot italic">en net konuşanlar</em>{" "}
-            olacaktır. tellers, küresel ölçekte markaların iletişim
-            berraklığını sağlayan, yaratıcılığı bilimsel doğrulukla
-            birleştiren ve her temas noktasını ölçülebilir bir anlam
-            sistemine dönüştüren öncü iletişim mimarı olmayı hedefler.
+            olacaktır. tellers, küresel ölçekte markaların iletişim berraklığını
+            sağlayan, yaratıcılığı bilimsel doğrulukla birleştiren ve her temas
+            noktasını ölçülebilir bir anlam sistemine dönüştüren öncü iletişim
+            mimarı olmayı hedefler.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-navy/80">
             Vizyonumuz, iletişimin yalnızca duygu ya da estetik değil, aynı
             zamanda stratejik netlik üzerine kurulduğu bir ekosistem
-            yaratmaktır. Bu ekosistemde her marka, kendi anlamını inşa eder;
-            biz ise bu anlamın doğru zamanda, doğru kişiye, doğru biçimde
-            ulaşmasını sağlarız.
+            yaratmaktır. Bu ekosistemde her marka, kendi anlamını inşa eder; biz
+            ise bu anlamın doğru zamanda, doğru kişiye, doğru biçimde ulaşmasını
+            sağlarız.
           </p>
         </Reveal>
         <Reveal delay={0.1} className="mt-12">
@@ -245,7 +246,7 @@ export default function HakkimizdaPage() {
           Gri fon (ekip notu 2026-08-14): hemen üstündeki Vizyon metin
           alanından ayrılsın — iki uzun metin bloğu üst üste gelmesin. */}
       <div className="bg-mist">
-        <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
               Bugün tellers.
@@ -287,7 +288,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Referans işler 3'lü slider: Bardahl, MasterCard, Savron ──
           pt: üstteki gri Misyon bandının kenarına yapışmasın. */}
-      <section className="pb-24 pt-24 md:pb-36 md:pt-36">
+      <section className="pb-28 pt-28 md:pb-40 md:pt-40">
         <TriSlider
           items={[
             {
@@ -310,7 +311,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── tellers'ın Pratik Testleri ── */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10 md:py-40">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             tellers&apos;ın Pratik Testleri
@@ -356,7 +357,7 @@ export default function HakkimizdaPage() {
       </MediaReveal>
 
       {/* ── Recognition & Impact ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-36">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal mask>

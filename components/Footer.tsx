@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-paper">
       {/* Newsletter — ekibin footer_newslatter tasarımının metin karşılığı */}
-      <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+      <div className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
             <h2 className="text-4xl font-bold tracking-tight text-navy md:text-[96px]">
@@ -16,7 +16,8 @@ export default function Footer() {
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-navy/70">
               Sorularınız, iş birlikleri ve yeni projeler için{" "}
-              <em className="font-didot text-navy">bir e-posta</em> uzağınızdayız.
+              <em className="font-didot text-navy">bir e-posta</em>{" "}
+              uzağınızdayız.
             </p>
             <p className="mt-4 max-w-md text-base leading-relaxed text-navy/50">
               Gelen kutunuza saygı duyuyoruz. Spam yok,{" "}
@@ -51,7 +52,7 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-navy"
+                className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
               >
                 {item.label}
               </Link>
@@ -71,7 +72,7 @@ export default function Footer() {
               <Link
                 key={s}
                 href="/hizmetlerimiz"
-                className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-navy"
+                className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
               >
                 {s}
               </Link>
@@ -86,7 +87,7 @@ export default function Footer() {
               href={SITE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
             >
               LinkedIn
             </a>
@@ -94,13 +95,13 @@ export default function Footer() {
               href={SITE.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
             >
               Instagram
             </a>
             <a
               href={`mailto:${SITE.email}`}
-              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-navy"
+              className="link-grow w-max text-sm text-navy/70 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
             >
               {SITE.email}
             </a>
@@ -111,7 +112,9 @@ export default function Footer() {
           <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-3 px-5 py-6 text-[12px] text-navy/40 md:flex-row md:px-10">
             {/* Ekip notu: bu alana metin yazılmadan sadece tarih-saat akışı */}
             <LiveClock />
-            <span>© {new Date().getFullYear()} tellers — Tüm hakları saklıdır.</span>
+            <span>
+              © {new Date().getFullYear()} tellers — Tüm hakları saklıdır.
+            </span>
           </div>
         </div>
       </div>

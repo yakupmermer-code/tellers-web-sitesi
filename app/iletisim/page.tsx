@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
+import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import ClosingCta from "@/components/ClosingCta";
 import MediaReveal from "@/components/MediaReveal";
@@ -36,7 +36,7 @@ export default function IletisimPage() {
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "İletişim", yol: "/iletisim" },
-          ])
+          ]),
         )}
       />
       {/* ── Ana slide ── */}
@@ -44,7 +44,7 @@ export default function IletisimPage() {
         <MediaReveal>
           <video
             src="/assets/contact/hero.mp4"
-              poster="/assets/contact/hero-poster.jpg"
+            poster="/assets/contact/hero-poster.jpg"
             autoPlay
             muted
             loop
@@ -57,7 +57,7 @@ export default function IletisimPage() {
       </section>
 
       {/* ── Başlık ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
         <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Bize ulaşın
@@ -72,7 +72,7 @@ export default function IletisimPage() {
           Gri fon (ekip notu 2026-08-14): üstteki "Bize ulaşın" metin alanından
           ayrılsın — iki metin alanı üst üste beyaz kalmasın. */}
       <div className="bg-mist">
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-[1fr_1.4fr] md:gap-24 md:px-10 md:py-32">
+        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-28 md:grid-cols-[1fr_1.4fr] md:gap-24 md:px-10 md:py-32">
           <Reveal>
             <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[36px]">
               Birlikte çalışalım
@@ -93,7 +93,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">Instagram&apos;da İnceleyin</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
                   →
                 </span>
               </a>
@@ -102,7 +102,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">E-Posta Gönderin</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
                   →
                 </span>
               </a>
@@ -113,7 +113,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">Haritada Görün</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
                   →
                 </span>
               </a>

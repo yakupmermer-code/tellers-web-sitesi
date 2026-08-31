@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { grafik, sayfaSemasi, kirintiSemasi, listeSemasi , paylasim } from "@/lib/seo";
+import {
+  grafik,
+  sayfaSemasi,
+  kirintiSemasi,
+  listeSemasi,
+  paylasim,
+} from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -45,7 +51,7 @@ export default function PortfolyoPage() {
           kirintiSemasi([
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Portfolyo", yol: "/portfolyo" },
-          ])
+          ]),
         )}
       />
       {/* ── Ana slide: marka ismi/detay yok ── */}
@@ -53,7 +59,7 @@ export default function PortfolyoPage() {
         <MediaReveal>
           <video
             src="/assets/portfolio/hero.mp4"
-              poster="/assets/portfolio/hero-poster.jpg"
+            poster="/assets/portfolio/hero-poster.jpg"
             autoPlay
             muted
             loop
@@ -66,7 +72,7 @@ export default function PortfolyoPage() {
       </section>
 
       {/* ── Tasarım felsefesi (temanın orijinal yerleşimi) ── */}
-      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
+      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Tasarım, tellers için estetik değil,{" "}
@@ -79,7 +85,8 @@ export default function PortfolyoPage() {
             <p>
               Bir form, bir renk, bir tipografi seçimi bile, insanın algılama
               biçimini değiştirir. Biz tasarımı bir &ldquo;son dokunuş&rdquo;
-              değil, <strong className="text-navy">anlamın görsel mantığı</strong>{" "}
+              değil,{" "}
+              <strong className="text-navy">anlamın görsel mantığı</strong>{" "}
               olarak inşa ederiz.
             </p>
             <p>
@@ -93,7 +100,7 @@ export default function PortfolyoPage() {
 
       {/* ── Marka bannerları — temadaki gibi görsel üzerine metin overlay,
           altında çizgi + hizmet + yıl (ekip notu 2026-08-14) ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
+      <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-40">
         {/* DİKKAT (2026-08-31): burada Stagger KULLANILAMAZ. framer'ın
             viewport.amount değeri IntersectionObserver eşiği olarak geçiyor ve
             eşik ELEMANIN KENDİ alanının yüzdesi. Bu grid 5488px; iPhone'da
@@ -110,7 +117,7 @@ export default function PortfolyoPage() {
                     alt={`${b.name} — ${b.headline}`}
                     width={960}
                     height={720}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]"
                     sizes="(min-width: 640px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />

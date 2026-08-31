@@ -59,7 +59,7 @@ export default async function MarkaDetayPage({
   const idx = BRANDS.findIndex((b) => b.slug === brand.slug);
   const others = Array.from(
     { length: 3 },
-    (_, i) => BRANDS[(idx + 1 + i) % BRANDS.length]
+    (_, i) => BRANDS[(idx + 1 + i) % BRANDS.length],
   );
 
   return (
@@ -78,7 +78,7 @@ export default async function MarkaDetayPage({
             { ad: "Ana Sayfa", yol: "/" },
             { ad: "Portfolyo", yol: "/portfolyo" },
             { ad: brand.name, yol: `/portfolyo/${brand.slug}` },
-          ])
+          ]),
         )}
       />
       {/* ── Ana slide + sağ altta proje detayları ── */}
@@ -120,7 +120,7 @@ export default async function MarkaDetayPage({
       </section>
 
       {/* ── Başlık + tanıtım ── */}
-      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-36">
+      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-navy md:text-[64px]">
             {brand.headline}
@@ -152,7 +152,7 @@ export default async function MarkaDetayPage({
           bu alan gri olur. Gri fon ayıracın kendisi olduğu için üstteki ince
           çizgi kaldırıldı. */}
       <div className="bg-mist">
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
+        <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
           <Reveal mask>
             <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[48px]">
               Operasyon Detayları
@@ -165,24 +165,27 @@ export default async function MarkaDetayPage({
                 // Ekip teyidi beklenen tarihte satır BOŞ bırakılır ve aşağıdaki
                 // filtre onu tamamen eler — yer tutucu değeri ekranda "gerçek"
                 // gibi göstermemek için (security-auditor bulgusu, 2026-08-31).
-                ["Operasyon Tarihi", brand.tarihTeyitsiz ? "" : brand.meta.tarih],
+                [
+                  "Operasyon Tarihi",
+                  brand.tarihTeyitsiz ? "" : brand.meta.tarih,
+                ],
                 ["Operasyon Süresi", brand.meta.sure],
                 ["Proje", brand.meta.proje.join("\n")],
               ]
                 .filter(([, v]) => v)
                 .map(([k, v]) => (
-                <div
-                  key={k}
-                  className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
-                >
-                  <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
-                    {k}
-                  </dt>
-                  <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
-                    {v}
-                  </dd>
-                </div>
-              ))}
+                  <div
+                    key={k}
+                    className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
+                  >
+                    <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
+                      {k}
+                    </dt>
+                    <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
+                      {v}
+                    </dd>
+                  </div>
+                ))}
             </dl>
           </Reveal>
         </section>
@@ -190,7 +193,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Galeri ── */}
       {brand.gallery && (
-        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32">
+        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-28 pt-28 md:px-10 md:pb-32 md:pt-32">
           {brand.gallery.map((g, i) => {
             if (g.kind === "image")
               return (
@@ -280,7 +283,8 @@ export default async function MarkaDetayPage({
                İkisini eşitleyip solPay = solOran×k / (1 + solOran×k) çıkar.
                (Dikey boşluk ihmal edilir — etkisi birkaç piksel.) */
             const solOran = solOlcu.width / solOlcu.height;
-            const k = ustOlcu.height / ustOlcu.width + altOlcu.height / altOlcu.width;
+            const k =
+              ustOlcu.height / ustOlcu.width + altOlcu.height / altOlcu.width;
             const solPay = (solOran * k) / (1 + solOran * k);
             const tall = (
               <div className="overflow-hidden">
@@ -362,7 +366,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Performance Results (yalnız veri verilen markalarda) ── */}
       {brand.results && (
-        <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-32">
+        <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-32">
           <div className="grid gap-12 border-t hairline pt-16 md:grid-cols-3">
             {brand.results.map((r, i) => (
               <Reveal key={r.value} delay={0.06 * i}>
@@ -379,7 +383,7 @@ export default async function MarkaDetayPage({
       )}
 
       {/* ── More Projects ── */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-24 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10 md:py-32">
         <Reveal mask>
           <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[64px]">
             Diğer Projeler
@@ -395,7 +399,7 @@ export default async function MarkaDetayPage({
                     alt={b.name}
                     width={760}
                     height={950}
-                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />

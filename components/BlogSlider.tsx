@@ -67,7 +67,7 @@ export default function BlogSlider() {
                 alt={b.title}
                 width={640}
                 height={480}
-                className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 46vw, 80vw"
               />
             </div>
