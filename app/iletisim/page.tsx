@@ -8,10 +8,10 @@ import ContactForm from "@/components/ContactForm";
 import { SITE } from "@/content/site";
 
 const ACIKLAMA =
-  "Ankara Üniversitesi Teknokent'teki ofisimize gelin, arayın ya da formu doldurun. tellers ekibi projenizi dinlemeye hazır.";
+  "Bir fikre, bir projeye ya da sadece bir merhabaya — tellers dinlemeye hazır. Ofisimize gelin, arayın ya da formu doldurun.";
 
 export const metadata: Metadata = {
-  title: "İletişim — Ankara Reklam Ajansı",
+  title: "İletişim — Projenizi Konuşalım",
   description: ACIKLAMA,
   alternates: { canonical: "/iletisim" },
   ...paylasim({

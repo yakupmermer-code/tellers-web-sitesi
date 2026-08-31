@@ -6,6 +6,7 @@ import Reveal from "@/components/Reveal";
 import KapanisSection from "@/components/KapanisSection";
 import CountUp from "@/components/CountUp";
 import { BRANDS, getBrand } from "@/content/brands";
+import { gorselOlcu } from "@/lib/gorsel";
 import JsonLd from "@/components/JsonLd";
 import {
   grafik,
@@ -261,27 +262,49 @@ export default async function MarkaDetayPage({
                   ))}
                 </div>
               );
-            // Üçlü grid: uzun alan bir yanda, iki yatay diğer yanda
+            /* Üçlü grid: uzun alan bir yanda, iki yatay diğer yanda.
+               DÜZELTME (2026-08-31): kutular görsele SABİT oran dayatıyordu
+               (sol dikey, sağ 16:9) ve object-cover görselin içindeki yazıyı
+               kesiyordu — Bardahl'da %42, My Nova'da %60 kayıp. Artık her
+               görsel kendi gerçek oranıyla çiziliyor: ne kırpma var ne boş
+               bant. Ölçüler derleme anında dosyadan okunuyor (lib/gorsel.ts). */
+            // Video da dahil: ölçü videonun poster karesinden okunuyor.
+            const solOlcu = gorselOlcu(g.left.src);
+            const ustOlcu = gorselOlcu(g.rightTop);
+            const altOlcu = gorselOlcu(g.rightBottom);
+
+            /* Kolon genişliği görsellerin GERÇEK oranından hesaplanır, böylece
+               iki kolon aynı yükseklikte biter — kırpma da yok, boşluk da.
+               Türetme: solYükseklik = solGenişlik / solOran,
+               sağYükseklik = sağGenişlik × (1/üstOran + 1/altOran).
+               İkisini eşitleyip solPay = solOran×k / (1 + solOran×k) çıkar.
+               (Dikey boşluk ihmal edilir — etkisi birkaç piksel.) */
+            const solOran = solOlcu.width / solOlcu.height;
+            const k = ustOlcu.height / ustOlcu.width + altOlcu.height / altOlcu.width;
+            const solPay = (solOran * k) / (1 + solOran * k);
             const tall = (
-              <div className="overflow-hidden md:h-full">
+              <div className="overflow-hidden">
                 {g.left.type === "video" ? (
                   <video
                     src={g.left.src}
+                    poster={g.left.src.replace(/\.mp4$/, "-poster.jpg")}
+                    width={solOlcu.width}
+                    height={solOlcu.height}
                     autoPlay
                     muted
                     loop
                     playsInline
                     preload="metadata"
-                    className="h-full w-full object-cover"
+                    className="h-auto w-full"
                     aria-label={`${brand.name} dikey video`}
                   />
                 ) : (
                   <Image
                     src={g.left.src}
-                    alt={`${brand.name} dikey görsel`}
-                    width={760}
-                    height={1100}
-                    className="h-full w-full object-cover"
+                    alt={`${brand.name} görseli`}
+                    width={solOlcu.width}
+                    height={solOlcu.height}
+                    className="h-auto w-full"
                     sizes="(min-width: 768px) 40vw, 100vw"
                   />
                 )}
@@ -289,25 +312,36 @@ export default async function MarkaDetayPage({
             );
             const pair = (
               <div className="flex flex-col gap-6">
-                {[g.rightTop, g.rightBottom].map((src) => (
-                  <div key={src} className="overflow-hidden">
-                    <Image
-                      src={src}
-                      alt={`${brand.name} yatay görsel`}
-                      width={1100}
-                      height={640}
-                      className="aspect-[16/9] w-full object-cover"
-                      sizes="(min-width: 768px) 60vw, 100vw"
-                    />
-                  </div>
-                ))}
+                {[g.rightTop, g.rightBottom].map((src) => {
+                  const olcu = gorselOlcu(src);
+                  return (
+                    <div key={src} className="overflow-hidden">
+                      <Image
+                        src={src}
+                        alt={`${brand.name} görseli`}
+                        width={olcu.width}
+                        height={olcu.height}
+                        className="h-auto w-full"
+                        sizes="(min-width: 768px) 60vw, 100vw"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             );
             return (
               <Reveal key={i}>
-                {/* items-stretch: dikey görsel (tall) yatay çiftin (pair) toplam
-                    yüksekliğine hizalanır — ekip notu: "sol alan kesiliyor" */}
-                <div className="grid items-stretch gap-6 md:grid-cols-[2fr_3fr]">
+                {/* items-start: kolonlar birbirine esnetilMEZ. Esnetilince sol
+                    görsel sağ çiftin yüksekliğine zorlanıp kırpılıyordu. */}
+                <div
+                  className="grid items-start gap-6 md:grid-cols-[var(--sol)_var(--sag)]"
+                  style={
+                    {
+                      "--sol": `${(solPay * 100).toFixed(2)}fr`,
+                      "--sag": `${((1 - solPay) * 100).toFixed(2)}fr`,
+                    } as React.CSSProperties
+                  }
+                >
                   {g.flip ? (
                     <>
                       {pair}

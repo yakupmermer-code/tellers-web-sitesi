@@ -26,14 +26,20 @@ export const metadata: Metadata = {
   authors: [{ name: "Tellers Creative Communications", url: SITE_URL }],
   creator: "Tellers Creative Communications",
   publisher: "Tellers Creative Communications",
+  // KONUMLANDIRMA (Yakup, 2026-08-31): tellers YEREL bir "Ankara ajansı"
+  // DEĞİL — ulusal ve uluslararası çalışıyor (3 kıta, 15 ülke). Ankara yalnızca
+  // Teknokent ofisinin bulunduğu yer. Bu yüzden şehir adı anahtar kelime
+  // olarak kullanılmaz; yalnızca iletişim sayfasındaki gerçek adres bilgisinde
+  // geçer.
   keywords: [
     "reklam ajansı",
-    "marka iletişimi",
-    "performans pazarlama",
-    "dijital pazarlama",
-    "markalama",
-    "kreatif tasarım",
-    "Ankara reklam ajansı",
+    "marka iletişimi ajansı",
+    "performans pazarlama ajansı",
+    "dijital pazarlama ajansı",
+    "markalama ajansı",
+    "kreatif ajans",
+    "marka konumlandırma",
+    "uluslararası marka iletişimi",
     "tellers",
   ],
   // Arama motoru direktifleri. max-snippet:-1 ve max-image-preview:large hem
