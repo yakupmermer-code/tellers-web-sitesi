@@ -101,6 +101,27 @@ export default function RootLayout({
           href="https://fonts.cdnfonts.com"
           crossOrigin=""
         />
+        {/*
+          Hero başlığındaki serif kelime İKİ alt kümeye birden yayılıyor:
+          harfler latin'de, ş latin-ext'te. İkisi de inmeden 96px'lik başlık
+          yedek fontla çizilip sonra zıplıyor (LCP + düzen kayması).
+          crossOrigin ZORUNLU: fontlar aynı sunucudan bile olsa CORS ile
+          çekilir; unutulursa tarayıcı dosyayı İKİ KEZ indirir.
+        */}
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/bodoni-moda-italic-latin.woff2"
+          crossOrigin=""
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/bodoni-moda-italic-latin-ext.woff2"
+          crossOrigin=""
+        />
         {/* JS kapalıysa animasyonla gizlenen bölümleri görünür kıl */}
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
