@@ -6,6 +6,15 @@ import Reveal from "@/components/Reveal";
 import MediaReveal from "@/components/MediaReveal";
 import KapanisSection from "@/components/KapanisSection";
 import { BLOGS, getBlog } from "@/content/blogs";
+import JsonLd from "@/components/JsonLd";
+import {
+  grafik,
+  sayfaSemasi,
+  kirintiSemasi,
+  yaziSemasi,
+  trTarihISO,
+  paylasim,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return BLOGS.map((b) => ({ slug: b.slug }));
@@ -18,7 +27,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const blog = getBlog((await params).slug);
   if (!blog) return {};
-  return { title: blog.title, description: blog.excerpt };
+  const iso = trTarihISO(blog.date);
+  return {
+    title: blog.title,
+    description: blog.excerpt,
+    alternates: { canonical: `/blog/${blog.slug}` },
+    ...paylasim({
+      baslik: blog.title,
+      aciklama: blog.excerpt,
+      yol: `/blog/${blog.slug}`,
+      gorsel: blog.image,
+      gorselAlt: blog.title,
+      makale: true,
+      yayinTarihi: iso,
+    }),
+  };
 }
 
 /** İçerik gövdesini basit markdown kurallarıyla bloklara çevirir. */
@@ -83,6 +106,22 @@ export default async function BlogDetayPage({
 
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            yol: `/blog/${blog.slug}`,
+            ad: blog.title,
+            aciklama: blog.excerpt,
+            gorsel: blog.image,
+          }),
+          yaziSemasi(blog),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Blog", yol: "/blog" },
+            { ad: blog.title, yol: `/blog/${blog.slug}` },
+          ])
+        )}
+      />
       {/* Ekip notu (2026-08-14): başlık + "tellers — tarih" üstte kalır, hero
           görseli metin kolonundan çıkarılıp tam genişliğe alındı ve temanın
           perde açılma efekti (MediaReveal) ile açılır. */}

@@ -6,6 +6,15 @@ import Reveal from "@/components/Reveal";
 import KapanisSection from "@/components/KapanisSection";
 import CountUp from "@/components/CountUp";
 import { BRANDS, getBrand } from "@/content/brands";
+import JsonLd from "@/components/JsonLd";
+import {
+  grafik,
+  sayfaSemasi,
+  kirintiSemasi,
+  markaSemasi,
+  kisalt,
+  paylasim,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return BRANDS.map((b) => ({ slug: b.slug }));
@@ -18,9 +27,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const brand = getBrand((await params).slug);
   if (!brand) return {};
+  const aciklama = kisalt(brand.intro);
   return {
     title: `${brand.name} | Portfolyo`,
-    description: brand.headline,
+    description: aciklama,
+    alternates: { canonical: `/portfolyo/${brand.slug}` },
+    ...paylasim({
+      baslik: `${brand.name} — ${brand.headline}`,
+      aciklama,
+      yol: `/portfolyo/${brand.slug}`,
+      gorsel: brand.banner,
+      gorselAlt: `${brand.name} — tellers işi`,
+      makale: true,
+    }),
   };
 }
 
@@ -31,6 +50,7 @@ export default async function MarkaDetayPage({
 }) {
   const brand = getBrand((await params).slug);
   if (!brand) notFound();
+  const aciklama = kisalt(brand.intro);
 
   // Mevcut markadan sonraki 3 marka (dairesel) — her sayfada farklı öneri çıkar
   const idx = BRANDS.findIndex((b) => b.slug === brand.slug);
@@ -41,6 +61,23 @@ export default async function MarkaDetayPage({
 
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "ItemPage",
+            yol: `/portfolyo/${brand.slug}`,
+            ad: `${brand.name} — ${brand.headline}`,
+            aciklama,
+            gorsel: brand.banner,
+          }),
+          markaSemasi(brand),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Portfolyo", yol: "/portfolyo" },
+            { ad: brand.name, yol: `/portfolyo/${brand.slug}` },
+          ])
+        )}
+      />
       {/* ── Ana slide + sağ altta proje detayları ── */}
       <section className="relative mt-24 overflow-hidden bg-navy">
         <Reveal>

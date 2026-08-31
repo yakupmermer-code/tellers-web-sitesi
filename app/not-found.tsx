@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+/**
+ * 404 sayfası. Next zaten kendi <meta name="robots" content="noindex"> etiketini
+ * basıyor; ama layout'tan miras gelen "index, follow" da basıldığı için sayfada
+ * ÇELİŞEN iki robots etiketi oluşuyordu. En kısıtlayıcı kural geçerli olduğundan
+ * davranış zaten doğruydu, yine de çelişki burada açıkça kapatılıyor.
+ */
+export const metadata: Metadata = {
+  title: "Sayfa bulunamadı",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

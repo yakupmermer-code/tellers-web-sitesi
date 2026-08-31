@@ -1,3 +1,17 @@
+/**
+ * Adres bileşenleri — hem sayfada gösterilen metnin hem JSON-LD'deki
+ * PostalAddress'in TEK kaynağı. Daha önce adres iki ayrı yerde (burada düz
+ * metin, lib/seo.ts'te parçalı) tutuluyordu; biri değişince diğeri sessizce
+ * eskiyordu (code-reviewer + security-auditor ortak bulgusu, 2026-08-26).
+ */
+const ADRES = {
+  sokak:
+    "Kalaba Mahallesi Kütükçü Alibey Cad. No: 2 Ankara Üniversitesi Teknokent A Blok Kat: 1 Ofis: 105/A",
+  ilce: "Keçiören",
+  il: "Ankara",
+  ulkeKodu: "TR",
+} as const;
+
 export const SITE = {
   name: "tellers",
   title: "tellers | Creative Communications",
@@ -10,8 +24,10 @@ export const SITE = {
   phone: "+905308176337",
   phoneDisplay: "0530 817 63 37",
   whatsapp: "https://wa.me/905308176337",
-  address:
-    "Kalaba Mahallesi Kütükçü Alibey Cad. No: 2 Ankara Üniversitesi Teknokent A Blok Kat: 1 Ofis: 105/A Keçiören / Ankara",
+  /** Parçalı adres — JSON-LD PostalAddress bunu kullanır. */
+  adres: ADRES,
+  /** Sayfada gösterilen tek satırlık adres (parçalardan üretilir). */
+  address: `${ADRES.sokak} ${ADRES.ilce} / ${ADRES.il}`,
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent(

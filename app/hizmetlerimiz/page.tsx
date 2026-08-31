@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import {
+  grafik,
+  sayfaSemasi,
+  kirintiSemasi,
+  hizmetListesiSemasi,
+  paylasim,
+} from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -7,10 +15,18 @@ import MediaReveal from "@/components/MediaReveal";
 import BlogSlider from "@/components/BlogSlider";
 import { SERVICES } from "@/content/services";
 
+const ACIKLAMA =
+  "Performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım — tellers'ın uçtan uca hizmetleri.";
+
 export const metadata: Metadata = {
   title: "Hizmetlerimiz",
-  description:
-    "Performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım — tellers'ın uçtan uca hizmetleri.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/hizmetlerimiz" },
+  ...paylasim({
+    baslik: "Hizmetlerimiz | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/hizmetlerimiz",
+  }),
 };
 
 const TAAHHUTLER = [
@@ -43,6 +59,24 @@ const TAAHHUTLER = [
 export default function HizmetlerimizPage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "CollectionPage",
+            yol: "/hizmetlerimiz",
+            ad: "Hizmetlerimiz",
+            aciklama: ACIKLAMA,
+          }),
+          hizmetListesiSemasi(
+            SERVICES.map((s) => ({ ad: s.titleTr, aciklama: s.summary })),
+            "/hizmetlerimiz"
+          ),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Hizmetlerimiz", yol: "/hizmetlerimiz" },
+          ])
+        )}
+      />
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { grafik, sayfaSemasi, kirintiSemasi, listeSemasi , paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -6,15 +8,45 @@ import KapanisSection from "@/components/KapanisSection";
 import MediaReveal from "@/components/MediaReveal";
 import { BRANDS } from "@/content/brands";
 
+const ACIKLAMA =
+  "MasterCard, Bardahl, My Nova ve daha fazlası — tellers'ın markalar için ürettiği işler.";
+
 export const metadata: Metadata = {
   title: "Portfolyo",
-  description:
-    "MasterCard, Bardahl, My Nova ve daha fazlası — tellers'ın markalar için ürettiği işler.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/portfolyo" },
+  ...paylasim({
+    baslik: "Portfolyo | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/portfolyo",
+  }),
 };
 
 export default function PortfolyoPage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "CollectionPage",
+            yol: "/portfolyo",
+            ad: "Portfolyo",
+            aciklama: ACIKLAMA,
+          }),
+          listeSemasi({
+            yol: "/portfolyo",
+            ad: "tellers portfolyosu",
+            ogeler: BRANDS.map((b) => ({
+              ad: b.name,
+              yol: `/portfolyo/${b.slug}`,
+            })),
+          }),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Portfolyo", yol: "/portfolyo" },
+          ])
+        )}
+      />
       {/* ── Ana slide: marka ismi/detay yok ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>

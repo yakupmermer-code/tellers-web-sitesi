@@ -33,3 +33,26 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 ## Runtime model
 
 Bu projede AI runtime yok (statik site) — model tanımı gerekmez.
+
+## SEO / GEO — bilinmesi zorunlu
+
+**Site adresi tek kaynaktan gelir:** `lib/seo.ts` → `SITE_URL`.
+Öncelik: `NEXT_PUBLIC_SITE_URL` → `RAILWAY_PUBLIC_DOMAIN` → `https://tellers.email`.
+Adresi hiçbir dosyaya elle yazma; `mutlak()` / `SITE_URL` kullan.
+
+**Üç değişken de DERLEME anında okunur** (sayfalar statik). Railway'de değeri
+değiştirmek tek başına yetmez — **yeniden deploy** şart. Ayrıntı: `.env.example`.
+
+- `NEXT_PUBLIC_SITE_URL` — gerçek alan adı bağlanınca ayarlanacak. Ayarlanmazsa
+  canonical'lar geçici Railway adresini gösterir (Google onu asıl sayar).
+- `NEXT_PUBLIC_NOINDEX=1` — önizleme kilidi. robots.txt yine `Allow: /` der;
+  bu bilinçlidir (tarama kapalıysa bot noindex etiketini göremez).
+
+**Yapısal veri:** `lib/seo.ts` şema üreticileri + `components/JsonLd.tsx`.
+Kural: şemaya **uydurma veri yazılmaz**. Doğrulanamayan alan (tescilli unvan,
+kuruluş tarihi, açık pozisyon ilanı) hiç basılmaz — yanlış beyan GEO'da en
+pahalı hatadır. Açık pozisyon verisi olmadan `JobPosting` şeması kullanılamaz.
+
+**robots.txt:** yasak yollar `app/robots.ts` içindeki `YASAK_YOLLAR` dizisine
+yazılır. Doğrudan `*` grubuna yazma — adı geçen 13 AI botu kendi grubunu bulunca
+`*` grubunu tamamen yok sayar, yasak onlara işlemez.

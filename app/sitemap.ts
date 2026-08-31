@@ -1,30 +1,50 @@
 import type { MetadataRoute } from "next";
 import { BRANDS } from "@/content/brands";
 import { BLOGS } from "@/content/blogs";
+import { SITE_URL, trTarihISO } from "@/lib/seo";
 
-// TODO: canlı alan adı netleşince güncellenecek
-const BASE = "https://tellers.email";
-
+/**
+ * Site haritası. Adres artık lib/seo.ts'ten geliyor (elle yazılı alan adı
+ * yüzünden tüm URL'ler yanlış domaine bakıyordu — 2026-08-26'da düzeltildi).
+ *
+ * lastModified: blog yazılarında GERÇEK yayın tarihi kullanılır; diğer
+ * sayfalarda derleme (build) anı — içerik değişince yeni derleme çıktığı için
+ * bu doğru bir yaklaşımdır.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const statik = [
-    "",
-    "/hakkimizda",
-    "/portfolyo",
-    "/hizmetlerimiz",
-    "/blog",
-    "/kariyer",
-    "/iletisim",
-  ].map((p) => ({ url: `${BASE}${p}`, changeFrequency: "monthly" as const }));
+  const derlemeAni = new Date();
 
-  const markalar = BRANDS.map((b) => ({
-    url: `${BASE}/portfolyo/${b.slug}`,
-    changeFrequency: "yearly" as const,
+  const statik: MetadataRoute.Sitemap = [
+    { yol: "", oncelik: 1.0 },
+    { yol: "/hakkimizda", oncelik: 0.8 },
+    { yol: "/portfolyo", oncelik: 0.9 },
+    { yol: "/hizmetlerimiz", oncelik: 0.9 },
+    { yol: "/blog", oncelik: 0.8 },
+    { yol: "/kariyer", oncelik: 0.5 },
+    { yol: "/iletisim", oncelik: 0.7 },
+  ].map(({ yol, oncelik }) => ({
+    url: `${SITE_URL}${yol}`,
+    lastModified: derlemeAni,
+    changeFrequency: "monthly" as const,
+    priority: oncelik,
   }));
 
-  const yazilar = BLOGS.map((b) => ({
-    url: `${BASE}/blog/${b.slug}`,
+  const markalar: MetadataRoute.Sitemap = BRANDS.map((b) => ({
+    url: `${SITE_URL}/portfolyo/${b.slug}`,
+    lastModified: derlemeAni,
     changeFrequency: "yearly" as const,
+    priority: 0.6,
   }));
+
+  const yazilar: MetadataRoute.Sitemap = BLOGS.map((b) => {
+    const iso = trTarihISO(b.date);
+    return {
+      url: `${SITE_URL}/blog/${b.slug}`,
+      lastModified: iso ? new Date(iso) : derlemeAni,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    };
+  });
 
   return [...statik, ...markalar, ...yazilar];
 }

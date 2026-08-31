@@ -8,10 +8,36 @@ import HeroVideo from "@/components/HeroVideo";
 import CountUp from "@/components/CountUp";
 import MediaReveal from "@/components/MediaReveal";
 import { SERVICES } from "@/content/services";
+import { SITE } from "@/content/site";
+import JsonLd from "@/components/JsonLd";
+import { grafik, sayfaSemasi, paylasim } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  // Kendi kendini isaret eden canonical: gecici Railway adresi + ileride
+  // baglanacak alan adi arasinda cift icerik olusmasini engeller.
+  alternates: { canonical: "/" },
+  ...paylasim({
+    baslik: SITE.title,
+    aciklama: SITE.description,
+    yol: "/",
+    gorselAlt: SITE.slogan,
+  }),
+};
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            yol: "/",
+            ad: SITE.title,
+            aciklama: SITE.description,
+            gorsel: "/assets/home/imaj-bolucu.png",
+          })
+        )}
+      />
       {/* ── HERO: tam ölçek slider — marka tanıtım videosu ── */}
       <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy">
         <HeroVideo />
@@ -37,11 +63,14 @@ export default function HomePage() {
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
-          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
+          {/* SEO (2026-08-26): ana sayfanin tek <h1>'i. Onceden h2'ydi ve
+              sayfada hic h1 yoktu — arama motoru icin sayfanin ana konusu
+              tanimsiz kaliyordu. Etiket degisti, gorunum birebir ayni. */}
+          <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Global devlerin
             <br />
             tercihi, tellers.
-          </h2>
+          </h1>
           <p className="mt-1.5 text-lg text-navy md:text-[22px]">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>

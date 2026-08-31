@@ -1,19 +1,43 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import ClosingCta from "@/components/ClosingCta";
 import MediaReveal from "@/components/MediaReveal";
 import ContactForm from "@/components/ContactForm";
 import { SITE } from "@/content/site";
 
+const ACIKLAMA =
+  "Bir fikre, bir projeye ya da sadece bir merhabaya — tellers dinlemeye hazır.";
+
 export const metadata: Metadata = {
   title: "İletişim",
-  description:
-    "Bir fikre, bir projeye ya da sadece bir merhabaya — tellers dinlemeye hazır.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/iletisim" },
+  ...paylasim({
+    baslik: "İletişim | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/iletisim",
+  }),
 };
 
 export default function IletisimPage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "ContactPage",
+            yol: "/iletisim",
+            ad: "İletişim",
+            aciklama: ACIKLAMA,
+          }),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "İletişim", yol: "/iletisim" },
+          ])
+        )}
+      />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>

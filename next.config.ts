@@ -11,6 +11,17 @@ const scriptSrc =
     ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
     : "script-src 'self' 'unsafe-inline'; ";
 
+/**
+ * Önizleme kilidi (security-auditor Y-2). NEXT_PUBLIC_NOINDEX=1 iken noindex'i
+ * HTTP başlığından da veriyoruz: başlık, robots.txt'e ve HTML'in okunmasına
+ * bakmadan çalışır; görsel/PDF gibi HTML olmayan yanıtları da kapsar.
+ * DİKKAT: değer derleme anında donar — değiştirince YENİDEN DEPLOY gerekir.
+ */
+const noindexBasligi =
+  process.env.NEXT_PUBLIC_NOINDEX === "1"
+    ? [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
+    : [];
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -35,6 +46,7 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
+          ...noindexBasligi,
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",

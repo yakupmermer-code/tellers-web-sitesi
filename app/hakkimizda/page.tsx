@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import KapanisSection from "@/components/KapanisSection";
 import TriSlider from "@/components/TriSlider";
 import MediaReveal from "@/components/MediaReveal";
 
+const ACIKLAMA =
+  "7 yılda, 3 kıta, 15 ülkede onlarca iletişim stratejisine imza atan tellers; anlam mimarisi yaklaşımıyla markaları anlaşılır kılar.";
+
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description:
-    "7 yılda, 3 kıta, 15 ülkede onlarca iletişim stratejisine imza atan tellers; anlam mimarisi yaklaşımıyla markaları anlaşılır kılar.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/hakkimizda" },
+  ...paylasim({
+    baslik: "Hakkımızda | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/hakkimizda",
+  }),
 };
 
 const STATS = [
@@ -66,6 +76,20 @@ const PRATIK = [
 export default function HakkimizdaPage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "AboutPage",
+            yol: "/hakkimizda",
+            ad: "Hakkımızda",
+            aciklama: ACIKLAMA,
+          }),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Hakkımızda", yol: "/hakkimizda" },
+          ])
+        )}
+      />
       {/* ── Daraltılmış ana slide ── */}
       <section className="relative mt-24 overflow-hidden">
         <MediaReveal parallax>

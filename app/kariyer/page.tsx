@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { grafik, sayfaSemasi, kirintiSemasi , paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -6,10 +8,18 @@ import MediaReveal from "@/components/MediaReveal";
 import RefLogoBand from "@/components/RefLogoBand";
 import ContactForm from "@/components/ContactForm";
 
+const ACIKLAMA =
+  "Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir ekipte yerini al — tellers'ta kariyer.";
+
 export const metadata: Metadata = {
   title: "Kariyer",
-  description:
-    "Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir ekipte yerini al — tellers'ta kariyer.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/kariyer" },
+  ...paylasim({
+    baslik: "Kariyer | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/kariyer",
+  }),
 };
 
 /* Ekip notu: Kariyer sayfası, İletişim sayfasının yapısını kullanır.
@@ -17,6 +27,19 @@ export const metadata: Metadata = {
 export default function KariyerPage() {
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            yol: "/kariyer",
+            ad: "Kariyer",
+            aciklama: ACIKLAMA,
+          }),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Kariyer", yol: "/kariyer" },
+          ])
+        )}
+      />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
         <MediaReveal parallax>

@@ -3,23 +3,75 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/content/site";
+import {
+  SITE_URL,
+  NOINDEX,
+  grafik,
+  kurulusSemasi,
+  websiteSemasi,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
-  // TODO: canlı alan adı netleşince güncellenecek (OG görselleri için gerekli)
-  metadataBase: new URL("https://tellers.email"),
+  // Adres artık lib/seo.ts'ten geliyor: NEXT_PUBLIC_SITE_URL > Railway alan
+  // adı > tellers.email. Böylece canonical / sitemap / OG hepsi aynı köke bakar.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE.title,
     template: "%s | tellers",
   },
   description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: "Tellers Creative Communications", url: SITE_URL }],
+  creator: "Tellers Creative Communications",
+  publisher: "Tellers Creative Communications",
+  keywords: [
+    "reklam ajansı",
+    "marka iletişimi",
+    "performans pazarlama",
+    "dijital pazarlama",
+    "markalama",
+    "kreatif tasarım",
+    "Ankara reklam ajansı",
+    "tellers",
+  ],
+  // Arama motoru direktifleri. max-snippet:-1 ve max-image-preview:large hem
+  // zengin sonuçlar hem de yapay zeka özetleri için belirleyicidir:
+  // sınırlandırılmış snippet, modelin alıntılayabileceği metni kısar.
+  // TAKAS (Yakup onayına açık): sınırsız alıntı görünürlüğü artırır ama tam
+  // metnin arama sonucunda gösterilmesine ve tıklama kaybına da izin verir.
+  robots: NOINDEX
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-snippet": -1,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
+        },
+      },
   openGraph: {
     title: SITE.title,
     description: SITE.slogan,
+    siteName: SITE.title,
+    url: SITE_URL,
     locale: "tr_TR",
     type: "website",
-    images: [{ url: "/assets/home/imaj-bolucu.png", width: 1920, height: 545 }],
+    // 1920x540 = dosyanın GERÇEK ölçüsü (önce 545 yazıyordu, yanlıştı).
+    images: [
+      {
+        url: "/assets/home/imaj-bolucu.png",
+        width: 1920,
+        height: 540,
+        alt: SITE.slogan,
+      },
+    ],
   },
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({
@@ -43,6 +95,11 @@ export default function RootLayout({
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
         </noscript>
+        {/* Kuruluş + site kimliği (schema.org). Tüm sayfalarda aynı @id ile
+            durur; sayfaya özel düğümler (WebPage/Article/CreativeWork) bu
+            düğümlere @id ile bağlanır. Yapay zeka motorları "tellers kimdir,
+            ne yapar, nerede" sorusunu bu grafikten cevaplar. */}
+        <JsonLd data={grafik(kurulusSemasi(), websiteSemasi())} />
         <SmoothScroll />
         <Header />
         {/* NOT (2026-08-15): temanın "footer altından çıkar" efekti (Arpeggio

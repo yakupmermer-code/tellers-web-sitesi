@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import {
+  grafik,
+  sayfaSemasi,
+  kirintiSemasi,
+  blogDiziniSemasi,
+  paylasim,
+} from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
@@ -6,10 +14,18 @@ import KapanisSection from "@/components/KapanisSection";
 import MediaReveal from "@/components/MediaReveal";
 import { BLOGS } from "@/content/blogs";
 
+const ACIKLAMA =
+  "Pazarlama, markalama ve anlam mimarisi üzerine tellers'ın güncel yazıları.";
+
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Pazarlama, markalama ve anlam mimarisi üzerine tellers'ın güncel yazıları.",
+  description: ACIKLAMA,
+  alternates: { canonical: "/blog" },
+  ...paylasim({
+    baslik: "Blog | tellers",
+    aciklama: ACIKLAMA,
+    yol: "/blog",
+  }),
 };
 
 import type { Blog } from "@/content/blogs";
@@ -52,6 +68,21 @@ export default function BlogPage() {
 
   return (
     <>
+      <JsonLd
+        data={grafik(
+          sayfaSemasi({
+            tip: "CollectionPage",
+            yol: "/blog",
+            ad: "Blog",
+            aciklama: ACIKLAMA,
+          }),
+          blogDiziniSemasi(BLOGS),
+          kirintiSemasi([
+            { ad: "Ana Sayfa", yol: "/" },
+            { ad: "Blog", yol: "/blog" },
+          ])
+        )}
+      />
       <h1 className="sr-only">tellers Blog</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
