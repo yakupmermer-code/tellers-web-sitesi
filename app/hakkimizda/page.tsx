@@ -93,7 +93,7 @@ export default function HakkimizdaPage() {
       />
       {/* ── Daraltılmış ana slide ── */}
       <section className="relative mt-24 overflow-hidden">
-        <MediaReveal parallax>
+        <MediaReveal>
           <video
             src="/assets/about/hero.mp4"
               poster="/assets/about/hero-poster.jpg"
@@ -160,7 +160,7 @@ export default function HakkimizdaPage() {
       </div>
 
       {/* ── Manifesto görseli (netlik) ── */}
-      <MediaReveal parallax>
+      <MediaReveal>
         <Image
           src="/assets/about/hakkimizda-metni.png"
           alt="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"

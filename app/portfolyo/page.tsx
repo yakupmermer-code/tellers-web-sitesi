@@ -50,7 +50,7 @@ export default function PortfolyoPage() {
       />
       {/* ── Ana slide: marka ismi/detay yok ── */}
       <section className="relative mt-24">
-        <MediaReveal parallax>
+        <MediaReveal>
           <video
             src="/assets/portfolio/hero.mp4"
               poster="/assets/portfolio/hero-poster.jpg"
@@ -94,6 +94,12 @@ export default function PortfolyoPage() {
       {/* ── Marka bannerları — temadaki gibi görsel üzerine metin overlay,
           altında çizgi + hizmet + yıl (ekip notu 2026-08-14) ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-24 md:px-10 md:pb-36">
+        {/* DİKKAT (2026-08-31): burada Stagger KULLANILAMAZ. framer'ın
+            viewport.amount değeri IntersectionObserver eşiği olarak geçiyor ve
+            eşik ELEMANIN KENDİ alanının yüzdesi. Bu grid 5488px; iPhone'da
+            (812px) görünürlük oranı en fazla 0.148 oluyor, eşik 0.15 → gözlemci
+            HİÇ tetiklenmiyor ve 17 kartın tamamı opacity:0 kalıyor. Gerçek
+            tarayıcıda doğrulandı. Her kart KENDİ gözlemcisini taşımalı. */}
         <div className="grid gap-6 sm:grid-cols-2">
           {BRANDS.map((b, i) => (
             <Reveal key={b.slug} delay={0.04 * (i % 2)}>
@@ -104,7 +110,7 @@ export default function PortfolyoPage() {
                     alt={`${b.name} — ${b.headline}`}
                     width={960}
                     height={720}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                     sizes="(min-width: 640px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />

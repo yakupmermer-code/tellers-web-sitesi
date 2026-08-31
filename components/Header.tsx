@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV, SITE } from "@/content/site";
 
-const EASE = [0.32, 0.72, 0, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Header() {
   const pathname = usePathname();
@@ -54,7 +54,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           scrolled || open
             ? "bg-white/85 backdrop-blur-xl shadow-[0_1px_0_rgba(10,10,71,0.08)]"
             : "bg-transparent"
@@ -84,7 +84,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`group/nav relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                  className={`group/nav relative text-[13px] tracking-[0.08em] uppercase transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     onDarkHero
                       ? active
                         ? "text-white"
@@ -96,7 +96,7 @@ export default function Header() {
                 >
                   {item.label}
                   <span
-                    className={`absolute -bottom-1.5 left-0 h-px transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                    className={`absolute -bottom-1.5 left-0 h-px transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       onDarkHero ? "bg-white" : "bg-navy"
                     } ${active ? "w-full" : "w-0 group-hover/nav:w-full"}`}
                   />
@@ -113,14 +113,14 @@ export default function Header() {
             className="relative z-50 flex h-11 w-11 items-center justify-center lg:hidden"
           >
             <span
-              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               onDarkHero ? "bg-white" : "bg-navy"
             } ${
                 open ? "rotate-45" : "-translate-y-[4px]"
               }`}
             />
             <span
-              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+              className={`absolute h-px w-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               onDarkHero ? "bg-white" : "bg-navy"
             } ${
                 open ? "-rotate-45" : "translate-y-[4px]"

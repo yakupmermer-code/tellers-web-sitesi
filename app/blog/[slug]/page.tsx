@@ -146,7 +146,7 @@ export default async function BlogDetayPage({
         </div>
 
         <div className="mt-12 md:mt-16">
-          <MediaReveal parallax>
+          <MediaReveal>
             {/* Blog görsellerinin 6'sı kare (1080x1080), 2'si geniş
                 (blog-1 ve blog-8: 1920x1080). Tam genişlikte h-auto verilirse
                 kareler ekran boyu bir duvar oluyor; sabit 16/9 banner oranı +
@@ -172,10 +172,10 @@ export default async function BlogDetayPage({
             </div>
             <Link
               href={blog.cta.href}
-              className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+              className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
             >
               {blog.cta.label}
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>
@@ -200,7 +200,7 @@ export default async function BlogDetayPage({
                     alt={b.title}
                     width={640}
                     height={480}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                     sizes="(min-width: 640px) 33vw, 100vw"
                   />
                 </div>

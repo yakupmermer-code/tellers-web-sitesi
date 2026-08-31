@@ -1,128 +1,54 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { useEffect, useRef, type ReactNode } from "react";
-
-const EASE = [0.32, 0.72, 0, 1] as const;
-
-/*
- * KRİTİK: whileInView DIŞ katmanda durur; clipPath/scale animasyonu İÇ
- * katmanda variant kalıtımıyla oynar. Gözlemci clipPath'le kırpılmış
- * elemana konursa eleman "hiç görünmez" sayılır ve animasyon asla
- * tetiklenmez (IO, kırpılmış görünür alanı ölçer).
- */
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef, type ReactNode } from "react";
 
 /**
- * Temadaki görsel davranışları:
- * - Açılış: perde gibi AŞAĞIDAN YUKARI açılan clip-path wipe + ölçek oturması.
- * - parallax: scroll'a bağlı dikey kayma; ölçeği ayrı iç katman taşır.
- * - kenburns: oturduktan sonra çok yavaş zoom, SINIRLI tekrar (WCAG 2.2.2).
- * DOM yapısı reduced-motion'da da sabittir; `reveal` sınıfı noscript
- * kurtarması içindir.
+ * Görsel/video için KAYDIRMAYA BAĞLI sürekli hareket.
+ *
+ * Referans temadaki davranış (paketinden birebir çıkarıldı):
+ *   scrollYProgress, offset ["start end", "end start"]
+ *   y     : -amount%  →  +amount%      (paralaks)
+ *   scale :  1 → scaleTo → 1           (ortada hafif şişme)
+ * Medya SOLMAZ — referansın sunucu çıktısında paralaks katmanlarında
+ * `opacity:0` yok, yalnızca translateY var. Yani perde/fade girişi yok.
+ *
+ * ÖNCEKİ HÂLİ (2026-08-31'de değişti): clip-path perde açılışı + elle yazılmış
+ * scroll dinleyicisi vardı; hareket ±6px'ti, yani neredeyse hissedilmiyordu.
+ * Referansta clip-path hiç kullanılmıyor. Kullanılmayan `kenburns` modu da
+ * kaldırıldı (hiçbir sayfada çağrılmıyordu).
  */
 export default function MediaReveal({
   children,
   className,
-  kenburns = false,
-  parallax = false,
+  /** Paralaks genliği (%). Referansta 4–8 arası değerler kullanılıyor. */
+  amount = 6,
+  scaleTo = 1.12,
 }: {
   children: ReactNode;
   className?: string;
-  kenburns?: boolean;
-  parallax?: boolean;
+  amount?: number;
+  scaleTo?: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const outerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!parallax || reduced) return;
-    const outer = outerRef.current;
-    const inner = innerRef.current;
-    if (!outer || !inner) return;
-
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const r = outer.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      const y = (progress - 0.5) * 12; // -%6 .. +%6
-      inner.style.transform = `translateY(${y}%) scale(1.12)`;
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [parallax, reduced]);
-
-  const media = parallax ? (
-    <div
-      ref={innerRef}
-      style={reduced ? undefined : { transform: "scale(1.12)" }}
-    >
-      {children}
-    </div>
-  ) : (
-    children
-  );
-
-  const clipVariants: Variants = {
-    hidden: {
-      clipPath: "inset(100% 0% 0% 0%)",
-      ...(parallax ? {} : { scale: 1.16 }),
-    },
-    visible: kenburns
-      ? {
-          clipPath: "inset(0% 0% 0% 0%)",
-          scale: [1.16, 1, 1.06],
-          transition: {
-            clipPath: { duration: 1.1, ease: EASE },
-            scale: {
-              duration: 14,
-              times: [0, 0.12, 1],
-              ease: "linear",
-              repeat: 3,
-              repeatType: "reverse",
-            },
-          },
-        }
-      : {
-          clipPath: "inset(0% 0% 0% 0%)",
-          ...(parallax ? {} : { scale: 1 }),
-          transition: {
-            clipPath: { duration: 1.1, ease: EASE },
-            scale: { duration: 1.5, ease: EASE },
-          },
-        },
-  };
-
-  if (reduced) {
-    return (
-      <div ref={outerRef} className={`overflow-hidden ${className ?? ""}`}>
-        <div className="reveal">{media}</div>
-      </div>
-    );
-  }
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [`-${amount}%`, `${amount}%`]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, scaleTo, 1]);
 
   return (
-    <motion.div
-      ref={outerRef}
-      className={`overflow-hidden ${className ?? ""}`}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-    >
-      <motion.div className="reveal" variants={clipVariants}>
-        {media}
+    <div ref={ref} className={`overflow-hidden ${className ?? ""}`}>
+      <motion.div
+        className="reveal h-full w-full"
+        // reduced: SSR'da basılan translateY(-6%) hidrasyonda AÇIKÇA
+        // sıfırlanır; undefined bırakılırsa kalıcı kayma riski var.
+        style={reduced ? { y: 0, scale: 1 } : { y, scale }}
+      >
+        {children}
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

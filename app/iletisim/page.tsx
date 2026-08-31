@@ -41,7 +41,7 @@ export default function IletisimPage() {
       />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal parallax>
+        <MediaReveal>
           <video
             src="/assets/contact/hero.mp4"
               poster="/assets/contact/hero-poster.jpg"
@@ -93,7 +93,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">Instagram&apos;da İnceleyin</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
                   →
                 </span>
               </a>
@@ -102,7 +102,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">E-Posta Gönderin</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
                   →
                 </span>
               </a>
@@ -113,7 +113,7 @@ export default function IletisimPage() {
                 className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
               >
                 <span className="text-lg">Haritada Görün</span>
-                <span className="transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+                <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
                   →
                 </span>
               </a>

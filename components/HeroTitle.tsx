@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
-const EASE = [0.32, 0.72, 0, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SLOGAN = "Duyulan unutulur, anlaşılan kalır.";
 

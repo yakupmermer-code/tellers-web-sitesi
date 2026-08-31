@@ -81,7 +81,7 @@ export default function HizmetlerimizPage() {
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal parallax>
+        <MediaReveal>
           <video
             src="/assets/services/hero.mp4"
               poster="/assets/services/hero-poster.jpg"
@@ -147,19 +147,19 @@ export default function HizmetlerimizPage() {
           <div className="absolute inset-y-0 right-5 hidden flex-col items-end justify-center gap-5 md:right-14 md:flex">
             <Link
               href="/portfolyo"
-              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
             >
               Portföyümüzü İnceleyin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>
             <Link
               href="/iletisim"
-              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
             >
               Bizimle İletişime Geçin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
                 ↗
               </span>
             </Link>

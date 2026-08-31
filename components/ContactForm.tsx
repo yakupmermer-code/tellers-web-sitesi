@@ -243,10 +243,10 @@ export default function ContactForm({
       </div>
       <button
         type="submit"
-        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-8 py-4 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-8 py-4 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
       >
         {isKariyer ? "Başvurunuzu Gönderin" : "Gönderin"}
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
           ↗
         </span>
       </button>

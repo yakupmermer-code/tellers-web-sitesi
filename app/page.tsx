@@ -5,6 +5,9 @@ import RefLogoBand from "@/components/RefLogoBand";
 import ClosingCta from "@/components/ClosingCta";
 import BlogSlider from "@/components/BlogSlider";
 import HeroVideo from "@/components/HeroVideo";
+import HeroZoom from "@/components/HeroZoom";
+import MaskLines from "@/components/MaskLines";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import CountUp from "@/components/CountUp";
 import MediaReveal from "@/components/MediaReveal";
 import { SERVICES } from "@/content/services";
@@ -51,7 +54,10 @@ export default function HomePage() {
       />
       {/* ── HERO: tam ölçek slider — marka tanıtım videosu ── */}
       <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy">
-        <HeroVideo />
+        {/* Açılışta 1.28 ölçekten oturur — referans temanın HeroZoom'u. */}
+        <HeroZoom className="absolute inset-0">
+          <HeroVideo inline className="h-full w-full object-cover opacity-80" />
+        </HeroZoom>
         {/* Ana sayfanın <h1>'i. Hero tasarımı bilinçli olarak metinsiz (ekip
             kararı, 2026-08-14) — bu yüzden başlık görsel olarak gizlenir ama
             ekran okuyucular ve arama motorları için sayfada durur. İçerik
@@ -70,29 +76,39 @@ export default function HomePage() {
         {/* Ekip notu (2026-08-14): video üzerindeki slogan kaldırıldı — slogan
             footer'da marka kimliğini koruyor, hero sade bir atmosfer videosu */}
         <div className="relative z-10 mx-auto flex w-full justify-end px-5 pb-16 md:px-10 md:pb-20">
-          <Reveal delay={0.15}>
-            <ul className="flex flex-col gap-2 text-right text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-sm">
-              <li>Performans Pazarlama</li>
-              <li>Dijital Pazarlama</li>
-              <li>Kreatif Tasarım Hizmetleri</li>
-              <li>Markalama</li>
-            </ul>
-          </Reveal>
+          <Stagger
+            as="ul"
+            className="flex flex-col gap-2 text-right text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-sm"
+          >
+            {[
+              "Performans Pazarlama",
+              "Dijital Pazarlama",
+              "Kreatif Tasarım Hizmetleri",
+              "Markalama",
+            ].map((h) => (
+              <StaggerItem as="li" key={h}>
+                {h}
+              </StaggerItem>
+            ))}
+          </Stagger>
         </div>
       </section>
 
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
-        <Reveal mask>
-          {/* DÜZELTME (2026-08-31): burası önce h1 yapılmıştı, ama Hakkımızda
-              sayfasının h1'i de birebir aynı cümle — iki sayfa aynı başlıkla
-              yarışıyordu. h2'ye geri alındı; ana sayfanın kendi h1'i hero
-              bölümünde (görsel tasarıma dokunmadan) veriliyor. */}
-          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
-            Global devlerin
-            <br />
-            tercihi, tellers.
-          </h2>
+        {/* DÜZELTME (2026-08-31): burası önce h1 yapılmıştı, ama Hakkımızda
+            sayfasının h1'i de birebir aynı cümle — iki sayfa aynı başlıkla
+            yarışıyordu. h2'ye geri alındı; ana sayfanın kendi h1'i hero
+            bölümünde (görsel tasarıma dokunmadan) veriliyor.
+            Satırlar açıkça belli olduğu için referansın SATIR SATIR maskesi
+            (MaskLines) kullanılıyor — temanın imza efekti bu. */}
+        <MaskLines
+          as="h2"
+          className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]"
+          label="Global devlerin tercihi, tellers."
+          lines={["Global devlerin", "tercihi, tellers."]}
+        />
+        <Reveal delay={0.2}>
           <p className="mt-1.5 text-lg text-navy md:text-[22px]">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>
@@ -110,10 +126,10 @@ export default function HomePage() {
           {/* Ekip notu: köşeleri oval, kurumsal lacivert dikdörtgen buton, beyaz metin */}
           <Link
             href="/hakkimizda"
-            className="group mt-10 flex w-max items-center gap-4 rounded-full bg-navy px-7 py-[15px] text-xl font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+            className="group mt-10 flex w-max items-center gap-4 rounded-full bg-navy px-7 py-[15px] text-xl font-bold text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
           >
             Hakkımızda
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
               ↗
             </span>
           </Link>
@@ -162,7 +178,7 @@ export default function HomePage() {
       </section>
 
       {/* ── İMAJ BÖLÜCÜ — ekipten gelen gerçek video ── */}
-      <MediaReveal parallax>
+      <MediaReveal>
         <video
           src="/assets/home/imaj-bolucu.mp4"
             poster="/assets/home/imaj-bolucu-poster.jpg"
@@ -179,13 +195,18 @@ export default function HomePage() {
       {/* ── SLOGAN + ANLAM FELSEFESİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
         <div className="md:sticky md:top-32 md:self-start">
-          <Reveal mask>
-            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
-              Duyulan unutulur,
-              <br />
-              <em className="font-didot font-normal italic">anlaşılan</em> kalır.
-            </h2>
-          </Reveal>
+          <MaskLines
+            as="h2"
+            className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]"
+            label="Duyulan unutulur, anlaşılan kalır."
+            lines={[
+              "Duyulan unutulur,",
+              <>
+                <em className="font-didot font-normal italic">anlaşılan</em>{" "}
+                kalır.
+              </>,
+            ]}
+          />
         </div>
         <Reveal delay={0.1}>
           <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
@@ -219,7 +240,7 @@ export default function HomePage() {
               alt="MasterCard — Above The Line kampanyaları"
               width={1920}
               height={900}
-              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
               sizes="100vw"
             />
             <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
@@ -234,7 +255,7 @@ export default function HomePage() {
               alt="Bardahl — Türkiye marka konumlandırması"
               width={1920}
               height={900}
-              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+              className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
               sizes="100vw"
             />
             <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
@@ -258,7 +279,7 @@ export default function HomePage() {
                 alt={item.alt}
                 width={640}
                 height={640}
-                className="aspect-square w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                className="aspect-square w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                 sizes="(min-width: 768px) 33vw, 100vw"
               />
             </Link>
@@ -267,7 +288,7 @@ export default function HomePage() {
       </section>
 
       {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
-      <MediaReveal parallax>
+      <MediaReveal>
         <Image
           src="/assets/home/yarim-slide-4.png"
           alt="7 yıl deneyim, +32 global marka, 3 kıta, 15 ülke, aylık +2000 lead akışı"
@@ -383,7 +404,7 @@ export default function HomePage() {
                   playsInline
                   preload="metadata"
                   aria-label={`${s.titleTr} — ${s.summary}`}
-                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                 />
               ) : (
                 <Image
@@ -391,7 +412,7 @@ export default function HomePage() {
                   alt={`${s.titleTr} — ${s.summary}`}
                   width={1920}
                   height={900}
-                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.02]"
+                  className="h-full w-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                   sizes="100vw"
                 />
               )}

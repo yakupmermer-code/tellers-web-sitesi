@@ -41,10 +41,10 @@ export default function NewsletterForm() {
         />
         <button
           type="submit"
-          className="group flex w-max items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+          className="group flex w-max items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
         >
           Gönderin
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-px group-hover:translate-x-1">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px group-hover:translate-x-1">
             ↗
           </span>
         </button>

@@ -41,7 +41,7 @@ function WideCard({ blog: b }: { blog: Blog }) {
             alt={b.title}
             width={1200}
             height={800}
-            className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+            className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
             sizes="(min-width: 768px) 50vw, 100vw"
           />
         </div>
@@ -87,7 +87,7 @@ export default function BlogPage() {
       <h1 className="sr-only">tellers Blog</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal parallax>
+        <MediaReveal>
           <Image
             src="/assets/blog/hero.png"
             alt="tellers blog"
@@ -117,7 +117,7 @@ export default function BlogPage() {
                     alt={b.title}
                     width={1200}
                     height={900}
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                     sizes="(min-width: 768px) 50vw, 100vw"
                   />
                 </div>
