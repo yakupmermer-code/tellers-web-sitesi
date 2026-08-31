@@ -1,6 +1,79 @@
 @import url("https://fonts.cdnfonts.com/css/avenir-next-lt-pro");
-@import url("https://fonts.cdnfonts.com/css/didot");
 @import "tailwindcss";
+
+/*
+ * Ana sayfadaki "üste çakılan bölüm" için tek kaynak eşik.
+ *
+ * NEDEN BU DEĞERLER: bölümün yüksekliği ekran GENİŞLİĞİNE bağlı — sütunlar
+ * daraldıkça başlık ve paragraflar daha çok satıra iner. code-reviewer'ın
+ * hesabı: 1440px+ genişlikte bölüm ~629px; 768px'te ~880px'e çıkıyor.
+ * `sticky top-0` ile ekrandan uzun bir bölümün ALTINA kaydırarak bile
+ * ulaşılamıyor — ana sayfanın tek CTA'sı ("Hakkımızda") kalıcı kesiliyordu.
+ * Bu yüzden efekt yalnızca bölümün KISA kaldığı geniş ekranlarda açılır.
+ * Ölçüm yapılıp daha düşük genişlikte de güvenli olduğu KANITLANIRSA eşik
+ * indirilebilir; tahminle indirilmez.
+ *
+ * Tek değişken olarak tanımlanıyor çünkü JSX'te iki kez yazılması gerekiyordu
+ * ve ilk denemede alt tire unutulup geçersiz CSS üretilmişti (üretim derlemesi
+ * hata vermeden kuralı sessizce düşürdü — 2026-08-31).
+ */
+@custom-variant ustte-sabit (@media (min-width: 1440px) and (min-height: 700px));
+
+/*
+ * Bodoni Moda — serif vurgu fontu (kendi sunucumuzda barındırılıyor).
+ *
+ * NEDEN: revize dökümanı "Serifli Font: Didot Italic (Bold)" diyor. Ama
+ * fonts.cdnfonts.com'daki Didot yalnızca weight:400/style:normal sunuyor —
+ * yani sitedeki tüm Didot italikleri ve boldları tarayıcının UYDURDUĞU sahte
+ * kesimlerdi. Bodoni Moda aynı Didone ailesinden, GERÇEK italiği ve 400-900
+ * ağırlık aralığı var, SIL Open Font License ile ticari kullanıma açık.
+ *
+ * Değişken font: `opsz` (optik boy 6-96) ekseni sayesinde büyük puntoda
+ * tırnaklar incelir, küçük puntoda kalınlaşır — Didone'nin doğru davranışı.
+ * font-optical-sizing varsayılan `auto` olduğu için ayrıca ayar gerekmiyor.
+ *
+ * Kendi sunucumuzda: üçüncü taraf CDN bağımlılığı yok, ziyaretçi IP'si dışarı
+ * gitmiyor (GDPR). Türkçe için latin + latin-ext alt kümeleri birlikte
+ * yüklenir: ı/ç/ö/ü latin'de, ğ/ş/İ latin-ext'te.
+ *
+ * DENEME (2026-08-31): art direktör onayı bekliyor. Geri almak için bu bloğu
+ * ve --font-didot satırını eski hâline döndürmek yeterli.
+ */
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-normal-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-normal-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
   --navy: #0a0a47;
@@ -18,7 +91,10 @@
   --color-mist: var(--mist);
   --font-sans:
     "Avenir Next LT Pro", "Avenir Next", Avenir, system-ui, sans-serif;
-  --font-didot: "Didot", "GFS Didot", "Playfair Display", serif;
+  /* "Didot" zincirden ÇIKARILDI: macOS'ta sistem Didot'su kurulu ve Bodoni
+     inmezse sessizce onu gösteriyordu — art direktör yanlış fontu onaylardı.
+     Sorun olursa Georgia görünür ve fark edilir. */
+  --font-didot: "Bodoni Moda", "Playfair Display", Georgia, serif;
 }
 
 html {
@@ -49,7 +125,16 @@ body {
 /* Didot serif vurgular */
 .font-didot {
   font-family: var(--font-didot);
-  font-weight: 400;
+  /*
+   * font-weight KİLİDİ KALDIRILDI (2026-08-31). Eski Didot'ta yalnızca 400
+   * vardı, bold sahte çıkıyordu; bu kural onu bastırmak için konmuştu. Bodoni
+   * Moda 400-900 gerçek aralık sunuyor, gerekçe kalktı.
+   * ÖNEMLİ: bu kural @layer DIŞINDA olduğu için Tailwind'in font-bold'unu
+   * yeniyordu — yani `font-didot font-bold` yazmak SESSİZCE çalışmıyordu.
+   * Artık ağırlık ya kapsayan başlıktan miras alınır ya sınıfla verilir.
+   * Dökümanın istediği "Didot Italic (Bold)" için: 11 yerdeki `font-normal`
+   * sınıfını silmek yeterli (art direktör onayı bekleniyor).
+   */
 }
 
 /* İnce çizgi */

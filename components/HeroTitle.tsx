@@ -39,7 +39,7 @@ export default function HeroTitle() {
               return (
                 <span
                   key={wi}
-                  className="inline-block overflow-hidden pb-[0.08em]"
+                  className="inline-block overflow-hidden pb-[0.18em]"
                 >
                   <motion.span
                     className="reveal inline-block"

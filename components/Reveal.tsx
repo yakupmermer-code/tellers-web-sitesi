@@ -51,7 +51,7 @@ export default function Reveal({
             korunuyor — referansın fontunda ve dilinde bu kuyruklar yok, bizde
             "Nasıl Yaparız?" (96px, leading-1.02) gibi yerlerde p kesiliyor. */}
         <motion.div
-          className="reveal pb-[0.12em]"
+          className="reveal pb-[0.18em]"
           variants={{
             hidden: { y: "110%" },
             visible: {

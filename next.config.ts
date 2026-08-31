@@ -26,6 +26,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Fontlar sürüm etiketli değil ama içerikleri değişmiyor; varsayılan
+        // max-age=0 her sayfa yüklemesinde 4 koşullu istek doğuruyordu.
+        // Font DEĞİŞTİRİLİRSE dosya adı da değiştirilmeli.
+        source: "/fonts/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           {

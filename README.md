@@ -24,6 +24,6 @@ npm run build      # production build
 
 ## Marka
 
-- Renk: `#0a0a47` · Fontlar: Avenir Next + Didot · Slogan: "Duyulan unutulur, anlaşılan kalır."
+- Renk: `#0a0a47` · Fontlar: Avenir Next + Bodoni Moda (serif vurgu — DENEME, Didot yerine) · Slogan: "Duyulan unutulur, anlaşılan kalır."
 
 İçerik kaynağı: ekibin revize dökümanı (bkz. `CLAUDE.md`).

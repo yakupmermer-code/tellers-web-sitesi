@@ -107,7 +107,7 @@ export default function HomePage() {
           660px'ten kısa ekranlarda). Footer'da da aynı tuzağa düşülmüştü
           (2026-08-15 notu). 820px eşiği, bölümün en uzun hâli (~843px)
           hesaba katılarak seçildi. */}
-      <section className="mx-auto grid max-w-[1440px] gap-16 bg-paper px-5 py-28 md:grid-cols-2 [@media(min-width:768px)and(min-height:820px)]:sticky [@media(min-width:768px)and(min-height:820px)]:top-0 md:gap-20 md:px-10 md:py-40">
+      <section className="mx-auto grid max-w-[1440px] gap-16 bg-paper px-5 py-28 md:grid-cols-2 ustte-sabit:sticky ustte-sabit:top-0 md:gap-20 md:px-10 md:py-40">
         {/* DÜZELTME (2026-08-31): burası önce h1 yapılmıştı, ama Hakkımızda
             sayfasının h1'i de birebir aynı cümle — iki sayfa aynı başlıkla
             yarışıyordu. h2'ye geri alındı; ana sayfanın kendi h1'i hero

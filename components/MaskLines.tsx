@@ -47,7 +47,7 @@ export default function MaskLines({
         <span key={i} aria-hidden className="block overflow-hidden">
           {/* pb: ğ/ç/y/ş kuyrukları kırpılmasın (Türkçe için 0.12em şart) */}
           <motion.span
-            className={`reveal block pb-[0.12em] ${lineClassName ?? ""}`}
+            className={`reveal block pb-[0.18em] ${lineClassName ?? ""}`}
             initial={reduced ? false : { y: "110%" }}
             animate={gorunur ? { y: 0 } : undefined}
             transition={{

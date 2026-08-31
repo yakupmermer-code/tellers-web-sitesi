@@ -12,8 +12,18 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 ## Marka Kuralları (değişmez)
 
 - Kurumsal renk: `#0a0a47` (lacivert) — turuncu/kırmızı YOK
-- Fontlar: Avenir Next (gövde/kurumsal) + Didot (serif vurgu) — CDN'den (lisans riski
-  Yakup tarafından kabul edildi, 2026-08-13)
+- Fontlar: Avenir Next (gövde/kurumsal) + serif vurgu fontu
+  - **Avenir Next** — hâlâ `fonts.cdnfonts.com`'dan. Ticari bir Monotype fontu;
+    bu CDN bir satıcı değil. Lisans riski Yakup tarafından kabul edildi
+    (2026-08-13). AÇIK KONU: web lisansı alınacak mı, yoksa ücretsiz bir
+    alternatife mi geçilecek?
+  - **Serif vurgu — DENEME AŞAMASINDA (2026-08-31, art direktör onayı bekliyor):**
+    Didot yerine **Bodoni Moda** kuruldu, `public/fonts/` altında self-host,
+    SIL OFL. Gerekçe: revize dökümanı "Didot Italic (Bold)" istiyor ama
+    cdnfonts'taki Didot yalnızca weight:400/style:normal sunuyordu — tüm
+    italik ve boldlar tarayıcının uydurduğu sahte kesimlerdi (doğrulandı).
+    Bodoni Moda gerçek italik + 400-900 aralık sunar.
+    Onaylanmazsa geri alınır; onaylanırsa bu satır sadeleştirilecek.
 - Logo: `tellers_logo` her yerde; `tellers_icon` ("t" amblemi) SADECE favicon
 - Slogan: "Duyulan unutulur, anlaşılan kalır."
 - Referans logo bandı: lacivert fon, beyaz logolar, çift genişlik
