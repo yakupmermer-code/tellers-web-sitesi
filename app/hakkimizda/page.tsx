@@ -8,15 +8,16 @@ import TriSlider from "@/components/TriSlider";
 import MediaReveal from "@/components/MediaReveal";
 
 const ACIKLAMA =
-  "7 yılda, 3 kıta, 15 ülkede onlarca iletişim stratejisine imza atan tellers; anlam mimarisi yaklaşımıyla markaları anlaşılır kılar.";
+  "Mastercard, Konica Minolta ve Fairmont'un tercih ettiği ajans. 7 yılda 3 kıta, 15 ülkede marka iletişimi, markalama ve performans pazarlama.";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda",
+  title: "Hakkımızda — Anlam Mimarisi ile Marka İletişimi",
   description: ACIKLAMA,
   alternates: { canonical: "/hakkimizda" },
   ...paylasim({
     baslik: "Hakkımızda | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/hakkimizda.jpg",
     yol: "/hakkimizda",
   }),
 };
@@ -95,6 +96,7 @@ export default function HakkimizdaPage() {
         <MediaReveal parallax>
           <video
             src="/assets/about/hero.mp4"
+              poster="/assets/about/hero-poster.jpg"
             autoPlay
             muted
             loop

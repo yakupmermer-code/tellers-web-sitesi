@@ -13,13 +13,24 @@ import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, paylasim } from "@/lib/seo";
 import type { Metadata } from "next";
 
+const ANA_ACIKLAMA =
+  "Mastercard, Bardahl, Konica Minolta ve Fairmont'un tercih ettiği ajans. 3 kıta, 15 ülkede performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım.";
+
 export const metadata: Metadata = {
+  // Başlık aranan kelimeyle başlar, marka adı sonda. Önceki hâli
+  // "tellers | Creative Communications"tı — yani sayfayı yalnızca ADIMIZI
+  // BİLEN biri bulabiliyordu.
+  // DİKKAT: layout'taki "%s | tellers" şablonu ana sayfaya UYGULANMAZ
+  // (Next kuralı: şablon, kendi segmentindeki sayfayı kapsamaz), bu yüzden
+  // marka adı burada ELLE yazılıyor.
+  title: "Reklam ve Marka İletişimi Ajansı | tellers",
+  description: ANA_ACIKLAMA,
   // Kendi kendini isaret eden canonical: gecici Railway adresi + ileride
   // baglanacak alan adi arasinda cift icerik olusmasini engeller.
   alternates: { canonical: "/" },
   ...paylasim({
-    baslik: SITE.title,
-    aciklama: SITE.description,
+    baslik: "tellers — Reklam ve Marka İletişimi Ajansı",
+    aciklama: ANA_ACIKLAMA,
     yol: "/",
     gorselAlt: SITE.slogan,
   }),
@@ -32,8 +43,8 @@ export default function HomePage() {
         data={grafik(
           sayfaSemasi({
             yol: "/",
-            ad: SITE.title,
-            aciklama: SITE.description,
+            ad: "tellers — Reklam ve Marka İletişimi Ajansı",
+            aciklama: ANA_ACIKLAMA,
             gorsel: "/assets/home/imaj-bolucu.png",
           })
         )}
@@ -41,6 +52,16 @@ export default function HomePage() {
       {/* ── HERO: tam ölçek slider — marka tanıtım videosu ── */}
       <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy">
         <HeroVideo />
+        {/* Ana sayfanın <h1>'i. Hero tasarımı bilinçli olarak metinsiz (ekip
+            kararı, 2026-08-14) — bu yüzden başlık görsel olarak gizlenir ama
+            ekran okuyucular ve arama motorları için sayfada durur. İçerik
+            sayfayı DOĞRU tarif ediyor; gizli anahtar kelime doldurma değil.
+            NOT: görünür bir h1 daha güçlüdür — ekip hero'ya başlık koymaya
+            karar verirse bu sr-only kaldırılıp o başlık h1 yapılmalı. */}
+        <h1 className="sr-only">
+          tellers — reklam ve marka iletişimi ajansı: performans pazarlama,
+          dijital pazarlama, markalama ve kreatif tasarım
+        </h1>
         {/* Slogan okunurluğu için alt bölgeye yumuşak lacivert degrade */}
         <div
           aria-hidden
@@ -63,14 +84,15 @@ export default function HomePage() {
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ── */}
       <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
-          {/* SEO (2026-08-26): ana sayfanin tek <h1>'i. Onceden h2'ydi ve
-              sayfada hic h1 yoktu — arama motoru icin sayfanin ana konusu
-              tanimsiz kaliyordu. Etiket degisti, gorunum birebir ayni. */}
-          <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
+          {/* DÜZELTME (2026-08-31): burası önce h1 yapılmıştı, ama Hakkımızda
+              sayfasının h1'i de birebir aynı cümle — iki sayfa aynı başlıkla
+              yarışıyordu. h2'ye geri alındı; ana sayfanın kendi h1'i hero
+              bölümünde (görsel tasarıma dokunmadan) veriliyor. */}
+          <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Global devlerin
             <br />
             tercihi, tellers.
-          </h1>
+          </h2>
           <p className="mt-1.5 text-lg text-navy md:text-[22px]">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>
@@ -143,6 +165,7 @@ export default function HomePage() {
       <MediaReveal parallax>
         <video
           src="/assets/home/imaj-bolucu.mp4"
+            poster="/assets/home/imaj-bolucu-poster.jpg"
           autoPlay
           muted
           loop

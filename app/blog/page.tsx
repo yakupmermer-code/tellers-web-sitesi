@@ -15,15 +15,16 @@ import MediaReveal from "@/components/MediaReveal";
 import { BLOGS } from "@/content/blogs";
 
 const ACIKLAMA =
-  "Pazarlama, markalama ve anlam mimarisi üzerine tellers'ın güncel yazıları.";
+  "Pazarlama bütçesi, marka konumlandırma, ROAS ve ajans seçimi üzerine tellers'ın yazıları. Reklam yatırımınızı doğru kurgulamanın yolları.";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Pazarlama ve Markalama Blogu",
   description: ACIKLAMA,
   alternates: { canonical: "/blog" },
   ...paylasim({
     baslik: "Blog | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/blog.jpg",
     yol: "/blog",
   }),
 };

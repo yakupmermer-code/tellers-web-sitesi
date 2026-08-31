@@ -8,15 +8,16 @@ import ContactForm from "@/components/ContactForm";
 import { SITE } from "@/content/site";
 
 const ACIKLAMA =
-  "Bir fikre, bir projeye ya da sadece bir merhabaya — tellers dinlemeye hazır.";
+  "Ankara Üniversitesi Teknokent'teki ofisimize gelin, arayın ya da formu doldurun. tellers ekibi projenizi dinlemeye hazır.";
 
 export const metadata: Metadata = {
-  title: "İletişim",
+  title: "İletişim — Ankara Reklam Ajansı",
   description: ACIKLAMA,
   alternates: { canonical: "/iletisim" },
   ...paylasim({
     baslik: "İletişim | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/iletisim.jpg",
     yol: "/iletisim",
   }),
 };
@@ -43,6 +44,7 @@ export default function IletisimPage() {
         <MediaReveal parallax>
           <video
             src="/assets/contact/hero.mp4"
+              poster="/assets/contact/hero-poster.jpg"
             autoPlay
             muted
             loop

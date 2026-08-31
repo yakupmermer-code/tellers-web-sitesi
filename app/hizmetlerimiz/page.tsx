@@ -16,15 +16,16 @@ import BlogSlider from "@/components/BlogSlider";
 import { SERVICES } from "@/content/services";
 
 const ACIKLAMA =
-  "Performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım — tellers'ın uçtan uca hizmetleri.";
+  "Performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım hizmetleri. Reklam bütçenizi ölçülebilir büyümeye çeviren ajans hizmeti.";
 
 export const metadata: Metadata = {
-  title: "Hizmetlerimiz",
+  title: "Performans Pazarlama, Dijital Pazarlama, Markalama",
   description: ACIKLAMA,
   alternates: { canonical: "/hizmetlerimiz" },
   ...paylasim({
     baslik: "Hizmetlerimiz | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/hizmetlerimiz.jpg",
     yol: "/hizmetlerimiz",
   }),
 };
@@ -83,6 +84,7 @@ export default function HizmetlerimizPage() {
         <MediaReveal parallax>
           <video
             src="/assets/services/hero.mp4"
+              poster="/assets/services/hero-poster.jpg"
             autoPlay
             muted
             loop

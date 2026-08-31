@@ -14,6 +14,7 @@ import {
   yaziSemasi,
   trTarihISO,
   paylasim,
+  ogKarti,
 } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -36,7 +37,7 @@ export async function generateMetadata({
       baslik: blog.title,
       aciklama: blog.excerpt,
       yol: `/blog/${blog.slug}`,
-      gorsel: blog.image,
+      gorsel: ogKarti("blog", blog.slug),
       gorselAlt: blog.title,
       makale: true,
       yayinTarihi: iso,
@@ -112,7 +113,7 @@ export default async function BlogDetayPage({
             yol: `/blog/${blog.slug}`,
             ad: blog.title,
             aciklama: blog.excerpt,
-            gorsel: blog.image,
+            gorsel: ogKarti("blog", blog.slug),
           }),
           yaziSemasi(blog),
           kirintiSemasi([

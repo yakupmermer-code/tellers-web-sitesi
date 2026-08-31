@@ -14,6 +14,7 @@ import {
   markaSemasi,
   kisalt,
   paylasim,
+  ogKarti,
 } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -29,14 +30,15 @@ export async function generateMetadata({
   if (!brand) return {};
   const aciklama = kisalt(brand.intro);
   return {
-    title: `${brand.name} | Portfolyo`,
+    // "X | Portfolyo | tellers" yerine hizmet adı: aranan kelime başlıkta olur.
+    title: `${brand.name} — ${brand.services[0]}`,
     description: aciklama,
     alternates: { canonical: `/portfolyo/${brand.slug}` },
     ...paylasim({
       baslik: `${brand.name} — ${brand.headline}`,
       aciklama,
       yol: `/portfolyo/${brand.slug}`,
-      gorsel: brand.banner,
+      gorsel: ogKarti("marka", brand.slug),
       gorselAlt: `${brand.name} — tellers işi`,
       makale: true,
     }),
@@ -68,7 +70,7 @@ export default async function MarkaDetayPage({
             yol: `/portfolyo/${brand.slug}`,
             ad: `${brand.name} — ${brand.headline}`,
             aciklama,
-            gorsel: brand.banner,
+            gorsel: ogKarti("marka", brand.slug),
           }),
           markaSemasi(brand),
           kirintiSemasi([
@@ -159,10 +161,15 @@ export default async function MarkaDetayPage({
             <dl className="flex flex-col">
               {[
                 ["Müşteri", brand.meta.musteri],
-                ["Operasyon Tarihi", brand.meta.tarih],
+                // Ekip teyidi beklenen tarihte satır BOŞ bırakılır ve aşağıdaki
+                // filtre onu tamamen eler — yer tutucu değeri ekranda "gerçek"
+                // gibi göstermemek için (security-auditor bulgusu, 2026-08-31).
+                ["Operasyon Tarihi", brand.tarihTeyitsiz ? "" : brand.meta.tarih],
                 ["Operasyon Süresi", brand.meta.sure],
                 ["Proje", brand.meta.proje.join("\n")],
-              ].map(([k, v]) => (
+              ]
+                .filter(([, v]) => v)
+                .map(([k, v]) => (
                 <div
                   key={k}
                   className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
@@ -364,7 +371,9 @@ export default async function MarkaDetayPage({
                 </div>
                 <div className="mt-4 flex items-baseline justify-between border-t hairline pt-3">
                   <p className="text-sm text-navy/70">{b.listService}</p>
-                  <p className="text-sm text-navy/50">{b.year}</p>
+                  <p className="text-sm text-navy/50">
+                    {b.tarihTeyitsiz ? "" : b.year}
+                  </p>
                 </div>
               </Link>
             </Reveal>

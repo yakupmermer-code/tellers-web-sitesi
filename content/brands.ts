@@ -6,6 +6,13 @@ export type Brand = {
   /** Portfolyo liste kartı altındaki kısa bilgi (temadaki work sayfası formatı) */
   listService: string;
   year: string;
+  /**
+   * true → operasyon tarihi EKİP TEYİDİ BEKLİYOR (revize dökümanında XXXX/??
+   * yazıyordu, yer tutucu kondu). Bu işaretli markalarda tarih YAPISAL VERİYE
+   * ve llms.txt'e BASILMAZ — doğrulanmamış tarihi makineye gerçek diye vermek,
+   * projenin "uydurma veri yazılmaz" kuralının ihlalidir (2026-08-31).
+   */
+  tarihTeyitsiz?: boolean;
   /** Detay sayfası hero medyası (video ise poster: yüklenene kadar gösterilen kare) */
   hero: { type: "image" | "video"; src: string; poster?: string };
   /** Hero sağ altta sıralanan hizmetler */
@@ -338,6 +345,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/raymondweil/banner.png",
     listService: "Post-Prodüksiyon",
     year: "2018",
+    tarihTeyitsiz: true, // ekip teyidi bekliyor
     hero: { type: "image", src: "/assets/brands/raymondweil/banner.png" },
     services: [
       "Post-Prodüksiyon",
@@ -567,6 +575,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/minousha/banner.jpg",
     listService: "Post-Prodüksiyon & Prodüksiyon & Cast",
     year: "2018",
+    tarihTeyitsiz: true, // ekip teyidi bekliyor
     hero: {
       // Döküman: media10.mp4
       type: "video",
@@ -666,6 +675,7 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/quiprive/banner.jpg",
     listService: "Post-Prodüksiyon & Marka Tanıtım Filmi",
     year: "2018",
+    tarihTeyitsiz: true, // ekip teyidi bekliyor
     hero: { type: "image", src: "/assets/brands/quiprive/banner.jpg" },
     services: [
       "Prodüksiyon",

@@ -9,15 +9,16 @@ import MediaReveal from "@/components/MediaReveal";
 import { BRANDS } from "@/content/brands";
 
 const ACIKLAMA =
-  "MasterCard, Bardahl, My Nova ve daha fazlası — tellers'ın markalar için ürettiği işler.";
+  "Mastercard, Bardahl, BNI, b-fit ve 13 marka için yaptığımız markalama, performans pazarlama, dijital pazarlama ve kreatif tasarım işleri.";
 
 export const metadata: Metadata = {
-  title: "Portfolyo",
+  title: "Portfolyo — Mastercard, Bardahl, BNI ve 14 Marka",
   description: ACIKLAMA,
   alternates: { canonical: "/portfolyo" },
   ...paylasim({
     baslik: "Portfolyo | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/portfolyo.jpg",
     yol: "/portfolyo",
   }),
 };
@@ -52,6 +53,7 @@ export default function PortfolyoPage() {
         <MediaReveal parallax>
           <video
             src="/assets/portfolio/hero.mp4"
+              poster="/assets/portfolio/hero-poster.jpg"
             autoPlay
             muted
             loop
@@ -112,7 +114,12 @@ export default function PortfolyoPage() {
                 </div>
                 <div className="mt-4 flex items-baseline justify-between border-t hairline pt-3">
                   <p className="text-sm text-navy/70">{b.listService}</p>
-                  <p className="text-sm text-navy/50">{b.year}</p>
+                  {/* Ekip teyidi beklenen tarih hiç gösterilmez — dökümanda
+                      XXXX/?? yazıyordu, yer tutucu değer ekranda "gerçek"
+                      gibi duruyordu (security-auditor bulgusu). */}
+                  <p className="text-sm text-navy/50">
+                    {b.tarihTeyitsiz ? "" : b.year}
+                  </p>
                 </div>
               </Link>
             </Reveal>

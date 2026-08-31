@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BRANDS } from "@/content/brands";
 import { BLOGS } from "@/content/blogs";
-import { SITE_URL, trTarihISO } from "@/lib/seo";
+import { SITE_URL, mutlak, trTarihISO, markaGorselleri } from "@/lib/seo";
 
 /**
  * Site haritası. Adres artık lib/seo.ts'ten geliyor (elle yazılı alan adı
@@ -27,13 +27,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: derlemeAni,
     changeFrequency: "monthly" as const,
     priority: oncelik,
+    // Marka banner'ları DETAY sayfasında değil, bu liste sayfasında çiziliyor —
+    // Google bildirilen görselin o sayfada bulunmasını bekler.
+    ...(yol === "/portfolyo"
+      ? { images: BRANDS.map((b) => mutlak(b.banner)) }
+      : {}),
   }));
 
+  // images: Google Görseller'e bildirim. Portfolyo sayfaları görsel ağırlıklı;
+  // bu alan olmadan işlerin hiçbiri görsel aramada çıkmıyordu.
   const markalar: MetadataRoute.Sitemap = BRANDS.map((b) => ({
     url: `${SITE_URL}/portfolyo/${b.slug}`,
     lastModified: derlemeAni,
     changeFrequency: "yearly" as const,
     priority: 0.6,
+    images: markaGorselleri(b),
   }));
 
   const yazilar: MetadataRoute.Sitemap = BLOGS.map((b) => {
@@ -43,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: iso ? new Date(iso) : derlemeAni,
       changeFrequency: "yearly" as const,
       priority: 0.6,
+      images: [mutlak(b.image)],
     };
   });
 

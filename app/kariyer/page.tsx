@@ -9,15 +9,16 @@ import RefLogoBand from "@/components/RefLogoBand";
 import ContactForm from "@/components/ContactForm";
 
 const ACIKLAMA =
-  "Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir ekipte yerini al — tellers'ta kariyer.";
+  "Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir ekipte yerini al. tellers'ta reklam, tasarım ve pazarlama kariyeri.";
 
 export const metadata: Metadata = {
-  title: "Kariyer",
+  title: "Kariyer — Ekibimize Katılın",
   description: ACIKLAMA,
   alternates: { canonical: "/kariyer" },
   ...paylasim({
     baslik: "Kariyer | tellers",
     aciklama: ACIKLAMA,
+    gorsel: "/assets/og/kariyer.jpg",
     yol: "/kariyer",
   }),
 };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { Brand } from "@/content/brands";
 import { SITE } from "@/content/site";
 
 /**
@@ -56,7 +57,7 @@ export const NOINDEX = process.env.NEXT_PUBLIC_NOINDEX === "1";
  * Kök için sondaki eğik çizgi ATILIR; yoksa JSON-LD "…/" derken canonical
  * "…" diyor ve aynı sayfa için iki farklı adres beyan edilmiş oluyordu.
  */
-function mutlak(yol: string): string {
+export function mutlak(yol: string): string {
   if (yol === "/" || yol === "") return SITE_URL;
   return `${SITE_URL}${yol.startsWith("/") ? yol : `/${yol}`}`;
 }
@@ -322,11 +323,14 @@ export function markaSemasi(marka: {
   banner: string;
   services: string[];
   year: string;
+  tarihTeyitsiz?: boolean;
   meta: { musteri: string };
 }): Dugum {
   const yol = `/portfolyo/${marka.slug}`;
   const url = mutlak(yol);
-  const yil = ilkYil(marka.year);
+  // Ekip teyidi beklenen tarih yapısal veriye BASILMAZ — doğrulanmamış tarihi
+  // makine okunur biçimde "gerçek" diye ilan etmek en pahalı GEO hatasıdır.
+  const yil = marka.tarihTeyitsiz ? undefined : ilkYil(marka.year);
   return {
     "@type": "CreativeWork",
     "@id": `${url}#is`,
@@ -396,9 +400,25 @@ export function yaziSemasi(yazi: {
  * kaybettiriyordu (doğrulandı: canlı sitede 6 twitter etiketi vardı, elle
  * yazınca 4'e düştü). Tek kaynak openGraph olsun.
  */
-const VARSAYILAN_GORSEL = "/assets/home/imaj-bolucu.png";
-/** imaj-bolucu.png dosyasının GERÇEK ölçüsü (eskiden 545 yazıyordu, yanlıştı). */
-const VARSAYILAN_OLCU = { width: 1920, height: 540 };
+/**
+ * Paylaşım kartları — /assets/og/ altındaki TÜM dosyalar 1200x630 JPEG'dir
+ * (Open Graph tavsiye ölçüsü). Bunlar sayfa görsellerinden ffmpeg ile üretilir.
+ *
+ * NEDEN AYRI DOSYA: sayfa görselleri 0.7–2.8 MB PNG. WhatsApp gibi istemciler
+ * bu boyutta link önizlemesi çizmiyor — yani paylaşılan link kartsız görünüyordu
+ * (code-reviewer bulgusu, 2026-08-31). Kartlar ~120 KB.
+ *
+ * Yeni sayfa eklenirse /assets/og/ altına aynı ölçüde bir kart eklenmeli;
+ * ölçü etiketleri bu klasör kuralına dayanarak basılıyor.
+ */
+const OG_KLASOR = "/assets/og/";
+const OG_OLCU = { width: 1200, height: 630 };
+const VARSAYILAN_GORSEL = `${OG_KLASOR}ana.jpg`;
+
+/** Marka/blog detay sayfasının hazır paylaşım kartı. */
+export function ogKarti(tur: "marka" | "blog", slug: string): string {
+  return `${OG_KLASOR}${tur}-${slug}.jpg`;
+}
 
 export function paylasim(opts: {
   baslik: string;
@@ -411,10 +431,10 @@ export function paylasim(opts: {
 }): Pick<Metadata, "openGraph"> {
   const gorsel = opts.gorsel ?? VARSAYILAN_GORSEL;
   const alt = opts.gorselAlt ?? opts.baslik;
-  // Ölçü yalnızca varsayılan görsel için bilinir; Facebook/LinkedIn kartı
-  // görseli indirmeden çizebilsin diye verilir. Sayfaya özel görsellerde
-  // ölçü kodda tutulmuyor — platform kendisi ölçer.
-  const olcu = opts.gorsel ? {} : VARSAYILAN_OLCU;
+  // /assets/og/ altındaki her kart 1200x630; ölçüyü vermek Facebook/LinkedIn'in
+  // kartı görseli indirmeden çizmesini sağlar. Başka bir klasörden görsel
+  // verilirse ölçü basılmaz (bilinmiyor) — platform kendisi ölçer.
+  const olcu = gorsel.startsWith(OG_KLASOR) ? OG_OLCU : {};
   const ortak = {
     title: opts.baslik,
     description: opts.aciklama,
@@ -435,6 +455,68 @@ export function paylasim(opts: {
     : { ...ortak, type: "website" };
 
   return { openGraph };
+}
+
+/**
+ * Marka DETAY sayfasında gerçekten çizilen görsellerin tam adresleri.
+ *
+ * banner BİLEREK dahil değil: o görsel detay sayfasında değil, /portfolyo
+ * listesinde gösteriliyor. Google bir URL altında bildirilen görselin o
+ * sayfada bulunmasını bekler; banner'lar /portfolyo girdisinde bildirilir
+ * (code-reviewer bulgusu, 2026-08-31).
+ *
+ * Videolarda poster karesi kullanılır, video dosyası değil.
+ */
+/**
+ * Google'a BİLDİRİLMEYECEK görseller.
+ *
+ * bardahl/rally.jpg — dosyanın kendi XMP verisinde: "Eric Vargiolu / DPPI /
+ * Red Bull Content Pool ... Usage for editorial use only ... must not be
+ * altered ... must be accompanied by the official photo credit."
+ * Yani lisanslı bir basın fotoğrafı ve ticari portfolyo kullanımı kapsam
+ * dışı (security-auditor bulgusu, 2026-08-31). Görselin sayfadan kaldırılıp
+ * kaldırılmayacağı YAKUP'un kararı; ama karar gelene kadar onu Google
+ * Görseller'e AKTİF OLARAK bildirmek yeni ve gereksiz bir risk yaratır.
+ */
+const SITEMAP_DISI = new Set(["/assets/brands/bardahl/rally.jpg"]);
+
+export function markaGorselleri(
+  marka: Pick<Brand, "hero" | "gallery">
+): string[] {
+  const bulunan: string[] = [];
+
+  if (marka.hero.type === "image") bulunan.push(marka.hero.src);
+  else if (marka.hero.poster) bulunan.push(marka.hero.poster);
+
+  for (const g of marka.gallery ?? []) {
+    switch (g.kind) {
+      case "image":
+        bulunan.push(g.src);
+        break;
+      case "video":
+        if (g.poster) bulunan.push(g.poster);
+        break;
+      case "tri":
+        if (g.left.type === "image") bulunan.push(g.left.src);
+        bulunan.push(g.rightTop, g.rightBottom);
+        break;
+      case "grid":
+        for (const it of g.items) {
+          if (it.type === "image") bulunan.push(it.src);
+        }
+        break;
+      default: {
+        // Galeriye yeni bir blok tipi eklenirse BU SATIR DERLEMEYİ KIRAR.
+        // Kasıtlı: aksi hâlde yeni tip sessizce atlanır ve görseller aylarca
+        // site haritasında eksik kalır (code-reviewer bulgusu).
+        const _kontrol: never = g;
+        return _kontrol;
+      }
+    }
+  }
+
+  // Aynı görsel iki blokta geçebiliyor; tekrarları ele.
+  return [...new Set(bulunan)].filter((y) => !SITEMAP_DISI.has(y)).map(mutlak);
 }
 
 /** Düğümleri tek bir @graph içine sarar; boş/undefined olanları eler. */
