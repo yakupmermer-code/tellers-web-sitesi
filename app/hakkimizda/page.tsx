@@ -3,6 +3,7 @@ import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import { gorselOlcu } from "@/lib/gorsel";
 import KapanisSection from "@/components/KapanisSection";
 import TriSlider from "@/components/TriSlider";
 import MediaReveal from "@/components/MediaReveal";
@@ -160,8 +161,10 @@ export default function HakkimizdaPage() {
         </section>
       </div>
 
-      {/* ── Manifesto görseli (netlik) ── */}
-      <MediaReveal>
+      {/* ── Manifesto görseli (netlik) ──
+          sabit: içinde YAZI var; paralaks büyütüp kaydırdığı için kenardaki
+          metin kesiliyordu (Yakup bildirdi 2026-09-01). */}
+      <MediaReveal sabit>
         <Image
           src="/assets/about/hakkimizda-metni.png"
           alt="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"
@@ -172,7 +175,16 @@ export default function HakkimizdaPage() {
         />
       </MediaReveal>
 
-      {/* ── Dinozor ajanslara veda + kreatif görsel ── */}
+      {/* ── Dinozor ajanslara veda + kreatif görsel ──
+          Görsel ölçüleri gorselOlcu ile DOSYADAN okunuyor: kodda 1-creative
+          için 960x960 (kare), 5-creative için 960x1100 yazıyordu; gerçekte
+          1500x340 ve 1120x545. Yanlış oran, görsel yüklenmeden önce yanlış
+          yer ayırtıp sayfayı zıplatıyordu (2026-09-01).
+
+          DİKKAT: JSX etiketinin ATTRIBUTE ARASINA blok yorumu yazma —
+          Turbopack derlemeyi asıyor. Ayrıca bu JSX yorumunun İÇİNE de blok
+          yorum kapatma dizisi yazma, yorumu erken kapatır. Bugün her iki
+          tuzağa da düşüldü. */}
       <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
         <Reveal mask>
           <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
@@ -191,8 +203,8 @@ export default function HakkimizdaPage() {
           <Image
             src="/assets/about/1-creative.png"
             alt="tellers kreatif çalışması"
-            width={960}
-            height={960}
+            width={gorselOlcu("/assets/about/1-creative.png").width}
+            height={gorselOlcu("/assets/about/1-creative.png").height}
             className="h-auto w-full"
             sizes="(min-width: 768px) 50vw, 100vw"
           />
@@ -399,8 +411,8 @@ export default function HakkimizdaPage() {
               <Image
                 src="/assets/about/5-creative.png"
                 alt="tellers küresel işlerinden bir kare"
-                width={960}
-                height={1100}
+                width={gorselOlcu("/assets/about/5-creative.png").width}
+                height={gorselOlcu("/assets/about/5-creative.png").height}
                 className="h-auto w-full"
                 sizes="(min-width: 768px) 50vw, 100vw"
               />

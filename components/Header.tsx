@@ -65,13 +65,21 @@ export default function Header() {
             aria-label="tellers ana sayfa"
             className="relative z-50"
           >
+            {/* BOŞLUKSUZ LOGO (2026-09-01, Yakup: "header da düzeltilsin
+                footer'daki gibi"). Eski dosya 850x850 KARE ve kelime işareti
+                karenin yalnızca %26'sını kaplıyor (ölçüldü: 775x225 @ 40,305).
+                72px'lik kutuda ekranda görünen yazı ~19 PİKSEL kalıyordu.
+                width/height 128x36 yazılmıştı ama dosya kare olduğu için
+                tarayıcı gerçek oranı (1:1) kullanıyordu — o rakamlar kelime
+                işaretini tarif ediyordu, dosyayı değil.
+                Şimdi h-7/h-8 GERÇEKTEN 28/32px'lik kelime işareti demek. */}
             <Image
-              src="/assets/logo/tellers-logo.png"
+              src="/assets/logo/tellers-logo-tight.png"
               alt="tellers"
-              width={128}
-              height={36}
+              width={775}
+              height={225}
               priority
-              className={`h-[72px] w-auto md:h-[81px] transition-[filter] duration-500 ${
+              className={`h-7 w-auto md:h-8 transition-[filter] duration-500 ${
                 onDarkHero ? "brightness-0 invert" : ""
               }`}
             />

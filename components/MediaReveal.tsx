@@ -29,11 +29,20 @@ export default function MediaReveal({
   /** Paralaks genliği (%). Referansta 4–8 arası değerler kullanılıyor. */
   amount = 6,
   scaleTo = 1.12,
+  sabit = false,
 }: {
   children: ReactNode;
   className?: string;
   amount?: number;
   scaleTo?: number;
+  /**
+   * true → hiç hareket yok, görsel tam ve kırpılmadan durur.
+   * İÇİNDE YAZI OLAN görsellerde ZORUNLU: paralaks görseli büyütüp
+   * kaydırdığı için kenardaki yazılar kesiliyor (Yakup bildirdi 2026-09-01:
+   * "hakkımızda kısmı ekrana tam oturmuyor"). Fotoğrafta sorun değil,
+   * metin görselinde içerik kaybıdır.
+   */
+  sabit?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -46,7 +55,17 @@ export default function MediaReveal({
     [0, 1],
     [`-${amount}%`, `${amount}%`],
   );
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, scaleTo, 1]);
+  /*
+   * Taban ölçek kaymayı ÖRTMEK zorunda: görsel ±amount% kayarken ölçek 1 ise
+   * kenarda boş şerit açılıyordu (code-reviewer bulgusu). Taban 1+2*amount/100
+   * ile başlar, ortada scaleTo'ya kadar nefes alır.
+   */
+  const taban = 1 + (2 * amount) / 100;
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [taban, Math.max(taban, scaleTo), taban]
+  );
 
   return (
     <div ref={ref} className={`overflow-hidden ${className ?? ""}`}>
@@ -54,7 +73,7 @@ export default function MediaReveal({
         className="reveal h-full w-full"
         // reduced: SSR'da basılan translateY(-6%) hidrasyonda AÇIKÇA
         // sıfırlanır; undefined bırakılırsa kalıcı kayma riski var.
-        style={reduced ? { y: 0, scale: 1 } : { y, scale }}
+        style={reduced || sabit ? { y: 0, scale: 1 } : { y, scale }}
       >
         {children}
       </motion.div>
