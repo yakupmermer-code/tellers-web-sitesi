@@ -33,7 +33,7 @@ export default function KapanisSection({
                 <>
                   <a
                     href={`tel:${SITE.phone}`}
-                    className="link-grow text-sm font-bold text-navy"
+                    className="link-grow text-[18px] font-bold text-navy"
                   >
                     görüşme planlayın.
                   </a>
@@ -41,7 +41,7 @@ export default function KapanisSection({
                     href={SITE.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-grow text-sm font-bold text-navy"
+                    className="link-grow text-[18px] font-bold text-navy"
                   >
                     whatsapp&apos;tan yazın.
                   </a>
@@ -50,7 +50,7 @@ export default function KapanisSection({
                 /* Numara gelene kadar tıklanabilir olmayan tek CTA: e-posta */
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="link-grow text-sm font-bold text-navy"
+                  className="link-grow text-[18px] font-bold text-navy"
                 >
                   bize yazın: {SITE.email}
                 </a>
