@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Ana slider videosu. Geçici Higgsfield atmosfer videosu; ekibin gerçek marka
- * tanıtım videosu geldiğinde yalnızca /public/assets/video/hero.mp4 değişecek.
+ * tanıtım videosu geldiğinde aşağıdaki src/poster satırları değiştirilir.
+ * DİKKAT: bileşen artık hero.mp4'ü DEĞİL, deneme videosunu gösteriyor —
+ * hero.mp4'ü değiştirmek hiçbir şeyi değiştirmez (2026-09-01).
  * Video yoksa lacivert degrade fon gösterilir (site kırılmaz).
  *
  * poster (2026-08-31): videonun İLK karesi. Kasıtlı olarak ilk kare seçildi —
@@ -50,8 +52,12 @@ export default function HeroVideo({
   return (
     <video
       ref={ref}
-      src="/assets/video/hero.mp4"
-      poster="/assets/video/hero-poster.jpg"
+      /* DENEME (2026-09-01, Yakup'un isteği): Higgsfield ile üretilen karakter
+         videosu slider'da deneniyor. Özgün hero.mp4 + hero-poster.jpg
+         SİLİNMEDİ, dosya olarak duruyor — beğenilmezse bu iki satır geri
+         alınır. */
+      src="/assets/video/hero-b-karakter.mp4"
+      poster="/assets/video/hero-b-karakter-poster.jpg"
       autoPlay
       muted
       loop

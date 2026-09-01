@@ -58,27 +58,47 @@ export default function HomePage() {
         <HeroZoom className="absolute inset-0">
           <HeroVideo inline className="h-full w-full object-cover opacity-80" />
         </HeroZoom>
-        {/* Ana sayfanın <h1>'i. Hero tasarımı bilinçli olarak metinsiz (ekip
-            kararı, 2026-08-14) — bu yüzden başlık görsel olarak gizlenir ama
-            ekran okuyucular ve arama motorları için sayfada durur. İçerik
-            sayfayı DOĞRU tarif ediyor; gizli anahtar kelime doldurma değil.
-            NOT: görünür bir h1 daha güçlüdür — ekip hero'ya başlık koymaya
-            karar verirse bu sr-only kaldırılıp o başlık h1 yapılmalı. */}
-        <h1 className="sr-only">
-          tellers — reklam ve marka iletişimi ajansı: performans pazarlama,
-          dijital pazarlama, markalama ve kreatif tasarım
-        </h1>
+        {/* Karartma: video üzerindeki yazının okunurluğu için. Videodan
+            bağımsız çalışır, video değişirse ayar gerekmez. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-navy/35"
+        />
         {/* Slogan okunurluğu için alt bölgeye yumuşak lacivert degrade */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-navy/80 via-navy/25 to-transparent"
         />
-        {/* Ekip notu (2026-08-14): video üzerindeki slogan kaldırıldı — slogan
-            footer'da marka kimliğini koruyor, hero sade bir atmosfer videosu */}
-        <div className="relative z-10 mx-auto flex w-full justify-end px-5 pb-16 md:px-10 md:pb-20">
+        {/* HERO MESAJI (2026-09-01, Yakup: "ilk açılışta bir dijital pazarlama
+            markalama ajansı için farklı bir şeyler olmalı"). Ekip 2026-08-14'te
+            hero'daki sloganı kaldırmıştı; bu karar Yakup'un isteğiyle geri
+            alındı.
+
+            ⚠️ METİN ONAY BEKLİYOR: bu cümle sitenin mevcut dilinden türetilmiş
+            YENİ bir metindir, dökümanda birebir geçmiyor. İlk denemede
+            "hizmetler sayfasının kendi hero cümlesi" diye gerekçelendirmiştim —
+            YANLIŞTI: o tasarımı services/hero.png GÖRSELİNİN İÇİNDE gördüm ve
+            sayfanın render'ı sandım; sayfada öyle bir metin yok. Ayrıca o cümle
+            ana sayfada zaten bir kez geçiyor (aşağıda "anlam felsefesi"
+            bölümünde). Ekip onaylamazsa değiştirilecek.
+
+            YERLEŞİM: mesaj ve hizmet listesi TEK kapsayıcıda. İlk denemede iki
+            ayrı kardeş div konmuştu; section flex olduğu için YAN YANA dizilip
+            ekranı ikiye bölüyorlardı — telefonda başlık kelime kelime alt alta
+            iniyordu (code-reviewer bulgusu). Mobilde alt alta, md'den itibaren
+            yan yana ve alta hizalı.
+
+            YAZI VİDEOYA GÖMÜLMEZ: yapay zeka Türkçe karakterleri (ğ ş ı İ)
+            bozuyor. HTML olarak binince yazı kusursuz çıkar, tek satırla
+            değiştirilebilir ve arama motoru okuyabilir. */}
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-5 pb-16 md:flex-row md:items-end md:justify-between md:gap-16 md:px-10 md:pb-20">
+          <h1 className="max-w-2xl text-3xl font-bold leading-[1.08] tracking-tight text-white md:text-[64px]">
+            Markaları duyulur değil,{" "}
+            <em className="font-didot italic">anlaşılır</em> kılıyoruz.
+          </h1>
           <Stagger
             as="ul"
-            className="flex flex-col gap-2 text-right text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-sm"
+            className="flex shrink-0 flex-col gap-2 text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-right md:text-sm"
           >
             {[
               "Performans Pazarlama",
