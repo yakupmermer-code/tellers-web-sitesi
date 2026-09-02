@@ -151,27 +151,35 @@ export default function HomePage() {
             </p>
           </Reveal>
         </div>
-        <Reveal delay={0.1} className="flex flex-col justify-center">
-          <p className="text-lg leading-relaxed text-navy md:text-[22px]">
-            7 yılda, 3 kıta ve 15 ülkede; sağlık, otomotiv, spor ve kozmetik
-            sektörlerindeki ortaklarımızla onlarca iletişim stratejisi ve
-            kampanyaya imza attık.
-          </p>
-          <p className="mt-6 text-lg leading-relaxed text-navy md:text-[22px]">
-            Bugün ise, Birleşik Krallık, Avrupa ve Ortadoğu pazarlarındaki
-            markalarımızla faaliyetlerimizi devam ettiriyoruz.
-          </p>
+        {/* KADEMELİ (2026-09-02): iki paragraf ve buton tek blok olarak
+            beliriyordu. Referansta bu tür sütunlar sırayla girer. */}
+        <Stagger className="flex flex-col justify-center">
+          <StaggerItem>
+            <p className="text-lg leading-relaxed text-navy md:text-[22px]">
+              7 yılda, 3 kıta ve 15 ülkede; sağlık, otomotiv, spor ve kozmetik
+              sektörlerindeki ortaklarımızla onlarca iletişim stratejisi ve
+              kampanyaya imza attık.
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 text-lg leading-relaxed text-navy md:text-[22px]">
+              Bugün ise, Birleşik Krallık, Avrupa ve Ortadoğu pazarlarındaki
+              markalarımızla faaliyetlerimizi devam ettiriyoruz.
+            </p>
+          </StaggerItem>
           {/* Ekip notu: köşeleri oval, kurumsal lacivert dikdörtgen buton, beyaz metin */}
-          <Link
-            href="/hakkimizda"
-            className="group mt-10 flex w-max items-center gap-4 rounded-full bg-navy px-7 py-[15px] text-xl font-bold text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
-          >
-            Hakkımızda
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-              ↗
-            </span>
-          </Link>
-        </Reveal>
+          <StaggerItem>
+            <Link
+              href="/hakkimizda"
+              className="group mt-10 flex w-max items-center gap-4 rounded-full bg-navy px-7 py-[15px] text-xl font-bold text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+            >
+              Hakkımızda
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
+                ↗
+              </span>
+            </Link>
+          </StaggerItem>
+        </Stagger>
       </section>
 
       {/* Buradan aşağısı, yukarıdaki sabitlenen bölümün ÜZERİNE kayar.
@@ -248,8 +256,8 @@ export default function HomePage() {
               ]}
             />
           </div>
-          <Reveal delay={0.1}>
-            <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
+          <Stagger className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
+            <StaggerItem>
               <p>
                 tellers&apos;ın amacı, markaların yalnızca duyulmasını değil
                 gerçekten anlaşılmasını sağlamaktır. Çünkü iletişim, bir ses
@@ -257,18 +265,22 @@ export default function HomePage() {
                 kampanya ise sosyolojik bir iç görünün, psikolojik bir sezginin
                 ve ölçülebilir verilerin kesişiminde şekillenir.
               </p>
+            </StaggerItem>
+            <StaggerItem>
               <p>
                 Bu yaklaşım, tellers&apos;ı klasik ajans anlayışının ötesine
                 taşır. Yaratıcılığı ölçülebilir, stratejiyi ise duygusal hale
                 getirir. Veriyi sezgisel olarak okur, iletişimi sistematik
                 olarak kurar, tasarımı bilimsel doğrulukla uygularız.
               </p>
+            </StaggerItem>
+            <StaggerItem>
               <p>
                 Böylece ortaya çıkan her proje, sadece estetik bir ifade değil,
                 ölçülebilir bir &ldquo;anlam&rdquo; sistemidir.
               </p>
-            </div>
-          </Reveal>
+            </StaggerItem>
+          </Stagger>
         </section>
 
         {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ── */}

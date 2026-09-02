@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
 import MediaReveal from "@/components/MediaReveal";
 import { BLOGS } from "@/content/blogs";
@@ -31,13 +32,20 @@ export const metadata: Metadata = {
 
 import type { Blog } from "@/content/blogs";
 
+/**
+ * Geniş blog kartı.
+ * ANİMASYON (2026-09-02): eskiden görsel + başlık + özet + link TEK <Reveal>
+ * içindeydi, hepsi aynı anda beliriyordu. Artık görsel kendi girişini yapıyor,
+ * sağdaki metin kolonu kademeli geliyor — referanstaki iki kolonlu blokların
+ * davranışı bu.
+ */
 function WideCard({ blog: b }: { blog: Blog }) {
   return (
-    <Reveal>
-      <Link
-        href={`/blog/${b.slug}`}
-        className="group grid gap-8 md:grid-cols-2"
-      >
+    <Link
+      href={`/blog/${b.slug}`}
+      className="arrow-link group grid gap-8 md:grid-cols-2"
+    >
+      <Reveal>
         <div className="overflow-hidden">
           <Image
             src={b.image}
@@ -48,19 +56,31 @@ function WideCard({ blog: b }: { blog: Blog }) {
             sizes="(min-width: 768px) 50vw, 100vw"
           />
         </div>
-        <div className="flex flex-col justify-center">
+      </Reveal>
+      <Stagger className="flex flex-col justify-center">
+        <StaggerItem>
           <h2 className="text-2xl font-bold leading-snug tracking-tight text-navy md:text-[48px]">
             {b.title}
           </h2>
+        </StaggerItem>
+        <StaggerItem>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-navy/60 md:text-lg">
             {b.excerpt}
           </p>
-          <span className="link-grow mt-6 w-max text-sm font-bold text-navy">
-            Yazıyı okuyun →
+        </StaggerItem>
+        <StaggerItem>
+          {/* `arrow-link` KARTIN kendisinde (Link'te), bu span'de değil:
+              burada olsaydı ok yalnızca bu küçük yazının üstüne gelince kayar,
+              klavye odağında hiç çalışmazdı (code-reviewer, 2026-09-02). */}
+          <span className="mt-6 flex w-max items-center gap-2 text-sm font-bold text-navy">
+            Yazıyı okuyun
+            <span aria-hidden="true" className="arrow">
+              →
+            </span>
           </span>
-        </div>
-      </Link>
-    </Reveal>
+        </StaggerItem>
+      </Stagger>
+    </Link>
   );
 }
 

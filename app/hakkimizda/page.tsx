@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
+import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import { gorselOlcu } from "@/lib/gorsel";
 import KapanisSection from "@/components/KapanisSection";
@@ -50,6 +51,9 @@ const STATS = [
     value: "3 Kıta & 15 Ülke",
     label:
       "Birleşik Krallık, Avrupa ve Ortadoğu'da aktif küresel operasyon ağı.",
+    /* Sayaç YOK: CountUp yalnızca İLK sayıyı animasyonlar; "3" sayarken "15"
+       hareketsiz kalıyor ve efekt yarım görünüyordu (code-reviewer, 2026-09-02). */
+    sayac: false,
   },
 ];
 
@@ -403,13 +407,18 @@ export default function HakkimizdaPage() {
                 küresel iletişimi somut verilerle yönlendiriyoruz.
               </p>
             </Reveal>
-            {/* İlk 3 istatistik solda */}
+            {/* İlk 3 istatistik solda.
+                SAYAÇ (2026-09-02): bu altı rakam ("7 Yıl", "+32 Global Marka",
+                "+22.872.000$", "2.000+ Lead") sabit metindi. CountUp bileşeni
+                sitede vardı ama yalnızca ana sayfada ve portfolyo detayında
+                kullanılıyordu — sayfanın en güçlü kanıt bloğu hareketsiz
+                duruyordu. Hareket azaltma tercihinde sayaç devre dışı kalır. */}
             <div className="mt-14 flex flex-col gap-10">
               {STATS.slice(0, 3).map((s, i) => (
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">
                     <h3 className="text-xl font-bold tracking-tight text-navy md:text-[28px]">
-                      {s.value}
+                      {s.sayac === false ? s.value : <CountUp value={s.value} />}
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-navy/60">
                       {s.label}
@@ -436,7 +445,7 @@ export default function HakkimizdaPage() {
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">
                     <h3 className="text-xl font-bold tracking-tight text-navy md:text-[28px]">
-                      {s.value}
+                      {s.sayac === false ? s.value : <CountUp value={s.value} />}
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-navy/60">
                       {s.label}

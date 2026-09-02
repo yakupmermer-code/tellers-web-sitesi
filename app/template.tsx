@@ -2,8 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { EASE } from "@/components/motion";
 
-const EASE = [0.32, 0.72, 0, 1] as const;
+/*
+ * EASE artık components/motion.ts'ten geliyor. Burada kendi eğrisi vardı
+ * ([0.32, 0.72, 0, 1]) — referansın eğrisine geçişte ATLANMIŞTI, yani sayfa
+ * geçişi sitenin geri kalanından FARKLI bir ivmeyle hareket ediyordu
+ * (2026-09-02'de yakalandı).
+ */
 
 /**
  * Sayfa geçişi (temadaki route değişiminin üstüne çıkan sürüm):

@@ -4,6 +4,7 @@ import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import MediaReveal from "@/components/MediaReveal";
 import RefLogoBand from "@/components/RefLogoBand";
 import ContactForm from "@/components/ContactForm";
@@ -99,26 +100,41 @@ export default function KariyerPage() {
       {/* ── Aradığımız ekip arkadaşı ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
-          <Reveal mask>
-            <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
-              Aradığımız ekip arkadaşı nasıl biri?
-            </h2>
-            <p className="mt-1.5 text-lg text-navy/50 md:text-[22px]">
-              Merak eden. Üreten. Sorgulayan. Gelişmek isteyen.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1} className="flex flex-col justify-center gap-6">
-            <p className="text-lg leading-relaxed text-navy/75 md:text-[22px]">
-              Her şeyi bilen insanları değil,{" "}
-              <em className="font-didot italic">öğrenmeye açık</em> insanları
-              arıyoruz.
-            </p>
-            <p className="text-lg leading-relaxed text-navy/75 md:text-[22px]">
-              Bir fikri savunabilen ama gerektiğinde fikrini değiştirebilen,
-              detaylara önem veren ama bütünü görebilen, yaptığı işin sonucunu
-              merak eden insanlarla çalışmak istiyoruz.
-            </p>
-          </Reveal>
+          <div>
+            <Reveal mask>
+              <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
+                Aradığımız ekip arkadaşı nasıl biri?
+              </h2>
+            </Reveal>
+            {/* KADEMELİ (2026-09-02): dört sıfat tek satırda birden beliriyordu;
+                artık teker teker geliyor — cümlenin ritmi ekranda da duyuluyor. */}
+            <Stagger
+              className="mt-1.5 flex flex-wrap gap-x-2 gap-y-1 text-lg text-navy/50 md:text-[22px]"
+              gap={0.1}
+            >
+              {["Merak eden.", "Üreten.", "Sorgulayan.", "Gelişmek isteyen."].map(
+                (kelime) => (
+                  <StaggerItem key={kelime}>{kelime}</StaggerItem>
+                ),
+              )}
+            </Stagger>
+          </div>
+          <Stagger className="flex flex-col justify-center gap-6">
+            <StaggerItem>
+              <p className="text-lg leading-relaxed text-navy/75 md:text-[22px]">
+                Her şeyi bilen insanları değil,{" "}
+                <em className="font-didot italic">öğrenmeye açık</em> insanları
+                arıyoruz.
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="text-lg leading-relaxed text-navy/75 md:text-[22px]">
+                Bir fikri savunabilen ama gerektiğinde fikrini değiştirebilen,
+                detaylara önem veren ama bütünü görebilen, yaptığı işin sonucunu
+                merak eden insanlarla çalışmak istiyoruz.
+              </p>
+            </StaggerItem>
+          </Stagger>
         </div>
       </section>
 

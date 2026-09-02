@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import ClosingCta from "@/components/ClosingCta";
 import MediaReveal from "@/components/MediaReveal";
 import ContactForm from "@/components/ContactForm";
@@ -73,61 +74,74 @@ export default function IletisimPage() {
           ayrılsın — iki metin alanı üst üste beyaz kalmasın. */}
       <div className="bg-mist">
         <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-28 md:grid-cols-[1fr_1.4fr] md:gap-24 md:px-10 md:py-32">
-          <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[36px]">
-              Birlikte çalışalım
-            </h2>
-            <ul className="mt-8 flex flex-col gap-4 text-base leading-relaxed text-navy/65">
-              <li>Hızlı geri dönüş, şeffaf iletişim.</li>
-              <li>Veriyle gerekçelendirilmiş kararlar.</li>
-              <li>Uçtan uca proje yönetimi.</li>
-              <li>Stratejiden uygulamaya tek ekip.</li>
-            </ul>
+          {/* ANİMASYON (2026-09-02): eskiden bu kolonun TAMAMI tek bir
+              <Reveal> içindeydi — başlık, liste, kanallar, adres hepsi aynı anda
+              beliriyordu. Referansta bu tür bloklar KADEMELİ girer. Artık
+              başlık kendi, madde listesi ve kanal satırları sırayla geliyor.
+              NOT: Stagger yalnızca EKRANA SIĞAN kaplarda kullanılabilir —
+              viewport.amount elemanın KENDİ alanının yüzdesi, ekrandan uzun bir
+              kap hiç tetiklenmez (bkz. app/portfolyo/page.tsx'teki uyarı). */}
+          <div>
+            <Reveal mask>
+              <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[36px]">
+                Birlikte çalışalım
+              </h2>
+            </Reveal>
+            <Stagger
+              as="ul"
+              className="mt-8 flex flex-col gap-4 text-base leading-relaxed text-navy/65"
+            >
+              {[
+                "Hızlı geri dönüş, şeffaf iletişim.",
+                "Veriyle gerekçelendirilmiş kararlar.",
+                "Uçtan uca proje yönetimi.",
+                "Stratejiden uygulamaya tek ekip.",
+              ].map((madde) => (
+                <StaggerItem as="li" key={madde}>
+                  {madde}
+                </StaggerItem>
+              ))}
+            </Stagger>
 
             {/* Diğer kanallar — ekip notundaki düzeltilmiş metinlerle */}
-            <div className="mt-12 flex flex-col gap-4">
+            <Stagger className="mt-12 flex flex-col gap-4">
+              {[
+                {
+                  ad: "Instagram'da İnceleyin",
+                  href: SITE.instagram,
+                  dis: true,
+                },
+                { ad: "E-Posta Gönderin", href: `mailto:${SITE.email}` },
+                { ad: "Haritada Görün", href: SITE.mapsUrl, dis: true },
+              ].map((k) => (
+                <StaggerItem key={k.ad}>
+                  <a
+                    href={k.href}
+                    target={k.dis ? "_blank" : undefined}
+                    rel={k.dis ? "noopener noreferrer" : undefined}
+                    className="arrow-link flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
+                  >
+                    <span className="text-lg">{k.ad}</span>
+                    <span aria-hidden="true" className="arrow">
+                      →
+                    </span>
+                  </a>
+                </StaggerItem>
+              ))}
+            </Stagger>
+
+            <Reveal delay={0.05}>
+              <p className="mt-8 max-w-sm text-sm leading-relaxed text-navy/50">
+                {SITE.address}
+              </p>
               <a
-                href={SITE.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
+                href={`tel:${SITE.phone}`}
+                className="mt-2 block w-max text-sm font-bold text-navy"
               >
-                <span className="text-lg">Instagram&apos;da İnceleyin</span>
-                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
-                  →
-                </span>
+                {SITE.phoneDisplay}
               </a>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
-              >
-                <span className="text-lg">E-Posta Gönderin</span>
-                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
-              <a
-                href={SITE.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between border-b border-navy/15 pb-4 text-navy"
-              >
-                <span className="text-lg">Haritada Görün</span>
-                <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
-            </div>
-            <p className="mt-8 max-w-sm text-sm leading-relaxed text-navy/50">
-              {SITE.address}
-            </p>
-            <a
-              href={`tel:${SITE.phone}`}
-              className="mt-2 block w-max text-sm font-bold text-navy"
-            >
-              {SITE.phoneDisplay}
-            </a>
-          </Reveal>
+            </Reveal>
+          </div>
           <Reveal delay={0.1}>
             <ContactForm />
           </Reveal>

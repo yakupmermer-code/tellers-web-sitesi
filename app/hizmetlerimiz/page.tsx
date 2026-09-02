@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
 import MediaReveal from "@/components/MediaReveal";
 import BlogSlider from "@/components/BlogSlider";
@@ -98,36 +99,43 @@ export default function HizmetlerimizPage() {
 
       {/* ── 4 hizmet bloğu ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+        {/* ANİMASYON (2026-09-02): eskiden article'ın TAMAMI tek <Reveal>
+            içindeydi; sağdaki madde listesi metinle birlikte tek blok olarak
+            beliriyordu. Referansta bu tür listeler KADEMELİ girer. Artık sol
+            metin kendi Reveal'ıyla, sağdaki maddeler sırayla geliyor.
+            Reveal article'ı sarmıyor: iç içe iki whileInView'da dıştaki
+            (uzun article, amount .25) geç tetiklenip içteki staggeri görünmez
+            hâlde bitirebilirdi. */}
         {SERVICES.map((s) => (
-          <Reveal key={s.slug}>
-            <article
-              id={s.slug}
-              className="grid gap-10 border-t hairline py-16 first:border-t-0 md:grid-cols-[1.4fr_1fr] md:gap-24 md:py-24"
-            >
-              <div>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-navy/40">
-                  {s.eyebrow}
-                </span>
-                <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
-                  {s.titleTr}
-                </h2>
-                <p className="mt-2 text-lg font-bold text-navy">{s.tagline}</p>
-                <p className="mt-4 text-lg leading-relaxed text-navy/80">
-                  {s.detail}
-                </p>
-              </div>
-              <ul className="flex flex-col self-center">
-                {s.items.map((item) => (
-                  <li
-                    key={item}
-                    className="border-b hairline py-4 text-base text-navy/80 md:text-lg"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </Reveal>
+          <article
+            key={s.slug}
+            id={s.slug}
+            className="grid gap-10 border-t hairline py-16 first:border-t-0 md:grid-cols-[1.4fr_1fr] md:gap-24 md:py-24"
+          >
+            <Reveal>
+              <span className="text-[11px] uppercase tracking-[0.22em] text-navy/40">
+                {s.eyebrow}
+              </span>
+              <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
+                {s.titleTr}
+              </h2>
+              <p className="mt-2 text-lg font-bold text-navy">{s.tagline}</p>
+              <p className="mt-4 text-lg leading-relaxed text-navy/80">
+                {s.detail}
+              </p>
+            </Reveal>
+            <Stagger as="ul" className="flex flex-col self-center">
+              {s.items.map((item) => (
+                <StaggerItem
+                  as="li"
+                  key={item}
+                  className="border-b hairline py-4 text-base text-navy/80 md:text-lg"
+                >
+                  {item}
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </article>
         ))}
       </section>
 
