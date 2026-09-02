@@ -395,7 +395,7 @@ export default function HakkimizdaPage() {
                 üretiriz.
               </p>
               <p className="mt-6 max-w-md text-base leading-relaxed text-navy/60">
-                7 yıl, 3 kıta ve 12 ülkede;{" "}
+                7 yıl, 3 kıta ve 15 ülkede;{" "}
                 <em className="font-didot italic">
                   sağlık, savunma, otomotiv, tarım, spor
                 </em>{" "}

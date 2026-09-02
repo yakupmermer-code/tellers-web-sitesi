@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -65,20 +64,32 @@ export default function Header() {
             aria-label="tellers ana sayfa"
             className="relative z-50"
           >
-            {/* BOŞLUKSUZ LOGO (2026-09-01, Yakup: "header da düzeltilsin
-                footer'daki gibi"). Eski dosya 850x850 KARE ve kelime işareti
-                karenin yalnızca %26'sını kaplıyor (ölçüldü: 775x225 @ 40,305).
-                72px'lik kutuda ekranda görünen yazı ~19 PİKSEL kalıyordu.
-                width/height 128x36 yazılmıştı ama dosya kare olduğu için
-                tarayıcı gerçek oranı (1:1) kullanıyordu — o rakamlar kelime
-                işaretini tarif ediyordu, dosyayı değil.
-                Şimdi h-7/h-8 GERÇEKTEN 28/32px'lik kelime işareti demek. */}
-            <Image
-              src="/assets/logo/tellers-logo-tight.png"
+            {/*
+              BOŞLUKSUZ LOGO (2026-09-01, Yakup: "header da düzeltilsin
+              footer'daki gibi"). Eski dosya 850x850 KARE ve kelime işareti
+              karenin yalnızca %26'sını kaplıyordu (ölçüldü: 775x225 @ 40,305);
+              72px'lik kutuda ekranda görünen yazı ~19 PİKSEL kalıyordu.
+              h-7/h-8 artık GERÇEKTEN 28/32px'lik kelime işareti demek.
+
+              VEKTÖRE GEÇİŞ (2026-09-02): footer'daki dev kullanım için üretilen
+              SVG burada da kullanılıyor. Ölçüldü: header PNG'yi retinada 5.239
+              bayt olarak indiriyordu; SVG'yi footer zaten HER SAYFADA indiriyor,
+              yani bu değişiklik bir isteği ve ~5 KB'yi tamamen siliyor.
+
+              next/image DEĞİL <img>: Next'in görsel iyileştiricisi SVG'yi
+              `dangerouslyAllowSVG` kapalıyken 400 ile reddediyor (canlıda
+              denendi). Vektörü yeniden boyutlandırmanın zaten anlamı yok.
+              `brightness-0 invert` filtresi SVG'de de aynı çalışıyor —
+              lacivert hero'da logo yine beyaza dönüyor.
+            */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/logo/tellers-logo.svg"
               alt="tellers"
               width={775}
               height={225}
-              priority
+              fetchPriority="high"
+              decoding="async"
               className={`h-7 w-auto md:h-8 transition-[filter] duration-500 ${
                 onDarkHero ? "brightness-0 invert" : ""
               }`}
