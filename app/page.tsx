@@ -283,8 +283,13 @@ export default function HomePage() {
           </Stagger>
         </section>
 
-        {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ── */}
-        <section className="flex flex-col gap-6 px-5 pb-6 md:px-10">
+        {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ──
+            ALT BOŞLUK (2026-09-02): pb-6 DEĞİL pb-28 md:pb-32. Eskiden bu bölümün
+            hemen altında 3'lü görsel ızgarası vardı ve ikisi tek gösteri gibi
+            akıyordu (6px ara bilinçliydi). Izgara tasarım manifestosunun altına
+            taşınınca burası doğrudan tam genişlikteki sayılar bandına yapıştı.
+            Küçültme — sayılar bandına yapışır. ── */}
+        <section className="flex flex-col gap-6 px-5 pb-28 md:px-10 md:pb-32">
           <Reveal>
             <Link
               href="/portfolyo/mastercard"
@@ -323,7 +328,40 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        {/* ── 3'LÜ GRİD GÖRSEL ALANI (My Nova / Savron / Tyre Supply) ── */}
+        {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
+        <MediaReveal sabit>
+          <Image
+            src="/assets/home/yarim-slide-4.png"
+            alt="7 yıl deneyim, +32 global marka, 3 kıta, 15 ülke, aylık +2000 lead akışı"
+            width={1920}
+            height={700}
+            className="h-auto w-full"
+            sizes="100vw"
+          />
+        </MediaReveal>
+
+        {/* ── TASARIM MANİFESTOSU (5.png) ── */}
+        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+          <Reveal mask>
+            <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-[96px]">
+              Tasarım, tellers için estetik değil,{" "}
+              <em className="font-didot font-normal italic">
+                anlamın mekansal
+              </em>{" "}
+              organizasyonudur.
+            </h2>
+            <p className="mt-4 text-lg text-navy/50">
+              Tasarım, anlamın görünür biçimi.
+            </p>
+          </Reveal>
+        </section>
+
+        {/* ── 3'LÜ GRİD GÖRSEL ALANI (My Nova / Savron / Tyre Supply) ──
+            YER DEĞİŞİKLİĞİ (2026-09-02, Yakup): eskiden portfolyo öne
+            çıkanların hemen altındaydı; tasarım manifestosunun altına alındı.
+            Metin bloğundan sonra üç kare görsel gelmesi sayfanın ritmini
+            açıyor. Portfolyo bölümünün alt boşluğu da buna göre büyütüldü
+            (gerekçe orada yazılı). ── */}
         <section className="grid gap-6 px-5 pb-28 md:grid-cols-3 md:px-10 md:pb-32">
           {[
             {
@@ -357,59 +395,27 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
-        <MediaReveal sabit>
-          <Image
-            src="/assets/home/yarim-slide-4.png"
-            alt="7 yıl deneyim, +32 global marka, 3 kıta, 15 ülke, aylık +2000 lead akışı"
-            width={1920}
-            height={700}
-            className="h-auto w-full"
-            sizes="100vw"
-          />
-        </MediaReveal>
+        {/* ── SLOGAN BANNER'I ──
+          KALDIRILDI (2026-09-02, Yakup: "3. görseldeki yazı ve altındaki videoyu
+          kaldır"): bu bölümde "İletişim; anlamın dolaşımı." başlığı ve altında
+          geçici atmosfer videosu vardı. İkisi de çıkarıldı; slogan banner'ı
+          KALDI (Yakup onu saymadı, ayrı bir görsel ve tek başına ayakta duruyor).
 
-        {/* ── TASARIM MANİFESTOSU (5.png) ── */}
-        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
-          <Reveal mask>
-            <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-[96px]">
-              Tasarım, tellers için estetik değil,{" "}
-              <em className="font-didot font-normal italic">
-                anlamın mekansal
-              </em>{" "}
-              organizasyonudur.
-            </h2>
-            <p className="mt-4 text-lg text-navy/50">
-              Tasarım, anlamın görünür biçimi.
-            </p>
-          </Reveal>
-        </section>
+          ⚠️ DÖKÜMANDAN AYRILDIK: revize dökümanı "Bu [slogan] alanı 'İletişim;
+          Anlamın Dolaşımı' alanının altına alacağız" diyordu. O bölüm artık yok,
+          yani talimat karşılanamıyor. Banner burada duruyor ama gerekçesi
+          dökümandan değil Yakup'un 2026-09-02 kararından geliyor.
 
-        {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI + VİDEO ──
-          Gri fon (ekip notu 2026-08-14): üstteki "Tasarım manifestosu" ve
-          alttaki "Veri; anlamın kökeni" metin alanları arasına giren bu bölüm
-          gri fonla ayrılır — üç metin bloğu birbirine yapışık okunmasın. */}
+          ⚠️ PLACEHOLDER: slogan-banner.png GEÇİCİ. Ekipten gerçek marka videosu
+          gelince bu görselin yerini alacak (eski yorumda yazılıydı, kaldırılan
+          blokla birlikte kaybolmuştu — code-reviewer yakaladı).
+
+          Gri fon: beyaz akış içinde soluklanma; banner'ı çerçeveler. (Eski
+          gerekçesi "üç metin bloğunu ayırmak"tı; ortadaki metin bloğu kalktığı
+          için o gerekçe artık geçerli değil.) */}
         <div className="bg-mist">
           <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
-            <Reveal mask>
-              <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
-                İletişim;{" "}
-                <em className="font-didot font-normal italic">anlamın</em>
-                <br />
-                dolaşımı.
-              </h2>
-            </Reveal>
-            {/* Ekip notu: bu alana marka videosu gelecek (çalışılıyor) — geçici atmosfer videosu */}
-            <Reveal delay={0.1} className="mt-12">
-              <HeroVideo
-                className="aspect-video w-full rounded-none object-cover"
-                inline
-              />
-            </Reveal>
-            {/* İçerik dökümanı: "Bu [slogan] alanı 'İletişim; Anlamın Dolaşımı'
-              alanının altına alacağız." (ana_safya_slogan_imaj.png)
-              Gerçek marka videosu geldiğinde bu görselin yerini alacak. */}
-            <Reveal delay={0.15} className="mt-6">
+            <Reveal>
               <Image
                 src="/assets/home/slogan-banner.png"
                 alt="Duyulan unutulur, anlaşılan kalır — tellers, gerçek bir ajans deneyimi"

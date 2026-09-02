@@ -38,6 +38,9 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 ## Eksik İçerikler (ekipten beklenen)
 
 - Marka tanıtım videosu (ana slider) — yerine Higgsfield geçici videosu
+- Marka videosu (ana sayfa slogan bandı) — yerine `slogan-banner.png` duruyor;
+  gerçek video gelince onun yerini alacak (2026-09-02'de kaldırılan "İletişim;
+  anlamın dolaşımı" bölümünde de geçici bir video vardı, o tamamen çıkarıldı)
 - Raymond Weil, Minousha, Qui Prive operasyon tarihleri (XXXX/????)
 
 ## Runtime model
