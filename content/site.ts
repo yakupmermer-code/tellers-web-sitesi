@@ -28,6 +28,19 @@ export const SITE = {
   adres: ADRES,
   /** Sayfada gösterilen tek satırlık adres (parçalardan üretilir). */
   address: `${ADRES.sokak} ${ADRES.ilce} / ${ADRES.il}`,
+  /**
+   * Footer'daki konum cümlesi (referanstaki "We are currently based in..."
+   * satırının karşılığı). BİLİNÇLİ olarak şehir adı geçmiyor: app/layout.tsx'te
+   * yazılı karar var — tellers yerel bir "Ankara ajansı" değil, ulusal ve
+   * uluslararası konumlanıyor. Ofis adresi zaten footer'ın alt katında duruyor.
+   * Kapsam sayıları (kıta/ülke) da bilinçli olarak burada tekrarlanmıyor;
+   * sayılar sayfa metinlerinde geçiyor, iki yerde tutulup birinin eskimesi
+   * istenmiyor.
+   */
+  konumCumlesi: "Türkiye merkezliyiz; markalarla uzaktan ve yerinde çalışıyoruz.",
+  /** Footer alt bandındaki künye satırı. Ticari unvan/sicil bilgisi ekipten gelince genişletilecek. */
+  kunyeCumlesi:
+    "Marka iletişimi, performans pazarlaması, dijital pazarlama ve kreatif üretim hizmetleri tellers Creative Communications tarafından verilir.",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent(

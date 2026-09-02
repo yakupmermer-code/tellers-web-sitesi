@@ -14,6 +14,25 @@ import Lenis from "lenis";
  * Erişilebilirlik: "hareketi azalt" tercihi açıksa hiç devreye girmez —
  * tarayıcının kendi kaydırması kalır.
  */
+/**
+ * Çalışan Lenis örneği. Lenis her karede kaydırma konumunu KENDİ hesabına göre
+ * yazdığı için `window.scrollTo` ile yarışır; bu yüzden "başa dön" gibi
+ * programatik kaydırmalar Lenis'in kendi API'sinden geçmek zorunda.
+ * Modül düzeyinde tutuluyor: layout'taki <SmoothScroll /> ile footer'daki
+ * buton aynı istemci paketini paylaşır, dolayısıyla aynı örneği görür.
+ */
+let etkinLenis: Lenis | null = null;
+
+/** Sayfanın en üstüne döner. Lenis kapalıysa tarayıcının kendi kaydırması. */
+export function basaDon() {
+  if (etkinLenis) {
+    etkinLenis.scrollTo(0, { duration: 1.2 });
+    return;
+  }
+  const azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: azalt ? "auto" : "smooth" });
+}
+
 export default function SmoothScroll() {
   useEffect(() => {
     const azalt = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -28,6 +47,7 @@ export default function SmoothScroll() {
       // Dokunmatikte tarayıcının kendi kaydırması daha iyi hissettiriyor
       syncTouch: false,
     });
+    etkinLenis = lenis;
 
     let kare = 0;
     const dongu = (zaman: number) => {
@@ -39,6 +59,10 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(kare);
       lenis.destroy();
+      // Sadece KENDİ örneğini sil. Bugün tek <SmoothScroll /> var; ileride
+      // ikincisi eklenirse A'nın unmount'u B'nin çalışan örneğini silmesin
+      // (silseydi "başa dön" sessizce Lenis'le yarışan yedek yola düşerdi).
+      if (etkinLenis === lenis) etkinLenis = null;
     };
   }, []);
 

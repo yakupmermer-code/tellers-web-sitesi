@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { SITE } from "@/content/site";
 
 /**
- * Newsletter alanı — backend olmadığı için e-posta istemcisine yönlendirir.
- * İleride bir form servisi bağlanırsa yalnızca handleSubmit değişir.
+ * Footer bülten formu — backend olmadığı için e-posta istemcisine yönlendirir.
+ * Bir form servisi bağlanırsa yalnızca handleSubmit değişir.
+ *
+ * NOT (2026-09-02): eskiden iki görünümü vardı (büyük "Gönderin" butonlu form +
+ * bu dar satır). Footer yeniden kurulunca büyük görünümü kullanan tek yer
+ * kalmadı; ölü dal silindi (git geçmişinde duruyor). İletişim sayfasının kendi
+ * formu ayrı bir bileşen: components/ContactForm.tsx.
  */
 export default function NewsletterForm() {
+  const emailId = useId();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -22,38 +28,30 @@ export default function NewsletterForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col justify-center gap-4"
-    >
-      <label
-        htmlFor="newsletter-email"
-        className="text-[11px] uppercase tracking-[0.2em] text-navy/40"
-      >
-        E-posta adresiniz
-      </label>
-      <div className="flex flex-col gap-3 sm:flex-row">
+    <form onSubmit={handleSubmit} className="mt-6">
+      <div className="flex items-center border-b border-navy/20 transition-colors duration-500 focus-within:border-navy">
+        <label htmlFor={emailId} className="sr-only">
+          E-posta adresiniz
+        </label>
         <input
-          id="newsletter-email"
+          id={emailId}
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="ornek@sirketiniz.com"
-          className="w-full border-b border-navy/20 bg-transparent py-3 text-lg outline-none transition-colors duration-500 placeholder:text-navy/30 focus:border-navy"
+          placeholder="E-posta adresiniz"
+          className="w-full bg-transparent py-3 text-[16px] outline-none placeholder:text-navy/35"
         />
         <button
           type="submit"
-          className="group flex w-max items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+          aria-label="Bültene abone olun"
+          className="arrow-link p-2 text-navy"
         >
-          Gönderin
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-            ↗
-          </span>
+          <span className="arrow text-[20px] leading-none">→</span>
         </button>
       </div>
       {submitted && (
-        <p role="status" className="text-sm leading-relaxed text-navy/60">
+        <p role="status" className="mt-3 text-sm leading-relaxed text-navy/60">
           E-posta uygulamanız açılmadıysa bize doğrudan{" "}
           <a
             href={`mailto:${SITE.email}`}
