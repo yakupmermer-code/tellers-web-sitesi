@@ -7,6 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { EASE, SURE } from "./motion";
 
 /**
  * Görsel/video için KAYDIRMAYA BAĞLI sürekli hareket.
@@ -70,6 +71,16 @@ export default function MediaReveal({
   return (
     <div ref={ref} className={`overflow-hidden ${className ?? ""}`}>
       <motion.div
+        /*
+         * sabit modda da GİRİŞ vardır ama yalnızca solma ile: opacity hiçbir
+         * şeyi kırpmaz. Transform (kaydırma/ölçek) kullanılamaz çünkü bu
+         * sitedeki medyaların neredeyse hepsinde GÖMÜLÜ YAZI var ve en ufak
+         * büyütme kenardaki metni kesiyor (2026-09-02).
+         */
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: SURE.reveal, ease: EASE }}
         className="reveal h-full w-full"
         // reduced: SSR'da basılan translateY(-6%) hidrasyonda AÇIKÇA
         // sıfırlanır; undefined bırakılırsa kalıcı kayma riski var.

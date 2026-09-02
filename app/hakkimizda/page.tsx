@@ -361,7 +361,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── İmaj 1 (gif alanı) — ekipten gelen gerçek video ── */}
-      <MediaReveal>
+      <MediaReveal sabit>
         <video
           src="/assets/about/hakkimizda-imaj-1.mp4"
           autoPlay
@@ -443,7 +443,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── İmaj 2 — ekipten gelen gerçek video ── */}
-      <MediaReveal>
+      <MediaReveal sabit>
         <video
           src="/assets/about/hakkimizda-imaj-2.mp4"
           autoPlay
