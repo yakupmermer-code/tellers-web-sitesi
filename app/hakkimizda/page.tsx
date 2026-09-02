@@ -360,10 +360,17 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* ── İmaj 1 (gif alanı) — ekipten gelen gerçek video ── */}
+      {/* ── İmaj 1 (gif alanı) — ekipten gelen gerçek video ──
+          -yerlesik: özgün videonun ilk 1.3 saniyesinde yazı ("BAŞARI TESADÜF
+          DEĞİLDİR") sağdan ve soldan kayarak giriyor. Bu blok sayfanın
+          ORTASINDA ve sürekli döngüde olduğu için yazı her turda yeniden
+          kayıyor, bozuk gibi duruyordu (Yakup bildirdi, 2026-09-02).
+          Video yazının yerleştiği andan başlatıldı; özgün dosya SİLİNMEDİ.
+          NOT: aynı giriş animasyonu 5 hero videosunda da var ama onlar sayfa
+          başında olduğu için kasıtlı durabilir — ekip kararına bırakıldı. */}
       <MediaReveal sabit>
         <video
-          src="/assets/about/hakkimizda-imaj-1.mp4"
+          src="/assets/about/hakkimizda-imaj-1-yerlesik.mp4"
           autoPlay
           muted
           loop
