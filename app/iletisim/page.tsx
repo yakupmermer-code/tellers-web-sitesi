@@ -41,7 +41,7 @@ export default function IletisimPage() {
       />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal sabit>
           <video
             src="/assets/contact/hero.mp4"
             poster="/assets/contact/hero-poster.jpg"
@@ -51,7 +51,7 @@ export default function IletisimPage() {
             playsInline
             preload="metadata"
             aria-label="tellers ile iletişime geçin"
-            className="max-h-[64dvh] w-full object-cover"
+            className="h-auto w-full"
           />
         </MediaReveal>
       </section>

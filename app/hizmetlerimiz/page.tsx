@@ -81,7 +81,7 @@ export default function HizmetlerimizPage() {
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal sabit>
           <video
             src="/assets/services/hero.mp4"
             poster="/assets/services/hero-poster.jpg"
@@ -91,7 +91,7 @@ export default function HizmetlerimizPage() {
             playsInline
             preload="metadata"
             aria-label="tellers hizmetleri"
-            className="max-h-[72dvh] w-full object-cover"
+            className="h-auto w-full"
           />
         </MediaReveal>
       </section>

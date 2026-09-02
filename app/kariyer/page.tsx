@@ -43,14 +43,14 @@ export default function KariyerPage() {
       />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal sabit>
           <Image
             src="/assets/career/hero.png"
             alt="tellers ekibine katılın"
             width={3000}
             height={722}
             priority
-            className="max-h-[64dvh] w-full object-cover"
+            className="h-auto w-full"
             sizes="100vw"
           />
         </MediaReveal>

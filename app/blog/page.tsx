@@ -90,14 +90,14 @@ export default function BlogPage() {
       <h1 className="sr-only">tellers Blog</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal sabit>
           <Image
             src="/assets/blog/hero.png"
             alt="tellers blog"
             width={1920}
             height={760}
             priority
-            className="max-h-[64dvh] w-full object-cover"
+            className="h-auto w-full"
             sizes="100vw"
           />
         </MediaReveal>

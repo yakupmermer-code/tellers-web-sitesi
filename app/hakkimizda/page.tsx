@@ -93,9 +93,15 @@ export default function HakkimizdaPage() {
           ]),
         )}
       />
-      {/* ── Daraltılmış ana slide ── */}
+      {/* ── Ana slide ──
+          sabit + h-auto: videonun İÇİNDE "BAŞARI TESADÜF DEĞİLDİR" yazısı var
+          ve kareyi dolduruyor; her kırpma yazıyı kesiyordu (Yakup bildirdi,
+          2026-09-02: iki yandan kesik görünüyordu). İki kırpma kaynağı vardı:
+          MediaReveal'ın %12 paralaks büyütmesi (yandan) ve
+          max-h-[64dvh]+object-cover (üstten-alttan). İkisi de kaldırıldı;
+          video 1600x800 doğal oranıyla tam görünüyor. */}
       <section className="relative mt-24 overflow-hidden">
-        <MediaReveal>
+        <MediaReveal sabit>
           <video
             src="/assets/about/hero.mp4"
             poster="/assets/about/hero-poster.jpg"
@@ -105,7 +111,7 @@ export default function HakkimizdaPage() {
             playsInline
             preload="metadata"
             aria-label="tellers hakkında"
-            className="max-h-[64dvh] w-full object-cover"
+            className="h-auto w-full"
           />
         </MediaReveal>
       </section>

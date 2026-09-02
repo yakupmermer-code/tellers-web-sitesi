@@ -56,7 +56,7 @@ export default function PortfolyoPage() {
       />
       {/* ── Ana slide: marka ismi/detay yok ── */}
       <section className="relative mt-24">
-        <MediaReveal>
+        <MediaReveal sabit>
           <video
             src="/assets/portfolio/hero.mp4"
             poster="/assets/portfolio/hero-poster.jpg"
@@ -66,7 +66,7 @@ export default function PortfolyoPage() {
             playsInline
             preload="metadata"
             aria-label="tellers portfolyo"
-            className="max-h-[78dvh] w-full object-cover"
+            className="h-auto w-full"
           />
         </MediaReveal>
       </section>
