@@ -14,7 +14,7 @@ export default function KapanisSection({
 }) {
   return (
     <>
-      <section className="bg-paper py-28 md:py-40">
+      <section className="bg-paper py-20 md:py-24">
         <div className="mx-auto max-w-[1100px] px-5 text-center md:px-10">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[112px]">

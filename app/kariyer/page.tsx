@@ -58,7 +58,7 @@ export default function KariyerPage() {
       </section>
 
       {/* ── Giriş metni ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h1 className="max-w-4xl text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Fikirlerin değer gördüğü, yaratıcılığın sonuçlarla buluştuğu bir
@@ -80,7 +80,7 @@ export default function KariyerPage() {
       <div className="bg-mist">
         <section
           id="basvuru"
-          className="mx-auto max-w-[900px] px-5 py-28 md:px-10 md:py-32"
+          className="mx-auto max-w-[900px] px-5 py-20 md:px-10 md:py-24"
         >
           <Reveal mask>
             <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[48px]">
@@ -98,7 +98,7 @@ export default function KariyerPage() {
       </div>
 
       {/* ── Aradığımız ekip arkadaşı ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal mask>

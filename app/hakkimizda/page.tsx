@@ -121,7 +121,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Global devlerin tercihi ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Global devlerin tercihi, tellers.
@@ -137,7 +137,7 @@ export default function HakkimizdaPage() {
           tercihi" başlık alanından ayrılsın; gri fon ayıracın kendisi olduğu
           için üstteki ince çizgi kaldırıldı. */}
       <div className="bg-mist">
-        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+        <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal>
             <p className="max-w-5xl text-2xl font-bold leading-snug tracking-tight text-navy md:text-[48px]">
               7 yılda, 3 kıta, 15 ülkede Sağlık, Tarım, Savunma, Otomotiv, Spor
@@ -195,7 +195,7 @@ export default function HakkimizdaPage() {
           Turbopack derlemeyi asıyor. Ayrıca bu JSX yorumunun İÇİNE de blok
           yorum kapatma dizisi yazma, yorumu erken kapatır. Bugün her iki
           tuzağa da düşüldü. */}
-      <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
+      <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
         <Reveal mask>
           <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Eski kafalı dinozor ajanslara veda edin.
@@ -222,7 +222,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Vizyon ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-40">
+      <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Yakın gelecekte tellers.
@@ -268,7 +268,7 @@ export default function HakkimizdaPage() {
           Gri fon (ekip notu 2026-08-14): hemen üstündeki Vizyon metin
           alanından ayrılsın — iki uzun metin bloğu üst üste gelmesin. */}
       <div className="bg-mist">
-        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+        <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
               Bugün tellers.
@@ -310,7 +310,7 @@ export default function HakkimizdaPage() {
 
       {/* ── Referans işler 3'lü slider: Bardahl, MasterCard, Savron ──
           pt: üstteki gri Misyon bandının kenarına yapışmasın. */}
-      <section className="pb-28 pt-28 md:pb-40 md:pt-40">
+      <section className="pb-20 pt-20 md:pb-24 md:pt-24">
         <TriSlider
           items={[
             {
@@ -333,7 +333,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── tellers'ın Pratik Testleri ── */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             tellers&apos;ın Pratik Testleri
@@ -386,7 +386,7 @@ export default function HakkimizdaPage() {
       </MediaReveal>
 
       {/* ── Recognition & Impact ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal mask>

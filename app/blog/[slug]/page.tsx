@@ -126,7 +126,13 @@ export default async function BlogDetayPage({
       {/* Ekip notu (2026-08-14): başlık + "tellers — tarih" üstte kalır, hero
           görseli metin kolonundan çıkarılıp tam genişliğe alındı ve temanın
           perde açılma efekti (MediaReveal) ile açılır. */}
-      <article className="pb-28 pt-36 md:pt-44">
+      {/* ÜST DOLGU HEADER PAYINI DA İÇERİR — küçültme.
+          Bu sayfa `mt-24`'lü bir hero'ya sahip DEĞİL, yani buradaki pt hem
+          sabit header'ın (h-24 = 96px) altından çıkmayı hem nefes boşluğunu
+          birlikte veriyor. Toplu boşluk kısaltmasında pt-24'e (=tam 96px)
+          düşmüştü: başlık telefonda menü çubuğuna değiyordu (code-reviewer
+          bulgusu, 2026-09-02). 128px = 96 header + 32 nefes. */}
+      <article className="pb-20 pt-32 md:pt-40">
         <div className="mx-auto max-w-[900px] px-5 md:px-10">
           <Reveal mask>
             <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
@@ -184,7 +190,7 @@ export default async function BlogDetayPage({
       </article>
 
       {/* Diğer yazılar */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-20 md:px-10">
         <Reveal mask>
           <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[48px]">
             Diğer Yazılar

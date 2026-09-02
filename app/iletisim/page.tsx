@@ -58,7 +58,7 @@ export default function IletisimPage() {
       </section>
 
       {/* ── Başlık ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Bize ulaşın
@@ -73,7 +73,7 @@ export default function IletisimPage() {
           Gri fon (ekip notu 2026-08-14): üstteki "Bize ulaşın" metin alanından
           ayrılsın — iki metin alanı üst üste beyaz kalmasın. */}
       <div className="bg-mist">
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-28 md:grid-cols-[1fr_1.4fr] md:gap-24 md:px-10 md:py-32">
+        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-[1fr_1.4fr] md:gap-24 md:px-10 md:py-24">
           {/* ANİMASYON (2026-09-02): eskiden bu kolonun TAMAMI tek bir
               <Reveal> içindeydi — başlık, liste, kanallar, adres hepsi aynı anda
               beliriyordu. Referansta bu tür bloklar KADEMELİ girer. Artık

@@ -120,7 +120,7 @@ export default async function MarkaDetayPage({
       </section>
 
       {/* ── Başlık + tanıtım ── */}
-      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
+      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
         <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.1] tracking-tight text-navy md:text-[64px]">
             {brand.headline}
@@ -152,7 +152,7 @@ export default async function MarkaDetayPage({
           bu alan gri olur. Gri fon ayıracın kendisi olduğu için üstteki ince
           çizgi kaldırıldı. */}
       <div className="bg-mist">
-        <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
+        <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
           <Reveal mask>
             <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[48px]">
               Operasyon Detayları
@@ -193,7 +193,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Galeri ── */}
       {brand.gallery && (
-        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-28 pt-28 md:px-10 md:pb-32 md:pt-32">
+        <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-24">
           {brand.gallery.map((g, i) => {
             if (g.kind === "image")
               return (
@@ -366,7 +366,7 @@ export default async function MarkaDetayPage({
 
       {/* ── Performance Results (yalnız veri verilen markalarda) ── */}
       {brand.results && (
-        <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-32">
+        <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
           <div className="grid gap-12 border-t hairline pt-16 md:grid-cols-3">
             {brand.results.map((r, i) => (
               <Reveal key={r.value} delay={0.06 * i}>
@@ -383,7 +383,7 @@ export default async function MarkaDetayPage({
       )}
 
       {/* ── More Projects ── */}
-      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-28 md:px-10 md:py-32">
+      <section className="mx-auto max-w-[1440px] border-t hairline px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[64px]">
             Diğer Projeler

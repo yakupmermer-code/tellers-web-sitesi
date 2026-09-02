@@ -6,7 +6,11 @@
  *
  * NEDEN BU DEĞERLER: bölümün yüksekliği ekran GENİŞLİĞİNE bağlı — sütunlar
  * daraldıkça başlık ve paragraflar daha çok satıra iner. code-reviewer'ın
- * hesabı: 1440px+ genişlikte bölüm ~629px; 768px'te ~880px'e çıkıyor.
+ * ilk hesabı: 1440px+ genişlikte bölüm ~629px; 768px'te ~880px'e çıkıyordu.
+ * ⚠️ BU SAYILAR ESKİDİ (2026-09-02): bölüm dolgusu 2x160px'ten 2x96px'e indi,
+ * yani bölüm artık ~501px. Eşik (min-height:700px) bu yüzden gereğinden
+ * TEMKİNLİ — ama güvenli tarafta: efekt açılmıyor, kırpma da olmuyor.
+ * Eşik indirilecekse ÖNCE yeniden ölçülmeli, aşağıdaki eski sayılara güvenme.
  * `sticky top-0` ile ekrandan uzun bir bölümün ALTINA kaydırarak bile
  * ulaşılamıyor — ana sayfanın tek CTA'sı ("Hakkımızda") kalıcı kesiliyordu.
  * Bu yüzden efekt yalnızca bölümün KISA kaldığı geniş ekranlarda açılır.

@@ -127,7 +127,7 @@ export default function HomePage() {
           660px'ten kısa ekranlarda). Footer'da da aynı tuzağa düşülmüştü
           (2026-08-15 notu). 820px eşiği, bölümün en uzun hâli (~843px)
           hesaba katılarak seçildi. */}
-      <section className="mx-auto grid max-w-[1440px] gap-16 bg-paper px-5 py-28 md:grid-cols-2 ustte-sabit:sticky ustte-sabit:top-0 md:gap-20 md:px-10 md:py-40">
+      <section className="mx-auto grid max-w-[1440px] gap-16 bg-paper px-5 py-20 md:grid-cols-2 ustte-sabit:sticky ustte-sabit:top-0 md:gap-20 md:px-10 md:py-24">
         {/* DÜZELTME (2026-08-31): burası önce h1 yapılmıştı, ama Hakkımızda
             sayfasının h1'i de birebir aynı cümle — iki sayfa aynı başlıkla
             yarışıyordu. h2'ye geri alındı; ana sayfanın kendi h1'i hero
@@ -189,7 +189,7 @@ export default function HomePage() {
         <RefLogoBand />
 
         {/* ── 22.872.000 $ + HİZMET LİSTESİ ── */}
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-28 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-40">
+        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-24">
           <div className="md:sticky md:top-32 md:self-start">
             <Reveal mask>
               <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-[112px]">
@@ -241,7 +241,7 @@ export default function HomePage() {
         </MediaReveal>
 
         {/* ── SLOGAN + ANLAM FELSEFESİ ── */}
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-28 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
+        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-2 md:gap-24 md:px-10 md:py-24">
           <div className="md:sticky md:top-32 md:self-start">
             <MaskLines
               as="h2"
@@ -284,12 +284,12 @@ export default function HomePage() {
         </section>
 
         {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ──
-            ALT BOŞLUK (2026-09-02): pb-6 DEĞİL pb-28 md:pb-32. Eskiden bu bölümün
+            ALT BOŞLUK (2026-09-02): pb-6 DEĞİL pb-20 md:pb-24. Eskiden bu bölümün
             hemen altında 3'lü görsel ızgarası vardı ve ikisi tek gösteri gibi
             akıyordu (6px ara bilinçliydi). Izgara tasarım manifestosunun altına
             taşınınca burası doğrudan tam genişlikteki sayılar bandına yapıştı.
             Küçültme — sayılar bandına yapışır. ── */}
-        <section className="flex flex-col gap-6 px-5 pb-28 md:px-10 md:pb-32">
+        <section className="flex flex-col gap-6 px-5 pb-20 md:px-10 md:pb-24">
           <Reveal>
             <Link
               href="/portfolyo/mastercard"
@@ -341,7 +341,7 @@ export default function HomePage() {
         </MediaReveal>
 
         {/* ── TASARIM MANİFESTOSU (5.png) ── */}
-        <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+        <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal mask>
             <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-[96px]">
               Tasarım, tellers için estetik değil,{" "}
@@ -362,7 +362,7 @@ export default function HomePage() {
             Metin bloğundan sonra üç kare görsel gelmesi sayfanın ritmini
             açıyor. Portfolyo bölümünün alt boşluğu da buna göre büyütüldü
             (gerekçe orada yazılı). ── */}
-        <section className="grid gap-6 px-5 pb-28 md:grid-cols-3 md:px-10 md:pb-32">
+        <section className="grid gap-6 px-5 pb-20 md:grid-cols-3 md:px-10 md:pb-24">
           {[
             {
               src: "/assets/brands/mynova/banner.png",
@@ -410,27 +410,27 @@ export default function HomePage() {
           gelince bu görselin yerini alacak (eski yorumda yazılıydı, kaldırılan
           blokla birlikte kaybolmuştu — code-reviewer yakaladı).
 
-          Gri fon: beyaz akış içinde soluklanma; banner'ı çerçeveler. (Eski
-          gerekçesi "üç metin bloğunu ayırmak"tı; ortadaki metin bloğu kalktığı
-          için o gerekçe artık geçerli değil.) */}
-        <div className="bg-mist">
-          <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-32">
-            <Reveal>
-              <Image
-                src="/assets/home/slogan-banner.png"
-                alt="Duyulan unutulur, anlaşılan kalır — tellers, gerçek bir ajans deneyimi"
-                width={1920}
-                height={800}
-                className="h-auto w-full"
-                sizes="100vw"
-              />
-            </Reveal>
-          </section>
-        </div>
+          TAM GENİŞLİK (2026-09-02, Yakup): gri fon (bg-mist) ve yan boşluklar
+          KALDIRILDI. Banner artık ekranın soluna ve sağına sıfırlanıyor —
+          sayılar bandı ve imaj bölücü gibi. Gri bandın iki yanında 128'er piksel
+          dolgu vardı; komşularının dolgusuyla toplanınca 256px'lik boşluklar
+          oluşuyordu, sayfadaki en büyük iki boşluk bunlardı. */}
+        <Reveal>
+          <Image
+            src="/assets/home/slogan-banner.png"
+            alt="Duyulan unutulur, anlaşılan kalır — tellers, gerçek bir ajans deneyimi"
+            width={1920}
+            height={800}
+            className="h-auto w-full"
+            sizes="100vw"
+          />
+        </Reveal>
 
         {/* ── VERİ; ANLAMIN KÖKENİ ──
-          pt: üstteki gri bandın kenarına yapışmasın. */}
-        <section className="mx-auto max-w-[1440px] px-5 pb-28 pt-28 md:px-10 md:pb-40 md:pt-32">
+          NOT: eski yorumda "üstteki gri bandın kenarına yapışmasın" yazıyordu;
+          o gri bant 2026-09-02'de kaldırıldı. Üstte artık tam genişlik slogan
+          banner'ı var, dolgu ondan ayrılmak için duruyor. */}
+        <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-24">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
               Veri; <em className="font-didot font-normal italic">anlamın</em>
@@ -511,7 +511,7 @@ export default function HomePage() {
         </section>
 
         {/* ── BLOG — 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
-        <section className="py-28 md:py-40">
+        <section className="py-20 md:py-24">
           <Reveal>
             <BlogSlider />
           </Reveal>

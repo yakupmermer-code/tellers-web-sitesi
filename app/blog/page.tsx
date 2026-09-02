@@ -123,7 +123,7 @@ export default function BlogPage() {
         </MediaReveal>
       </section>
 
-      <section className="mx-auto flex max-w-[1440px] flex-col gap-20 px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto flex max-w-[1440px] flex-col gap-20 px-5 py-20 md:px-10 md:py-24">
         {/* Geniş kart (temadaki 1. blog alanı) */}
         <WideCard blog={first} />
 

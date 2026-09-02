@@ -72,7 +72,7 @@ export default function PortfolyoPage() {
       </section>
 
       {/* ── Tasarım felsefesi (temanın orijinal yerleşimi) ── */}
-      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:grid-cols-2 md:gap-20 md:px-10 md:py-40">
+      <section className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
         <Reveal mask>
           <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Tasarım, tellers için estetik değil,{" "}
@@ -100,7 +100,7 @@ export default function PortfolyoPage() {
 
       {/* ── Marka bannerları — temadaki gibi görsel üzerine metin overlay,
           altında çizgi + hizmet + yıl (ekip notu 2026-08-14) ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-28 md:px-10 md:pb-40">
+      <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
         {/* DİKKAT (2026-08-31): burada Stagger KULLANILAMAZ. framer'ın
             viewport.amount değeri IntersectionObserver eşiği olarak geçiyor ve
             eşik ELEMANIN KENDİ alanının yüzdesi. Bu grid 5488px; iPhone'da

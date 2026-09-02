@@ -98,7 +98,7 @@ export default function HizmetlerimizPage() {
       </section>
 
       {/* ── 4 hizmet bloğu ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         {/* ANİMASYON (2026-09-02): eskiden article'ın TAMAMI tek <Reveal>
             içindeydi; sağdaki madde listesi metinle birlikte tek blok olarak
             beliriyordu. Referansta bu tür listeler KADEMELİ girer. Artık sol
@@ -174,7 +174,7 @@ export default function HizmetlerimizPage() {
       </Reveal>
 
       {/* ── Nasıl Yaparız? + Operasyonel Taahhütler ── */}
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-[96px]">
             Nasıl Yaparız?
@@ -220,7 +220,7 @@ export default function HizmetlerimizPage() {
       </section>
 
       {/* ── Blog 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
-      <section className="pb-28 md:pb-40">
+      <section className="pb-20 md:pb-24">
         <Reveal>
           <BlogSlider />
         </Reveal>
