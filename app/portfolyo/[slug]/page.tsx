@@ -215,11 +215,26 @@ export default async function MarkaDetayPage({
             if (g.kind === "video")
               return (
                 <Reveal key={i}>
+                  {/*
+                   * 🔊 `muted` BİLEREK YOK (2026-09-07, Yakup: "videolarda ses
+                   * yokmuydu hiç birinin sesi yok, özellikle portfolyo").
+                   *
+                   * Sitedeki TEK oynat-butonlu oynatıcı bu. Buraya gelen kurumsal
+                   * filmin (Bardahl) ses kanalı var ama `controls` ile birlikte
+                   * `muted` de yazıldığı için izleyici oynat'a bastığında film
+                   * sessiz açılıyor, sesi ayrıca açması gerekiyordu.
+                   *
+                   * `muted` yalnızca OTOMATİK oynatma için zorunludur (tarayıcı
+                   * politikası). Burada `autoPlay` yok — kullanıcı kendi basıyor,
+                   * yani susturmanın hiçbir teknik gerekçesi yoktu.
+                   *
+                   * Galeride otomatik dönen dekoratif videolar (`grid`/`tri`)
+                   * `autoPlay muted loop` olarak KALIR; onlarda `muted` zorunlu.
+                   */}
                   <video
                     src={g.src}
                     poster={g.poster}
                     controls
-                    muted
                     playsInline
                     preload="metadata"
                     className="w-full"
