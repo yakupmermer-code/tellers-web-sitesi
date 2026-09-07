@@ -113,13 +113,19 @@ export default function Footer() {
               ))}
             </ul>
             <ul className="space-y-3 text-[16px] text-navy/65">
-              {/* Hizmet linkleri artık kendi bölümlerine çapalanıyor
-                  (/hizmetlerimiz#performans-pazarlama gibi) — hem kullanıcı
-                  doğru yere düşüyor hem iç link sinyali hizmet adına gidiyor. */}
+              {/* ÇAPA KALDIRILDI (2026-09-07, Yakup: "menüde bir alana
+                  tıkladığım zaman ilgili sayfanın sonunu açıyor, başa getirip
+                  açmıyor").
+                  2026-09-02'de bu linkleri `/hizmetlerimiz#slug` yapmıştım;
+                  niyet "kullanıcı doğrudan ilgili bölüme düşsün"dü. Gerçekte
+                  sayfa ortasından/sonundan açılıyordu — ölçüldü: son hizmetin
+                  çapası sayfayı %42'sinden açıyordu. Menüden tıklayan kişi
+                  sayfanın BAŞINI bekler. Çapa kalktı, dördü de sayfa başına
+                  gidiyor. */}
               {SERVICES.map((s) => (
                 <li key={s.slug}>
                   <Link
-                    href={`/hizmetlerimiz#${s.slug}`}
+                    href="/hizmetlerimiz"
                     className="link-sweep transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
                   >
                     {s.titleTr}
