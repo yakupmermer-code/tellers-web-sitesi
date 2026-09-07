@@ -231,13 +231,31 @@ export default async function MarkaDetayPage({
                    * Galeride otomatik dönen dekoratif videolar (`grid`/`tri`)
                    * `autoPlay muted loop` olarak KALIR; onlarda `muted` zorunlu.
                    */}
+                  {/*
+                    width/height + h-auto: öznitelik yokken kutu, metadata
+                    inene kadar tarayıcının SABİT 300x150 varsayılanında
+                    duruyor, sonra videonun gerçek oranına sıçrıyordu —
+                    masaüstünde (1360px kolon) 150px → 765px, yani ~615px
+                    zıplama. `h-auto` şart: `height` özniteliği sunum ipucu
+                    olarak yüksekliği çivileyip videoyu letterbox'lıyor.
+
+                    Ölçüyü POSTER'den okuyoruz (`g.poster ?? g.src`), çünkü
+                    poster videonun oranını birebir taşır. `g.src` verilseydi
+                    `gorselOlcu` posteri İSİMDEN tahmin ederdi
+                    ("x.mp4" → "x-poster.jpg") ve Bardahl gibi posteri farklı
+                    adlanan markalarda sessizce 16:9 varsayılanına düşerdi —
+                    bugün oran tuttuğu için fark edilmezdi, ilk dikey videoda
+                    zıplama geri gelirdi.
+                  */}
                   <video
                     src={g.src}
                     poster={g.poster}
+                    width={gorselOlcu(g.poster ?? g.src).width}
+                    height={gorselOlcu(g.poster ?? g.src).height}
                     controls
                     playsInline
                     preload="metadata"
-                    className="w-full"
+                    className="h-auto w-full"
                     aria-label={`${brand.name} video çalışması`}
                   />
                 </Reveal>

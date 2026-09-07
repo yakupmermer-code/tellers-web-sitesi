@@ -199,10 +199,36 @@ export const BRANDS: Brand[] = [
     banner: "/assets/brands/savron/banner.png",
     listService: "3D İçerik Üretimi & Dijital Pazarlama",
     year: "2022-2023",
+    /*
+     * HERO = 14 SANİYELİK SESSİZ FRAGMAN (2026-09-07).
+     *
+     * Eskiden burada `hero.mp4` vardı: aşağıdaki kurumsal filmin sessiz, TAM
+     * BOY (1:54, 11.7 MB) kopyası — doğrulandı, 45. saniyedeki kareler birebir
+     * aynı. Film galeride oynat butonuyla gösterilince aynı 114 saniye sayfada
+     * İKİ KEZ yer alacaktı (galeri videosu `preload="metadata"` olduğu için
+     * kendiliğinden OYNAMAZ, ama izleyici aynı görüntüyü ikinci kez görürdü ve
+     * oynatınca sayfa 25 MB'a çıkardı). Bu durum yayına HİÇ çıkmadı.
+     *
+     * Fragman filmin 3D KÜP sekansından (40.-54. sn) alındı — sayfanın kendi
+     * başlığı "Türkiye'nin İlk 3D Küp Deneyimi" ve markanın imza işi o.
+     * Açılış sekansı denenip bırakıldı: içinde filmin "İZMİR" jenerik kartı
+     * vardı ve kapkara bitip parlak göğe zıplıyordu (döngü dikişi göze
+     * batıyordu). Bu kesitin uçları eşleşiyor (parlaklık 168 / 164).
+     *
+     * Hero VİDEO olarak kaldı (Atlantis/BNI ile tutarlı); duran kare yerine
+     * video seçilmesinin sebebi kalite değil — ikisi de 1280 genişliğinde —
+     * hareketin yumuşamayı gizlemesi ve diğer marka sayfalarıyla tutarlılık.
+     * Kaynaktaki 24px'lik siyah bantlar (letterbox) kırpıldı: 1280x672.
+     * Ağırlık 11.7 MB → 2.2 MB.
+     *
+     * Poster de değişti: eskiden 652 KB'lık `banner.png` idi ve `poster`
+     * özniteliği next/image'dan GEÇMEZ, ham iner. Artık fragmanın ilk karesi
+     * (45 KB JPEG). Eski `hero.mp4` silinmedi, dosya duruyor.
+     */
     hero: {
       type: "video",
-      src: "/assets/brands/savron/hero.mp4",
-      poster: "/assets/brands/savron/banner.png",
+      src: "/assets/brands/savron/hero-fragman.mp4",
+      poster: "/assets/brands/savron/hero-fragman-poster.jpg",
     },
     services: [
       "Dijital Pazarlama",
@@ -226,6 +252,19 @@ export const BRANDS: Brand[] = [
     },
     // Döküman: 3 story videosu (Akvaryum / Kaykay / Saat Kulesi)
     gallery: [
+      /*
+       * Kurumsal film (2026-09-07, Yakup: "ses olsun").
+       * `kind: "video"` → oynat butonlu, sesli oynatıcı (Bardahl ile aynı desen:
+       * kurumsal filmi olan markada film galeride durur).
+       * Kapak filmin 45. saniyesinden: 3D küp Savron'un imza işi.
+       * Yukarıdaki hero, bu filmin 14 sn'lik sessiz fragmanı — sebebi orada.
+       */
+      {
+        kind: "video",
+        src: "/assets/brands/savron/kurumsal-video.mp4",
+        poster: "/assets/brands/savron/kurumsal-video-poster.jpg",
+        wide: true,
+      },
       // Ekip notu (2026-08-15): "Diğer Projeler"in üstündeki büyük görsel alanı
       { kind: "image", src: "/assets/brands/savron/banner.png", wide: true },
       {
