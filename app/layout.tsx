@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import VideoGorunurluk from "@/components/VideoGorunurluk";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/content/site";
 import {
@@ -137,6 +138,7 @@ export default function RootLayout({
             ne yapar, nerede" sorusunu bu grafikten cevaplar. */}
         <JsonLd data={grafik(kurulusSemasi(), websiteSemasi())} />
         <SmoothScroll />
+        <VideoGorunurluk />
         <Header />
         {/* NOT (2026-08-15): temanın "footer altından çıkar" efekti (Arpeggio
             section 19) burada UYGULANMADI. O efekt sabitlenen alanın ekran
