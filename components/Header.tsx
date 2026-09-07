@@ -62,6 +62,14 @@ export default function Header() {
           <Link
             href="/"
             aria-label="tellers ana sayfa"
+            /* Logo z-50, mobil menü örtüsü z-30 — menü AÇIKKEN de tıklanabilir.
+               Ana sayfadayken menüyü açıp logoya basınca yol değişmiyor, yani
+               prevPath tetiklenmiyor: sayfa örtünün arkasında başa dönüyor,
+               menü açık kalıyordu. Koşul, aşağıdaki menü öğeleriyle AYNI kural:
+               yol değişecekse örtü durur ve geçişi maskeler. */
+            onClick={() => {
+              if (pathname === "/") setOpen(false);
+            }}
             className="relative z-50"
           >
             {/*
@@ -174,8 +182,19 @@ export default function Header() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.7, ease: EASE, delay: 0.06 * i }}
                 >
+                  {/* onClick SADECE aynı sayfa için: menü normalde YOL DEĞİŞİNCE
+                      kapanıyor (yukarıdaki prevPath deseni) ve o hâliyle örtü,
+                      yeni sayfa gelene kadar geçişi maskeliyor — bilerek
+                      bozmuyoruz. Kapatılan tek durum, yolun HİÇ değişmediği
+                      (zaten açık olan sayfaya basma) durumu: orada prevPath
+                      tetiklenmediği için menü açık kalıyor, sayfa örtünün
+                      arkasında başa dönüyor ve kullanıcı hiçbir şey olmamış
+                      sanıyordu. */}
                   <Link
                     href={item.href}
+                    onClick={() => {
+                      if (item.href === pathname) setOpen(false);
+                    }}
                     className="font-didot block py-2 text-4xl text-navy"
                   >
                     {item.label}

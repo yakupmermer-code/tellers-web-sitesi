@@ -102,12 +102,32 @@
 }
 
 html {
-  /* Sabit header (6rem) çapa linklerde başlığı ezmesin */
+  /*
+   * Sabit header (6rem) çapa linklerde başlığı ezmesin.
+   *
+   * ⚠️ SİLME / DEĞİŞTİRME — `components/SmoothScroll.tsx` buna BAĞLI.
+   * Çapa linklerinde iki kaydırıcı birden çalışıyor: Lenis ve Next'in kendi
+   * hash kaydırması. Çakışmanın görünmemesinin tek sebebi ikisinin de AYNI
+   * piksele nişan alması — Lenis bu değeri `scrollTo` içinde `getComputedStyle`
+   * ile okuyor, Next'in `scrollIntoView`'i de tarayıcı üzerinden uyguluyor.
+   * Bu satır değişirse çapa hedefleri (kariyer "#basvuru", layout "#icerik")
+   * sabit header'ın altında kalır.
+   */
   scroll-padding-top: 7rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html {
+    /*
+     * ⚠️ `components/SmoothScroll.tsx` bu satırı da BİLİYOR.
+     * Bu kural, Next'in hash gezinmesindeki `scrollIntoView` çağrısını anlık
+     * değil ANİMASYONLU yapar (Next hash-only gezinmede smooth'u kapatmıyor) ve
+     * tam olarak Lenis'in açık olduğu durumda (no-preference) geçerlidir. Yani
+     * çapa tıklamalarında ikisi aynı anda koşar; Lenis her karede
+     * `behavior:"instant"` yazıp o animasyonu iptal ettiği için sonuç doğru
+     * çıkar. Bu bir tasarım değil, iki kütüphanenin denk gelmesidir —
+     * Lenis/Next yükseltmesinden sonra "#basvuru" ve "#icerik" elle denenmeli.
+     */
     scroll-behavior: smooth;
   }
 }

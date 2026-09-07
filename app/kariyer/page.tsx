@@ -1,8 +1,8 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
-import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import MediaReveal from "@/components/MediaReveal";
@@ -78,9 +78,16 @@ export default function KariyerPage() {
 
       {/* ── Başvuru formu (gri fon: üstteki metin alanından ayrılsın) ── */}
       <div className="bg-mist">
+        {/* tabIndex + outline-none: odağı buraya components/SmoothScroll.tsx'teki
+            global dinleyici taşıyor; odaklanabilir olmayan bir <section> `focus()`
+            çağrısını sessizce yok sayar. `outline-none`, app/layout.tsx'teki
+            <main id="icerik" tabIndex={-1} … outline-none> ile aynı desen: bu bir
+            kapsayıcı, Tab ile ulaşılan bir denetim değil — 900px'lik bloğun
+            etrafına tarayıcı çerçevesi çizilmesin. */}
         <section
           id="basvuru"
-          className="mx-auto max-w-[900px] px-5 py-20 md:px-10 md:py-24"
+          tabIndex={-1}
+          className="mx-auto max-w-[900px] px-5 py-20 outline-none md:px-10 md:py-24"
         >
           <Reveal mask>
             <h2 className="text-3xl font-bold tracking-tight text-navy md:text-[48px]">
@@ -152,6 +159,9 @@ export default function KariyerPage() {
               className="h-auto w-full"
               sizes="100vw"
             />
+            {/* <Link>, düz <a> DEĞİL — gerekçesi components/SmoothScroll.tsx'te
+                ("ÇAPA LİNKLERİ <Link> KALMALI"). Kaydırmayı ve odağı oradaki
+                global dinleyici yapıyor; yukarıdaki tabIndex={-1} onun için. */}
             <Link
               href="#basvuru"
               aria-label="Genel başvuru yap — başvuru formuna git"

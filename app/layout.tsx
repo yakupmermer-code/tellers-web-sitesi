@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -88,13 +89,17 @@ export default function RootLayout({
     // doğru yönetilmesi için gerekli (yoksa geçişte sayfa yavaşça kayar)
     <html lang="tr" data-scroll-behavior="smooth">
       <body className="min-h-[100dvh] flex flex-col">
-        {/* Klavye kullanıcıları için: menüyü atlayıp içeriğe git (WCAG 2.4.1) */}
-        <a
+        {/* Klavye kullanıcıları için: menüyü atlayıp içeriğe git (WCAG 2.4.1).
+            <Link>, düz <a> DEĞİL — gerekçesi components/SmoothScroll.tsx'te
+            ("ÇAPA LİNKLERİ <Link> KALMALI"): düz <a>'nın fragment gezinmesi
+            history.state'i null yapıyor ve Next'in geri tuşu o adımı yok
+            sayıyor. Odağı SmoothScroll'daki global dinleyici taşıyor. */}
+        <Link
           href="#icerik"
           className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-full focus:bg-navy focus:px-4 focus:py-2 focus:text-white"
         >
           İçeriğe atla
-        </a>
+        </Link>
         {/* Font CDN'ine erken bağlantı (render blokajını kısaltır) */}
         <link
           rel="preconnect"
