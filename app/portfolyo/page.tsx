@@ -101,12 +101,14 @@ export default function PortfolyoPage() {
       {/* ── Marka bannerları — temadaki gibi görsel üzerine metin overlay,
           altında çizgi + hizmet + yıl (ekip notu 2026-08-14) ── */}
       <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
-        {/* DİKKAT (2026-08-31): burada Stagger KULLANILAMAZ. framer'ın
-            viewport.amount değeri IntersectionObserver eşiği olarak geçiyor ve
-            eşik ELEMANIN KENDİ alanının yüzdesi. Bu grid 5488px; iPhone'da
-            (812px) görünürlük oranı en fazla 0.148 oluyor, eşik 0.15 → gözlemci
-            HİÇ tetiklenmiyor ve 17 kartın tamamı opacity:0 kalıyor. Gerçek
-            tarayıcıda doğrulandı. Her kart KENDİ gözlemcisini taşımalı. */}
+        {/* Her kart KENDİ gözlemcisini taşır (index gecikmeli Reveal).
+            TARİHÇE: 2026-08-31'de burada Stagger kullanılamıyordu — o zaman
+            bileşenler `viewport.amount` kullanıyordu ve 5488px'lik bu ızgara
+            iPhone'da (812px) eşiği asla sağlayamıyor, 17 kart birden görünmez
+            kalıyordu. 2026-09-07'de bileşenler margin tabanlı tetiklemeye
+            geçti, kilitlenme riski kalktı. Yine de UZUN ızgaralarda kart başına
+            Reveal doğru desen: tek Stagger olsaydı alttaki kartlar, kullanıcı
+            oraya varmadan görünmeden animasyonlarını bitirirdi. */}
         <div className="grid gap-6 sm:grid-cols-2">
           {BRANDS.map((b, i) => (
             <Reveal key={b.slug} delay={0.04 * (i % 2)}>

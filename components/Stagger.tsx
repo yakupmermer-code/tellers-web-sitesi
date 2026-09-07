@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ElementType, ReactNode } from "react";
-import { EASE, SURE, ARALIK } from "./motion";
+import { EASE, SURE, ARALIK, GORUNUR } from "./motion";
 
 /**
  * Kademeli giriş kabı: çocuklar sırayla belirir (varsayılan 80 ms arayla).
@@ -18,8 +18,8 @@ export function Stagger({
   children: ReactNode;
   className?: string;
   gap?: number;
-  /** Liste anlamı korunsun diye "ul" verilebilir. */
-  as?: "div" | "ul" | "ol";
+  /** Liste anlamı korunsun diye "ul" / "ol" / "dl" verilebilir. */
+  as?: "div" | "ul" | "ol" | "dl";
 }) {
   const Kap = motion[as] as ElementType;
   return (
@@ -27,7 +27,7 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={GORUNUR}
       transition={{ staggerChildren: gap }}
     >
       {children}

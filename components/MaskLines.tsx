@@ -2,7 +2,7 @@
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, type ElementType, type ReactNode } from "react";
-import { EASE, SURE, ARALIK } from "./motion";
+import { EASE, SURE, ARALIK, GORUNUR } from "./motion";
 
 /**
  * Başlıkları SATIR SATIR maskeden yukarı kaydırır — referans temanın imza
@@ -39,7 +39,7 @@ export default function MaskLines({
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const gorunur = useInView(ref, { once: true, amount: 0.3 });
+  const gorunur = useInView(ref, GORUNUR);
 
   return (
     <Etiket ref={ref} className={className} aria-label={label}>

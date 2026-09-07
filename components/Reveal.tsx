@@ -2,14 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { EASE, SURE } from "./motion";
+import { EASE, SURE, GORUNUR } from "./motion";
 
 /**
  * Scroll'da giriş animasyonu: aşağıdan hafifçe yukarı + solma.
  *
  * Değerler referans temanın (arpeggio-ashen.vercel.app) sunucu çıktısından
  * birebir ölçüldü: `opacity:0; translateY(24px)`, süre .9sn, ease [.22,1,.36,1],
- * `viewport {once:true, amount:.25}`.
+ * viewport tetikleyicisi ARTIK margin tabanlı (aşağıdaki nota bak).
  *
  * ÖNCEKİ HÂLİ (2026-08-31'de düzeltildi): y=64px ve `blur(6px)` vardı.
  * İkisi de referansta YOK; hareket bu yüzden daha ağır ve bulanık duruyordu.
@@ -45,7 +45,7 @@ export default function Reveal({
         className={`overflow-hidden ${className ?? ""}`}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.25 }}
+        viewport={GORUNUR}
       >
         {/* pb: ğ/ç/y/ş kuyrukları maskede kırpılmasın. 0.12em BİLEREK
             korunuyor — referansın fontunda ve dilinde bu kuyruklar yok, bizde
@@ -71,7 +71,7 @@ export default function Reveal({
       className={`reveal ${className ?? ""}`}
       initial={reduced ? { opacity: 0 } : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={GORUNUR}
       transition={{
         duration: reduced ? 0.4 : SURE.reveal,
         delay: reduced ? Math.min(delay, 0.2) : delay,

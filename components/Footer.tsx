@@ -140,8 +140,8 @@ export default function Footer() {
               Gelişmelerden haberdar olun
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-navy/65">
-              Yeni işlerimizi, vaka çalışmalarımızı ve sektör okumalarımızı arada
-              bir gelen kutunuza bırakıyoruz.
+              Yeni işlerimizi, vaka çalışmalarımızı ve sektör okumalarımızı
+              arada bir gelen kutunuza bırakıyoruz.
             </p>
             <p className="mt-2 text-[13px] leading-relaxed text-navy/50">
               Gelen kutunuza saygı duyuyoruz. Spam yok, doğrudan geri dönüş var.

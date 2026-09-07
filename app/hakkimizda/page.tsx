@@ -4,6 +4,7 @@ import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import { gorselOlcu } from "@/lib/gorsel";
 import KapanisSection from "@/components/KapanisSection";
 import TriSlider from "@/components/TriSlider";
@@ -229,27 +230,33 @@ export default function HakkimizdaPage() {
           </h2>
           <p className="mt-1 text-base text-navy/50">Vizyonumuz.</p>
         </Reveal>
-        <Reveal delay={0.05} className="mt-8 max-w-3xl">
-          <p className="text-xl font-bold leading-relaxed text-navy">
-            “Bilim, strateji ve kültür üzerine inşa edilmiş iletişimin, referans
-            temsilcilerinden bir tanesi olmak.”
-          </p>
-          <p className="mt-6 text-lg leading-relaxed text-navy/80">
-            Geleceğin en etkili sesine sahip markalar, şüphesiz en çok bağıran
-            değil <em className="font-didot italic">en net konuşanlar</em>{" "}
-            olacaktır. tellers, küresel ölçekte markaların iletişim berraklığını
-            sağlayan, yaratıcılığı bilimsel doğrulukla birleştiren ve her temas
-            noktasını ölçülebilir bir anlam sistemine dönüştüren öncü iletişim
-            mimarı olmayı hedefler.
-          </p>
-          <p className="mt-6 text-lg leading-relaxed text-navy/80">
-            Vizyonumuz, iletişimin yalnızca duygu ya da estetik değil, aynı
-            zamanda stratejik netlik üzerine kurulduğu bir ekosistem
-            yaratmaktır. Bu ekosistemde her marka, kendi anlamını inşa eder; biz
-            ise bu anlamın doğru zamanda, doğru kişiye, doğru biçimde ulaşmasını
-            sağlarız.
-          </p>
-        </Reveal>
+        <Stagger className="mt-8 max-w-3xl">
+          <StaggerItem>
+            <p className="text-xl font-bold leading-relaxed text-navy">
+              “Bilim, strateji ve kültür üzerine inşa edilmiş iletişimin,
+              referans temsilcilerinden bir tanesi olmak.”
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 text-lg leading-relaxed text-navy/80">
+              Geleceğin en etkili sesine sahip markalar, şüphesiz en çok bağıran
+              değil <em className="font-didot italic">en net konuşanlar</em>{" "}
+              olacaktır. tellers, küresel ölçekte markaların iletişim
+              berraklığını sağlayan, yaratıcılığı bilimsel doğrulukla
+              birleştiren ve her temas noktasını ölçülebilir bir anlam sistemine
+              dönüştüren öncü iletişim mimarı olmayı hedefler.
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mt-6 text-lg leading-relaxed text-navy/80">
+              Vizyonumuz, iletişimin yalnızca duygu ya da estetik değil, aynı
+              zamanda stratejik netlik üzerine kurulduğu bir ekosistem
+              yaratmaktır. Bu ekosistemde her marka, kendi anlamını inşa eder;
+              biz ise bu anlamın doğru zamanda, doğru kişiye, doğru biçimde
+              ulaşmasını sağlarız.
+            </p>
+          </StaggerItem>
+        </Stagger>
         <Reveal delay={0.1} className="mt-12">
           <MediaReveal>
             <Image
@@ -277,34 +284,42 @@ export default function HakkimizdaPage() {
               Misyonumuz / Bugün ne yapıyoruz?
             </p>
           </Reveal>
-          <Reveal delay={0.05} className="mt-8 max-w-3xl">
-            <p className="text-xl font-bold leading-relaxed text-navy">
-              “İletişimin gürültüye dönüştüğü 21. yüzyılda, markaların yalnızca
-              görünür değil anlaşılır olmasını da sağlamak.”
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-navy/80">
-              Amacımız basit ama radikaldir:{" "}
-              <em className="font-didot italic">
-                “İletişimi, yüzyılın ses yarışından çıkarıp, anlam ilişkisine
-                dönüştürmek.”
-              </em>{" "}
-              Misyonumuz, tellers&apos;ı karmaşayı netliğe dönüştüren, iletişimi
-              anlam mimarisine çeviren ve yaratıcılığı ölçülebilir etkiye
-              dayandıran stratejik bir iletişim ortağı haline getirir.
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-navy/80">
-              Her kampanya, sosyolojik içgörü, psikolojik sezgi ve veri
-              biliminin kesişiminde şekillenir; yazılı, görsel, deneyimsel her
-              mesaj, hedef kitle davranışına dair veri toplayabileceğiniz ve
-              hedef kitle davranışına etki edebileceğiniz anlam sistemlerine
-              dönüşür.
-            </p>
-            <p className="mt-6 text-lg leading-relaxed text-navy/80">
-              Böylece markalar tesadüfe değil,{" "}
-              <em className="font-didot italic">tekrarlanabilir etkiye</em>{" "}
-              sahip olurlar.
-            </p>
-          </Reveal>
+          <Stagger className="mt-8 max-w-3xl">
+            <StaggerItem>
+              <p className="text-xl font-bold leading-relaxed text-navy">
+                “İletişimin gürültüye dönüştüğü 21. yüzyılda, markaların
+                yalnızca görünür değil anlaşılır olmasını da sağlamak.”
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-6 text-lg leading-relaxed text-navy/80">
+                Amacımız basit ama radikaldir:{" "}
+                <em className="font-didot italic">
+                  “İletişimi, yüzyılın ses yarışından çıkarıp, anlam ilişkisine
+                  dönüştürmek.”
+                </em>{" "}
+                Misyonumuz, tellers&apos;ı karmaşayı netliğe dönüştüren,
+                iletişimi anlam mimarisine çeviren ve yaratıcılığı ölçülebilir
+                etkiye dayandıran stratejik bir iletişim ortağı haline getirir.
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-6 text-lg leading-relaxed text-navy/80">
+                Her kampanya, sosyolojik içgörü, psikolojik sezgi ve veri
+                biliminin kesişiminde şekillenir; yazılı, görsel, deneyimsel her
+                mesaj, hedef kitle davranışına dair veri toplayabileceğiniz ve
+                hedef kitle davranışına etki edebileceğiniz anlam sistemlerine
+                dönüşür.
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <p className="mt-6 text-lg leading-relaxed text-navy/80">
+                Böylece markalar tesadüfe değil,{" "}
+                <em className="font-didot italic">tekrarlanabilir etkiye</em>{" "}
+                sahip olurlar.
+              </p>
+            </StaggerItem>
+          </Stagger>
         </section>
       </div>
 
@@ -418,7 +433,11 @@ export default function HakkimizdaPage() {
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">
                     <h3 className="text-xl font-bold tracking-tight text-navy md:text-[28px]">
-                      {s.sayac === false ? s.value : <CountUp value={s.value} />}
+                      {s.sayac === false ? (
+                        s.value
+                      ) : (
+                        <CountUp value={s.value} />
+                      )}
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-navy/60">
                       {s.label}
@@ -445,7 +464,11 @@ export default function HakkimizdaPage() {
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">
                     <h3 className="text-xl font-bold tracking-tight text-navy md:text-[28px]">
-                      {s.sayac === false ? s.value : <CountUp value={s.value} />}
+                      {s.sayac === false ? (
+                        s.value
+                      ) : (
+                        <CountUp value={s.value} />
+                      )}
                     </h3>
                     <p className="mt-2 text-base leading-relaxed text-navy/60">
                       {s.label}

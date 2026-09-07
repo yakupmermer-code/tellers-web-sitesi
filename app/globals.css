@@ -248,3 +248,27 @@ body {
     transition: none;
   }
 }
+
+/*
+ * HAREKET AZALTMA KALKANI (2026-09-07, code-reviewer önerisi).
+ *
+ * İçerik "önce gizle, JS ile göster" mimarisiyle geliyor: sunucu her .reveal'ı
+ * `opacity:0` basıyor, framer görünüme girince açıyor. `<noscript>` kalkanı
+ * (app/layout.tsx) yalnızca "JS kapalı" durumunu kapsıyor.
+ *
+ * Bu kural iki şeyi birden çözer:
+ *  1) Hareket azaltma tercihi açık kullanıcıda framer'ın useReducedMotion()
+ *     sunucuda null döndüğü için SSR/istemci uyuşmazlığı oluşuyordu.
+ *  2) O kullanıcı için animasyona hiç ihtiyaç yok; içerik doğrudan görünür.
+ *
+ * @layer DIŞINDA ve !important: katmanlı hiçbir kural bunu ezmemeli — buradaki
+ * amaç "içerik her koşulda görünsün" güvencesi.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}

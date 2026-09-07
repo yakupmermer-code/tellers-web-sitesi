@@ -103,9 +103,10 @@ export default function HizmetlerimizPage() {
             içindeydi; sağdaki madde listesi metinle birlikte tek blok olarak
             beliriyordu. Referansta bu tür listeler KADEMELİ girer. Artık sol
             metin kendi Reveal'ıyla, sağdaki maddeler sırayla geliyor.
-            Reveal article'ı sarmıyor: iç içe iki whileInView'da dıştaki
-            (uzun article, amount .25) geç tetiklenip içteki staggeri görünmez
-            hâlde bitirebilirdi. */}
+            Reveal article'ı sarmıyor: iç içe iki whileInView'da dıştaki geç
+            tetiklenip içteki staggeri görünmez hâlde bitirebilir. (Eski yorum
+            bunu "amount .25" ile gerekçelendiriyordu; o mekanizma 2026-09-07'de
+            margin tabanlıya geçti ama iç içe sarmama tercihi hâlâ doğru.) */}
         {SERVICES.map((s) => (
           <article
             key={s.slug}

@@ -78,9 +78,10 @@ export default function IletisimPage() {
               <Reveal> içindeydi — başlık, liste, kanallar, adres hepsi aynı anda
               beliriyordu. Referansta bu tür bloklar KADEMELİ girer. Artık
               başlık kendi, madde listesi ve kanal satırları sırayla geliyor.
-              NOT: Stagger yalnızca EKRANA SIĞAN kaplarda kullanılabilir —
-              viewport.amount elemanın KENDİ alanının yüzdesi, ekrandan uzun bir
-              kap hiç tetiklenmez (bkz. app/portfolyo/page.tsx'teki uyarı). */}
+              NOT: eski yorumda "Stagger yalnızca ekrana sığan kaplarda
+              kullanılabilir" yazıyordu; o kısıt 2026-09-07'de kalktı
+              (bileşenler margin tabanlı tetiklemeye geçti, bkz. motion.ts
+              GORUNUR). Uzun ızgaralarda yine de öğe başına Reveal tercih edilir. */}
           <div>
             <Reveal mask>
               <h2 className="text-2xl font-bold tracking-tight text-navy md:text-[36px]">

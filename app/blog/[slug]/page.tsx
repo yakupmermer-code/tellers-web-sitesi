@@ -45,47 +45,59 @@ export async function generateMetadata({
   };
 }
 
-/** İçerik gövdesini basit markdown kurallarıyla bloklara çevirir. */
+/**
+ * İçerik gövdesini basit markdown kurallarıyla bloklara çevirir.
+ * Her blok KENDİ <Reveal>'ı (kendi gözlemcisi): yazı gerçekten paragraf paragraf
+ * akıyor (2026-09-07). Tek bir Stagger kabı denendi ve GERİ ALINDI — kap
+ * tetiklenince 15 bloğun hepsi aynı anda zamanlayıcıya giriyor, kullanıcı ilk
+ * 600px'deyken alttaki paragraflar görünmeden animasyonlarını bitiriyordu.
+ * (Aynı gerekçe app/portfolyo/page.tsx'te de yazılı.)
+ * Ayrıca bu bölme gövdeyi TEK bir dev animasyon kabı olmaktan çıkarıyor:
+ * bileşenler margin tabanlı tetiklemeye geçse de küçük bloklar daha güvenli.
+ */
 function renderBody(body: string) {
   const blocks = body.split(/\n\n+/);
   return blocks.map((block, i) => {
     const t = block.trim();
     if (t.startsWith("## ")) {
       return (
-        <h2
-          key={i}
-          className="mt-12 text-2xl font-bold tracking-tight text-navy md:text-[36px]"
-        >
-          {t.slice(3)}
-        </h2>
+        <Reveal key={i}>
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-navy md:text-[36px]">
+            {t.slice(3)}
+          </h2>
+        </Reveal>
       );
     }
     if (t.startsWith("- ")) {
       return (
-        <ul key={i} className="flex list-disc flex-col gap-3 pl-5">
-          {t.split("\n").map((li, j) => (
-            <li key={j} className="leading-relaxed">
-              {li.replace(/^- /, "")}
-            </li>
-          ))}
-        </ul>
+        <Reveal key={i}>
+          <ul className="flex list-disc flex-col gap-3 pl-5">
+            {t.split("\n").map((li, j) => (
+              <li key={j} className="leading-relaxed">
+                {li.replace(/^- /, "")}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       );
     }
     if (/^\d+\. /.test(t)) {
       return (
-        <ol key={i} className="flex list-decimal flex-col gap-3 pl-5">
-          {t.split("\n").map((li, j) => (
-            <li key={j} className="leading-relaxed">
-              {li.replace(/^\d+\. /, "")}
-            </li>
-          ))}
-        </ol>
+        <Reveal key={i}>
+          <ol className="flex list-decimal flex-col gap-3 pl-5">
+            {t.split("\n").map((li, j) => (
+              <li key={j} className="leading-relaxed">
+                {li.replace(/^\d+\. /, "")}
+              </li>
+            ))}
+          </ol>
+        </Reveal>
       );
     }
     return (
-      <p key={i} className="leading-relaxed">
-        {t}
-      </p>
+      <Reveal key={i}>
+        <p className="leading-relaxed">{t}</p>
+      </Reveal>
     );
   });
 }
@@ -172,10 +184,10 @@ export default async function BlogDetayPage({
         </div>
 
         <div className="mx-auto max-w-[900px] px-5 md:px-10">
-          <Reveal delay={0.12}>
-            <div className="mt-12 flex flex-col gap-6 text-lg text-navy/75 md:mt-16">
-              {renderBody(blog.body)}
-            </div>
+          <div className="mt-12 flex flex-col gap-6 text-lg text-navy/75 md:mt-16">
+            {renderBody(blog.body)}
+          </div>
+          <Reveal>
             <Link
               href={blog.cta.href}
               className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"

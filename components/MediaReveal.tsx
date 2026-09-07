@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef, type ReactNode } from "react";
-import { EASE, SURE } from "./motion";
+import { EASE, SURE, GORUNUR } from "./motion";
 
 /**
  * Görsel/video için KAYDIRMAYA BAĞLI sürekli hareket.
@@ -65,7 +65,7 @@ export default function MediaReveal({
   const scale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [taban, Math.max(taban, scaleTo), taban]
+    [taban, Math.max(taban, scaleTo), taban],
   );
 
   return (
@@ -79,7 +79,7 @@ export default function MediaReveal({
          */
         initial={reduced ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={GORUNUR}
         transition={{ duration: SURE.reveal, ease: EASE }}
         className="reveal h-full w-full"
         // reduced: SSR'da basılan translateY(-6%) hidrasyonda AÇIKÇA

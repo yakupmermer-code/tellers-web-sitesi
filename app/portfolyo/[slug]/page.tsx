@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
 import CountUp from "@/components/CountUp";
 import { BRANDS, getBrand } from "@/content/brands";
@@ -110,11 +111,18 @@ export default async function MarkaDetayPage({
         </Reveal>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/70 to-transparent pb-8 pt-24">
           <div className="mx-auto flex max-w-[1440px] justify-end px-5 md:px-10">
-            <ul className="text-right text-[12px] uppercase tracking-[0.14em] text-white/85 md:text-sm">
+            {/* KADEMELİ (2026-09-07): hero üzerindeki hizmet listesi hiç
+                animasyon almıyordu, görselle birlikte bir anda beliriyordu. */}
+            <Stagger
+              as="ul"
+              className="text-right text-[12px] uppercase tracking-[0.14em] text-white/85 md:text-sm"
+            >
               {brand.services.map((s) => (
-                <li key={s}>{s}</li>
+                <StaggerItem as="li" key={s}>
+                  {s}
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
           </div>
         </div>
       </section>
@@ -137,13 +145,13 @@ export default async function MarkaDetayPage({
             <p className="mt-4 text-lg text-navy/60">{brand.subheadline}</p>
           )}
         </Reveal>
-        <Reveal delay={0.1}>
-          <div className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
-            {brand.intro.split("\n\n").map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        </Reveal>
+        <Stagger className="flex flex-col gap-6 text-lg leading-relaxed text-navy/75">
+          {brand.intro.split("\n\n").map((p, i) => (
+            <StaggerItem key={i}>
+              <p>{p}</p>
+            </StaggerItem>
+          ))}
+        </Stagger>
       </section>
 
       {/* ── Operasyon Detayları ──
@@ -158,36 +166,32 @@ export default async function MarkaDetayPage({
               Operasyon Detayları
             </h2>
           </Reveal>
-          <Reveal delay={0.1}>
-            <dl className="flex flex-col">
-              {[
-                ["Müşteri", brand.meta.musteri],
-                // Ekip teyidi beklenen tarihte satır BOŞ bırakılır ve aşağıdaki
-                // filtre onu tamamen eler — yer tutucu değeri ekranda "gerçek"
-                // gibi göstermemek için (security-auditor bulgusu, 2026-08-31).
-                [
-                  "Operasyon Tarihi",
-                  brand.tarihTeyitsiz ? "" : brand.meta.tarih,
-                ],
-                ["Operasyon Süresi", brand.meta.sure],
-                ["Proje", brand.meta.proje.join("\n")],
-              ]
-                .filter(([, v]) => v)
-                .map(([k, v]) => (
-                  <div
-                    key={k}
-                    className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
-                  >
-                    <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
-                      {k}
-                    </dt>
-                    <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
-                      {v}
-                    </dd>
-                  </div>
-                ))}
-            </dl>
-          </Reveal>
+          {/* Tanım listesi satır satır giriyor; <dl>/<div>/<dt>/<dd> yapısı korunuyor. */}
+          <Stagger as="dl" className="flex flex-col">
+            {[
+              ["Müşteri", brand.meta.musteri],
+              // Ekip teyidi beklenen tarihte satır BOŞ bırakılır ve aşağıdaki
+              // filtre onu tamamen eler — yer tutucu değeri ekranda "gerçek"
+              // gibi göstermemek için (security-auditor bulgusu, 2026-08-31).
+              ["Operasyon Tarihi", brand.tarihTeyitsiz ? "" : brand.meta.tarih],
+              ["Operasyon Süresi", brand.meta.sure],
+              ["Proje", brand.meta.proje.join("\n")],
+            ]
+              .filter(([, v]) => v)
+              .map(([k, v]) => (
+                <StaggerItem
+                  key={k}
+                  className="flex flex-col gap-1 border-b hairline py-5 md:flex-row md:justify-between md:gap-8"
+                >
+                  <dt className="text-[12px] uppercase tracking-[0.18em] text-navy/40">
+                    {k}
+                  </dt>
+                  <dd className="whitespace-pre-line text-right text-base text-navy md:text-lg">
+                    {v}
+                  </dd>
+                </StaggerItem>
+              ))}
+          </Stagger>
         </section>
       </div>
 
