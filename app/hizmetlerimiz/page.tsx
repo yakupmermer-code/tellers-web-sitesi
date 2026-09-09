@@ -152,23 +152,20 @@ export default function HizmetlerimizPage() {
             sizes="100vw"
           />
           <div className="absolute inset-y-0 right-5 hidden flex-col items-end justify-center gap-5 md:right-14 md:flex">
+            {/* ÇİZGİSEL CTA — gerekçe app/page.tsx'teki aynı dönüşümde yazılı.
+                Koyu görselin üstünde duruyorlar; `link-grow` çizgiyi
+                `currentColor` ile çizdiği için beyaz kalıyor. */}
             <Link
               href="/portfolyo"
-              className="group flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-navy transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+              className="link-grow link-grow-sag inline-block w-max font-medium text-[18px] text-white transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
             >
               Portföyümüzü İnceleyin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-                ↗
-              </span>
             </Link>
             <Link
               href="/iletisim"
-              className="group flex items-center gap-3 rounded-full border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+              className="link-grow link-grow-sag inline-block w-max font-medium text-[18px] text-white transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
             >
               Bizimle İletişime Geçin
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-                ↗
-              </span>
             </Link>
           </div>
         </div>

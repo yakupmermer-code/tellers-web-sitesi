@@ -217,11 +217,15 @@ export default function Header() {
   }, [open, pathname]);
 
   /*
-   * Bar yazısı ne zaman beyaz olur? Yalnızca arkada koyu bölüm varken.
-   * Menü açıkken örtü AÇIK zeminli olduğu için yazılar LACİVERT kalmalı —
-   * `open` eskiden bu koşula dahildi, örtü koyuyken doğruydu.
+   * Bar yazısı ne zaman beyaz olur? Arkada koyu bölüm varken YA DA menü açıkken.
+   *
+   * `!open` KOŞULU KALDIRILDI (2026-09-09, Yakup: "menüdeki şeffaflık kesinlikle
+   * master temadaki mantıkta değil"). Örtü bir ara AÇIK zeminliydi (beyaz %85)
+   * ve o dönemde yazıların lacivert kalması doğruydu. Master temada ölçüldü:
+   * örtü KOYU ve saydam (siyah %80 + blur 6px), yazılar beyaz. Örtümüz de
+   * koyulaşınca (lacivert %80) bar yazıları yeniden beyaz olmak zorunda.
    */
-  const acikRenk = koyuZemin && !open;
+  const acikRenk = koyuZemin || open;
 
   const sosyal = [
     { k: "WA", href: SITE.whatsapp, dis: true },
@@ -340,7 +344,10 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed inset-0 z-30 bg-paper/85 backdrop-blur-[6px]"
+            /* Master temada ölçüldü: rgba(0,0,0,0.8) + blur(6px). Bizde siyah
+               yerine KURUMSAL LACİVERT — Yakup: "aynı görüntüyü sadece kendi
+               kurumsal rengimde istiyorum". Saydamlık ve bulanıklık birebir. */
+            className="fixed inset-0 z-30 bg-navy/80 backdrop-blur-[6px]"
           >
             <div className="mx-auto flex h-full max-w-[1440px] flex-col justify-between px-5 pb-10 pt-[110px] md:px-10">
               <div className="flex flex-1 flex-col justify-between gap-10 md:flex-row md:items-start">
@@ -373,7 +380,7 @@ export default function Header() {
                            birini ayarlamak diğerini sessizce değiştiriyordu. Ayrıca 5.8vw
                            1280px'te linkleri 74px'e düşürüyordu; 6.5vw referans ölçüsünü
                            (84px) daha geniş bir aralıkta koruyor. */
-                        className="block font-semibold leading-[1] tracking-[-0.04em] text-navy transition-opacity duration-300 hover:opacity-50 text-[clamp(2.25rem,6.5vw,84px)]"
+                        className="block font-semibold leading-[1] tracking-[-0.04em] text-white transition-opacity duration-300 hover:opacity-50 text-[clamp(2.25rem,6.5vw,84px)]"
                       >
                         {item.label}
                       </Link>
@@ -387,7 +394,7 @@ export default function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
-                className="flex gap-6 text-[13px] tracking-[0.02em] text-navy/75 sm:hidden"
+                className="flex gap-6 text-[13px] tracking-[0.02em] text-white/75 sm:hidden"
               >
                 {sosyal.map((s) => (
                   <a
@@ -444,20 +451,24 @@ function MenuSol() {
       className="max-w-[620px]"
     >
       {/*
-        Referansta bu cümle TAM GÜÇTE beyaz, yalnız şehir adı turuncu — yani
-        vurgu tek kelimede. Bizim vurgumuz logo rengi (lacivert) ve zemin de
-        açık olduğu için aynı hiyerarşiyi tersinden kuruyoruz: vurgulanan
-        kelime tam lacivert, cümlenin geri kalanı soluk. İlk denemede cümlenin
-        TAMAMI soluktu ve referanstaki ağırlığını kaybediyordu.
+        Master temada ölçüldü: cümlenin gövdesi BEYAZ, yalnız şehir adı MARKA
+        RENGİNDE (turuncu #FF4400) — vurgu tek kelimede.
+
+        Bizde zemin artık kurumsal lacivert, yani markanın rengi ZEMİN oldu ve
+        aynı rengi vurgu olarak da kullanmak mümkün değil (lacivert üstünde
+        lacivert okunmaz). Aynı hiyerarşiyi tek renkle kuruyoruz: vurgulanan
+        kelime TAM BEYAZ, cümlenin geri kalanı beyaz/55.
+        ⚠️ AÇIK KARAR: ayrı bir vurgu tonu (açık lacivert) istenirse burada
+        ve aşağıdaki mecra bağlantılarında tek satırla değişir.
       */}
-      <p className="t-orta text-navy/55">
-        <span className="text-navy">Türkiye</span>
+      <p className="t-orta text-white/55">
+        <span className="text-white">Türkiye</span>
         {SITE.konumCumlesi.replace(/^Türkiye/, "")}
       </p>
-      <p className="mt-8 font-mono text-[clamp(1.75rem,4.2vw,60px)] font-semibold leading-none tracking-[-0.04em] text-navy tabular-nums">
+      <p className="mt-8 font-mono text-[clamp(1.75rem,4.2vw,60px)] font-semibold leading-none tracking-[-0.04em] text-white tabular-nums">
         {saat ?? "--:--:--"}
       </p>
-      <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-navy/70">
+      <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-white/70">
         Türkiye saati (GMT+3)
       </p>
     </motion.div>

@@ -25,12 +25,9 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+        className="link-grow inline-block w-max font-medium transition-opacity duration-500 hover:opacity-70 mt-10 text-[18px] text-navy md:text-[24px]"
       >
         Ana Sayfaya Dönün
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-          ↗
-        </span>
       </Link>
     </section>
   );

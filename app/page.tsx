@@ -225,16 +225,19 @@ export default function HomePage() {
               markalarımızla faaliyetlerimizi devam ettiriyoruz.
             </p>
           </StaggerItem>
-          {/* Ekip notu: köşeleri oval, kurumsal lacivert dikdörtgen buton, beyaz metin */}
+          {/* ÇİZGİSEL CTA (2026-09-09, revize dökümanı): "rect içine alınmayacak
+              temadaki örnekteki gibi çizgisel olarak kullanılacak."
+              Master temada ölçüldü: CTA'lar 28px/500, kenarlık YOK, köşe
+              yuvarlaklığı YOK — düz metin. `link-grow` altındaki 14px'lik
+              çizgiyi hover'da %100'e uzatıyor (sitenin mevcut kalıbı;
+              KapanisSection'daki iki CTA zaten böyleydi).
+              Eski hâli: lacivert dolu hap buton + daire içinde ok. */}
           <StaggerItem>
             <Link
               href="/hakkimizda"
-              className="group mt-10 flex w-max items-center gap-4 rounded-full bg-navy px-7 py-[15px] text-xl font-bold text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+              className="link-grow inline-block w-max font-medium transition-opacity duration-500 hover:opacity-70 mt-10 text-[20px] text-navy md:text-[28px]"
             >
               Hakkımızda
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-                ↗
-              </span>
             </Link>
           </StaggerItem>
         </Stagger>
@@ -348,10 +351,17 @@ export default function HomePage() {
             marka isimlerini yazmayacağız."
 
             Değişenler: yanlardaki `px-5 md:px-10` KALDIRILDI (tam kenar),
-            görsel altındaki marka adı paragrafları KALDIRILDI (marka adı artık
-            üzerine gelince logo olarak ortada çıkıyor), aradaki 6px boşluk
-            korundu. ── */}
-        <section className="flex flex-col gap-6 pb-20 md:pb-24">
+            görsel altındaki marka adı paragrafları KALDIRILDI.
+
+            İKİ GÖRSEL ARASI BOŞLUK SIFIR (2026-09-09, Yakup: "master ve bardahl
+            görselleri arası boşluk bırakmışsın, master temada boşluk yok o
+            alanda, revize metninde gösterdiği kısımda da yok"). Önceden 24px
+            (`gap-6`) vardı.
+
+            ÜZERİNE GELİNCE KARARTMA YOK (`ortu={false}`): master temada bu
+            slaytların üstüne renk gelmiyor, görsel olduğu gibi kalıp hafifçe
+            büyüyor. Karartma + logo YALNIZCA aşağıdaki dikey üçlüde. ── */}
+        <section className="flex flex-col pb-20 md:pb-24">
           {(
             [
               {
@@ -373,7 +383,7 @@ export default function HomePage() {
             ] satisfies OnizlemeVerisi[]
           ).map((m, i) => (
             <Reveal key={m.slug} delay={0.08 * i}>
-              <PortfolyoOnizleme {...m} {...olcu(m.gorsel)} />
+              <PortfolyoOnizleme {...m} {...olcu(m.gorsel)} ortu={false} />
             </Reveal>
           ))}
         </section>
@@ -738,9 +748,16 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        {/* ── SAYFA BİTİŞ İMAJI + referans logo bandı ──
-          Ekip notu (2026-08-14): logo bandı ekip görselinin hemen altında da
-          yer alacak (diğer tüm sayfalarla aynı kapanış deseni). */}
+        {/* ── SAYFA BİTİŞ İMAJI + referans logoları ──
+          Ekip notu (2026-08-14): logolar ekip görselinin yanında verilecek.
+          2026-09-09'da revize dökümanına göre güncellendi: artık ayrı bant
+          değil, geniş ekranda görselin İÇİNE (alt boş alana) biniyor.
+          Ayrıntı ve mobil davranışı `components/ClosingCta.tsx`'te.
+
+          ⚠️ AÇIK KALEM: bu sayfanın YUKARISINDA (üstteki hero bölümünün hemen
+          altında) hâlâ AYRI bir logo bandı var. Yani ana sayfada iki logo
+          şeridi birden bulunuyor. Döküman "banner alanında verilmeyecek" diyor
+          ama hangisinin kalacağı bir içerik kararı — Yakup'a soruldu. */}
         <ClosingCta />
       </div>
     </>

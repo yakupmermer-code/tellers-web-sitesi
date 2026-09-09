@@ -31,6 +31,7 @@ export default function PortfolyoOnizleme({
   sizes = "100vw",
   className = "",
   odak = "object-center",
+  ortu = true,
 }: {
   slug: string;
   gorsel: string;
@@ -43,6 +44,17 @@ export default function PortfolyoOnizleme({
   aciklama?: string;
   /** `public/assets/ref-logos/<logo>.png` — yoksa marka adı yazıyla çıkar. */
   logo?: string;
+  /**
+   * Üzerine gelince lacivert karartma + logo çıksın mı?
+   *
+   * `false` (2026-09-09, Yakup): "bunların üzerine gelince master temada üstüne
+   * renk gelmiyor, olduğu gibi kalıyor, görselde hafif bir oynama var. Senin bu
+   * yaptığın işlem sadece altında yaptığın 3'lü grupta var."
+   * Yani karartma YALNIZCA dökümanın "portfolyo ön görüntüleme alanı" dediği
+   * dikey üçlüde olacak; üstteki yatay ikilide görsel olduğu gibi kalıp sadece
+   * hafifçe büyüyecek.
+   */
+  ortu?: boolean;
   genislik: number;
   yukseklik: number;
   sizes?: string;
@@ -75,27 +87,29 @@ export default function PortfolyoOnizleme({
         yumuşak ve GPU'da daha ucuz oluyor.
         `pointer-events-none` — katman bağlantının tıklamasını yutmasın.
       */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-navy/70 opacity-0 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-100 group-focus-visible:opacity-100">
-        {logo ? (
-          <Image
-            src={`/assets/ref-logos/${logo}.png`}
-            alt=""
-            width={200}
-            height={80}
-            className="h-10 w-auto max-w-[42%] object-contain brightness-0 invert md:h-14"
-          />
-        ) : (
-          /*
+      {ortu && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-navy/70 opacity-0 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-100 group-focus-visible:opacity-100">
+          {logo ? (
+            <Image
+              src={`/assets/ref-logos/${logo}.png`}
+              alt=""
+              width={200}
+              height={80}
+              className="h-10 w-auto max-w-[42%] object-contain brightness-0 invert md:h-14"
+            />
+          ) : (
+            /*
             Logosuz marka: adı YAZIYLA çıkar. Punto logonun yüksekliğine
             (h-10 / h-14 = 40/56px) göre seçildi — burada sayfanın büyük başlık
             ölçeği (`t-orta`, 72px) kullanılırsa logolu komşularının yanında
             orantısız iri durur (denetimde yakalandı).
           */
-          <span className="px-6 text-center text-[30px] font-medium leading-none text-white md:text-[42px]">
-            {marka}
-          </span>
-        )}
-      </div>
+            <span className="px-6 text-center text-[30px] font-medium leading-none text-white md:text-[42px]">
+              {marka}
+            </span>
+          )}
+        </div>
+      )}
     </Link>
   );
 }

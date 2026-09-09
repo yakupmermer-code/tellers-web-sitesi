@@ -116,7 +116,6 @@
     format("woff");
 }
 
-
 /*
  * Ana sayfadaki "üste çakılan bölüm" için tek kaynak eşik.
  *
@@ -346,7 +345,10 @@ body {
   border-color: var(--line);
 }
 
-/* Referans logo bandı — sürekli kayan slider (marquee) */
+/* Referans logo bandı — sürekli kayan slider (marquee).
+   SÜRE 32s -> 55s (2026-09-09, Yakup: "çok hızlı bir tık yavaş olsun").
+   Süre listenin TAMAMI için; logo sayısı değişirse hız da değişir
+   (33 logo -> 55s ≈ logo başına 1,7s). */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -356,7 +358,7 @@ body {
   }
 }
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation: marquee 55s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
@@ -381,6 +383,16 @@ body {
 .link-grow:hover::after,
 .group:hover .link-grow::after {
   width: 100%;
+}
+/*
+ * Sağa yaslı hâli. `.link-grow` çizgiyi `left: 0`'dan başlatıyor; sağa
+ * hizalanmış bir CTA'da (ör. hizmetlerimiz sayfasındaki iki bağlantı) 14px'lik
+ * parça metnin SOL ucunda, iki farklı x konumunda asılı kalıyor ve dizgi
+ * hatası gibi görünüyordu (denetimde yakalandı, 2026-09-09).
+ */
+.link-grow-sag::after {
+  left: auto;
+  right: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .link-grow::after {

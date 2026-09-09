@@ -190,12 +190,14 @@ export default async function BlogDetayPage({
           <Reveal>
             <Link
               href={blog.cta.href}
-              className="group mt-12 flex w-max items-center gap-3 rounded-full bg-navy px-7 py-3.5 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+              /* `w-max` YOK: uzun CTA etiketleri (ör. "tellers Strateji Ekibiyle
+                 İletişime Geçin") telefonda 438px yer istiyordu, kapsayıcı 350px'ti
+                 — sayfa 458px'e şişip sağdan 68px kırpılıyordu (`overflow-x: clip`
+                 yüzünden kullanıcı kaydıramıyordu bile). Sarmasına izin
+                 verildi. */
+              className="link-grow mt-12 inline-block max-w-full font-medium text-[18px] text-navy transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
             >
               {blog.cta.label}
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
-                ↗
-              </span>
             </Link>
           </Reveal>
         </div>

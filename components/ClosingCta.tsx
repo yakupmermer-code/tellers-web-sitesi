@@ -11,7 +11,8 @@ import { SITE, PHONE_READY } from "@/content/site";
  * AÇIK KARAR (2026-08-15): revize dökümanı "soldaki maile" diyor ama görselde
  * "görüşme planlayın." yazıyor — çelişki Yakup'a soruldu, cevap gelene kadar
  * mevcut (tel:) davranış korunuyor.
- * Ekip notu gereği referans logo bandı bu görselin hemen altında verilir.
+ * REFERANS LOGOLARI: geniş ekranda görselin İÇİNE (alt boş alana) biniyor,
+ * `lg` altında görselin altında bant olarak veriliyor — gerekçe aşağıda.
  */
 export default function ClosingCta({
   withRefLogos = true,
@@ -55,10 +56,49 @@ export default function ClosingCta({
                 />
               </>
             )}
+
+            {/* ── REFERANS LOGOLARI — GÖRSELİN ALT BOŞ ALANINDA ──
+                Revize dökümanı (2026-09-09): "Referans logolar alt kısımda
+                banner alanında verilmeyecek temadaki gibi yukarıdaki ekip
+                görselinin alt boş kısmında akan slider şeklinde dönecek."
+
+                Master temada ölçüldü: logo şeridi ekip görselinin ÜSTÜNE
+                biniyor, ayrı bir bant yok. Bizim görselde de alt ~%18'lik
+                bölge boş lacivert — şerit oraya oturuyor.
+
+                🔴 `md:` ŞART — TELEFONDA BİNDİRME YOK. Kusur şuydu: konum
+                YÜZDE (`bottom-[6%]`) ama şeridin yüksekliği PİKSEL (~40px).
+                Görsel ekranla küçüldükçe 40px oransal olarak büyüyor ve şerit
+                yukarı tırmanıyor. Ölçüldü: 1440px'te şerit %89,6'da (temiz),
+                390px'te %79,4, 360px'te %78,2 — oysa görselin İÇİNE basılı
+                "görüşme planlayın. / whatsapp'tan yazın." yazısı %75,3-78,2
+                aralığında. Yani 360px'lik telefonda logolar yazının üstüne
+                biniyordu (denetimde piksel piksel ölçüldü). 360px Türkiye'de
+                çok yaygın bir Android genişliği.
+                Ayrıca mobilde logolar oransal olarak devleşiyordu (görselin
+                %11'i — masaüstünde %2,6), başlıkla aynı ağırlığa çıkıyordu.
+                Çözüm: `lg`'nin altında bindirme kapalı, şerit görselin ALTINDA
+                normal bant olarak veriliyor. `md` DEĞİL `lg`: 768px'te şerit
+                %81'de başlıyordu, yazının bittiği %78,2'ye yalnızca 12px
+                kalıyordu — pay çok inceydi. 1024px'te açıklık 35px.
+
+                `pointer-events-none` ŞART, süs değil: şerit masaüstünde bile
+                tıklama alanlarına (%73-80) yakın duruyor; mobil ölçümde tam
+                içlerine giriyordu. Kaldırılırsa tel/WhatsApp linkleri ölür. */}
+            {withRefLogos && (
+              <div className="pointer-events-none absolute inset-x-0 bottom-[6%] hidden lg:block">
+                <RefLogoBand gorunum="serit" />
+              </div>
+            )}
           </div>
         </Reveal>
       </section>
-      {withRefLogos && <RefLogoBand />}
+      {/* Telefon yedeği — gerekçe yukarıdaki blokta. */}
+      {withRefLogos && (
+        <div className="lg:hidden">
+          <RefLogoBand />
+        </div>
+      )}
     </>
   );
 }
