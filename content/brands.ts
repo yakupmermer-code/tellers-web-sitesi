@@ -417,7 +417,7 @@ export const BRANDS: Brand[] = [
   },
   {
     slug: "bfit",
-    name: "b-fit",
+    name: "bfit",
     banner: "/assets/brands/bfit/banner.jpg",
     listService: "Markalama & Performans Pazarlama",
     year: "2023-Devam ediyor",
@@ -431,9 +431,9 @@ export const BRANDS: Brand[] = [
     headline:
       "Türkiye\'nin En Büyük Spor Franchise Markasına Markalama",
     intro:
-      "Türkiye'nin en büyük spor franchise markası olan b-fit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Ölçülebilir veri odaklı performans pazarlama operasyonumuz ile markamızın franchise satışları için lead akışı sağlıyor; dijital pazarlama operasyonumuz ve yaratıcı konsept tasarımlarımız ile marka konumlandırması ve tüm hedef kitle iletişimlerini yöneterek her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
+      "Türkiye'nin en büyük spor franchise markası olan bfit'in 21. yılında; marka konumlandırmasını, imajını ve logosunu yeniledik. Ölçülebilir veri odaklı performans pazarlama operasyonumuz ile markamızın franchise satışları için lead akışı sağlıyor; dijital pazarlama operasyonumuz ve yaratıcı konsept tasarımlarımız ile marka konumlandırması ve tüm hedef kitle iletişimlerini yöneterek her gün daha fazla kadının hayatına dokunmaya devam ediyoruz.",
     meta: {
-      musteri: "b-fit",
+      musteri: "bfit",
       tarih: "01.12.2024 - Devam Ediyor",
       sure: "Devam Ediyor",
       proje: ["Markalama", "Dijital Pazarlama", "Performans Pazarlama", "Kreatif Ajans Hizmetleri"],

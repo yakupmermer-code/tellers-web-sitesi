@@ -15,7 +15,7 @@ import MediaReveal from "@/components/MediaReveal";
 import { BRANDS } from "@/content/brands";
 
 const ACIKLAMA =
-  "Mastercard, Bardahl, BNI, b-fit ve 13 marka için yaptığımız markalama, performans pazarlama, dijital pazarlama ve kreatif tasarım işleri.";
+  "Mastercard, Bardahl, BNI, bfit ve 13 marka için yaptığımız markalama, performans pazarlama, dijital pazarlama ve kreatif tasarım işleri.";
 
 export const metadata: Metadata = {
   title: "Portfolyo — Mastercard, Bardahl, BNI ve 14 Marka",

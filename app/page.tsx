@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import PortfolyoOnizleme from "@/components/PortfolyoOnizleme";
 import RefLogoBand from "@/components/RefLogoBand";
 import ClosingCta from "@/components/ClosingCta";
 import BlogSlider from "@/components/BlogSlider";
@@ -14,7 +15,52 @@ import { SERVICES } from "@/content/services";
 import { SITE } from "@/content/site";
 import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, paylasim } from "@/lib/seo";
+import { gorselOlcu } from "@/lib/gorsel";
 import type { Metadata } from "next";
+
+/**
+ * Portfolyo ön izleme kartlarının veri şekli.
+ *
+ * NEDEN AYRI BİR TİP: kartlar dizi literalinden `.map()` ile üretiliyor ve
+ * `{...m}` ile yayılıyor. TypeScript "fazla alan" denetimini YALNIZCA doğrudan
+ * yazılan nesnelerde yapar — `.map()`'ten gelen değişkende yapmaz. Yani
+ * `logo` yerine `logoo` yazılsa ya da alakasız bir alan eklense derleme geçer,
+ * lint geçer, sayfa açılır ve logo sessizce kaybolur. Dizinin sonundaki
+ * `satisfies OnizlemeVerisi[]` bu sessiz bozulmayı derleme hatasına çevirir.
+ * (Denetimde deneyle kanıtlandı, 2026-09-09.)
+ *
+ * `genislik`/`yukseklik` burada YOK — onlar `olcu()` ile dosyadan okunuyor.
+ */
+type OnizlemeVerisi = {
+  slug: string;
+  gorsel: string;
+  marka: string;
+  aciklama?: string;
+  logo?: string;
+  odak?: string;
+  /**
+   * ZORUNLU (isteğe bağlı değil): bileşenin varsayılanı `100vw` ve bu, çok
+   * sütunlu bir ızgarada 3 KAT fazla veri indirtir. Eksik bırakılması ne
+   * derleme hatası ne uyarı üretirdi — `satisfies` yalnız FAZLA alanı yakalar,
+   * eksik İSTEĞE BAĞLI alanı yakalamaz (denetimde yakalandı). Zorunlu olunca
+   * yeni bir kart eklerken atlanamıyor.
+   */
+  sizes: string;
+};
+
+/**
+ * Görselin GERÇEK ölçüsünü dosyadan okur ve bileşenin beklediği ada çevirir.
+ *
+ * Elle yazılan ölçüler yanlış olabiliyor ve bu SESSİZ bir hata: MasterCard ve
+ * Bardahl görselleri kodda 1920x900 yazılıydı, gerçekte 1920x1080. Tarayıcı
+ * yanlış orana göre yer ayırıp görsel gelince düzeltince sayfa zıplıyordu
+ * (1440px ekranda görsel başına ~135px). `lib/gorsel.ts` bunun için yazılmış;
+ * portfolyo ve hakkımızda sayfaları zaten kullanıyordu, ana sayfa kullanmıyordu.
+ */
+const olcu = (src: string) => {
+  const { width, height } = gorselOlcu(src);
+  return { genislik: width, yukseklik: height };
+};
 
 const ANA_ACIKLAMA =
   "Mastercard, Bardahl, Konica Minolta ve Fairmont'un tercih ettiği ajans. 3 kıta, 15 ülkede performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım.";
@@ -290,49 +336,41 @@ export default function HomePage() {
           </Stagger>
         </section>
 
-        {/* ── PORTFOLYO ÖNE ÇIKANLAR — alt alta, tam genişlik (ekip notu 2026-08-14) ──
-            ALT BOŞLUK (2026-09-02): pb-6 DEĞİL pb-20 md:pb-24. Eskiden bu bölümün
-            hemen altında 3'lü görsel ızgarası vardı ve ikisi tek gösteri gibi
-            akıyordu (6px ara bilinçliydi). Izgara tasarım manifestosunun altına
-            taşınınca burası doğrudan tam genişlikteki sayılar bandına yapıştı.
-            Küçültme — sayılar bandına yapışır. ── */}
-        <section className="flex flex-col gap-6 px-5 pb-20 md:px-10 md:pb-24">
-          <Reveal>
-            <Link
-              href="/portfolyo/mastercard"
-              className="group block overflow-hidden"
-            >
-              <Image
-                src="/assets/brands/mastercard/slider.png"
-                alt="MasterCard — Above The Line kampanyaları"
-                width={1920}
-                height={900}
-                className="h-auto w-full transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                sizes="100vw"
-              />
-              <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
-                MasterCard
-              </p>
-            </Link>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <Link
-              href="/portfolyo/bardahl"
-              className="group block overflow-hidden"
-            >
-              <Image
-                src="/assets/brands/bardahl/slide.png"
-                alt="Bardahl — Türkiye marka konumlandırması"
-                width={1920}
-                height={900}
-                className="h-auto w-full transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                sizes="100vw"
-              />
-              <p className="mt-4 text-sm uppercase tracking-[0.14em] text-navy">
-                Bardahl
-              </p>
-            </Link>
-          </Reveal>
+        {/* ── PORTFOLYO ÖN İZLEME — yatay ikili ──
+            Revize dökümanı (2026-09-09): "Burada kullandığımız ikili yatay
+            slider normalde temada bu şekilde kullanılmıyor. Biz de temadaki
+            gibi sağdan ve soldan sıfıra sıfır ekleyeceğiz ve alt kısma tekrar
+            marka isimlerini yazmayacağız."
+
+            Değişenler: yanlardaki `px-5 md:px-10` KALDIRILDI (tam kenar),
+            görsel altındaki marka adı paragrafları KALDIRILDI (marka adı artık
+            üzerine gelince logo olarak ortada çıkıyor), aradaki 6px boşluk
+            korundu. ── */}
+        <section className="flex flex-col gap-6 pb-20 md:pb-24">
+          {(
+            [
+              {
+                slug: "mastercard",
+                gorsel: "/assets/brands/mastercard/slider.png",
+                marka: "MasterCard",
+                aciklama: "Above The Line kampanyaları",
+                logo: "mastercard",
+                sizes: "100vw",
+              },
+              {
+                slug: "bardahl",
+                gorsel: "/assets/brands/bardahl/slide.png",
+                marka: "Bardahl",
+                aciklama: "Türkiye marka konumlandırması",
+                logo: "bardahl",
+                sizes: "100vw",
+              },
+            ] satisfies OnizlemeVerisi[]
+          ).map((m, i) => (
+            <Reveal key={m.slug} delay={0.08 * i}>
+              <PortfolyoOnizleme {...m} {...olcu(m.gorsel)} />
+            </Reveal>
+          ))}
         </section>
 
         {/* ── YARIM SLIDE: SAYILAR BANDI ── */}
@@ -368,7 +406,16 @@ export default function HomePage() {
             çıkanların hemen altındaydı; tasarım manifestosunun altına alındı.
             Metin bloğundan sonra üç kare görsel gelmesi sayfanın ritmini
             açıyor. Portfolyo bölümünün alt boşluğu da buna göre büyütüldü
-            (gerekçe orada yazılı). ── */}
+            (gerekçe orada yazılı).
+
+            ⚠️ AÇIK KALEM — İKİ FARKLI KART KALIBI: bu üçlü elle yazılmış
+            `Link + Image` (üzerine gelince yalnız hafif büyüme), 40 satır
+            aşağıdaki dikey üçlü ise `PortfolyoOnizleme` (lacivert karartma +
+            logo). Teknik engel yok — bu üç markanın logoları da hazır
+            (`mynova.png`, `savron.png`, `tyresupply.png`). Ayrı durmalarının
+            sebebi dökümanın karartmayı YALNIZCA portfolyo ön izleme alanları
+            için istemesi; bu ızgara "3'lü görsel alanı" olarak geçiyor.
+            Yakup tek kalıba insin derse bu blok da bileşene geçirilir. ── */}
         <section className="grid gap-6 px-5 pb-20 md:grid-cols-3 md:px-10 md:pb-24">
           {[
             {
@@ -402,16 +449,137 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* ── SLOGAN BANNER'I ──
-          KALDIRILDI (2026-09-02, Yakup: "3. görseldeki yazı ve altındaki videoyu
-          kaldır"): bu bölümde "İletişim; anlamın dolaşımı." başlığı ve altında
-          geçici atmosfer videosu vardı. İkisi de çıkarıldı; slogan banner'ı
-          KALDI (Yakup onu saymadı, ayrı bir görsel ve tek başına ayakta duruyor).
+        {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI ──
+          GERİ GELDİ (2026-09-09, en son revize dökümanı): "Yukarıdaki 3'lü
+          portfolyo alanından sonra aşağıdaki tasarım gelecek: 'İletişim;
+          Anlamın Dolaşımı' tasarımını ekleyeceğiz."
 
-          ⚠️ DÖKÜMANDAN AYRILDIK: revize dökümanı "Bu [slogan] alanı 'İletişim;
-          Anlamın Dolaşımı' alanının altına alacağız" diyordu. O bölüm artık yok,
-          yani talimat karşılanamıyor. Banner burada duruyor ama gerekçesi
-          dökümandan değil Yakup'un 2026-09-02 kararından geliyor.
+          ⚠️ 2026-09-02 KARARININ BİR KISMI GERİ ALINDI. Yakup o gün "3.
+          görseldeki yazı ve altındaki videoyu kaldır" demişti; ikisi de
+          kaldırılmıştı. Yeni döküman BAŞLIĞI geri istiyor (Yakup: "dökümana
+          göre ilerle"). VİDEO GERİ GELMEDİ — döküman onu istemiyor ve zaten
+          hero videosunun ikinci kez kullanılmasıydı.
+
+          GÖRSEL DEĞİL CANLI METİN: dökümandaki 6.png bir tasarım maketi
+          (1080x970, 10 KB, %65'i boş beyaz). Gömülseydi başlık arama motoruna
+          ve ekran okuyucuya görünmez, ölçeklenmez, retina'da bulanıklaşırdı.
+          Aynı görüntü sitenin kendi tipografisiyle üretiliyor — "Veri; anlamın
+          kökeni." başlığıyla birebir aynı kalıp.
+
+          BOŞLUK: bu bölümün KENDİ üst dolgusu YOK — üstündeki ızgaranın
+          `pb-20 md:pb-24`'ü (80/96px) tek başına arayı veriyor. Böylece bu
+          başlığın üstündeki boşluk, sayfadaki eşdeğer "Veri; anlamın kökeni."
+          başlığınınkiyle birebir aynı oluyor ve ara TEK yerde ayarlanıyor.
+          (Önce buraya `pt-6 md:pt-10` de eklenmişti; toplam 104/136px'e çıkıp
+          sitenin ritminden sapıyordu — denetimde yakalandı.)
+
+          `mx-auto max-w-[1440px]` ŞART: sayfadaki tüm metin bölümleri bu
+          sınırı taşıyor. Yalnız `px-5 md:px-10` bırakılınca 1440px'e kadar
+          fark görünmüyor, ÜSTÜNDE ayrışıyor: 1920px'lik ekranda bu başlık
+          soldan 40px'te, ikizi "Veri" 280px'te başlıyordu — 240px kayma,
+          2560px'te 560px (ölçüldü). */}
+        <section className="mx-auto max-w-[1440px] px-5 md:px-10">
+          <Reveal mask>
+            <h2 className="t-dev text-navy">
+              İletişim;{" "}
+              <em className="font-didot font-normal italic">anlamın</em>
+              <br />
+              dolaşımı.
+            </h2>
+          </Reveal>
+        </section>
+
+        {/* ── DİKEY ÜÇLÜ PORTFOLYO ÖN İZLEME ──
+          Döküman: "Altına ise temadan aşağıdaki alanı ekleyeceğiz, 3'ü de dikey
+          olacak ve portfolyo sayfasının ön görüntüleme alanı olacak.
+          Savronik - Atlantis - bfit'i göreceğiz."
+
+          KART ORANI 4:5 — keyfi değil: bfit'in görseli (1080x1350) tam 4:5,
+          yani üçlünün en iyi kaynağı hiç kırpılmadan oturuyor.
+
+          ⚠️ GÖRSEL EKSİĞİ (ekipten istenecek): üç markadan yalnızca bfit'in
+          DİKEY görseli var. Savronik'te tek bir 2:1 hava fotoğrafı (banner.png),
+          Atlantis'te 3:2 mockup ve metin ağırlıklı kare sosyal medya postları
+          var. İkisi de `object-cover` ile kırpılıyor; odak noktaları elle
+          ayarlandı ama bu bir çözüm değil, idare. Dikey çekim/kurgu gelince
+          `gorsel` ve `odak` değerleri güncellenecek.
+
+          ⚠️ NETLİK — `sizes` SORUNU TAM ÇÖZMEZ, ÇÖZEMEZ: 4:5 kutuyu dolduran
+          şey görselin YÜKSEKLİĞİ. 1440px ekranda kart 437x547 CSS px, yani 2x
+          retinada 1093px yükseklik ister. Kaynakların yüksekliği: savronik 887
+          (1,23x büyütme), atlantis 1024 (1,07x), bfit 1350 (NET). Yani savronik
+          komşularından bir tık yumuşak kalacak ve bunu HİÇBİR `sizes` değeri
+          düzeltmez — dosyada o piksel yok. Ancak dikey çekimle çözülür.
+          Aşağıdaki `sizes` değerleri kaynağın TAMAMININ indirilmesini sağlıyor;
+          düzeltmeden önce tarayıcı kart genişliğinde küçük bir sürüm indirip
+          ~2x büyütüyordu, şimdi kayıp yalnız yukarıdaki orana indi.
+
+          `mx-auto max-w-[1440px]` NETLİK İÇİN DE ŞART: sınırsız bırakılırsa
+          2560px'lik ekranda kart 811px'e çıkıyor ve savronik büyütmesi 2,28x'e
+          fırlıyordu. Sınırla kart 437px'te sabitleniyor, büyütme 1,23x'te
+          kalıyor. (Aynı sınır üstteki başlığı da ikiziyle hizalıyor.)
+
+          ⚠️ LOGO EKSİĞİ: `ref-logos/atlantis.png` YOK (savronik ve bfit var).
+          Bileşen logosuz markada marka adını yazıyla gösteriyor — uydurma bir
+          logo üretilmedi. */}
+        <section className="mx-auto grid max-w-[1440px] gap-4 px-5 pb-20 pt-10 md:grid-cols-3 md:gap-6 md:px-10 md:pb-24 md:pt-12">
+          {(
+            [
+              {
+                slug: "savronik",
+                gorsel: "/assets/brands/savronik/banner.png",
+                marka: "Savronik",
+                aciklama: "yaratıcı marka tanıtım filmi",
+                logo: "savronik",
+                // Merkez: kırpma sonrası genişliğin %40'ı kalıyor; kompozisyonun
+                // simetri ekseni (daire + yeşil alan) tam ortada.
+                odak: "object-center",
+                // 33vw DEĞİL: `object-cover` bu 2:1 görselin yalnızca %40'ını
+                // gösteriyor, yani tarayıcının kart genişliğinin 2,5 KATI
+                // çözünürlükte dosya indirmesi gerekiyor. 33vw verilseydi
+                // görsel büyütülür ve yanındaki bfit'e göre BULANIK kalırdı
+                // (denetimde yakalandı). 33 x 2,5 ≈ 83; 1440 üstünde kart
+                // sabitlendiği için orada piksel değeri: 437 x 2,5 ≈ 1093.
+                sizes: "(min-width: 1440px) 1093px, (min-width: 768px) 83vw, 250vw",
+              },
+              {
+                slug: "atlantis",
+                gorsel: "/assets/brands/atlantis/banner.png",
+                marka: "Atlantis",
+                aciklama: "tarım sulama teknolojilerinde dijital pazarlama",
+                // Sola kaydırıldı: merkezde bırakılsa mockup'ın sol kenarındaki
+                // ATLANTIS logosu ve başlığı kırpma dışında kalıyordu.
+                odak: "object-[35%_50%]",
+                // 3:2 görselin %53'ü görünüyor → 33 x 1,875 ≈ 62 (yukarıdaki
+                // gerekçenin aynısı); 1440 üstünde 437 x 1,875 ≈ 819px.
+                sizes: "(min-width: 1440px) 819px, (min-width: 768px) 62vw, 188vw",
+              },
+              {
+                slug: "bfit",
+                gorsel: "/assets/brands/bfit/g1.jpg",
+                marka: "bfit",
+                aciklama: "markalama ve performans pazarlama",
+                logo: "bfit",
+                // Tam 4:5 — hiç kırpılmıyor, düzeltme gerekmiyor.
+                odak: "object-center",
+                sizes: "(min-width: 1440px) 437px, (min-width: 768px) 33vw, 100vw",
+              },
+            ] satisfies OnizlemeVerisi[]
+          ).map((m, i) => (
+            <Reveal key={m.slug} delay={0.06 * i}>
+              <PortfolyoOnizleme
+                {...m}
+                {...olcu(m.gorsel)}
+                className="aspect-[4/5]"
+              />
+            </Reveal>
+          ))}
+        </section>
+
+        {/* ── SLOGAN BANNER'I ──
+          Döküman: "Bu [slogan] alanı 'İletişim; Anlamın Dolaşımı' alanının
+          altına alacağız." Üstteki iki bölüm 2026-09-09'da geri gelince bu
+          talimat karşılandı — banner artık dökümanın istediği yerde.
 
           ⚠️ PLACEHOLDER: slogan-banner.png GEÇİCİ. Ekipten gerçek marka videosu
           gelince bu görselin yerini alacak (eski yorumda yazılıydı, kaldırılan
