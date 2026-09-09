@@ -62,6 +62,11 @@ const olcu = (src: string) => {
   return { genislik: width, yukseklik: height };
 };
 
+/** Sol dikey kartın görseli. Tek yerde: `gorsel` ve `olcu()` aynı yolu
+ *  kullanmak zorunda — ayrışırsa `gorselOlcu` sessizce 16:9 varsayılanına
+ *  düşer, ne derleme hatası ne uyarı verir (denetimde yakalandı). */
+const MYNOVA_GORSEL = "/assets/brands/mynova/gorsel-3.png";
+
 const ANA_ACIKLAMA =
   "Mastercard, Bardahl, Konica Minolta ve Fairmont'un tercih ettiği ajans. 3 kıta, 15 ülkede performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım.";
 
@@ -145,7 +150,7 @@ export default function HomePage() {
             bozuyor. HTML olarak binince yazı kusursuz çıkar, tek satırla
             değiştirilebilir ve arama motoru okuyabilir. */}
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-5 pb-16 md:flex-row md:items-end md:justify-between md:gap-16 md:px-10 md:pb-20">
-          <h1 className="max-w-2xl text-3xl font-bold leading-[1.08] tracking-tight text-white md:text-[64px]">
+          <h1 className="t-kucuk max-w-2xl leading-[1.1] text-white">
             Markaları duyulur değil,{" "}
             <em className="font-didot italic">anlaşılır</em> kılıyoruz.
           </h1>
@@ -194,7 +199,7 @@ export default function HomePage() {
         <div>
           <MaskLines
             as="h2"
-            className="t-dev text-navy"
+            className="t-orta text-navy"
             label="Global devlerin tercihi, tellers."
             lines={["Global devlerin", "tercihi, tellers."]}
           />
@@ -388,7 +393,7 @@ export default function HomePage() {
         {/* ── TASARIM MANİFESTOSU (5.png) ── */}
         <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal mask>
-            <h2 className="t-dev max-w-[1100px] text-navy">
+            <h2 className="t-orta max-w-[1100px] text-navy">
               Tasarım, tellers için estetik değil,{" "}
               <em className="font-didot font-normal italic">
                 anlamın mekansal
@@ -401,52 +406,93 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        {/* ── 3'LÜ GRİD GÖRSEL ALANI (My Nova / Savron / Tyre Supply) ──
-            YER DEĞİŞİKLİĞİ (2026-09-02, Yakup): eskiden portfolyo öne
-            çıkanların hemen altındaydı; tasarım manifestosunun altına alındı.
-            Metin bloğundan sonra üç kare görsel gelmesi sayfanın ritmini
-            açıyor. Portfolyo bölümünün alt boşluğu da buna göre büyütüldü
-            (gerekçe orada yazılı).
+        {/* ── 3'LÜ PORTFOLYO ALANI — SOL DİKEY / SAĞ YATAY ──
+            Revize dökümanı (2026-09-09): "Bu alanı temadaki gibi
+            konumlandıralım. Temadaki kullanım: Sol dikey / Sağ alan ise yatay
+            olacak."
 
-            ⚠️ AÇIK KALEM — İKİ FARKLI KART KALIBI: bu üçlü elle yazılmış
-            `Link + Image` (üzerine gelince yalnız hafif büyüme), 40 satır
-            aşağıdaki dikey üçlü ise `PortfolyoOnizleme` (lacivert karartma +
-            logo). Teknik engel yok — bu üç markanın logoları da hazır
-            (`mynova.png`, `savron.png`, `tyresupply.png`). Ayrı durmalarının
-            sebebi dökümanın karartmayı YALNIZCA portfolyo ön izleme alanları
-            için istemesi; bu ızgara "3'lü görsel alanı" olarak geçiyor.
-            Yakup tek kalıba insin derse bu blok da bileşene geçirilir. ── */}
-        <section className="grid gap-6 px-5 pb-20 md:grid-cols-3 md:px-10 md:pb-24">
-          {[
-            {
-              src: "/assets/brands/mynova/banner.png",
-              alt: "My Nova Dental Clinic",
-              href: "/portfolyo/my-nova",
-            },
-            {
-              src: "/assets/brands/savron/banner.png",
-              alt: "Savron Smart Medya",
-              href: "/portfolyo/savron-smart-media",
-            },
-            {
-              src: "/assets/brands/tyresupply/banner.png",
-              alt: "Tyre Supply",
-              href: "/portfolyo/tyre-supply",
-            },
-          ].map((item, i) => (
-            <Reveal key={item.href} delay={0.05 * i}>
-              <Link href={item.href} className="group block overflow-hidden">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={640}
-                  height={640}
-                  className="aspect-square w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                />
-              </Link>
+            ÖNCEKİ HÂLİ YANLIŞTI: üç eşit KARE görsel yan yanaydı. Döküman bu
+            alanı asimetrik istiyor — solda tam boy bir DİKEY, sağda üst üste
+            iki YATAY. (Yakup 2026-09-09: "belgede olduğu şekilde 3'lü alanı
+            yapmamışsın.")
+
+            ORAN NASIL ÇIKIYOR: sağdaki iki kart 16:9. Sol sütun `h-full` ile
+            onların toplam yüksekliğini kaplıyor, yani oranı ızgaradan doğuyor
+            (1440px'te 594x859 = 0.69, tarayıcıda ölçüldü) — elle bir oran dayatılmadı. Referansın
+            dikey kartları 0.56-0.70 bandında, aynı yerdeyiz.
+
+            SÜTUN ORANI NEDEN 2.4fr/3fr (2fr DEĞİL): 2fr'de sol kart 0.58
+            oranına düşüyor ve My Nova görselinin (kaynak oranı 0.71) yalnızca
+            %82'si görünüyordu — "THE EVOLUTION OF SMILES" başlığı kaynağın
+            %83'ünü kapladığı için son harfi kesiliyordu (ekran görüntüsüyle
+            görüldü). 2.4fr'de kart 0.69'a çıkıyor. (O görsel sonra geri alındı ama
+            oran korundu: 0.69, referansın dikey kart bandının üst ucu.)
+
+            KART KALIBI: dökümanın "portfolyo sayfasının ön görüntü alanı"
+            tarifi bu alan için de geçerli — üçü de `PortfolyoOnizleme`, yani
+            üzerine gelince lacivert karartma + logo. Böylece sayfadaki iki
+            farklı kart kalıbı da tek kalıba indi. ── */}
+        <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
+          <div className="grid gap-4 md:grid-cols-[minmax(0,2.4fr)_minmax(0,3fr)] md:gap-6">
+            <Reveal>
+              {/* Sol dikey: My Nova broşür maketi.
+                  NEDEN BU GÖRSEL: kaynak oranı 0.80, telefondaki kart oranıyla
+                  (`aspect-[4/5]`) BİREBİR — mobilde hiç kırpılmıyor. Ayrıca
+                  üzerinde basılı marka logosu YOK, bu yüzden karartmada çıkan
+                  logoyla çakışmıyor. (`darwin-chair.jpg` denendi ve geri
+                  alındı: 0.707 oranı telefonda üstten/alttan %5,8 kesiyor ve
+                  gömülü "my nova" logosu + web adresi kartta ikinci bir logo
+                  yaratıyordu — denetimde yakalandı.)
+
+                  ⚠️ İCLOUD TUZAĞI (2026-09-09): bu dosya bir tur boyunca
+                  optimize ediciyi 18 sn kilitli tuttu ve "dosya bozuk" diye
+                  teşhis edildi. YANLIŞTI — dosya sağlam, şimdi 0,002-0,1 sn'de
+                  dönüyor, sharp'ta 65 ms. Sebep proje `~/Desktop` altında ve
+                  iCloud senkronu açık olduğu için dosyanın o an buluttan
+                  indiriliyor olmasıydı. Bir dosya "bozuk" görünürse ÖNCE
+                  `brctl` ve tekrar denemeyi düşün. */}
+              <PortfolyoOnizleme
+                slug="my-nova"
+                gorsel={MYNOVA_GORSEL}
+                marka="My Nova Dental Clinic"
+                aciklama="performans ve dijital pazarlama"
+                logo="mynova"
+                {...olcu(MYNOVA_GORSEL)}
+                sizes="(min-width: 1440px) 597px, (min-width: 768px) 45vw, 100vw"
+                className="aspect-[4/5] md:aspect-auto md:h-full"
+              />
             </Reveal>
-          ))}
+            <div className="grid gap-4 md:gap-6">
+              {(
+                [
+                  {
+                    slug: "savron-smart-media",
+                    gorsel: "/assets/brands/savron/banner.png",
+                    marka: "Savron Smart Medya",
+                    aciklama: "3D içerik üretimi ve dijital pazarlama",
+                    logo: "savron",
+                    sizes: "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
+                  },
+                  {
+                    slug: "tyre-supply",
+                    gorsel: "/assets/brands/tyresupply/banner.png",
+                    marka: "Tyre Supply",
+                    aciklama: "performans ve dijital pazarlama",
+                    logo: "tyresupply",
+                    sizes: "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
+                  },
+                ] satisfies OnizlemeVerisi[]
+              ).map((m, i) => (
+                <Reveal key={m.slug} delay={0.06 * (i + 1)}>
+                  <PortfolyoOnizleme
+                    {...m}
+                    {...olcu(m.gorsel)}
+                    className="aspect-[16/9]"
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ── İLETİŞİM; ANLAMIN DOLAŞIMI ──
@@ -480,7 +526,7 @@ export default function HomePage() {
           2560px'te 560px (ölçüldü). */}
         <section className="mx-auto max-w-[1440px] px-5 md:px-10">
           <Reveal mask>
-            <h2 className="t-dev text-navy">
+            <h2 className="t-orta text-navy">
               İletişim;{" "}
               <em className="font-didot font-normal italic">anlamın</em>
               <br />
@@ -607,7 +653,7 @@ export default function HomePage() {
           banner'ı var, dolgu ondan ayrılmak için duruyor. */}
         <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-24">
           <Reveal mask>
-            <h2 className="t-dev text-navy">
+            <h2 className="t-orta text-navy">
               Veri; <em className="font-didot font-normal italic">anlamın</em>
               <br />
               kökeni.
@@ -673,7 +719,7 @@ export default function HomePage() {
                   <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                     {s.eyebrow}
                   </span>
-                  <h3 className="t-dev mt-2 text-white">
+                  <h3 className="t-kucuk mt-2 text-white">
                     {s.titleTr}
                   </h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">

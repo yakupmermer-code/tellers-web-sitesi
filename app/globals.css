@@ -252,7 +252,20 @@ body {
    Referanstan ölçüldü (arpeggio.framer.website, tüm sayfa tarandı). Temanın
    "hissi" büyük ölçüde bu ölçekten geliyor:
 
-     130px/800 · 84px/600 · 72px/600 · 48px/500 · 35px/500 · 28px/500 · 21px/400
+   SINIFLARIMIZ (tek doğru kaynak — bu listeyle aşağıdaki bloklar UYUŞMALI):
+     .t-dev 130/800 · .t-buyuk 84/600 · .t-orta 72/600 · .t-kucuk 48/500
+     · .t-alt 28/500 · .t-govde 21/400
+
+   REFERANSTA ÖLÇÜLEN TAM ÖLÇEK (2026-09-09, @1440px, headless Chrome):
+     130/800 · 84/600 · 72/600 · 56/600 · 48/500 · 46/500 · 35/500 · 21/400 · 17/400
+   Karşılığı olmayan iki değer bilinçli: 46px (referansın hero'su) `.t-kucuk`
+   ile karşılanıyor — 2px fark, aynı ağırlık ve harf aralığı, ayrı bir sınıf
+   açmaya değmez. 35px'in bizde birebir karşılığı olan bir öğe yok.
+
+   REFERANS 130px'İ SADECE BİR YERDE KULLANIYOR ("Design that captivates
+   today & inspires tomorrow." manifestosu). Bizde de öyle olmalı — bir ara
+   ana sayfada SEKİZ tane 130px'lik başlık vardı ve Yakup'un "puntolar çok
+   büyük" geri bildirimi buradan geldi (2026-09-09).
 
    İki kural her boyutta sabit:
      · harf aralığı HER ZAMAN -0.04em
@@ -309,6 +322,11 @@ body {
   }
 
   .t-alt {
+    /* 28px KALDI. Bir tur 35px'e çıkarılmıştı (referansın bölüm etiketleri
+       35px/500) ama Yakup'un geri bildirimi "puntolar çok büyük"tü ve bu, o
+       turda BÜYÜTÜLEN tek sınıftı — geri alındı. Referansta bu öğenin birebir
+       karşılığı yok: bölüm etiketleri 35px, hizmet adları 48px; bizdeki ise
+       liste maddesi başlığı. Yakup gözüyle karar verecek. */
     font-size: clamp(1.125rem, 1.95vw, 28px);
     font-weight: 500;
     letter-spacing: -0.04em;
