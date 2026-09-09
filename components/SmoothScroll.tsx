@@ -23,6 +23,22 @@ import Lenis from "lenis";
  */
 let etkinLenis: Lenis | null = null;
 
+/**
+ * Lenis'i geçici olarak durdurur/başlatır — tam ekran menü açıkken gerekiyor.
+ *
+ * 🔴 NEDEN: menü açılınca `<html>`e `overflow: hidden` konuyor ama Lenis bunu
+ * TANIMIYOR (`autoToggle` kapalı) ve tekerlek hareketini programatik kaydırmaya
+ * çevirdiği için kilidi delip geçiyor. Ölçüldü: menü açıkken tekerlek çevirince
+ * arkadaki sayfa 1200px'ten 3360px'e gitti, menü kapanınca kullanıcı 2160px
+ * başka yerde kaldı. Menü artık MASAÜSTÜNDE de ana gezinme olduğu için bu
+ * hata herkesi etkiliyordu.
+ */
+export function kaydirmayiDurdur(durdur: boolean) {
+  if (!etkinLenis) return;
+  if (durdur) etkinLenis.stop();
+  else etkinLenis.start();
+}
+
 /** Sayfanın en üstüne döner. Lenis kapalıysa tarayıcının kendi kaydırması. */
 export function basaDon() {
   if (etkinLenis) {

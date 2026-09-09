@@ -12,18 +12,19 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 ## Marka Kuralları (değişmez)
 
 - Kurumsal renk: `#0a0a47` (lacivert) — turuncu/kırmızı YOK
-- Fontlar: Avenir Next (gövde/kurumsal) + serif vurgu fontu
-  - **Avenir Next** — hâlâ `fonts.cdnfonts.com`'dan. Ticari bir Monotype fontu;
-    bu CDN bir satıcı değil. Lisans riski Yakup tarafından kabul edildi
-    (2026-08-13). AÇIK KONU: web lisansı alınacak mı, yoksa ücretsiz bir
-    alternatife mi geçilecek?
-  - **Serif vurgu — DENEME AŞAMASINDA (2026-08-31, art direktör onayı bekliyor):**
-    Didot yerine **Bodoni Moda** kuruldu, `public/fonts/` altında self-host,
-    SIL OFL. Gerekçe: revize dökümanı "Didot Italic (Bold)" istiyor ama
-    cdnfonts'taki Didot yalnızca weight:400/style:normal sunuyordu — tüm
-    italik ve boldlar tarayıcının uydurduğu sahte kesimlerdi (doğrulandı).
-    Bodoni Moda gerçek italik + 400-900 aralık sunar.
-    Onaylanmazsa geri alınır; onaylanırsa bu satır sadeleştirilecek.
+- Font: **TEK AİLE — Avenir Next LT Pro** (2026-09-09, Yakup: "Avenir next
+  olsun tüm font"). Serif vurgu fontu KALDIRILDI.
+  - Hâlâ `fonts.cdnfonts.com`'dan geliyor. Ticari bir Monotype fontu; bu CDN
+    bir satıcı değil. Lisans riski Yakup tarafından kabul edildi (2026-08-13).
+    AÇIK KONU: web lisansı alınacak mı, ücretsiz alternatife mi geçilecek?
+  - CDN'de 9 gerçek italik kesim var (sayıldı) — italik vurgular sahte eğim
+    değil.
+  - Serif geçmişi: Didot istenmişti, cdnfonts'taki Didot'ta gerçek italik/bold
+    yoktu; Bodoni Moda denendi (self-host, SIL OFL) ve 2026-09-09'da tamamen
+    kaldırıldı. `.font-didot` sınıfı 31 yerde DURUYOR ama artık gövde fontunu
+    gösteriyor; serif geri istenirse `app/globals.css`'teki `--font-didot`
+    satırını değiştirmek yeterli. Bodoni .woff2 dosyaları `public/fonts/`
+    altında duruyor, silinmedi.
 - Logo: `tellers_logo` her yerde; `tellers_icon` ("t" amblemi) SADECE favicon
 - Slogan: "Duyulan unutulur, anlaşılan kalır."
 - Referans logo bandı: lacivert fon, beyaz logolar, çift genişlik

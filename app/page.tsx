@@ -53,7 +53,14 @@ export default function HomePage() {
         )}
       />
       {/* ── HERO: tam ölçek slider — marka tanıtım videosu ── */}
-      <section className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy">
+      {/* data-koyu-bolum: bu bölüm üst barı TAMAMEN kapattığı sürece bar
+          saydam kalır ve yazılar beyaz olur (referans görünümü). Bölüm barın
+          altından çıkınca Header ince beyaz örtüye geçer. Ölçümü
+          components/Header.tsx yapar. */}
+      <section
+        data-koyu-bolum
+        className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy"
+      >
         {/* Açılışta 1.28 ölçekten oturur — referans temanın HeroZoom'u. */}
         <HeroZoom className="absolute inset-0">
           <HeroVideo inline className="h-full w-full object-cover opacity-80" />
