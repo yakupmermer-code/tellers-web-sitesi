@@ -216,8 +216,12 @@ export default function Header() {
     };
   }, [open, pathname]);
 
-  // Menü açıkken örtü lacivert: yazılar her hâlükârda beyaz olmalı
-  const acikRenk = koyuZemin || open;
+  /*
+   * Bar yazısı ne zaman beyaz olur? Yalnızca arkada koyu bölüm varken.
+   * Menü açıkken örtü AÇIK zeminli olduğu için yazılar LACİVERT kalmalı —
+   * `open` eskiden bu koşula dahildi, örtü koyuyken doğruydu.
+   */
+  const acikRenk = koyuZemin && !open;
 
   const sosyal = [
     { k: "WA", href: SITE.whatsapp, dis: true },
@@ -244,7 +248,7 @@ export default function Header() {
       */}
       <header
         className={`fixed inset-x-0 top-0 z-40 transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] ${
-          acikRenk ? "" : "bg-white/80 backdrop-blur-md"
+          acikRenk || open ? "" : "bg-white/80 backdrop-blur-md"
         }`}
       >
         {/* Yükseklik SABİTTEN geliyor, sınıftan değil: JS ölçümü (BAR_YUKSEKLIGI)
@@ -256,7 +260,7 @@ export default function Header() {
           {/* SOL — sosyal kısaltmalar (referans: WA X IG LI EMAIL) */}
           <div
             className={`hidden items-center gap-5 text-[13px] tracking-[0.02em] transition-colors duration-500 sm:flex ${
-              acikRenk ? "text-white/75" : "text-navy/60"
+              acikRenk ? "text-white/75" : "text-navy/75"
             }`}
           >
             {sosyal.map((s) => (
@@ -312,12 +316,12 @@ export default function Header() {
             className="relative z-50 ml-auto flex h-11 w-11 items-center justify-center"
           >
             <span
-              className={`absolute h-px w-7 transition-transform duration-500 ease-[var(--ease-lux)] ${
+              className={`absolute h-px w-7 transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
               } ${open ? "rotate-45" : "-translate-y-[4px]"}`}
             />
             <span
-              className={`absolute h-px w-7 transition-transform duration-500 ease-[var(--ease-lux)] ${
+              className={`absolute h-px w-7 transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
               } ${open ? "-rotate-45" : "translate-y-[4px]"}`}
             />
@@ -336,7 +340,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed inset-0 z-30 bg-navy/85 backdrop-blur-xl"
+            className="fixed inset-0 z-30 bg-paper/85 backdrop-blur-[6px]"
           >
             <div className="mx-auto flex h-full max-w-[1440px] flex-col justify-between px-5 pb-10 pt-[110px] md:px-10">
               <div className="flex flex-1 flex-col justify-between gap-10 md:flex-row md:items-start">
@@ -365,7 +369,11 @@ export default function Header() {
                         onClick={() => {
                           if (item.href === pathname) setOpen(false);
                         }}
-                        className="block font-semibold leading-[1] tracking-[-0.04em] text-white transition-opacity duration-300 hover:opacity-60 text-[clamp(2.25rem,6.5vw,84px)]"
+                        /* Kendi ölçüsü: `.t-buyuk` ana sayfadaki para rakamıyla paylaşılıyordu,
+                           birini ayarlamak diğerini sessizce değiştiriyordu. Ayrıca 5.8vw
+                           1280px'te linkleri 74px'e düşürüyordu; 6.5vw referans ölçüsünü
+                           (84px) daha geniş bir aralıkta koruyor. */
+                        className="block font-semibold leading-[1] tracking-[-0.04em] text-navy transition-opacity duration-300 hover:opacity-50 text-[clamp(2.25rem,6.5vw,84px)]"
                       >
                         {item.label}
                       </Link>
@@ -379,7 +387,7 @@ export default function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
-                className="flex gap-6 text-[13px] tracking-[0.02em] text-white/60 sm:hidden"
+                className="flex gap-6 text-[13px] tracking-[0.02em] text-navy/75 sm:hidden"
               >
                 {sosyal.map((s) => (
                   <a
@@ -435,13 +443,21 @@ function MenuSol() {
       transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
       className="max-w-[620px]"
     >
-      <p className="text-[clamp(1.75rem,5vw,72px)] font-semibold leading-[1.05] tracking-[-0.03em] text-white">
-        {SITE.konumCumlesi}
+      {/*
+        Referansta bu cümle TAM GÜÇTE beyaz, yalnız şehir adı turuncu — yani
+        vurgu tek kelimede. Bizim vurgumuz logo rengi (lacivert) ve zemin de
+        açık olduğu için aynı hiyerarşiyi tersinden kuruyoruz: vurgulanan
+        kelime tam lacivert, cümlenin geri kalanı soluk. İlk denemede cümlenin
+        TAMAMI soluktu ve referanstaki ağırlığını kaybediyordu.
+      */}
+      <p className="t-orta text-navy/55">
+        <span className="text-navy">Türkiye</span>
+        {SITE.konumCumlesi.replace(/^Türkiye/, "")}
       </p>
-      <p className="mt-8 font-mono text-[clamp(1.5rem,3.8vw,52px)] leading-none tracking-[-0.02em] text-white tabular-nums">
+      <p className="mt-8 font-mono text-[clamp(1.75rem,4.2vw,60px)] font-semibold leading-none tracking-[-0.04em] text-navy tabular-nums">
         {saat ?? "--:--:--"}
       </p>
-      <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-white/50">
+      <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-navy/70">
         Türkiye saati (GMT+3)
       </p>
     </motion.div>

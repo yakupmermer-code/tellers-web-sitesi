@@ -148,12 +148,12 @@ export default function HomePage() {
         <div>
           <MaskLines
             as="h2"
-            className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]"
+            className="t-dev text-navy"
             label="Global devlerin tercihi, tellers."
             lines={["Global devlerin", "tercihi, tellers."]}
           />
           <Reveal delay={0.2}>
-            <p className="mt-1.5 text-lg text-navy md:text-[22px]">
+            <p className="t-govde mt-1.5 text-navy">
               Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
             </p>
           </Reveal>
@@ -199,10 +199,10 @@ export default function HomePage() {
         <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-24">
           <div className="md:sticky md:top-32 md:self-start">
             <Reveal mask>
-              <h2 className="text-5xl font-bold leading-none tracking-tight text-navy md:text-[112px]">
+              <h2 className="t-buyuk text-navy">
                 <CountUp value="22.872.000 $" />
               </h2>
-              <p className="mt-1.5 text-lg text-navy md:text-[22px]">
+              <p className="t-govde mt-1.5 text-navy">
                 Bugüne kadar <em className="font-didot italic">yönettiğimiz</em>{" "}
                 toplam reklam bütçesi.
               </p>
@@ -218,7 +218,7 @@ export default function HomePage() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="text-[26px] font-bold tracking-tight text-navy md:text-[33px]">
+                      <h3 className="t-alt text-navy">
                         {s.titleTr}
                       </h3>
                       <p className="mt-3 max-w-xl leading-relaxed text-navy/60">
@@ -252,7 +252,7 @@ export default function HomePage() {
           <div className="md:sticky md:top-32 md:self-start">
             <MaskLines
               as="h2"
-              className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]"
+              className="t-dev text-navy"
               label="Duyulan unutulur, anlaşılan kalır."
               lines={[
                 "Duyulan unutulur,",
@@ -350,7 +350,7 @@ export default function HomePage() {
         {/* ── TASARIM MANİFESTOSU (5.png) ── */}
         <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal mask>
-            <h2 className="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-navy md:text-[96px]">
+            <h2 className="t-dev max-w-[1100px] text-navy">
               Tasarım, tellers için estetik değil,{" "}
               <em className="font-didot font-normal italic">
                 anlamın mekansal
@@ -439,7 +439,7 @@ export default function HomePage() {
           banner'ı var, dolgu ondan ayrılmak için duruyor. */}
         <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-24">
           <Reveal mask>
-            <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
+            <h2 className="t-dev text-navy">
               Veri; <em className="font-didot font-normal italic">anlamın</em>
               <br />
               kökeni.
@@ -505,7 +505,7 @@ export default function HomePage() {
                   <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                     {s.eyebrow}
                   </span>
-                  <h3 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-[96px]">
+                  <h3 className="t-dev mt-2 text-white">
                     {s.titleTr}
                   </h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">

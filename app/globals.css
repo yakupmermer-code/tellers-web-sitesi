@@ -82,6 +82,23 @@
     format("woff");
 }
 @font-face {
+  /*
+   * 500 normal → Demi (600). CDN'de 500/normal için TEK yüz var ve o Condensed
+   * (`MediumCn`); `AvenirNextLTPro-Medium.woff` ve `-Md.woff` adresleri 404.
+   * Ölçüldü (28px, "Performans Pazarlama"): 400→257px, 500→202px, 600→265px.
+   * Yani 500, 400'ten %21 DAR — tipografi ölçeğindeki `.t-alt`/`.t-kucuk`
+   * sınıfları 500 kullandığı için tam da bu tuzağa giriyordu (denetimde
+   * yakalandı). Ağırlık bir kademe artıyor ama oranlar doğru oluyor —
+   * 700/italik'te verilen kararın aynısı.
+   */
+  font-family: "Avenir Next LT Pro";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://fonts.cdnfonts.com/s/13217/AvenirNextLTPro-Demi.woff")
+    format("woff");
+}
+@font-face {
   /* 700 italik → DemiIt: gerekçe yukarıda (CDN'de non-condensed bold italik yok) */
   font-family: "Avenir Next LT Pro";
   font-weight: 700;
@@ -227,6 +244,83 @@ body {
  */
 .font-didot {
   font-family: var(--font-didot);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TİPOGRAFİ ÖLÇEĞİ  (2026-09-09, Yakup: "yazı puntoları kontrol edilmesi")
+
+   Referanstan ölçüldü (arpeggio.framer.website, tüm sayfa tarandı). Temanın
+   "hissi" büyük ölçüde bu ölçekten geliyor:
+
+     130px/800 · 84px/600 · 72px/600 · 48px/500 · 35px/500 · 28px/500 · 21px/400
+
+   İki kural her boyutta sabit:
+     · harf aralığı HER ZAMAN -0.04em
+     · satır aralığı boy büyüdükçe SIKIŞIR: 1.40 → 1.20 → 1.10 → 1.00
+
+   Bizde bu yoktu: neredeyse tüm başlıklar 96px/700, harf aralığı -0.025em,
+   satır 1.05. Yani 33px ile 112px arasında tek düzlem — kontrast yok, ve
+   "sadece header değişmiş" hissinin asıl sebebi buydu.
+
+   Neden sınıf, Tailwind keyfi değeri değil: aynı ölçü 5 sayfada elle
+   yazılıyordu; biri değişince diğerleri sessizce ayrışıyordu.
+
+   🔴 NEDEN `@layer components` İÇİNDE: ilk sürümde katman dışındaydı ve
+   katmansız kurallar TÜM katmanlı kuralları yener. Ölçüldü: `t-govde
+   text-[22px]` yazınca punto 20.88px kalıyordu, sıra değiştirmek de
+   yaramıyordu; `t-dev md:text-[96px]` de yok sayılıyordu — ne uyarı vardı ne
+   derleme hatası. Katmana alınınca Tailwind yardımcıları normal şekilde
+   ezebiliyor. (Aynı ders bu dosyada `.link-sweep` için zaten yazılıydı.)
+   ───────────────────────────────────────────────────────────────────────── */
+@layer components {
+  .t-dev {
+    /* Alt sınır 2.75rem'den düşürüldü: telefonda "organizasyonudur" gibi uzun
+       Türkçe kelimeler 350px'lik kutuya sığmayıp EKRAN DIŞINDA kesiliyordu
+       (`overflow-x: clip` yüzünden sayfa kaymadığı için sessizce kayboluyordu).
+       `overflow-wrap` yalnız sığmayan kelimeyi kırar, normal sarmaya dokunmaz.
+       Satır aralığı 0.98 → 1.05: Türkçede ç/ğ/ş alt uzantıları bir üst satırın
+       harfleriyle çakışıyordu (ölçüldü: en kötü -7.3px). */
+    font-size: clamp(2rem, 9vw, 130px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    overflow-wrap: break-word;
+  }
+
+  .t-buyuk {
+    font-size: clamp(2.25rem, 5.8vw, 84px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .t-orta {
+    font-size: clamp(1.875rem, 5vw, 72px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  .t-kucuk {
+    font-size: clamp(1.5rem, 3.3vw, 48px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  .t-alt {
+    font-size: clamp(1.125rem, 1.95vw, 28px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  .t-govde {
+    font-size: clamp(1rem, 1.45vw, 21px);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+  }
 }
 
 /* İnce çizgi */
