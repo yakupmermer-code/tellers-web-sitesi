@@ -126,6 +126,7 @@ export default function BlogIkili() {
             key={konum}
             href={`/blog/${b.slug}`}
             aria-label={`${b.title} — yazıyı oku`}
+            data-imlec="Oku"
             className="group relative block aspect-[4/3] overflow-hidden"
           >
             <Image
@@ -178,13 +179,6 @@ export default function BlogIkili() {
                 <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-white/75 md:mt-2 md:line-clamp-2 md:text-[13px] xl:mt-3 xl:line-clamp-4 xl:text-[15px]">
                   {ilkCumleler(b.body, b.excerpt)}
                 </p>
-              </div>
-
-              <div className="flex justify-end">
-                {/* Master temadaki yuvarlak "READ" düğmesinin karşılığı. */}
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[11px] font-medium uppercase tracking-[0.1em] text-navy md:h-14 md:w-14 md:text-[12px] xl:h-20 xl:w-20 xl:text-[14px]">
-                  Oku
-                </span>
               </div>
             </div>
           </Link>

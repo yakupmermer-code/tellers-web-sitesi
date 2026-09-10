@@ -366,6 +366,20 @@ body {
   }
 }
 
+/*
+ * ÖZEL İMLEÇ. Sınıf `<html>`e SADECE `components/Imlec.tsx` bağlanınca
+ * ekleniyor — CSS'e sabit yazılsaydı JavaScript yüklenmediğinde kullanıcıda
+ * hiç imleç kalmazdı. Ayrıca yalnız gerçek farede: bileşen dokunmatikte
+ * sınıfı hiç eklemiyor.
+ */
+.imlec-acik,
+.imlec-acik * {
+  cursor: none !important;
+}
+.imlec-acik .imlec {
+  display: flex;
+}
+
 /* Temanın imza link hover'ı: kısa alt çizgi hover'da tam genişliğe uzar */
 .link-grow {
   position: relative;

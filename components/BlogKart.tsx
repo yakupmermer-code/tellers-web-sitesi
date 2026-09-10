@@ -36,6 +36,9 @@ export default function BlogKart({
     <Link
       href={`/blog/${b.slug}`}
       aria-label={`${b.title} — yazıyı oku`}
+      /* Etiket artık İMLECİN kendisinde (master temadaki gibi), kartın
+         köşesinde sabit rozet değil. Bkz. `components/Imlec.tsx`. */
+      data-imlec="Oku"
       className={`group relative block overflow-hidden ${className}`}
     >
       {/* Kaydırmaya bağlı yaklaşma — sitenin her yerindeki `MediaReveal`,
@@ -106,12 +109,6 @@ export default function BlogKart({
           <p className="mt-3 line-clamp-3 text-[13px] leading-relaxed text-white/75 md:line-clamp-2 md:text-[13px] xl:line-clamp-4 xl:text-[15px]">
             {ilkCumleler(b.body, b.excerpt)}
           </p>
-        </div>
-
-        <div className="flex justify-end">
-          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[11px] font-medium uppercase tracking-[0.1em] text-navy md:h-14 md:w-14 md:text-[12px] xl:h-20 xl:w-20 xl:text-[14px]">
-            Oku
-          </span>
         </div>
       </div>
     </Link>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AcilisPerdesi from "@/components/AcilisPerdesi";
+import Imlec from "@/components/Imlec";
 import SmoothScroll from "@/components/SmoothScroll";
 import VideoGorunurluk from "@/components/VideoGorunurluk";
 import JsonLd from "@/components/JsonLd";
@@ -118,6 +119,7 @@ export default function RootLayout({
             ne yapar, nerede" sorusunu bu grafikten cevaplar. */}
         <JsonLd data={grafik(kurulusSemasi(), websiteSemasi())} />
         <AcilisPerdesi />
+        <Imlec />
         <SmoothScroll />
         <VideoGorunurluk />
         <Header />
