@@ -37,6 +37,7 @@ type OnizlemeVerisi = {
   aciklama?: string;
   logo?: string;
   odak?: string;
+  bilgi?: { baslik: string; musteri: string; hizmet: string; yil: string };
   /**
    * ZORUNLU (isteğe bağlı değil): bileşenin varsayılanı `100vw` ve bu, çok
    * sütunlu bir ızgarada 3 KAT fazla veri indirtir. Eksik bırakılması ne
@@ -277,9 +278,7 @@ export default function HomePage() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="t-alt text-navy">
-                        {s.titleTr}
-                      </h3>
+                      <h3 className="t-alt text-navy">{s.titleTr}</h3>
                       <p className="mt-3 max-w-xl leading-relaxed text-navy/60">
                         {s.homeBlurb}
                       </p>
@@ -486,7 +485,8 @@ export default function HomePage() {
                     marka: "Savron Smart Medya",
                     aciklama: "3D içerik üretimi ve dijital pazarlama",
                     logo: "savron",
-                    sizes: "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
+                    sizes:
+                      "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
                   },
                   {
                     slug: "tyre-supply",
@@ -494,7 +494,8 @@ export default function HomePage() {
                     marka: "Tyre Supply",
                     aciklama: "performans ve dijital pazarlama",
                     logo: "tyresupply",
-                    sizes: "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
+                    sizes:
+                      "(min-width: 1440px) 742px, (min-width: 768px) 52vw, 100vw",
                   },
                 ] satisfies OnizlemeVerisi[]
               ).map((m, i) => (
@@ -550,91 +551,99 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        {/* ── DİKEY ÜÇLÜ PORTFOLYO ÖN İZLEME ──
-          Döküman: "Altına ise temadan aşağıdaki alanı ekleyeceğiz, 3'ü de dikey
+        {/* ── DİKEY PORTFOLYO ÖN İZLEME (Savronik / Atlantis / bfit) ──
+          Döküman: "Altına ise TEMADAN AŞAĞIDAKİ ALANI ekleyeceğiz, 3'ü de dikey
           olacak ve portfolyo sayfasının ön görüntüleme alanı olacak.
           Savronik - Atlantis - bfit'i göreceğiz."
 
-          KART ORANI 4:5 — keyfi değil: bfit'in görseli (1080x1350) tam 4:5,
-          yani üçlünün en iyi kaynağı hiç kırpılmadan oturuyor.
+          ⚠️ ÖNCEKİ HÂLİ YANLIŞTI (Yakup 2026-09-10: "sabit 3'lü yapmışsın,
+          revize talebinde o şekilde değil"). Üç eşit sütun yan yanaydı ve
+          kartların içi boştu.
 
-          ⚠️ GÖRSEL EKSİĞİ (ekipten istenecek): üç markadan yalnızca bfit'in
-          DİKEY görseli var. Savronik'te tek bir 2:1 hava fotoğrafı (banner.png),
-          Atlantis'te 3:2 mockup ve metin ağırlıklı kare sosyal medya postları
-          var. İkisi de `object-cover` ile kırpılıyor; odak noktaları elle
-          ayarlandı ama bu bir çözüm değil, idare. Dikey çekim/kurgu gelince
-          `gorsel` ve `odak` değerleri güncellenecek.
+          DOĞRUSU — master temanın PORTFOLYO sayfasından ölçüldü
+          (arpeggio.framer.website/work, 1440px):
+            · kart 674x800 → oran 0,84 (`aspect-[674/800]`)
+            · İKİ sütunlu ızgara, 12px ara; üç kart olunca ikisi üstte biri altta
+            · kartın İÇİNDE bilgi var: üstte açıklama 35px/500, sol altta
+              müşteri 19px/500 + hizmet 21px/500, sağ altta tarih 17px/400
+          Bizde puntolar sitenin ölçeğine oturtuldu (28/19/17/15).
 
-          ⚠️ NETLİK — `sizes` SORUNU TAM ÇÖZMEZ, ÇÖZEMEZ: 4:5 kutuyu dolduran
-          şey görselin YÜKSEKLİĞİ. 1440px ekranda kart 437x547 CSS px, yani 2x
-          retinada 1093px yükseklik ister. Kaynakların yüksekliği: savronik 887
-          (1,23x büyütme), atlantis 1024 (1,07x), bfit 1350 (NET). Yani savronik
-          komşularından bir tık yumuşak kalacak ve bunu HİÇBİR `sizes` değeri
-          düzeltmez — dosyada o piksel yok. Ancak dikey çekimle çözülür.
-          Aşağıdaki `sizes` değerleri kaynağın TAMAMININ indirilmesini sağlıyor;
-          düzeltmeden önce tarayıcı kart genişliğinde küçük bir sürüm indirip
-          ~2x büyütüyordu, şimdi kayıp yalnız yukarıdaki orana indi.
+          ÜZERİNE GELİNCE: bilgi bloğu sönüyor, yerini lacivert karartma + logo
+          alıyor. Karartma dökümanın ayrı bir isteği ve Yakup 2026-09-10'da
+          "3'lü gruptaki kararmayı kaldırma" dedi — master'da karartma yok,
+          bilinçli bir sapma.
 
-          `mx-auto max-w-[1440px]` NETLİK İÇİN DE ŞART: sınırsız bırakılırsa
-          2560px'lik ekranda kart 811px'e çıkıyor ve savronik büyütmesi 2,28x'e
-          fırlıyordu. Sınırla kart 437px'te sabitleniyor, büyütme 1,23x'te
-          kalıyor. (Aynı sınır üstteki başlığı da ikiziyle hizalıyor.)
-
-          ⚠️ LOGO EKSİĞİ: `ref-logos/atlantis.png` YOK (savronik ve bfit var).
-          Bileşen logosuz markada marka adını yazıyla gösteriyor — uydurma bir
-          logo üretilmedi. */}
-        <section className="mx-auto grid max-w-[1440px] gap-4 px-5 pb-20 pt-10 md:grid-cols-3 md:gap-6 md:px-10 md:pb-24 md:pt-12">
-          {(
-            [
-              {
-                slug: "savronik",
-                gorsel: "/assets/brands/savronik/banner.png",
-                marka: "Savronik",
-                aciklama: "yaratıcı marka tanıtım filmi",
-                logo: "savronik",
-                // Merkez: kırpma sonrası genişliğin %40'ı kalıyor; kompozisyonun
-                // simetri ekseni (daire + yeşil alan) tam ortada.
-                odak: "object-center",
-                // 33vw DEĞİL: `object-cover` bu 2:1 görselin yalnızca %40'ını
-                // gösteriyor, yani tarayıcının kart genişliğinin 2,5 KATI
-                // çözünürlükte dosya indirmesi gerekiyor. 33vw verilseydi
-                // görsel büyütülür ve yanındaki bfit'e göre BULANIK kalırdı
-                // (denetimde yakalandı). 33 x 2,5 ≈ 83; 1440 üstünde kart
-                // sabitlendiği için orada piksel değeri: 437 x 2,5 ≈ 1093.
-                sizes: "(min-width: 1440px) 1093px, (min-width: 768px) 83vw, 250vw",
-              },
-              {
-                slug: "atlantis",
-                gorsel: "/assets/brands/atlantis/banner.png",
-                marka: "Atlantis",
-                aciklama: "tarım sulama teknolojilerinde dijital pazarlama",
-                // Sola kaydırıldı: merkezde bırakılsa mockup'ın sol kenarındaki
-                // ATLANTIS logosu ve başlığı kırpma dışında kalıyordu.
-                odak: "object-[35%_50%]",
-                // 3:2 görselin %53'ü görünüyor → 33 x 1,875 ≈ 62 (yukarıdaki
-                // gerekçenin aynısı); 1440 üstünde 437 x 1,875 ≈ 819px.
-                sizes: "(min-width: 1440px) 819px, (min-width: 768px) 62vw, 188vw",
-              },
-              {
-                slug: "bfit",
-                gorsel: "/assets/brands/bfit/g1.jpg",
-                marka: "bfit",
-                aciklama: "markalama ve performans pazarlama",
-                logo: "bfit",
-                // Tam 4:5 — hiç kırpılmıyor, düzeltme gerekmiyor.
-                odak: "object-center",
-                sizes: "(min-width: 1440px) 437px, (min-width: 768px) 33vw, 100vw",
-              },
-            ] satisfies OnizlemeVerisi[]
-          ).map((m, i) => (
-            <Reveal key={m.slug} delay={0.06 * i}>
-              <PortfolyoOnizleme
-                {...m}
-                {...olcu(m.gorsel)}
-                className="aspect-[4/5]"
-              />
-            </Reveal>
-          ))}
+          ⚠️ ATLANTIS'İN LOGOSU YOK (`ref-logos/atlantis.png`) — karartmada adı
+          yazıyla çıkıyor, uydurma logo üretilmedi.
+          ⚠️ Savronik ve Atlantis'in DİKEY görseli yok; yatay kaynaklar
+          kırpılıyor. Dikey çekim gelince `gorsel`/`odak` güncellenecek. */}
+        <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
+          <div className="grid gap-3 md:grid-cols-2">
+            {(
+              [
+                {
+                  slug: "savronik",
+                  gorsel: "/assets/brands/savronik/banner.png",
+                  marka: "Savronik",
+                  aciklama: "yaratıcı marka tanıtım filmi",
+                  logo: "savronik",
+                  odak: "object-center",
+                  bilgi: {
+                    baslik: "Savunma sektöründe yaratıcı marka tanıtım filmi.",
+                    musteri: "Savronik",
+                    hizmet: "Yaratıcı Marka Tanıtım Filmi",
+                    yil: "2022–2023",
+                  },
+                  // Kart 674px, kaynak 2:1 → kutuyu doldurmak için 674/0,84x2
+                  // ≈ 1600px gerekiyor; kaynak 1774px, tam yetiyor.
+                  sizes:
+                    "(min-width: 1440px) 1600px, (min-width: 768px) 111vw, 238vw",
+                },
+                {
+                  slug: "atlantis",
+                  gorsel: "/assets/brands/atlantis/banner.png",
+                  marka: "Atlantis",
+                  aciklama: "tarım sulama teknolojilerinde dijital pazarlama",
+                  odak: "object-[35%_50%]",
+                  bilgi: {
+                    baslik:
+                      "Akıllı sulama sistemlerinde dijital pazarlama operasyonu.",
+                    musteri: "Atlantis Center Pivot",
+                    hizmet: "Performans Pazarlama & Dijital Pazarlama",
+                    yil: "2024",
+                  },
+                  sizes:
+                    "(min-width: 1440px) 1200px, (min-width: 768px) 83vw, 179vw",
+                },
+                {
+                  slug: "bfit",
+                  gorsel: "/assets/brands/bfit/g1.jpg",
+                  marka: "bfit",
+                  aciklama: "markalama ve performans pazarlama",
+                  logo: "bfit",
+                  odak: "object-center",
+                  bilgi: {
+                    baslik:
+                      "Türkiye'nin en büyük spor franchise markasına markalama.",
+                    musteri: "bfit",
+                    hizmet: "Markalama & Performans Pazarlama",
+                    yil: "2023–Devam ediyor",
+                  },
+                  // Kaynak 0,80, kart 0,84 → neredeyse birebir, kırpma yok.
+                  sizes:
+                    "(min-width: 1440px) 674px, (min-width: 768px) 47vw, 100vw",
+                },
+              ] satisfies OnizlemeVerisi[]
+            ).map((m, i) => (
+              <Reveal key={m.slug} delay={0.06 * i}>
+                <PortfolyoOnizleme
+                  {...m}
+                  {...olcu(m.gorsel)}
+                  className="aspect-[674/800]"
+                />
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* ── SLOGAN BANNER'I ──
@@ -734,9 +743,7 @@ export default function HomePage() {
                   <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                     {s.eyebrow}
                   </span>
-                  <h3 className="t-kucuk mt-2 text-white">
-                    {s.titleTr}
-                  </h3>
+                  <h3 className="t-kucuk mt-2 text-white">{s.titleTr}</h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
                     {s.summary}
                   </p>

@@ -32,6 +32,7 @@ export default function PortfolyoOnizleme({
   className = "",
   odak = "object-center",
   ortu = true,
+  bilgi,
 }: {
   slug: string;
   gorsel: string;
@@ -65,6 +66,15 @@ export default function PortfolyoOnizleme({
    * korunacağını bu belirler. Yatay bir görseli dikey karta koyarken şart.
    */
   odak?: string;
+  /**
+   * Master temanın portfolyo kartı bilgi bloğu (arpeggio.framer.website/work'te
+   * ölçüldü, 2026-09-10): kartın İÇİNDE, görselin üstünde duruyor —
+   *   üstte  : açıklama cümlesi        35px/500
+   *   sol alt: müşteri adı 19px/500 + hizmet 21px/500
+   *   sağ alt: tarih                   17px/400
+   * Verilmezse hiç basılmaz (yatay ikili bunu kullanmıyor).
+   */
+  bilgi?: { baslik: string; musteri: string; hizmet: string; yil: string };
 }) {
   return (
     <Link
@@ -80,6 +90,40 @@ export default function PortfolyoOnizleme({
         sizes={sizes}
         className={`h-full w-full object-cover ${odak} transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]`}
       />
+
+      {/* Kart içi bilgi bloğu — master temanın /work kartlarındaki yerleşim.
+          Okunurluk için üstten ve alttan yumuşak lacivert degrade; görselin
+          kendi tonu ne olursa olsun beyaz yazı okunuyor.
+          Üzerine gelince SÖNÜYOR: yerini karartma + logo alıyor, iki katman
+          üst üste binmesin. */}
+      {bilgi && (
+        <div className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-0">
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-navy/75 to-transparent"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-navy/80 to-transparent"
+          />
+          <p className="absolute inset-x-0 top-0 px-5 pt-6 text-[20px] font-medium leading-[1.15] tracking-[-0.03em] text-white md:px-8 md:pt-8 md:text-[28px]">
+            {bilgi.baslik}
+          </p>
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-5 pb-6 md:px-8 md:pb-8">
+            <div>
+              <p className="text-[15px] font-medium text-white md:text-[19px]">
+                {bilgi.musteri}
+              </p>
+              <p className="mt-1 text-[13px] text-white/70 md:text-[17px]">
+                {bilgi.hizmet}
+              </p>
+            </div>
+            <p className="shrink-0 text-[12px] text-white/70 md:text-[15px]">
+              {bilgi.yil}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/*
         Karartma + logo. `opacity` ile açılıyor (zemin rengini animasyonlamak
