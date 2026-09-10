@@ -5,7 +5,6 @@ import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { Stagger, StaggerItem } from "@/components/Stagger";
-import MediaReveal from "@/components/MediaReveal";
 import RefLogoBand from "@/components/RefLogoBand";
 import ContactForm from "@/components/ContactForm";
 
@@ -44,17 +43,20 @@ export default function KariyerPage() {
       />
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal sabit>
-          <Image
-            src="/assets/career/hero.png"
-            alt="tellers ekibine katılın"
-            width={3000}
-            height={722}
-            priority
-            className="h-auto w-full"
-            sizes="100vw"
-          />
-        </MediaReveal>
+        {/* 🔴 HERO GÖRSELİ `MediaReveal` İLE SARILMAZ — video hero'larıyla aynı
+          gecikme (2026-09-10). Burada çelişki daha da netti: görselde `priority`
+          var, yani Next onu ÖNCELİKLİ indiriyor, ama `MediaReveal`ın opacity
+          animasyonu onu 0,9 sn boyunca gizli tutuyordu. Erken indirip geç
+          göstermenin anlamı yok. */}
+        <Image
+          src="/assets/career/hero.png"
+          alt="tellers ekibine katılın"
+          width={3000}
+          height={722}
+          priority
+          className="h-auto w-full"
+          sizes="100vw"
+        />
       </section>
 
       {/* ── Giriş metni ── */}
@@ -119,11 +121,14 @@ export default function KariyerPage() {
               className="mt-1.5 flex flex-wrap gap-x-2 gap-y-1 text-lg text-navy/50 md:text-[22px]"
               gap={0.1}
             >
-              {["Merak eden.", "Üreten.", "Sorgulayan.", "Gelişmek isteyen."].map(
-                (kelime) => (
-                  <StaggerItem key={kelime}>{kelime}</StaggerItem>
-                ),
-              )}
+              {[
+                "Merak eden.",
+                "Üreten.",
+                "Sorgulayan.",
+                "Gelişmek isteyen.",
+              ].map((kelime) => (
+                <StaggerItem key={kelime}>{kelime}</StaggerItem>
+              ))}
             </Stagger>
           </div>
           <Stagger className="flex flex-col justify-center gap-6">

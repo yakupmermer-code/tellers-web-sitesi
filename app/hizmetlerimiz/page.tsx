@@ -12,7 +12,6 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
-import MediaReveal from "@/components/MediaReveal";
 import BlogSlider from "@/components/BlogSlider";
 import { SERVICES } from "@/content/services";
 
@@ -82,19 +81,31 @@ export default function HizmetlerimizPage() {
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── Ana slide ── */}
       <section className="relative mt-24">
-        <MediaReveal sabit>
-          <video
-            src="/assets/services/hero.mp4"
-            poster="/assets/services/hero-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label="tellers hizmetleri"
-            className="h-auto w-full"
-          />
-        </MediaReveal>
+        {/* 🔴 HERO VİDEOSU `MediaReveal` İLE SARILMAZ (2026-09-10, Yakup:
+          "üst kısmında video olan sayfalarda video 1-2 saniye gecikmeli
+          geliyor, sebebini kontrol et").
+          Sebep üç animasyonun üst üste binmesiydi:
+            · `app/template.tsx` sayfa geçişi — 0,25 sn bekleme + 0,8 sn
+            · `MediaReveal sabit` — opacity 0→1, 0,9 sn, üstelik `whileInView`
+              tetikli (görünürlük gözlemcisi ateşleyene kadar hiç başlamıyor)
+          Toplam ~1,9 sn ve bu sürede video alanı BOŞ; poster bile görünmüyor,
+          çünkü o da opacity 0'ın arkasında. Video dosyaları küçük (252-572 KB),
+          yani sorun indirme değildi.
+          Hero zaten sayfanın ilk ekranında: "görünür alana girince göster"
+          beklemenin anlamı yok. Giriş yumuşaklığını `template.tsx` zaten
+          veriyor. `preload` da `metadata`dan `auto`ya alındı — ilk ekrandaki
+          videonun verisi sayfa açılır açılmaz inmeye başlasın. */}
+        <video
+          src="/assets/services/hero.mp4"
+          poster="/assets/services/hero-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label="tellers hizmetleri"
+          className="h-auto w-full"
+        />
       </section>
 
       {/* ── 4 hizmet bloğu ── */}
