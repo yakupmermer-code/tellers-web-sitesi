@@ -59,6 +59,7 @@ export default function BlogSlider() {
           <Link
             key={b.slug}
             href={`/blog/${b.slug}`}
+            data-imlec="Oku"
             className="group w-[80vw] flex-none snap-start sm:w-[46vw] lg:w-[calc((100vw-160px)/4)] lg:max-w-[330px]"
           >
             <div className="overflow-hidden">

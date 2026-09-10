@@ -213,7 +213,11 @@ export default async function BlogDetayPage({
         <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-3">
           {others.map((b, i) => (
             <Reveal key={b.slug} delay={0.05 * i}>
-              <Link href={`/blog/${b.slug}`} className="group block">
+              <Link
+                href={`/blog/${b.slug}`}
+                data-imlec="Oku"
+                className="group block"
+              >
                 <div className="overflow-hidden">
                   <Image
                     src={b.image}

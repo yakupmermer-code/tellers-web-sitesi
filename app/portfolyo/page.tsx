@@ -112,7 +112,11 @@ export default function PortfolyoPage() {
         <div className="grid gap-6 sm:grid-cols-2">
           {BRANDS.map((b, i) => (
             <Reveal key={b.slug} delay={0.04 * (i % 2)}>
-              <Link href={`/portfolyo/${b.slug}`} className="group block">
+              <Link
+                href={`/portfolyo/${b.slug}`}
+                data-imlec="İncele"
+                className="group block"
+              >
                 <div className="relative overflow-hidden">
                   <Image
                     src={b.banner}

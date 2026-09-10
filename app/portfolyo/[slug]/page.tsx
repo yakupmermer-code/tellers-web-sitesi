@@ -429,7 +429,11 @@ export default async function MarkaDetayPage({
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {others.map((b, i) => (
             <Reveal key={b.slug} delay={0.05 * i}>
-              <Link href={`/portfolyo/${b.slug}`} className="group block">
+              <Link
+                href={`/portfolyo/${b.slug}`}
+                data-imlec="İncele"
+                className="group block"
+              >
                 <div className="relative overflow-hidden">
                   <Image
                     src={b.banner}
