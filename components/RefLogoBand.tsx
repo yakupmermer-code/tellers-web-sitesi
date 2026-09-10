@@ -35,7 +35,7 @@ export default function RefLogoBand({
             // ince bir saydam yüzeyin üstünde kayıyor (Yakup: "az şeffaflık
             // üzerine logolar kayıyor"). Tam saydam bırakılınca logolar
             // görselin desenine karışıyordu.
-            "pointer-events-none overflow-hidden bg-navy/25 py-3 backdrop-blur-[3px]"
+            "pointer-events-none overflow-hidden bg-navy/25 py-4 backdrop-blur-[3px]"
           : "overflow-hidden bg-navy py-8 md:py-10"
       }
     >
@@ -50,9 +50,13 @@ export default function RefLogoBand({
             height={80}
             className={`w-auto flex-none object-contain brightness-0 invert ${
               serit
-                ? // md:h-8 — h-7'de ince/iki satırlı logolar (Fairmont, Konica
-                  // Minolta, The London Clinic) okunmuyordu; denetimde yakalandı.
-                  "h-6 max-w-[120px] opacity-85 md:h-8"
+                ? // Bir tık büyütüldü (2026-09-10, Yakup: "referans kısmı küçük
+                  // olmuş... bir tık da büyük"): h-6/h-8 → h-8/h-10, yani artık
+                  // bant görünümüyle aynı boyda; fark yalnızca zeminde ve
+                  // opaklıkta. (Daha önce h-7'ye çıkarılmıştı çünkü ince ve iki
+                  // satırlı logolar — Fairmont, Konica Minolta, The London
+                  // Clinic — küçükken okunmuyordu; bu büyütme onu da pekiştirir.)
+                  "h-8 max-w-[150px] opacity-85 md:h-10"
                 : "h-8 max-w-[140px] opacity-90 md:h-10"
             }`}
           />

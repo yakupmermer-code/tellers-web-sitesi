@@ -66,6 +66,12 @@ export default function ClosingCta({
                 biniyor, ayrı bir bant yok. Bizim görselde de alt ~%18'lik
                 bölge boş lacivert — şerit oraya oturuyor.
 
+                KONUM `bottom-0` (2026-09-10, Yakup: "kaydığı kısımda ilgili
+                alanın altına sıfır olsun... görselin ortasında kayıyor gibi,
+                görselin altına hizala"). Önce `bottom-[6%]` idi ve şerit
+                görselin içinde havada asılı duruyordu; artık alt kenara
+                yapışıyor.
+
                 🔴 `md:` ŞART — TELEFONDA BİNDİRME YOK. Kusur şuydu: konum
                 YÜZDE (`bottom-[6%]`) ama şeridin yüksekliği PİKSEL (~40px).
                 Görsel ekranla küçüldükçe 40px oransal olarak büyüyor ve şerit
@@ -86,7 +92,7 @@ export default function ClosingCta({
                 tıklama alanlarına (%73-80) yakın duruyor; mobil ölçümde tam
                 içlerine giriyordu. Kaldırılırsa tel/WhatsApp linkleri ölür. */}
             {withRefLogos && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-[6%] hidden lg:block">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden lg:block">
                 <RefLogoBand gorunum="serit" />
               </div>
             )}

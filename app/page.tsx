@@ -38,6 +38,8 @@ type OnizlemeVerisi = {
   aciklama?: string;
   logo?: string;
   odak?: string;
+  /** Kartın md üstündeki en-boy oranı sınıfı (kademeli düzen için). */
+  oran?: string;
   bilgi?: { baslik: string; musteri: string; hizmet: string; yil: string };
   /**
    * ZORUNLU (isteğe bağlı değil): bileşenin varsayılanı `100vw` ve bu, çok
@@ -595,10 +597,21 @@ export default function HomePage() {
             · ÜÇ EŞİT sütun, hepsi aynı hizada, 40px ara
             · (1440 - 80 kenar - 80 ara) / 3 = 426,7 ✔ birebir tutuyor
 
-          ⚠️ EKRAN GÖRÜNTÜSÜNDEKİ "KADEMELİ" GÖRÜNTÜ YANILTICI: kartlar aslında
-          eşit ve hizalı. Kaymış görünmelerinin sebebi parallax — `<img>`ler
-          kaplarından büyük (555px) ve kap içinde kayıyorlar. Bir ara bu
-          görüntüye bakıp 2 sütunlu (2+1) düzen kurulmuştu, yanlıştı.
+          KADEMELİ — SOL KART KISA (2026-09-10, Yakup: "3'lü kısmı yan yana
+          hepsi aynı boyutta yapmışsın, revize notundakini gerçekleştiremedin").
+          Bir tur bu kademeyi "parallax artefaktı" sanıp üç kartı eşitlemiştim;
+          YANLIŞTI. Master'da kapların boyu eşit (427x940) ama SOL kartın
+          `<img>`i kabını doldurmuyor (555x721), yani görünen kart gerçekten
+          kısa kalıyor — ekibin ekran görüntüsü de bunu gösteriyor.
+
+          Ekran görüntüsünden ölçülen oranlar: sol 213x210, orta 216x370,
+          sağ 214x365 → sol kartın boyu ortadakinin %57'si.
+          Bize uyarlaması: uzun kartlar 427x940 (0,454), kısa kart 427x534
+          (0,800) — aynı %57 oranı. Üçü de DİKEY, döküman da öyle diyor.
+
+          KISA SLOTTA SAVRONİK: kaynağı 2:1 (en yatık olan). Kısa kartta
+          genişliğinin %40'ı görünüyor, uzun kartta %23'ü olurdu — yani
+          kademe teknik olarak da bu markaya yarıyor.
 
           KART İÇİ YAZI: master'da bu kartların üstünde HİÇ YAZI YOK (ölçüldü,
           kesişen metin sayısı 0; tek metin kısa kartın ALTINDAKİ teknoloji
@@ -615,7 +628,7 @@ export default function HomePage() {
           ⚠️ Savronik ve Atlantis'in DİKEY görseli yok; yatay kaynaklar
           kırpılıyor. Dikey çekim gelince `gorsel`/`odak` güncellenecek. */}
         <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
-          <div className="grid gap-6 md:grid-cols-3 md:gap-10">
+          <div className="grid gap-6 md:grid-cols-3 md:items-start md:gap-10">
             {(
               [
                 {
@@ -625,16 +638,18 @@ export default function HomePage() {
                   aciklama: "yaratıcı marka tanıtım filmi",
                   logo: "savronik",
                   odak: "object-center",
+                  // KISA KART — gerekçe yukarıdaki blokta.
+                  oran: "md:aspect-[427/534]",
                   bilgi: kartBilgisi(
                     "savronik",
                     "Savunma sektöründe yaratıcı marka tanıtım filmi.",
                   ),
-                  // Kart 427x940. `object-cover` kutuyu doldurmak için görselin
-                  // BOYUNU esas alıyor: gereken genişlik = 940 x kaynak oranı.
-                  // Savronik 2:1 → 1880px gerekiyor, kaynak 1774px (%94) —
-                  // 2x retinada bir tık yumuşak kalır, dikey çekim gelince biter.
+                  // KISA kart 427x534. Gereken genişlik = 534 x 2,0 = 1068px;
+                  // kaynak 1774px — rahat yetiyor. (Uzun kartta 1880px
+                  // gerekiyordu ve kaynak %94'te kalıyordu; kademe bunu da
+                  // düzeltti.)
                   sizes:
-                    "(min-width: 1440px) 1880px, (min-width: 768px) 123vw, 250vw",
+                    "(min-width: 1440px) 1068px, (min-width: 768px) 70vw, 250vw",
                 },
                 {
                   slug: "atlantis",
@@ -677,7 +692,7 @@ export default function HomePage() {
                 <PortfolyoOnizleme
                   {...m}
                   {...olcu(m.gorsel)}
-                  className="aspect-[4/5] md:aspect-[427/940]"
+                  className={`aspect-[4/5] ${m.oran ?? "md:aspect-[427/940]"}`}
                 />
               </Reveal>
             ))}
