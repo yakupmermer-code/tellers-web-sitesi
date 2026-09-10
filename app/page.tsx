@@ -813,6 +813,20 @@ export default function HomePage() {
             Kenar dolgusu eklendi: kartlar artık tam genişlik değil, sayfanın
             diğer bölümleriyle aynı 1440px kapsayıcıda. */}
         <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
+          {/* "Tüm yazılar" linki (denetim bulgusu 2026-09-10): blog alanı 4'lü
+              slider'dan ikiliye inince ana sayfadaki blog yazısı linki 8'den
+              2'ye düştü. JavaScript çalıştırmayan tarayıcılar — özellikle yapay
+              zeka botları — kalan 6 yazıyı ana sayfada göremez oldu. Dizin
+              sayfasına görünür bir link hem bunu kapatıyor hem de beklemek
+              istemeyen kullanıcıya çıkış veriyor. */}
+          <div className="mb-8 flex justify-end">
+            <Link
+              href="/blog"
+              className="link-grow link-grow-sag inline-block w-max text-[16px] font-medium text-navy transition-opacity duration-500 hover:opacity-70 md:text-[18px]"
+            >
+              Tüm yazılar
+            </Link>
+          </div>
           <Reveal>
             <BlogIkili />
           </Reveal>
