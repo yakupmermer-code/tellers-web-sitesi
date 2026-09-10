@@ -3,7 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import PortfolyoOnizleme from "@/components/PortfolyoOnizleme";
 import ClosingCta from "@/components/ClosingCta";
-import BlogSlider from "@/components/BlogSlider";
+import BlogIkili from "@/components/BlogIkili";
 import HeroVideo from "@/components/HeroVideo";
 import HeroZoom from "@/components/HeroZoom";
 import MaskLines from "@/components/MaskLines";
@@ -791,10 +791,15 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* ── BLOG — 4'lü slider, başlıksız (ekip notu 2026-08-14) ── */}
-        <section className="py-20 md:py-24">
+        {/* ── BLOG — İKİLİ, sürekli dönen (revize dökümanı 2026-09-10) ──
+            "Blog alanı tamamen yanlış, mevcuttaki temada yer alan kullanımdan
+            ilerleyeceğiz... 2'li olarak yerleştireceğiz, sürekli döner ve
+            değişir." Eskiden 4'lü yatay slider'dı.
+            Kenar dolgusu eklendi: kartlar artık tam genişlik değil, sayfanın
+            diğer bölümleriyle aynı 1440px kapsayıcıda. */}
+        <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal>
-            <BlogSlider />
+            <BlogIkili />
           </Reveal>
         </section>
 
