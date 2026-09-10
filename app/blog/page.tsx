@@ -77,20 +77,21 @@ export default function BlogPage() {
       </section>
 
       <section className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 pb-20 md:px-10 md:pb-24">
-        {/* 1. kart — tam genişlik, master oranı 1360/650 */}
+        {/* 1. kart — tam genişlik. Master ölçüsü 1360x700 (2026-09-11'de yeniden
+            ölçüldü; yorumda 650 yazıyordu, yanlıştı). */}
         <Reveal>
           <BlogKart
             blog={ilk}
             buyuk
-            className="aspect-[4/3] md:aspect-[1360/650]"
+            className="aspect-[4/3] md:aspect-[1360/700]"
           />
         </Reveal>
 
-        {/* 2-7 — 2 sütun, master oranı 668/650, 24px ara */}
+        {/* 2-7 — 2 sütun. Master ölçüsü 668x700, x=40 ve x=732, 24px ara. */}
         <div className="grid gap-6 md:grid-cols-2">
           {ortadakiler.map((b, i) => (
             <Reveal key={b.slug} delay={0.05 * (i % 2)}>
-              <BlogKart blog={b} className="aspect-[4/3] md:aspect-[668/650]" />
+              <BlogKart blog={b} className="aspect-[4/3] md:aspect-[668/700]" />
             </Reveal>
           ))}
         </div>
@@ -101,7 +102,7 @@ export default function BlogPage() {
             <BlogKart
               blog={sonuncu}
               buyuk
-              className="aspect-[4/3] md:aspect-[1360/650]"
+              className="aspect-[4/3] md:aspect-[1360/700]"
             />
           </Reveal>
         )}
