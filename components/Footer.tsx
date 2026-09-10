@@ -94,18 +94,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ——— 2. KAT: menü + bülten + iletişim ——— */}
-        <div className="grid gap-14 border-b hairline py-16 lg:grid-cols-12">
+        {/* ——— 2. KAT: menü + bülten + iletişim ———
+            Master temanın footer'ı (2026-09-10, Yakup'un ekran kaydından
+            ölçüldü): dört blok DİKEY ÇİZGİLERLE ayrılmış, aralarında boşluk
+            yok, ve bülten sütunu AÇIK GRİ bir panelin üstünde duruyor.
+            Bizde `gap-14` ile ayrık bloklar vardı ve bülten sütununun zemini
+            beyazdı. Boşluk kaldırıldı, çizgi ve panel geldi.
+            `lg:` altında (telefon/tablet) dikey çizgi yok — orada bloklar alt
+            alta iniyor ve dikey çizgi anlamsız olurdu; onun yerine boşluk. */}
+        <div className="grid gap-14 border-b hairline lg:grid-cols-12 lg:gap-0">
           <nav
             aria-label="Footer menü"
-            className="grid grid-cols-2 gap-x-10 gap-y-3 lg:col-span-5"
+            className="grid grid-cols-2 gap-x-10 gap-y-3 py-16 lg:col-span-5 lg:pr-10"
           >
             <ul className="space-y-3 text-[16px] font-medium text-navy">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="link-sweep transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
+                    className="link-grow transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
                   >
                     {item.label}
                   </Link>
@@ -126,7 +133,7 @@ export default function Footer() {
                 <li key={s.slug}>
                   <Link
                     href="/hizmetlerimiz"
-                    className="link-sweep transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
+                    className="link-grow transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
                   >
                     {s.titleTr}
                   </Link>
@@ -138,7 +145,10 @@ export default function Footer() {
           {/* Başlık <h2> DEĞİL <p>: footer her sayfada basılıyor, global bir
               <h2> her sayfanın başlık ağacına girip sayfanın kendi başlıklarıyla
               yarışırdı (GEO'da zayıflatıcı sinyal). */}
-          <div aria-labelledby="bulten-basligi" className="lg:col-span-4">
+          <div
+            aria-labelledby="bulten-basligi"
+            className="py-16 lg:col-span-4 lg:border-l hairline lg:bg-mist lg:px-10"
+          >
             {/* METİNLER EKİPTEN, BİREBİR (2026-09-10) — revize dökümanı:
                 "Gelişmelerden haberdar olun yazmayacağız. Buradaki alan için
                 metinler ve tipografik tasarım aşağıdadır." (footer_newslatter.png)
@@ -167,7 +177,10 @@ export default function Footer() {
             <NewsletterForm />
           </div>
 
-          <ul aria-label="İletişim kanalları" className="lg:col-span-3">
+          <ul
+            aria-label="İletişim kanalları"
+            className="lg:col-span-3 lg:border-l hairline lg:pl-10"
+          >
             {iletisimSatirlari.map((s) => (
               <li key={s.ad} className="border-b hairline">
                 <a
