@@ -61,7 +61,9 @@ const ZIYARET: Varyant = {
   zemin: "var(--navy)",
   yazi: "#ffffff",
   punto: 12,
-  kalinlik: 400,
+  // KALIN (700): Yakup 2026-09-10 — "ziyaret et yazısı da bold olsun".
+  // Master'da 400; blog etiketindekiyle aynı gerekçeyle bilinçli sapma.
+  kalinlik: 700,
 };
 
 /**
@@ -177,9 +179,10 @@ export default function Imlec() {
       ref={el}
       aria-hidden="true"
       /* `overflow-hidden`: "ZİYARET" 12px'te ~54px sürüyor ve 76px'lik
-         dairenin iç genişliği 60px — pay ~6px. Avenir Next CDN'den gelmezse
-         yedek yazı tipinde pay 2,6px'e iniyor; taşarsa metin dairenin DIŞINA
-         beyaz olarak çıkardı (denetimde yakalandı). Kırpmak, taşmaktan iyi. */
+         dairenin iç genişliği `px-1` ile 68px — pay ~13px. Avenir Next
+         CDN'den gelmezse yedek yazı tipinde bile ~58px sürüyor, yine sığıyor.
+         Yine de emniyet kemeri: taşarsa metin dairenin DIŞINA beyaz olarak
+         çıkardı (denetimde yakalandı). Kırpmak, taşmaktan iyi. */
       className="imlec pointer-events-none fixed left-0 top-0 z-[60] hidden items-center justify-center overflow-hidden rounded-full transition-[width,height,background-color,backdrop-filter,opacity] duration-300 ease-[var(--ease-lux)]"
       style={{
         width: cap,
@@ -194,8 +197,9 @@ export default function Imlec() {
       {/* PUNTO ARTIK VARYANTTAN GELİYOR. Master ikisini de 12px/400 basıyor
           ama Yakup 2026-09-10'da blog etiketini bilerek büyütüp kalınlaştırdı
           ("içindeki oku yazısını bol yap ve büyüt") → 20px/700. Portfolyo
-          etiketi 12px/400'de kaldı. DAİRELER master ölçüsünde (120/76) —
-          "yuvarlağı büyütme".
+          etiketi de kalınlaştı (12px/700) ama puntosu master'daki 12'de
+          kaldı — iki kelime olduğu için daireye ancak o boyda sığıyor.
+          DAİRELER master ölçüsünde (120/76) — "yuvarlağı büyütme".
           BÜYÜK HARF: master'ın etiketleri de büyük harf ("READ"/"VISIT").
           Etiket küçükken de basılı kalıyor — metin sonradan doğmuyor, soluyor. */}
       <span
@@ -203,8 +207,11 @@ export default function Imlec() {
            geçildiğinde zemin 300 ms'de değişirken yazı rengi anında
            zıplıyordu; o aralıkta beyaz yazı açık zeminde okunmuyordu.
            ORTALI + SARMALI: "Ziyaret Et" iki kelime, 76px daireye tek satır
-           sığmıyor; `leading-[1.15]` iki satırı sıkıştırmadan tutuyor. */
-        className="select-none px-2 text-center uppercase leading-[1.15] tracking-[0.08em] transition-[opacity,color] duration-200"
+           sığmıyor; `leading-[1.15]` iki satırı sıkıştırmadan tutuyor.
+           `px-1` (px-2 DEĞİL): etiket kalınlaşınca "ZİYARET" ~%7 daha geniş
+           sürüyor. px-2'de iç genişlik 60px kalıyor ve pay 2px'e iniyordu;
+           px-1 ile iç genişlik 68px, pay ~10px. */
+        className="select-none px-1 text-center uppercase leading-[1.15] tracking-[0.08em] transition-[opacity,color] duration-200"
         style={{
           color: v?.yazi,
           opacity: v ? 1 : 0,

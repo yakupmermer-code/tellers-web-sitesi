@@ -640,12 +640,16 @@ export default function HomePage() {
                   // BOYA göre dolduruyor: gereken genişlik = 627 x 2,0 = 1254px.
                   // Kaynak 1774px — artık FAZLASIYLA yetiyor; kart kısalınca
                   // Savronik'teki yumuşaklık sorunu da kendiliğinden kapandı.
-                  // 768px ALTI DEĞİŞMEDİ: mobilde kart hâlâ `aspect-[4/5]`,
-                  // 1/3 küçültme yalnız `md:` üstündeki orana uygulandı. Bir
-                  // tur son değer de 2/3 ile çarpılmıştı; telefonda gereğinden
-                  // küçük dosya iniyordu (denetimde yakalandı).
+                  // 768px ALTI: mobilde kart hâlâ `aspect-[4/5]`, 1/3 küçültme
+                  // yalnız `md:` üstündeki orana uygulandı.
+                  // 🔴 199vw TAVAN: burada bir tur 250vw yazılmıştı ama Next'in
+                  // sizes ayrıştırıcısı `(1?\d?\d)vw` deseniyle çalışıyor —
+                  // 200 ve üstü SESSİZCE yok sayılıyor, yani o değer hiç
+                  // işlemiyordu (denetimde regex çalıştırılarak doğrulandı).
+                  // İhtiyaç ~223vw; 199vw tavanı %11 eksik kalıyor, bu Next'in
+                  // sınırı, bizim tercihimiz değil.
                   sizes:
-                    "(min-width: 1440px) 1254px, (min-width: 768px) 82vw, 250vw",
+                    "(min-width: 1440px) 1254px, (min-width: 768px) 82vw, 199vw",
                 },
                 {
                   slug: "atlantis",
@@ -782,32 +786,66 @@ export default function HomePage() {
                   href="/hizmetlerimiz"
                   className="group relative block h-full w-full overflow-hidden"
                 >
-                  {s.slideVideo ? (
-                    <video
-                      src={s.slideVideo}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      aria-label={`${s.titleTr} — ${s.summary}`}
-                      className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                    />
-                  ) : (
-                    <Image
-                      src={s.slide}
-                      alt={`${s.titleTr} — ${s.summary}`}
-                      width={1920}
-                      height={900}
-                      className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                      /* 118vw, 100vw DEĞİL: kaynaklar 1920x900 (oran 2,133),
-                       kutu ise 9/5 (1,8). `object-cover` kutuyu BOYA göre
-                       dolduruyor, yani görsel kutudan ~%18 geniş basılıyor;
-                       100vw istenirse o fark kadar yumuşuyor (denetimde
-                       yakalandı). */
-                      sizes="118vw"
-                    />
-                  )}
+                  {/* KAYDIRMA PARALAKSI — master'ın kurulumu birebir.
+                      ÖLÇÜM (/work/velocity-motors, 1440px, canlı): kart
+                      1440x800 ama İÇİNDEKİ görsel 2016x1011 — kaptan %40
+                      geniş, %26 uzun, dikeyde tam merkezli (üst ofset -105 =
+                      (800-1011)/2). Kaptan büyük görsel = paralaks payı.
+                      Bizimki 1440x800'dü: kabı tam dolduruyordu, oynayacak
+                      yeri yoktu. Yakup 2026-09-10: "aşağı doğru inerken ki
+                      efekt master temadaki ile birebir aynı olsun."
+
+                      amount=13 HESAPLA SEÇİLDİ: MediaReveal'da taban ölçek
+                      1+2*amount/100. Master'ın dikey payı 1011/800 = 1,264 →
+                      amount 13,2 ≈ 13 (taban 1,26). Pay birebir oturuyor.
+
+                      scaleTo VERİLMEDİ: varsayılan 1,12 tabandan küçük ve
+                      bileşen `Math.max(taban, scaleTo)` uyguluyor → ölçek
+                      sabit 1,26 kalır, yalnız kayma olur. Master'da da üç
+                      ayrı kaydırma konumunda görsel boyutu DEĞİŞMEDİ
+                      (2016x1011 sabit), yani ortada şişme yok.
+
+                      METİN KATMANI DIŞARIDA: paralaks yalnız görseli taşır,
+                      başlık/özet sabit kalır (BlogKart'taki desenin aynısı). */}
+                  <MediaReveal className="h-full w-full" amount={13}>
+                    {/* ⚠️ `<Image>` DALI BUGÜN ÇALIŞMIYOR: `content/services.ts`
+                        içindeki DÖRT hizmetin de `slideVideo` alanı dolu, yani
+                        ana sayfada her zaman `<video>` basılıyor. Dal yedek
+                        olarak duruyor (videosu olmayan bir hizmet eklenirse
+                        devreye girer) — aşağıdaki `sizes` hesabı da o gün için.
+                        Denetimde yakalandı: ölü dal üzerinde ince ayar yapılıp
+                        asıl render edilen dal gözden kaçmıştı. */}
+                    {s.slideVideo ? (
+                      <video
+                        src={s.slideVideo}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${s.titleTr} — ${s.summary}`}
+                        className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <Image
+                        src={s.slide}
+                        alt={`${s.titleTr} — ${s.summary}`}
+                        width={1920}
+                        height={900}
+                        className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
+                        /* 149vw. İki çarpan üst üste biniyor: (1) kaynaklar
+                         1920x900 (oran 2,133), kutu 9/5 (1,8) — `object-cover`
+                         kutuyu BOYA göre doldurduğu için görsel kutudan ~%18
+                         geniş basılıyor; (2) paralaksın taban ölçeği 1,26.
+                         1,18 x 1,26 = 1,49. Kaynak 1920px bu isteği tam
+                         karşılamıyor (2150px gerekirdi) ama Next asla
+                         büyütmediği için en büyük dosya seçilir; daha yüksek
+                         çözünürlüklü slide görseli gelirse kendiliğinden
+                         düzelir. */
+                        sizes="149vw"
+                      />
+                    )}
+                  </MediaReveal>
                   <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-navy/70 via-navy/10 to-transparent p-6 md:p-14">
                     <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                       {s.eyebrow}

@@ -43,6 +43,13 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
   gerçek video gelince onun yerini alacak (2026-09-02'de kaldırılan "İletişim;
   anlamın dolaşımı" bölümünde de geçici bir video vardı, o tamamen çıkarıldı)
 - Raymond Weil, Minousha, Qui Prive operasyon tarihleri (XXXX/????)
+- **Hizmet slide videoları en az 1920 genişlikte** (`public/assets/services/*.mp4`).
+  Dördü de bugün **1280x854**. Ana sayfada kart 1440x800 ve `object-cover`
+  videoyu zaten 1,125x büyütüyordu; 2026-09-10'da master temanın paralaksı
+  eklenince (taban ölçek 1,26) toplam büyütme **1,42x**, retina ekranda
+  ~2,8x oldu. Görünür yumuşama var. Bilinçli taviz: Yakup "efekt master
+  temadaki ile birebir aynı olsun" dedi, alternatif paralaksı zayıflatmaktı.
+  Yeni videolar gelince ayar değiştirmeye gerek yok, kendiliğinden düzelir.
 
 ## Runtime model
 
