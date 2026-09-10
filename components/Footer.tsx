@@ -139,18 +139,30 @@ export default function Footer() {
               <h2> her sayfanın başlık ağacına girip sayfanın kendi başlıklarıyla
               yarışırdı (GEO'da zayıflatıcı sinyal). */}
           <div aria-labelledby="bulten-basligi" className="lg:col-span-4">
-            <p
-              id="bulten-basligi"
-              className="text-[21px] font-bold tracking-tight text-navy"
-            >
-              Gelişmelerden haberdar olun
+            {/* METİNLER EKİPTEN, BİREBİR (2026-09-10) — revize dökümanı:
+                "Gelişmelerden haberdar olun yazmayacağız. Buradaki alan için
+                metinler ve tipografik tasarım aşağıdadır." (footer_newslatter.png)
+                Görsel GÖMÜLMEDİ, metin olarak yazıldı: dökümanın kendisi "direkt
+                görsel eklenebilir ya da aynısı yazılabilir" diyor ve yazı
+                hâlinde arama motoru okuyabiliyor, ölçekleniyor, bulanıklaşmıyor.
+
+                PUNTOLAR master temanın footer bülten bloğundan ölçüldü
+                (arpeggio.framer.website: "Stay in the Loop" 48px/500, alt metin
+                19px/500, küçük not 15px/400). Eski hâli 21px/700 idi. */}
+            <p id="bulten-basligi" className="t-kucuk text-navy">
+              Birlikte çalışalım?
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-navy/65">
-              Yeni işlerimizi, vaka çalışmalarımızı ve sektör okumalarımızı
-              arada bir gelen kutunuza bırakıyoruz.
+            <p className="mt-4 text-[17px] leading-snug text-navy/70 md:text-[19px]">
+              Sorularınız, iş birlikleri ve yeni projeler için{" "}
+              <em className="font-didot font-normal italic">bir e-posta</em>{" "}
+              uzağınızdayız.
             </p>
-            <p className="mt-2 text-[13px] leading-relaxed text-navy/50">
-              Gelen kutunuza saygı duyuyoruz. Spam yok, doğrudan geri dönüş var.
+            <p className="mt-4 text-[14px] leading-relaxed text-navy/55 md:text-[15px]">
+              Gelen kutunuza saygı duyuyoruz. Spam yok,{" "}
+              <em className="font-didot font-normal italic">
+                hızlı ve doğrudan geri dönüş
+              </em>{" "}
+              var.
             </p>
             <NewsletterForm />
           </div>
