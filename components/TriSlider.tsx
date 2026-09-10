@@ -39,7 +39,7 @@ export default function TriSlider({ items }: { items: Item[] }) {
             <Link
               key={item.src}
               href={item.href}
-              data-imlec="İncele"
+              data-imlec="Ziyaret Et"
               data-card
               className="group w-[85vw] flex-none snap-start overflow-hidden md:w-[calc((100%-48px)/3)]"
             >

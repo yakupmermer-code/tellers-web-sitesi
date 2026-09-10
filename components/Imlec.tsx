@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from "react";
  *   blog kartı      → 120x120, zemin rgba(255,255,255,0.6), backdrop blur(8px),
  *                     etiket "READ" 12px / 400
  *   portfolyo kartı → 76x76, zemin MARKA RENGİ, bulanıklık YOK,
- *                     etiket "VISIT" 12px / 400
+ *                     etiket "VISIT" 12px / 400  (bizde "Ziyaret Et")
  *   ortak           → position fixed, pointer-events none, z-index 13
  *
  * Yani master'da tek bir "büyük hâl" yok: alan türüne göre HEM ÇAP HEM ZEMİN
@@ -44,10 +44,25 @@ type Varyant = {
   /** `backdrop-filter` değeri; yoksa bulanıklık uygulanmaz. */
   bulanik?: string;
   yazi: string;
+  /** Etiket puntosu, px. */
+  punto: number;
+  /** Etiket kalınlığı (CSS font-weight). */
+  kalinlik: number;
 };
 
-/** Portfolyo/proje kartlarının varyantı — hem haritada hem VARSAYILAN'da. */
-const INCELE: Varyant = { cap: 76, zemin: "var(--navy)", yazi: "#ffffff" };
+/*
+ * Portfolyo/proje kartlarının varyantı — hem haritada hem VARSAYILAN'da.
+ * Etiket "Ziyaret Et" (Yakup 2026-09-10: "ana sayfada ziyaret et yazacak,
+ * VISIT'in karşı anlamı olarak"). İki kelime 76px'lik daireye TEK satır
+ * sığmıyor; ortalanıp iki satıra sarılıyor, punto master'daki 12'de kalıyor.
+ */
+const ZIYARET: Varyant = {
+  cap: 76,
+  zemin: "var(--navy)",
+  yazi: "#ffffff",
+  punto: 12,
+  kalinlik: 400,
+};
 
 /**
  * ETİKET → GÖRÜNÜM. Master'da ölçülen iki durum birebir burada.
@@ -55,23 +70,30 @@ const INCELE: Varyant = { cap: 76, zemin: "var(--navy)", yazi: "#ffffff" };
  * 24px'lik noktada kalıp etiketi görünmez kılmaktan iyidir.
  */
 const VARYANTLAR: Record<string, Varyant> = {
-  // master: 120px, rgba(255,255,255,0.6), blur(8px) — "READ"
+  /*
+   * master: 120px, rgba(255,255,255,0.6), blur(8px), etiket "READ" 12px/400.
+   * DAİRE master ölçüsünde (120px) — Yakup 2026-09-10: "yuvarlağı büyütme".
+   * ETİKET master'dan BİLİNÇLİ SAPMA: "içindeki oku yazısını bol yap ve
+   * büyüt" → 20px/700. Tek kelime olduğu için 120px'e rahat sığıyor.
+   */
   Oku: {
     cap: 120,
     zemin: "rgba(255,255,255,0.6)",
     bulanik: "blur(8px)",
     yazi: "var(--navy)",
+    punto: 20,
+    kalinlik: 700,
   },
   // master: 76px, marka rengi, bulanıklık yok — "VISIT"
-  İncele: INCELE,
+  "Ziyaret Et": ZIYARET,
 };
 
 /*
- * VARSAYILAN doğrudan sabite bağlı, `VARYANTLAR["İncele"]` ARAMASINA değil.
+ * VARSAYILAN doğrudan sabite bağlı, `VARYANTLAR["Ziyaret Et"]` ARAMASINA değil.
  * Aramaya bağlı olsaydı biri anahtarı yeniden adlandırdığında derleme yine
  * geçer, imleç yalnız ÇALIŞMA ANINDA çökerdi (denetimde yakalandı).
  */
-const VARSAYILAN: Varyant = INCELE;
+const VARSAYILAN: Varyant = ZIYARET;
 
 export default function Imlec() {
   const [etiket, setEtiket] = useState<string | null>(null);
@@ -154,7 +176,11 @@ export default function Imlec() {
     <div
       ref={el}
       aria-hidden="true"
-      className="imlec pointer-events-none fixed left-0 top-0 z-[60] hidden items-center justify-center rounded-full transition-[width,height,background-color,backdrop-filter,opacity] duration-300 ease-[var(--ease-lux)]"
+      /* `overflow-hidden`: "ZİYARET" 12px'te ~54px sürüyor ve 76px'lik
+         dairenin iç genişliği 60px — pay ~6px. Avenir Next CDN'den gelmezse
+         yedek yazı tipinde pay 2,6px'e iniyor; taşarsa metin dairenin DIŞINA
+         beyaz olarak çıkardı (denetimde yakalandı). Kırpmak, taşmaktan iyi. */
+      className="imlec pointer-events-none fixed left-0 top-0 z-[60] hidden items-center justify-center overflow-hidden rounded-full transition-[width,height,background-color,backdrop-filter,opacity] duration-300 ease-[var(--ease-lux)]"
       style={{
         width: cap,
         height: cap,
@@ -165,18 +191,26 @@ export default function Imlec() {
         WebkitBackdropFilter: v?.bulanik,
       }}
     >
-      {/* PUNTO 12 — master'da hem "READ" hem "VISIT" 12px/400 ölçüldü.
-          (Bir tur 15px'e çıkarılmıştı; Yakup 2026-09-10'da "ana temadaki read
-          yazısı ile aynı boyutta olsun" diyerek geri istedi.)
-          BÜYÜK HARF: master'ın etiketleri de büyük harf ("READ"/"VISIT");
-          12px'te büyük harf küçük harften okunaklı da çıkıyor.
+      {/* PUNTO ARTIK VARYANTTAN GELİYOR. Master ikisini de 12px/400 basıyor
+          ama Yakup 2026-09-10'da blog etiketini bilerek büyütüp kalınlaştırdı
+          ("içindeki oku yazısını bol yap ve büyüt") → 20px/700. Portfolyo
+          etiketi 12px/400'de kaldı. DAİRELER master ölçüsünde (120/76) —
+          "yuvarlağı büyütme".
+          BÜYÜK HARF: master'ın etiketleri de büyük harf ("READ"/"VISIT").
           Etiket küçükken de basılı kalıyor — metin sonradan doğmuyor, soluyor. */}
       <span
         /* RENK DE GEÇİŞTE: blog kartından portfolyo kartına doğrudan
            geçildiğinde zemin 300 ms'de değişirken yazı rengi anında
-           zıplıyordu; o aralıkta beyaz yazı açık zeminde okunmuyordu. */
-        className="select-none text-[12px] font-normal uppercase leading-none tracking-[0.08em] transition-[opacity,color] duration-200"
-        style={{ color: v?.yazi, opacity: v ? 1 : 0 }}
+           zıplıyordu; o aralıkta beyaz yazı açık zeminde okunmuyordu.
+           ORTALI + SARMALI: "Ziyaret Et" iki kelime, 76px daireye tek satır
+           sığmıyor; `leading-[1.15]` iki satırı sıkıştırmadan tutuyor. */
+        className="select-none px-2 text-center uppercase leading-[1.15] tracking-[0.08em] transition-[opacity,color] duration-200"
+        style={{
+          color: v?.yazi,
+          opacity: v ? 1 : 0,
+          fontSize: v ? v.punto : 12,
+          fontWeight: v ? v.kalinlik : 400,
+        }}
       >
         {etiket}
       </span>

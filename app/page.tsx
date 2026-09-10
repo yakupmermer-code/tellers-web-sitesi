@@ -591,7 +591,10 @@ export default function HomePage() {
           DOĞRUSU — ekibin ekran görüntüsündeki alan master temanın PORTFOLYO
           DETAY sayfası (arpeggio.framer.website/work/velocity-motors). Yakup'un
           tarayıcısında canlı ölçüldü (2026-09-10, 1440px):
-            · kart 427x940 → oran 0,454 (`aspect-[427/940]`) — çok uzun ve dar
+            · master kartı 427x940 → oran 0,454
+            · ⚠️ BİZDE 427x627: Yakup 2026-09-10'da "3 kısmı da 3/1 oranında
+              küçült" dedi → 940 x 2/3 = 627 (`aspect-[427/627]`). Genişlik
+              ızgaradan geliyor, değişmedi; kısalan yükseklik.
             · ÜÇ EŞİT sütun, hepsi aynı hizada, 40px ara
             · (1440 - 80 kenar - 80 ara) / 3 = 426,7 ✔ birebir tutuyor
 
@@ -633,12 +636,16 @@ export default function HomePage() {
                     "savronik",
                     "Savunma sektöründe yaratıcı marka tanıtım filmi.",
                   ),
-                  // Kart 427x940 (kartlar eşitlendi). `object-cover` kutuyu
-                  // BOYA göre dolduruyor: gereken genişlik = 940 x 2,0 = 1880px.
-                  // Kaynak 1774px (%94) — 2x retinada bir tık yumuşak kalır,
-                  // dikey çekim gelince biter.
+                  // Kart 427x627 (1/3 küçültme sonrası). `object-cover` kutuyu
+                  // BOYA göre dolduruyor: gereken genişlik = 627 x 2,0 = 1254px.
+                  // Kaynak 1774px — artık FAZLASIYLA yetiyor; kart kısalınca
+                  // Savronik'teki yumuşaklık sorunu da kendiliğinden kapandı.
+                  // 768px ALTI DEĞİŞMEDİ: mobilde kart hâlâ `aspect-[4/5]`,
+                  // 1/3 küçültme yalnız `md:` üstündeki orana uygulandı. Bir
+                  // tur son değer de 2/3 ile çarpılmıştı; telefonda gereğinden
+                  // küçük dosya iniyordu (denetimde yakalandı).
                   sizes:
-                    "(min-width: 1440px) 1880px, (min-width: 768px) 123vw, 250vw",
+                    "(min-width: 1440px) 1254px, (min-width: 768px) 82vw, 250vw",
                 },
                 {
                   slug: "atlantis",
@@ -650,9 +657,10 @@ export default function HomePage() {
                     "atlantis",
                     "Akıllı sulama sistemlerinde dijital pazarlama operasyonu.",
                   ),
-                  // 940 x 1,5 = 1410px gerekiyor; kaynak 1536px, yetiyor.
+                  // 627 x 1,5 = 941px gerekiyor; kaynak 1536px, rahat yetiyor.
+                  // Son değer (768px altı) mobil oranı değişmediği için sabit.
                   sizes:
-                    "(min-width: 1440px) 1410px, (min-width: 768px) 93vw, 188vw",
+                    "(min-width: 1440px) 941px, (min-width: 768px) 62vw, 188vw",
                 },
                 {
                   slug: "bfit",
@@ -671,9 +679,10 @@ export default function HomePage() {
                     "bfit",
                     "Türkiye'nin en büyük spor franchise markasına markalama.",
                   ),
-                  // 940 x 1,5 = 1410px gerekiyor; kaynak TAM 1410px — birebir.
+                  // 627 x 1,5 = 941px gerekiyor; kaynak 1410px, rahat yetiyor.
+                  // Son değer (768px altı) mobil oranı değişmediği için sabit.
                   sizes:
-                    "(min-width: 1440px) 1410px, (min-width: 768px) 93vw, 188vw",
+                    "(min-width: 1440px) 941px, (min-width: 768px) 62vw, 188vw",
                 },
               ] satisfies OnizlemeVerisi[]
             ).map((m, i) => (
@@ -681,7 +690,7 @@ export default function HomePage() {
                 <PortfolyoOnizleme
                   {...m}
                   {...olcu(m.gorsel)}
-                  className="aspect-[4/5] md:aspect-[427/940]"
+                  className="aspect-[4/5] md:aspect-[427/627]"
                 />
               </Reveal>
             ))}
@@ -742,56 +751,75 @@ export default function HomePage() {
           </Reveal>
         </section>
 
-        {/* ── HİZMETLER SLIDE'LARI — üst üste sabitlenen kart yığını ──
-          Temanın (Arpeggio) imza efekti: her slide tam ekran yüksekliğinde ve
-          `sticky top-0` ile ekrana çakılır; kaydırdıkça bir sonraki slide
-          öncekinin ÜSTÜNE biner. Kapsayıcının yüksekliği kart sayısı × 100dvh
-          olarak kendiliğinden oluşur — ekstra JS gerekmez.
-          DİKKAT: sticky elemanlar Reveal ile SARILMAZ; Reveal transform
-          uyguluyor, transform'lu bir ata sticky'yi viewport'a değil kendine
-          göre sabitler ve efekt ölür. */}
+        {/* ── HİZMETLER SLIDE'LARI — ART ARDA, ÜST ÜSTE BİNMEDEN ──
+          ⚠️ 2026-09-10'da DEĞİŞTİ. Kartlar `sticky top-0 h-[100dvh]` ile üst
+          üste biniyordu; Yakup: "birimki üst üste katlanıyor fakat master
+          temada o şekilde değil."
+
+          MASTER ÖLÇÜMÜ (/work/velocity-motors, 1440px, Yakup'un tarayıcısında
+          canlı): "More Projects" altındaki dört kartın hepsi
+          `position: relative` — sticky DEĞİL. Ölçülen kutular 1440x800 ve
+          mutlak konumları 13645 / 14445 / 15245 / 16045: tam 800px aralıkla
+          art arda, ARALARINDA BOŞLUK YOK, hiçbiri diğerinin üstüne binmiyor.
+          1440/800 = 1,8 → `aspect-[9/5]`.
+
+          Master'da sticky BAŞKA yerlerde var (hero bandı, künye bandı,
+          Credits, kapanış CTA) — yani efekt temada mevcut ama bu kartlarda
+          kullanılmıyor. Bizde de artık kullanılmıyor.
+
+          MOBİLDE 4/5: 375px genişlikte 9/5 oran 208px yükseklik demek; başlık
+          + özet metni oraya sığmıyordu. Dar ekranda kart dikeye dönüyor. */}
         <section aria-label="Hizmetlerimiz" className="relative">
+          {/* Reveal ARTIK KULLANILABİLİR: eski `sticky` düzende Reveal'in
+              transform'u sticky'yi kırdığı için kartlar animasyonsuz giriyordu.
+              Sticky kalkınca engel de kalktı; sayfanın geri kalanıyla aynı
+              kademeli giriş burada da açıldı. Gecikme YOK: kartlar art arda ve
+              tam ekran, hiçbiri diğeriyle aynı anda görünmüyor. */}
           {SERVICES.map((s) => (
-            <div
-              key={s.slug}
-              className="sticky top-0 h-[100dvh] overflow-hidden"
-            >
-              <Link
-                href="/hizmetlerimiz"
-                className="group relative block h-full w-full overflow-hidden"
-              >
-                {s.slideVideo ? (
-                  <video
-                    src={s.slideVideo}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label={`${s.titleTr} — ${s.summary}`}
-                    className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                  />
-                ) : (
-                  <Image
-                    src={s.slide}
-                    alt={`${s.titleTr} — ${s.summary}`}
-                    width={1920}
-                    height={900}
-                    className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                    sizes="100vw"
-                  />
-                )}
-                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-navy/70 via-navy/10 to-transparent p-6 md:p-14">
-                  <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
-                    {s.eyebrow}
-                  </span>
-                  <h3 className="t-kucuk mt-2 text-white">{s.titleTr}</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
-                    {s.summary}
-                  </p>
-                </div>
-              </Link>
-            </div>
+            <Reveal key={s.slug}>
+              <div className="relative aspect-[4/5] overflow-hidden md:aspect-[9/5]">
+                <Link
+                  href="/hizmetlerimiz"
+                  className="group relative block h-full w-full overflow-hidden"
+                >
+                  {s.slideVideo ? (
+                    <video
+                      src={s.slideVideo}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      aria-label={`${s.titleTr} — ${s.summary}`}
+                      className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
+                    />
+                  ) : (
+                    <Image
+                      src={s.slide}
+                      alt={`${s.titleTr} — ${s.summary}`}
+                      width={1920}
+                      height={900}
+                      className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
+                      /* 118vw, 100vw DEĞİL: kaynaklar 1920x900 (oran 2,133),
+                       kutu ise 9/5 (1,8). `object-cover` kutuyu BOYA göre
+                       dolduruyor, yani görsel kutudan ~%18 geniş basılıyor;
+                       100vw istenirse o fark kadar yumuşuyor (denetimde
+                       yakalandı). */
+                      sizes="118vw"
+                    />
+                  )}
+                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-navy/70 via-navy/10 to-transparent p-6 md:p-14">
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">
+                      {s.eyebrow}
+                    </span>
+                    <h3 className="t-kucuk mt-2 text-white">{s.titleTr}</h3>
+                    <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
+                      {s.summary}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </Reveal>
           ))}
         </section>
 

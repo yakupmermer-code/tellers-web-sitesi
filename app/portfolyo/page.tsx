@@ -114,7 +114,7 @@ export default function PortfolyoPage() {
             <Reveal key={b.slug} delay={0.04 * (i % 2)}>
               <Link
                 href={`/portfolyo/${b.slug}`}
-                data-imlec="İncele"
+                data-imlec="Ziyaret Et"
                 className="group block"
               >
                 <div className="relative overflow-hidden">
