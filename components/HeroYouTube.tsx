@@ -74,8 +74,6 @@ export default function HeroYouTube({ className }: { className?: string }) {
   const elleDurduruldu = useRef(false);
   /* Hero şu an ekranda mı — sekmeden dönünce oynatıp oynatmamaya karar verir. */
   const heroGorunur = useRef(true);
-  /* iframe belgesi yüklendi mi. */
-  const hazir = useRef(false);
   /* Ses durumu ref'te de tutuluyor: `uygula` boş bağımlılıkla kuruluyor ve
      state'i okusaydı bayat closure görürdü. */
   const sesliRef = useRef(false);
@@ -109,21 +107,45 @@ export default function HeroYouTube({ className }: { className?: string }) {
   /* Oyuncuya "durum olaylarını bana yolla" de — `onStateChange` mesajları
      ancak bundan sonra gelir. */
   const dinlemeyeBasla = useCallback(() => {
-    cerceve.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: "listening" }),
-      KAYNAK,
-    );
+    /*
+     * 🔴 `hazir` KONTROLÜ YOK, HATA YUTULUYOR. Bir tur el sıkışması `onLoad`
+     * bayrağına bağlıydı; ölçümde `onLoad`ın hiç tetiklenmediği durumlar
+     * çıktı (canlıda 18 sn sonra YouTube'dan SIFIR mesaj gelmişti) ve
+     * `listening` hiç gönderilmediği için `infoDelivery` akışı hiç başlamadı
+     * → JS döngüsü ölü kaldı, video bir kez oynayıp durdu (Yakup bildirdi:
+     * "video tekrar oynamıyor").
+     * iframe henüz `about:blank` ise postMessage `targetOrigin` uyuşmazlığı
+     * fırlatır; onu yutup bir sonraki denemede tekrar deniyoruz. Hazır
+     * olmadığını tahmin etmeye çalışmaktansa denemek daha sağlam.
+     */
+    try {
+      cerceve.current?.contentWindow?.postMessage(
+        JSON.stringify({ event: "listening" }),
+        KAYNAK,
+      );
+    } catch {
+      /* iframe daha yüklenmedi — sonraki tur dener */
+    }
   }, []);
 
   const gonder = useCallback((func: string) => {
-    cerceve.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: "command", func, args: [] }),
-      KAYNAK,
-    );
+    try {
+      cerceve.current?.contentWindow?.postMessage(
+        JSON.stringify({ event: "command", func, args: [] }),
+        KAYNAK,
+      );
+    } catch {
+      /* iframe daha yüklenmedi; durum bir sonraki `uygula`da tazelenir */
+    }
   }, []);
 
   const uygula = useCallback(() => {
-    if (!hazir.current || !cerceve.current?.contentWindow) return;
+    /*
+     * `hazir` KOŞULU KALDIRILDI (2026-09-10): `onLoad` tetiklenmediğinde bu
+     * koşul bütün komutları susturuyordu — kaydırınca durdurma da dahil.
+     * Komut kaybolursa zararsız: durum her fırsatta yeniden uygulanıyor.
+     */
+    if (!cerceve.current?.contentWindow) return;
     gonder(
       !elleDurduruldu.current && heroGorunur.current && !document.hidden
         ? "playVideo"
@@ -152,27 +174,48 @@ export default function HeroYouTube({ className }: { className?: string }) {
    * (Denetimde yakalandı, 2026-09-10.)
    */
   useEffect(() => {
-    let kalan = 10;
+    /*
+     * 20 deneme x 500 ms = 10 saniye. Oyuncudan ilk cevap gelir gelmez duruyor.
+     * Bir tur `hazir` bayrağına bağlıydı ve o bayrak set edilmeyince el sıkışma
+     * HİÇ denenmiyordu; artık iframe yüklenene kadar denemeye devam ediyor
+     * (başarısız denemeler `dinlemeyeBasla` içinde yutuluyor).
+     */
+    let kalan = 20;
     const id = window.setInterval(() => {
-      if (mesajGeldi.current) {
-        window.clearInterval(id);
-        return;
-      }
-      /*
-       * iframe HENÜZ YÜKLENMEDİYSE DENEME SAYMA. `contentWindow` o an hâlâ
-       * `about:blank`; `targetOrigin` tutmaz ve Chrome her denemede kırmızı
-       * "target origin does not match" hatası basar. Üstelik yavaş bağlantıda
-       * on hakkın hepsi yükleme bitmeden tükenirdi. (Denetimde yakalandı.)
-       */
-      if (!hazir.current) return;
-      if (--kalan <= 0) {
+      if (mesajGeldi.current || --kalan <= 0) {
         window.clearInterval(id);
         return;
       }
       dinlemeyeBasla();
-    }, 300);
+    }, 500);
     return () => window.clearInterval(id);
   }, [dinlemeyeBasla]);
+
+  /*
+   * 🔴 DÖNGÜ GÜVENCESİ — MESAJ AKIŞINDAN BAĞIMSIZ.
+   *
+   * Aşağıdaki `infoDelivery` dinleyicisi videoyu bitince yeniden başlatıyor,
+   * AMA tamamen YouTube'un mesaj göndermesine bağlı. Bu zincir bir kez zaten
+   * koptu: el sıkışma `onLoad`a bağlıydı, `onLoad` tetiklenmedi, hiç mesaj
+   * gelmedi ve video bir kez oynayıp durdu (Yakup: "video tekrar oynamıyor").
+   * Zincirin bir halkasını düzeltmek yetmez — zincire hiç bağlı olmayan bir
+   * güvence gerekiyor.
+   *
+   * `uygula()` istenen DURUMU yolluyor, kör bir "oynat" komutu değil:
+   *   · video zaten oynuyorsa `playVideo` YouTube tarafından yok sayılır
+   *   · video bittiyse baştan başlatır (en fazla 3 sn gecikmeyle)
+   *   · kullanıcı elle duraklattıysa `pauseVideo` gider, duraklalı KALIR
+   *   · hero ekranda değilse ya da sekme gizliyse yine `pauseVideo` gider
+   * Yani periyodik çağrı hiçbir kullanıcı kararını ezmiyor; yalnızca kayan
+   * durumu geri hizalıyor. Maliyeti 3 saniyede bir postMessage.
+   *
+   * Mesaj akışı çalıştığında döngü ZATEN anında dönüyor; bu yalnızca akış
+   * kopduğunda videonun donmasını engelliyor.
+   */
+  useEffect(() => {
+    const id = window.setInterval(uygula, 3000);
+    return () => window.clearInterval(id);
+  }, [uygula]);
 
   /*
    * 🔴 GÖRÜNÜRLÜK GÜVENLİK AĞI — `onLoad`'DAN BAĞIMSIZ OLMAK ZORUNDA.
@@ -358,8 +401,10 @@ export default function HeroYouTube({ className }: { className?: string }) {
              kesiyor ama odağı kesmiyordu; Tab ile görünmez oyuncuya
              giriliyordu. */
           tabIndex={-1}
+          /* `onLoad` artık bir BAYRAK KURMUYOR, yalnız erken bir deneme.
+             Asıl el sıkışma yukarıdaki aralıklı döngüde; `onLoad`ın hiç
+             tetiklenmediği durumlar ölçüldüğü için ona güvenilmiyor. */
           onLoad={() => {
-            hazir.current = true;
             dinlemeyeBasla();
             uygula();
           }}
