@@ -51,6 +51,39 @@ export function basaDon() {
 
 export default function SmoothScroll() {
   useEffect(() => {
+    /*
+     * 🔴 SAYFA YENİLENİNCE BAŞA DÖN (2026-09-10, Yakup: "sayfa yenileme
+     * yapılınca sayfanın başına dönmüyor, site olduğu yerde kalıp devam
+     * ediyor").
+     *
+     * Bu, aşağıdaki `stopInertiaOnNavigate` düzeltmesinden FARKLI bir sorun.
+     * O, Next'in sayfa GEÇİŞİNDE (linke tıklayınca) Lenis'in ataletinin eski
+     * konumu geri yazmasıydı. Buradaki ise tarayıcının kendi davranışı:
+     * `history.scrollRestoration` varsayılan olarak "auto" ve tarayıcı F5'te
+     * son kaydırma konumunu geri yüklüyor. Lenis'in bununla ilgisi yok, o
+     * yüzden önceki düzeltme bunu kapsamıyordu.
+     *
+     * YALNIZCA YENİLEMEDE: `scrollRestoration`ı topyekûn "manual" yapmak
+     * GERİ/İLERİ tuşunu da bozar — kullanıcı geri geldiğinde kaldığı yeri
+     * değil sayfanın başını görür, bu da kayıptır. Gezinme türü
+     * `PerformanceNavigationTiming.type` ile ayrılıyor: "reload" ise başa
+     * dönülüyor, "back_forward" ise tarayıcının hafızası korunuyor.
+     *
+     * SIÇRAMA GÖRÜNMEZ: tarayıcı konumu bu effect çalışmadan önce geri
+     * yüklemiş olabilir, ama açılış perdesi (`components/AcilisPerdesi`) tam
+     * sayfa yüklemesinde ekranı 0,25 sn kapalı tutuyor — düzeltme o perdenin
+     * arkasında oluyor.
+     *
+     * Lenis'ten ÖNCE: aşağıda Lenis kurulurken mevcut konumu okuyor; sıfırlama
+     * önce yapılmazsa Lenis eski konumdan başlar ve düzeltmeyi geri alır.
+     */
+    const gezinme = performance.getEntriesByType("navigation")[0] as
+      PerformanceNavigationTiming | undefined;
+    if (gezinme?.type === "reload") {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+
     const azalt = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     /*
@@ -83,7 +116,8 @@ export default function SmoothScroll() {
       if (olay.metaKey || olay.ctrlKey || olay.shiftKey || olay.altKey) return;
       const hedefOge = olay.target as HTMLElement | null;
       const bag = hedefOge?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!bag || bag.target === "_blank" || bag.hasAttribute("download")) return;
+      if (!bag || bag.target === "_blank" || bag.hasAttribute("download"))
+        return;
       let adres: URL;
       let hash = "";
       try {
