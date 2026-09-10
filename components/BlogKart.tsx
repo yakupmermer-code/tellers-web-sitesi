@@ -82,7 +82,17 @@ export default function BlogKart({
           Master'da dördü de kartın üst kısmında ve HEP GÖRÜNÜR. */}
       <div className="pointer-events-none absolute inset-x-6 top-6 md:inset-x-11 md:top-8">
         <div className="flex items-start justify-between gap-4">
-          <p className="text-[13px] font-medium text-white/95 md:text-[16px] xl:text-[19px]">
+          {/* 🔴 TARİH ÜZERİNE GELİNCE ÇIKAR, SABİT DEĞİL.
+              Bir tur sabit basılmıştı; master ölçümü fare kartın İÇİNDEYKEN
+              alındığı için her şey görünür sanılmıştı. Fare dışarıdayken
+              yeniden ölçüldü (2026-09-11): tarih ve içeriğin ilk cümleleri
+              `opacity: 0`, başlık/alt açıklama/"Written by" görünür.
+              Revize dökümanı da bunu istiyor: "Mouse ile dokunduğumuzda tarih,
+              konu başlığı, seo odaklı kategorizesel atama ve blog içeriğinin
+              ilk cümleleri ekranda çıkacak."
+              TELEFONDA HEP AÇIK: dokunmatikte hover yok, gizlenirse tarih o
+              cihazlarda hiç görünmezdi. */}
+          <p className="text-[13px] font-medium text-white/95 transition-opacity duration-500 ease-[var(--ease-lux)] md:text-[16px] md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 xl:text-[19px]">
             {b.date}
           </p>
           {/* Döküman: "Yazan yerinde tellers yazacak." Master'da bu köşede
@@ -116,9 +126,11 @@ export default function BlogKart({
       </div>
 
       {/* ALT BLOK — içeriğin ilk cümleleri. Master'da kartın alt bölgesinde,
-          üst bloktan ayrı duruyor. Dar ekranda gizli: 4/3 kutuda üst blokla
-          çakışıyor ve iki metin birbirine giriyordu. */}
-      <p className="pointer-events-none absolute inset-x-6 bottom-6 hidden line-clamp-3 text-[14px] leading-relaxed text-white/90 md:inset-x-9 md:bottom-8 md:block md:text-[16px] xl:line-clamp-4 xl:text-[17px]">
+          üst bloktan ayrı duruyor ve TARİHLE BİRLİKTE ÜZERİNE GELİNCE ÇIKIYOR
+          (fare dışarıdayken `opacity: 0` ölçüldü, 2026-09-11).
+          Dar ekranda hiç basılmıyor: 4/3 kutuda üst blokla çakışıyor ve iki
+          metin birbirine giriyordu — telefonda zaten hover da yok. */}
+      <p className="pointer-events-none absolute inset-x-6 bottom-6 hidden line-clamp-3 text-[14px] leading-relaxed text-white/90 opacity-0 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-100 group-focus-visible:opacity-100 md:inset-x-9 md:bottom-8 md:block md:text-[16px] xl:line-clamp-4 xl:text-[17px]">
         {ilkCumleler(b.body, b.excerpt)}
       </p>
     </Link>
