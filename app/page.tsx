@@ -785,6 +785,15 @@ export default function HomePage() {
           art arda, ARALARINDA BOŞLUK YOK, hiçbiri diğerinin üstüne binmiyor.
           1440/800 = 1,8 → `aspect-[9/5]`.
 
+          ⚠️ BİZDE 27/10 (2026-09-10, Yakup: "hizmetlerimiz kısmını, 4 tane alt
+          alta olan, 3/1 oranında küçült"). Yükseklik üçte bir kısaldı:
+          800 x 2/3 = 533 → 1440/533 = 2,70 → `aspect-[27/10]`. Genişlik
+          değişmedi, kısalan yükseklik. (Aynı yorum 3'lü portfolyo alanında da
+          uygulanmıştı: 940 → 627.)
+          Mobil de aynı oranda: `aspect-[4/5]` → `aspect-[6/5]`; 375px'te kart
+          469 → 312 px. İçerik (eyebrow + başlık + özet) ~111px, `p-6` dolgudan
+          sonra 264px kalıyor — sığıyor.
+
           Master'da sticky BAŞKA yerlerde var (hero bandı, künye bandı,
           Credits, kapanış CTA) — yani efekt temada mevcut ama bu kartlarda
           kullanılmıyor. Bizde de artık kullanılmıyor.
@@ -799,7 +808,7 @@ export default function HomePage() {
               tam ekran, hiçbiri diğeriyle aynı anda görünmüyor. */}
           {SERVICES.map((s) => (
             <Reveal key={s.slug}>
-              <div className="relative aspect-[4/5] overflow-hidden md:aspect-[9/5]">
+              <div className="relative aspect-[6/5] overflow-hidden md:aspect-[27/10]">
                 <Link
                   href="/hizmetlerimiz"
                   /* Yakup 2026-09-10: "4'lü hizmetlerimiz alanında hiç
@@ -855,16 +864,15 @@ export default function HomePage() {
                         width={1920}
                         height={900}
                         className="h-full w-full object-cover transition-transform duration-1000 ease-[var(--ease-lux)] group-hover:scale-[1.02]"
-                        /* 149vw. İki çarpan üst üste biniyor: (1) kaynaklar
-                         1920x900 (oran 2,133), kutu 9/5 (1,8) — `object-cover`
-                         kutuyu BOYA göre doldurduğu için görsel kutudan ~%18
-                         geniş basılıyor; (2) paralaksın taban ölçeği 1,26.
-                         1,18 x 1,26 = 1,49. Kaynak 1920px bu isteği tam
-                         karşılamıyor (2150px gerekirdi) ama Next asla
-                         büyütmediği için en büyük dosya seçilir; daha yüksek
-                         çözünürlüklü slide görseli gelirse kendiliğinden
-                         düzelir. */
-                        sizes="149vw"
+                        /* 126vw. Kart 27/10'a (2,70) kısalınca hesap DEĞİŞTİ:
+                           kaynaklar 1920x900 (oran 2,133) artık kutudan DAR,
+                           yani `object-cover`da bağlayan kenar GENİŞLİK —
+                           görsel tam kutu genişliğinde basılıyor, dikeyde
+                           kırpılıyor. Eskiden kutu 1,8 iken YÜKSEKLİK bağlıyor
+                           ve görsel %18 geniş basılıyordu; o çarpan kalktı.
+                           Geriye yalnız paralaksın taban ölçeği kalıyor:
+                           1,00 x 1,26 = 1,26. */
+                        sizes="126vw"
                       />
                     )}
                   </MediaReveal>
