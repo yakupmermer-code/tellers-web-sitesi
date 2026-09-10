@@ -31,7 +31,10 @@ const nextConfig: NextConfig = {
         // Font DEĞİŞTİRİLİRSE dosya adı da değiştirilmeli.
         source: "/fonts/:path*",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
       {
@@ -45,6 +48,13 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.cdnfonts.com; " +
               "font-src 'self' https://fonts.cdnfonts.com data:; " +
               "img-src 'self' data: blob:; media-src 'self'; " +
+              // frame-src: ana sayfa hero'sundaki marka tanıtım filmi
+              // (components/HeroYouTube.tsx) youtube-nocookie.com'dan geliyor.
+              // `default-src 'self'` yüzünden bu satır OLMADAN iframe tarayıcı
+              // tarafından engelleniyordu ve hero'da yalnız yedek degrade
+              // görünüyordu (denetimde yakalandı, 2026-09-10).
+              // Yalnız o alan adı; www.youtube.com bilerek DIŞARIDA.
+              "frame-src https://www.youtube-nocookie.com; " +
               "connect-src 'self'; frame-ancestors 'none'; " +
               "base-uri 'self'; object-src 'none'; upgrade-insecure-requests",
           },
@@ -53,7 +63,8 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+            value:
+              "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
           ...noindexBasligi,
           {

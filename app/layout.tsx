@@ -109,6 +109,14 @@ export default function RootLayout({
           href="https://fonts.cdnfonts.com"
           crossOrigin=""
         />
+        {/* Ana sayfa hero'sundaki marka tanıtım filmi (components/HeroYouTube)
+            gömme belgesini buradan çekiyor; TLS el sıkışmasını önden yapmak
+            oynatmanın başlamasını erkene çekiyor. Yalnız İPUCU — bağlantı
+            kurar, veri çekmez; CSP frame-src ile aynı alan adı.
+            NOT: video parçalarının geldiği `googlevideo.com` sunucu adları
+            oturuma göre üretiliyor (rr1---sn-xxxx gibi), sabit bir ada
+            preconnect vermek işe yaramaz — bilerek eklenmedi. */}
+        <link rel="preconnect" href="https://www.youtube-nocookie.com" />
         {/* JS kapalıysa animasyonla gizlenen bölümleri görünür kıl */}
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>

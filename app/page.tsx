@@ -4,8 +4,7 @@ import Reveal from "@/components/Reveal";
 import PortfolyoOnizleme from "@/components/PortfolyoOnizleme";
 import ClosingCta from "@/components/ClosingCta";
 import BlogIkili from "@/components/BlogIkili";
-import HeroVideo from "@/components/HeroVideo";
-import HeroZoom from "@/components/HeroZoom";
+import HeroYouTube from "@/components/HeroYouTube";
 import MaskLines from "@/components/MaskLines";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import CountUp from "@/components/CountUp";
@@ -140,21 +139,43 @@ export default function HomePage() {
         data-koyu-bolum
         className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy"
       >
-        {/* Açılışta 1.28 ölçekten oturur — referans temanın HeroZoom'u. */}
-        <HeroZoom className="absolute inset-0">
-          <HeroVideo inline className="h-full w-full object-cover opacity-80" />
-        </HeroZoom>
-        {/* Karartma: video üzerindeki yazının okunurluğu için. Videodan
-            bağımsız çalışır, video değişirse ayar gerekmez. */}
+        {/* Marka tanıtım filmi (YouTube gömme). Açılıştaki 1.28 ölçek
+            HeroZoom'u artık bileşenin İÇİNDE — kontrol düğmeleri ölçeğin
+            dışında kalsın diye. Geçici Higgsfield videosunu gösteren
+            `components/HeroVideo.tsx` silinmedi, yedekte duruyor. */}
+        <HeroYouTube className="absolute inset-0" />
+        {/* 🔴 ÜST ŞERİT DEGRADESİ — menü okunurluğu için ZORUNLU.
+            Bu bölüm `data-koyu-bolum` taşıyor; `components/Header.tsx` onu
+            görünce barı TAMAMEN saydam bırakıp yazıları beyaz basıyor. O
+            dosyadaki ölçüm notu aynen şöyle: saydam barda "ana sayfada 16
+            noktanın 8'inde başlık ekranda yoktu". Bunu telafi eden şey, bu
+            turda kaldırılan tam ekran `bg-navy/35` örtüsüydü. Örtü gidince
+            videonun açık bir karesinde logo ve hamburger kayboluyor — yatay
+            menü olmadığı için sitenin TEK gezinme yolu görünmez oluyor.
+            (Denetimde yakalandı, 2026-09-10.)
+
+            Bu degrade tüm ekranı DEĞİL yalnız üstteki 112px'i kaplıyor
+            (bar 70px). Videonun renkleri ekranın ~%85'inde bozulmadan kalıyor,
+            yani Yakup'un "soft görünüm kalksın" isteği korunuyor.
+            DOM'da HeroYouTube'dan SONRA: ikisi de konumlandırılmış, sonraki
+            üste biner. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-navy/35"
+          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-navy/70 via-navy/30 to-transparent"
         />
-        {/* Slogan okunurluğu için alt bölgeye yumuşak lacivert degrade */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-navy/80 via-navy/25 to-transparent"
-        />
+        {/* ⚠️ İKİ KARARTMA KATMANI KALDIRILDI (2026-09-10, Yakup: "slider
+            üzerinde bir alan daha var, soft gösteriyor, video asıl renkleri
+            belli olmuyor, onu da kaldır"). Kaldırılanlar: tam ekran
+            `bg-navy/35` örtüsü ve alttaki `from-navy/80` degrade. İkisi de
+            hero yazısının okunurluğu içindi; yazı da bu turda ekrandan
+            kalktığı için gerekçeleri kalmadı. Video artık kendi renkleriyle
+            görünüyor (iframe'deki `opacity-80` de kaldırıldı).
+
+            🟠 BUNUN BİR BEDELİ VAR: üst bar (Header) bu bölümde `data-koyu-bolum`
+            gördüğü için yazılarını BEYAZ basıyor. Karartma yokken videonun
+            açık renkli bir karesinde menü/logo okunmayabilir. Videonun tonu
+            görülüp gerekirse yalnız üst şeride ince bir degrade eklenmeli —
+            tüm ekranı kaplayan örtü değil. */}
         {/* HERO MESAJI (2026-09-01, Yakup: "ilk açılışta bir dijital pazarlama
             markalama ajansı için farklı bir şeyler olmalı"). Ekip 2026-08-14'te
             hero'daki sloganı kaldırmıştı; bu karar Yakup'un isteğiyle geri
@@ -177,27 +198,24 @@ export default function HomePage() {
             YAZI VİDEOYA GÖMÜLMEZ: yapay zeka Türkçe karakterleri (ğ ş ı İ)
             bozuyor. HTML olarak binince yazı kusursuz çıkar, tek satırla
             değiştirilebilir ve arama motoru okuyabilir. */}
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-5 pb-16 md:flex-row md:items-end md:justify-between md:gap-16 md:px-10 md:pb-20">
-          <h1 className="t-kucuk max-w-2xl leading-[1.1] text-white">
-            Markaları duyulur değil,{" "}
-            <em className="font-didot italic">anlaşılır</em> kılıyoruz.
-          </h1>
-          <Stagger
-            as="ul"
-            className="flex shrink-0 flex-col gap-2 text-[13px] uppercase tracking-[0.14em] text-white/70 md:text-right md:text-sm"
-          >
-            {[
-              "Performans Pazarlama",
-              "Dijital Pazarlama",
-              "Kreatif Tasarım Hizmetleri",
-              "Markalama",
-            ].map((h) => (
-              <StaggerItem as="li" key={h}>
-                {h}
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
+        {/* ⚠️ HERO YAZILARI EKRANDAN KALDIRILDI (2026-09-10, Yakup: "slider
+            üzerindeki yazıları kaldır, solda ve sağda olan"). Soldaki başlık ve
+            sağdaki dört hizmet kalemi artık görünmüyor; slider tek başına.
+
+            🔴 BAŞLIK SİLİNMEDİ, `sr-only` OLDU. Sebebi 226. satırdaki nottur:
+            ana sayfanın TEK `<h1>`'i buydu — "Global devlerin tercihi" başlığı
+            bilerek `h2` yapılmıştı, çünkü Hakkımızda sayfasının h1'i ile
+            birebir aynı cümle ve iki sayfa aynı başlıkla yarışıyordu. Bu h1
+            tamamen silinseydi ana sayfa BAŞLIKSIZ kalırdı; arama motorları ve
+            (CLAUDE.md'deki GEO hedefi gereği) yapay zeka motorları sayfanın ne
+            olduğunu okuyamazdı. `sr-only` ekranda hiçbir şey göstermez ama
+            HTML'de durur — Yakup'un istediği görsel sonuç birebir korunuyor.
+
+            Sağdaki hizmet listesi TAMAMEN kaldırıldı: aynı dört kalem sayfanın
+            ilerisindeki hizmet slider'ında zaten var, içerik kaybı yok. */}
+        <h1 className="sr-only">
+          Markaları duyulur değil, anlaşılır kılıyoruz.
+        </h1>
       </section>
 
       {/* ── SLOGAN + HAKKIMIZDA ÖZETİ ──
