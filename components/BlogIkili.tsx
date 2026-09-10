@@ -21,8 +21,13 @@ import { ilkCumleler } from "@/lib/ozet";
  * hizmetlerimiz sayfası hâlâ onu kullanıyor.
  */
 
-/** Kaç ms'de bir sonraki ikiliye geçiyor. */
-const DONME_SURESI = 7000;
+/*
+ * Kaç ms'de bir sonraki ikiliye geçiyor.
+ * 7000 → 4500 (2026-09-10): 7 saniye, "acaba çalışıyor mu" diye bakan birinin
+ * bekleyeceğinden uzun. Şerit 1 saniyede kaydığı için 4,5 saniyede duran
+ * görüntü ~3,5 saniye kalıyor — okumaya yetiyor, ölü görünmüyor.
+ */
+const DONME_SURESI = 4500;
 
 /** Aynı anda kaç kart gösteriliyor. */
 const ADIM = 2;
@@ -36,6 +41,8 @@ export default function BlogIkili() {
   const [gorunur, setGorunur] = useState(false);
   /* Şerit başa sarılırken geçiş kapatılır — yoksa görsel olarak geri kayar. */
   const [gecisli, setGecisli] = useState(true);
+  /* "Hareketi azalt" açıksa kayma animasyonu yok, içerik yine değişiyor. */
+  const [azalt, setAzalt] = useState(false);
   const kok = useRef<HTMLDivElement>(null);
 
   /*
@@ -67,12 +74,29 @@ export default function BlogIkili() {
    * zamanlayıcı tarafından sessizce geri alınabiliyordu (denetimde deterministik
    * olarak üretildi).
    */
+  /*
+   * 🔴 "HAREKETİ AZALT" AÇIKKEN DE DÖNÜYOR, YALNIZ KAYMIYOR.
+   * Bir tur bu tercih açıksa `return` ediliyordu, yani karusel HİÇ çalışmıyordu
+   * ve o makinede alan tamamen ölü görünüyordu. İşletim sistemi ayarı olduğu
+   * için kullanıcı bunu siteyle ilişkilendiremez.
+   * Doğrusu içeriği dondurmak değil, HAREKETİ kaldırmak: yazılar yine
+   * değişiyor, sadece kayma animasyonu yerine anında geçiyorlar (aşağıdaki
+   * `transition` hesabına bak).
+   */
   useEffect(() => {
     if (durdu || !gorunur) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => setIlk((i) => i + ADIM), DONME_SURESI);
     return () => window.clearInterval(id);
   }, [durdu, gorunur, ilk]);
+
+  /* İşletim sistemindeki "hareketi azalt" tercihi — istemcide okunur. */
+  useEffect(() => {
+    const m = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const oku = () => setAzalt(m.matches);
+    oku();
+    m.addEventListener("change", oku);
+    return () => m.removeEventListener("change", oku);
+  }, []);
 
   /*
    * SONSUZ AKIŞ — GÖRÜNÜR SIÇRAMA OLMADAN.
@@ -122,8 +146,18 @@ export default function BlogIkili() {
       ref={kok}
       // Üzerine gelince / klavyeyle odaklanınca dönme durur: okumaya başlayanın
       // altından kart kaymasın.
-      onMouseEnter={() => setDurdu(true)}
-      onMouseLeave={() => setDurdu(false)}
+      /*
+       * 🔴 FAREYLE DURAKLATMA KALDIRILDI (2026-09-10). `onMouseEnter` ile
+       * duruyordu ve şeridi İNCELEMEK İÇİN fareyi oraya götüren herkes
+       * "hiç kaymıyor" görüyordu — Yakup iki kez böyle bildirdi. Yakup'un
+       * kararı zaten sürekli akış: "sağa doğru kayacak, isteyen de tüm
+       * yazılara tıklayabilir."
+       *
+       * KLAVYE ODAĞI DURDURMAYA DEVAM EDİYOR: sekme ile kartlar arasında
+       * gezerken şerit kayarsa odaklanılan kart ekrandan çıkar ve kullanıcı
+       * nerede olduğunu kaybeder. Fare kullanıcısı için aynı risk yok, o
+       * istediği an tıklayabilir.
+       */
       onFocusCapture={() => setDurdu(true)}
       onBlurCapture={() => setDurdu(false)}
     >
@@ -146,9 +180,10 @@ export default function BlogIkili() {
           style={{
             width: `${SERIT.length * 50}%`,
             transform: `translateX(-${ilk * (100 / SERIT.length)}%)`,
-            transition: gecisli
-              ? `transform ${GECIS_SURESI}ms var(--ease-lux)`
-              : "none",
+            transition:
+              gecisli && !azalt
+                ? `transform ${GECIS_SURESI}ms var(--ease-lux)`
+                : "none",
           }}
         >
           {SERIT.map((b, i) => (
