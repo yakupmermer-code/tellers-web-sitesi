@@ -384,7 +384,19 @@ body {
 .link-grow {
   position: relative;
 }
-.link-grow::after {
+/*
+ * `.cizgi-alt` — `.link-grow`ın KONUMLANDIRMASIZ kardeşi.
+ *
+ * 🔴 NEDEN AYRI BİR SINIF: `.link-grow` `position: relative` veriyor. Kendisi
+ * zaten `absolute` olan bir öğeye eklenince ikisi çakışıyor ve CSS sırasında
+ * `relative` kazanıyor — öğe normal akışa düşüp, içi boşsa 0x0'a çöküyor.
+ * Kapanış CTA'larında tam bu oldu: ekip görselinin üstündeki iki tıklama alanı
+ * 0x0 ölçüldü, yani ne çizgi çıkıyordu NE DE LİNKLER TIKLANABİLİYORDU
+ * (2026-09-10, canlıda ölçüldü).
+ * Bu sınıf yalnızca çizgiyi verir; konumlandırmayı kullanan taraf yapar.
+ */
+.link-grow::after,
+.cizgi-alt::after {
   content: "";
   position: absolute;
   left: 0;
@@ -395,6 +407,8 @@ body {
   transition: width 0.5s var(--ease-lux);
 }
 .link-grow:hover::after,
+.cizgi-alt:hover::after,
+.cizgi-alt:focus-visible::after,
 .group:hover .link-grow::after {
   width: 100%;
 }

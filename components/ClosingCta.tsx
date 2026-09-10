@@ -56,24 +56,29 @@ export default function ClosingCta({
                     aydınlatan bir DİKDÖRTGEN. Revize dökümanı bunun tam tersini
                     istiyor: "rect içine alınmayacak, temadaki örnekteki gibi
                     çizgisel olarak kullanılacak."
-                    `link-grow` sitenin her yerindeki kalıp: 14px'lik kısa çizgi
-                    hover'da tam genişliğe uzuyor. `text-white` şart — çizgi
-                    `currentColor` kullanıyor ve bu alanların içinde metin yok
-                    (yazı görselin İÇİNDE basılı), renk mirasla geliyor.
+                    🔴 `cizgi-alt`, `link-grow` DEĞİL. `link-grow`
+                    `position: relative` veriyor ve buradaki `absolute` ile
+                    çakışıyor; CSS sırasında `relative` kazanıp kutuyu normal
+                    akışa düşürüyor, içi boş olduğu için de 0x0'a çöküyordu.
+                    Canlıda ölçüldü: genişlik 0, yükseklik 0 — yani ne çizgi
+                    görünüyordu NE DE BU İKİ LİNK TIKLANABİLİYORDU.
+                    `cizgi-alt` aynı çizgiyi konumlandırmaya karışmadan verir.
+                    `text-white` şart — çizgi `currentColor` kullanıyor ve bu
+                    alanların içinde metin yok (yazı görselin İÇİNDE basılı).
                     KUTU METNE OTURTULDU: yazı görselin %75,0-77,8 aralığında;
                     çizgi `bottom: -4px`'te bittiği için kutu da %74,5-78,5
                     yapıldı, yoksa çizgi yazıdan ~20px aşağıda havada kalıyordu. */}
                 <a
                   href={`tel:${SITE.phone}`}
                   aria-label="Görüşme planlayın — bizi arayın"
-                  className="link-grow absolute left-[32%] top-[74.5%] h-[4%] w-[17%] text-white"
+                  className="cizgi-alt absolute left-[32%] top-[74.5%] h-[4%] w-[17%] text-white"
                 />
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp'tan yazın"
-                  className="link-grow absolute left-[51%] top-[74.5%] h-[4%] w-[16%] text-white"
+                  className="cizgi-alt absolute left-[51%] top-[74.5%] h-[4%] w-[16%] text-white"
                 />
               </>
             )}
