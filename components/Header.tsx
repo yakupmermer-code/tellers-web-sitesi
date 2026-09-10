@@ -173,7 +173,7 @@ export default function Header() {
       ).filter((e) => e.offsetParent !== null);
 
     // Açılışta odak ilk MENÜ öğesine — listenin başı bardaki sosyal linktir.
-    kap?.querySelector<HTMLElement>('nav a[href]')?.focus();
+    kap?.querySelector<HTMLElement>("nav a[href]")?.focus();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -263,7 +263,9 @@ export default function Header() {
         >
           {/* SOL — sosyal kısaltmalar (referans: WA X IG LI EMAIL) */}
           <div
-            className={`hidden items-center gap-5 text-[13px] tracking-[0.02em] transition-colors duration-500 sm:flex ${
+            /* `font-bold` (2026-09-10, Yakup: "soldaki sosyal medya kısmı da
+               bold olsun"). */
+            className={`hidden items-center gap-5 text-[13px] font-bold tracking-[0.02em] transition-colors duration-500 sm:flex ${
               acikRenk ? "text-white/75" : "text-navy/75"
             }`}
           >
@@ -319,15 +321,22 @@ export default function Header() {
             aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
             className="relative z-50 ml-auto flex h-11 w-11 items-center justify-center"
           >
+            {/* ÇİZGİLER UZADI VE KALINLAŞTI (2026-09-10, Yakup: "sağdaki menü
+                tuşu çizgiyi bir yarısı kadar uzat ve bold yap").
+                genişlik 28px → 42px (yarısı kadar uzun), kalınlık 1px → 2px.
+                Aralık da ±4px'ten ±5px'e açıldı: 2px'lik çizgilerde eski aralık
+                iki çizgiyi birbirine yapıştırıyordu.
+                Düğmenin dokunma hedefi 44px olduğu gibi kalıyor (h-11 w-11);
+                çizgi `absolute` olduğu için kutuyu büyütmüyor. */}
             <span
-              className={`absolute h-px w-7 transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
+              className={`absolute h-0.5 w-[42px] transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
-              } ${open ? "rotate-45" : "-translate-y-[4px]"}`}
+              } ${open ? "rotate-45" : "-translate-y-[5px]"}`}
             />
             <span
-              className={`absolute h-px w-7 transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
+              className={`absolute h-0.5 w-[42px] transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
-              } ${open ? "-rotate-45" : "translate-y-[4px]"}`}
+              } ${open ? "-rotate-45" : "translate-y-[5px]"}`}
             />
           </button>
         </div>
@@ -366,7 +375,11 @@ export default function Header() {
                       key={item.href}
                       initial={{ y: 40, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.7, ease: EASE, delay: 0.05 * i }}
+                      transition={{
+                        duration: 0.7,
+                        ease: EASE,
+                        delay: 0.05 * i,
+                      }}
                     >
                       {/* onClick SADECE aynı sayfa için: menü normalde YOL
                           DEĞİŞİNCE kapanıyor (prevPath) ve örtü o sırada
