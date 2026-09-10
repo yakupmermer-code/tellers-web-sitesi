@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import PortfolyoOnizleme from "@/components/PortfolyoOnizleme";
-import RefLogoBand from "@/components/RefLogoBand";
 import ClosingCta from "@/components/ClosingCta";
 import BlogSlider from "@/components/BlogSlider";
 import HeroVideo from "@/components/HeroVideo";
@@ -246,8 +245,14 @@ export default function HomePage() {
       {/* Buradan aşağısı, yukarıdaki sabitlenen bölümün ÜZERİNE kayar.
           z-10 + opak zemin şart: saydam olursa altındaki bölüm görünür. */}
       <div className="relative z-10 bg-paper">
-        {/* ── REFERANS LOGO BANDI — lacivert, çift genişlik ── */}
-        <RefLogoBand />
+        {/* ── REFERANS LOGO BANDI KALDIRILDI (2026-09-10, Yakup: "üsteki
+            şeridi kaldır") ──
+            Burada ayrı bir lacivert logo bandı vardı. Revize dökümanı
+            "Referans logolar alt kısımda banner alanında verilmeyecek temadaki
+            gibi yukarıdaki ekip görselinin alt boş kısmında akan slider
+            şeklinde dönecek" diyor. Logolar artık YALNIZCA sayfanın altındaki
+            ekip görselinin içinde akıyor (`components/ClosingCta.tsx`).
+            Ana sayfada iki logo şeridi birden bulunma sorunu da böylece bitti. */}
 
         {/* ── 22.872.000 $ + HİZMET LİSTESİ ── */}
         <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-[1fr_1.1fr] md:gap-24 md:px-10 md:py-24">
