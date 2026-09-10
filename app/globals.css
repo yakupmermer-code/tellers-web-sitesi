@@ -380,6 +380,31 @@ body {
   display: flex;
 }
 
+/*
+ * ÜZERİNE GELİNCE ÇIKAN METİN — gizleme YALNIZ GERÇEK FARE VARSA.
+ *
+ * 🔴 `md:opacity-0 md:group-hover:opacity-100` YAZMAK HATALIYDI. Tailwind'in
+ * `hover` varyantı `@media (hover: hover)` içine sarılıyor ama `opacity-0`
+ * sarılmıyor; yani dokunmatik bir TABLETTE (iPad 768px+) gizleme uygulanıyor,
+ * hover ise ASLA tetiklenemiyor → metin kalıcı olarak görünmez kalıyordu.
+ * Revize dökümanının "blogların eklenme tarihi yer alacak" maddesi o
+ * cihazlarda hiç karşılanmıyordu. (Denetimde, Tailwind çıktısı derlenerek
+ * yakalandı — 2026-09-11.)
+ *
+ * Doğrusu ekran GENİŞLİĞİ değil giriş YETENEĞİ sorgusu: fare yoksa metin
+ * baştan görünür durur, hiç gizlenmez.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .hover-gizli {
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-lux);
+  }
+  .group:hover .hover-gizli,
+  .group:focus-visible .hover-gizli {
+    opacity: 1;
+  }
+}
+
 /* Temanın imza link hover'ı: kısa alt çizgi hover'da tam genişliğe uzar */
 .link-grow {
   position: relative;

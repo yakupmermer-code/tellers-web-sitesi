@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
-import HeroZoom from "@/components/HeroZoom";
 import BlogKart from "@/components/BlogKart";
 import KapanisSection from "@/components/KapanisSection";
 import { BLOGS, getBlog } from "@/content/blogs";
@@ -171,19 +170,28 @@ export default async function BlogDetayPage({
         data-imlec-koyu
         className="relative h-[78vh] min-h-[480px] overflow-hidden bg-navy"
       >
-        {/* Açılışta 1.28 ölçekten oturur — sitenin hero kalıbı. Dökümanın
-            "örnek temadaki efekt ile açılmalı" maddesi bu. */}
-        <HeroZoom className="absolute inset-0">
-          <Image
-            src={blog.image}
-            alt=""
-            width={1920}
-            height={1080}
-            priority
-            className="h-full w-full object-cover"
-            sizes="100vw"
-          />
-        </HeroZoom>
+        {/* ⚠️ `HeroZoom` KALDIRILDI (2026-09-11, Yakup: "açılma animasyonunu
+            bizim ana sayfa slider'ımızın animasyonunu kullanmışsın, master
+            temada journal sayfasının animasyonu farklı").
+            1.28 ölçekten oturma ANA SAYFA HERO'SUNUN kalıbıdır; master'ın blog
+            detayında öyle bir açılış yok — geçiş ölçümünde görselde hiç
+            `transform` görünmedi. Sayfanın açılış hareketi zaten
+            `app/template.tsx`ten geliyor (lacivert perde + içeriğin yükselerek
+            gelmesi), ona ikinci bir ölçek animasyonu bindirmek master'dan
+            sapmaydı.
+            🔴 AÇIK KALEM: master'ın kendi geçiş animasyonu ÖLÇÜLEMEDİ — tarayıcı
+            sekmesi arka planda olduğu için animasyon motoru duruyor
+            (`visibilityState: "hidden"`). Yani "master'da ne var" değil, "bizde
+            olmaması gereken neydi" bilgisiyle hareket edildi. */}
+        <Image
+          src={blog.image}
+          alt=""
+          width={1920}
+          height={1080}
+          priority
+          className="absolute inset-0 h-full w-full object-cover"
+          sizes="100vw"
+        />
 
         {/* Okunurluk örtüsü: master'da da var, metinler onun üzerinde. */}
         <div
@@ -204,13 +212,12 @@ export default async function BlogDetayPage({
                 {blog.excerpt}
               </p>
             </Reveal>
-            {/* Döküman: "Yazan yerinde tellers yazacak ve blogların eklenme
-                tarihi yer alacak." */}
-            <Reveal delay={0.1}>
-              <p className="mt-5 text-[13px] text-white/80 md:text-[15px]">
-                Yazan: tellers — {blog.date}
-              </p>
-            </Reveal>
+            {/* ⚠️ "Yazan: tellers — tarih" BURADAN KALDIRILDI. Aynı bilgi
+                hemen altındaki künye sütununda da vardı; `xl` altında tek
+                kolona düşünce kullanıcı ikisini arka arkaya okuyordu. Master'da
+                da hero künyeyi tekrarlamıyor. Dökümanın "yazan yerinde tellers
+                yazacak ve blogların eklenme tarihi yer alacak" maddesi künye
+                sütununda karşılanıyor. (Denetimde yakalandı, 2026-09-11.) */}
           </div>
         </div>
       </section>
@@ -231,8 +238,13 @@ export default async function BlogDetayPage({
           `lg:` ALTINDA TEK KOLON: 433px sabit sütun + içerik, 1024px'in
           altında sığmıyor; orada künye yazının üstünde normal akışta. */}
       <article className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-24">
-        <div className="grid gap-12 lg:grid-cols-[433px_minmax(0,1fr)] lg:gap-20">
-          <aside className="lg:sticky lg:top-[100px] lg:self-start">
+        {/* İKİ KOLON `xl`DEN (1280px) İTİBAREN, `lg`den (1024) DEĞİL.
+            Hesap: `px-10` (80) + `gap-20` (80) + sabit 433px künye →
+            1024px'te içerik sütunu 431px kalıyordu, yani KÜNYEDEN DAR; 21px
+            gövde ~40 karakter/satıra sıkışıyordu. 1280'de 687px, 1440'ta 847px
+            (master'ın 835-867'siyle uyuşan aralık). (Denetimde yakalandı.) */}
+        <div className="grid gap-12 xl:grid-cols-[433px_minmax(0,1fr)] xl:gap-20">
+          <aside className="xl:sticky xl:top-[100px] xl:self-start">
             <Reveal>
               <p className="text-[20px] font-medium leading-snug text-navy/55 md:text-[24px] xl:text-[28px]">
                 {blog.title}
@@ -246,17 +258,72 @@ export default async function BlogDetayPage({
               <p className="mt-1 text-[14px] font-medium text-navy/55 md:text-[17px]">
                 {blog.date}
               </p>
+
+              {/* ── ÖNCEKİ / SONRAKİ OKLARI — MASTER'DA BURADA ────────────
+                  Yakup 2026-09-11 (ekran görüntüsüyle): "sol kısımda sağ sol
+                  ok var, bu önceki sonraki makaleye götürüyor."
+                  Bir tur bu gezinme yazı gövdesinin ALTINA konmuştu; master'da
+                  künye sütununun içinde, unvanın hemen altında.
+
+                  MASTER ÖLÇÜMÜ (/journal/[slug], 1440px, 2026-09-11):
+                    unvan üst 146 · oklar üst 177 (unvandan 31px sonra)
+                    her ok 32x32 · sol ok x=0 · sağ ok x=128
+                    yani aralarında 96px boşluk, blok toplamı 160px
+                  İkisi de ayrı bir yazıya bağlanıyor (önceki / sonraki). */}
+              <nav
+                aria-label="Yazılar arası gezinme"
+                className="mt-8 flex w-40 items-center justify-between"
+              >
+                <Link
+                  href={`/blog/${onceki.slug}`}
+                  aria-label={`Önceki yazı: ${onceki.title}`}
+                  data-imlec="Oku"
+                  className="flex h-8 w-8 items-center justify-center text-navy transition-opacity duration-500 hover:opacity-55"
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M15 5 8 12l7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href={`/blog/${sonraki.slug}`}
+                  aria-label={`Sonraki yazı: ${sonraki.title}`}
+                  data-imlec="Oku"
+                  className="flex h-8 w-8 items-center justify-center text-navy transition-opacity duration-500 hover:opacity-55"
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m9 5 7 7-7 7" />
+                  </svg>
+                </Link>
+              </nav>
             </Reveal>
           </aside>
 
           <div>
-            {/* GİRİŞ PARAGRAFI — master'da 35px ve gövdeden AÇIK renkte. */}
-            <Reveal>
-              <p className="text-[20px] leading-snug text-navy/55 md:text-[26px] xl:text-[35px] xl:leading-[1.2]">
-                {blog.excerpt}
-              </p>
-            </Reveal>
-            <div className="mt-10 flex flex-col gap-6 text-[17px] leading-[1.4] text-navy/85 md:mt-14 md:text-[21px]">
+            {/* ⚠️ GİRİŞ PARAGRAFI KALDIRILDI. Master'da gövdenin başında 35px'lik
+                açık renkli bir paragraf var, ama orada o metin hero'daki özetten
+                FARKLI. Bizde ikisi de `blog.excerpt` olduğu için aynı cümle iki
+                kez arka arkaya çıkıyordu. Özet hero'da kalıyor; ekipten yazıya
+                özel bir "giriş paragrafı" alanı gelirse buraya döner.
+                (Denetimde yakalandı, 2026-09-11.) */}
+            <div className="flex flex-col gap-6 text-[17px] leading-[1.4] text-navy/85 md:text-[21px]">
               {renderBody(blog.body)}
             </div>
             <Reveal>
@@ -272,40 +339,6 @@ export default async function BlogDetayPage({
                 {blog.cta.label}
               </Link>
             </Reveal>
-
-            {/* ── ÖNCEKİ / SONRAKİ YAZI ──────────────────────────────────
-                Master'da gövdenin altında "previous article" bağlantısı var
-                (12px). Bizde ikisi birden: okuyucu yazı bitince listeye geri
-                dönmeden komşu yazıya geçebiliyor. */}
-            <nav
-              aria-label="Yazılar arası gezinme"
-              className="mt-16 flex flex-wrap justify-between gap-6 border-t hairline pt-8"
-            >
-              <Link
-                href={`/blog/${onceki.slug}`}
-                data-imlec="Oku"
-                className="group max-w-[45%] min-w-[45%] grow"
-              >
-                <span className="block text-[12px] uppercase tracking-[0.14em] text-navy/50">
-                  Önceki yazı
-                </span>
-                <span className="link-grow mt-2 inline-block text-[15px] font-medium leading-snug text-navy md:text-[18px]">
-                  {onceki.title}
-                </span>
-              </Link>
-              <Link
-                href={`/blog/${sonraki.slug}`}
-                data-imlec="Oku"
-                className="group max-w-[45%] min-w-[45%] grow text-right"
-              >
-                <span className="block text-[12px] uppercase tracking-[0.14em] text-navy/50">
-                  Sonraki yazı
-                </span>
-                <span className="link-grow link-grow-sag mt-2 inline-block text-[15px] font-medium leading-snug text-navy md:text-[18px]">
-                  {sonraki.title}
-                </span>
-              </Link>
-            </nav>
           </div>
         </div>
       </article>
