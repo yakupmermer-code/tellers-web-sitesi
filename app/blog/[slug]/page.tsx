@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
-import MediaReveal from "@/components/MediaReveal";
+import HeroZoom from "@/components/HeroZoom";
 import KapanisSection from "@/components/KapanisSection";
 import { BLOGS, getBlog } from "@/content/blogs";
 import JsonLd from "@/components/JsonLd";
@@ -135,54 +135,78 @@ export default async function BlogDetayPage({
           ]),
         )}
       />
-      {/* Ekip notu (2026-08-14): başlık + "tellers — tarih" üstte kalır, hero
-          görseli metin kolonundan çıkarılıp tam genişliğe alındı ve temanın
-          perde açılma efekti (MediaReveal) ile açılır. */}
-      {/* ÜST DOLGU HEADER PAYINI DA İÇERİR — küçültme.
-          Bu sayfa `mt-24`'lü bir hero'ya sahip DEĞİL, yani buradaki pt hem
-          sabit header'ın (h-24 = 96px) altından çıkmayı hem nefes boşluğunu
-          birlikte veriyor. Toplu boşluk kısaltmasında pt-24'e (=tam 96px)
-          düşmüştü: başlık telefonda menü çubuğuna değiyordu (code-reviewer
-          bulgusu, 2026-09-02). 128px = 96 header + 32 nefes. */}
-      <article className="pb-20 pt-32 md:pt-40">
-        <div className="mx-auto max-w-[900px] px-5 md:px-10">
-          <Reveal mask>
-            <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
-              {blog.title}
-            </h1>
-          </Reveal>
-          <Reveal delay={0.03} className="mt-5">
-            <p className="text-lg leading-relaxed text-navy/70">
-              {blog.excerpt}
-            </p>
-          </Reveal>
-          <Reveal delay={0.05} className="mt-4">
-            <p className="text-sm text-navy/50">
-              <span className="font-bold text-navy">tellers</span> — {blog.date}
-            </p>
-          </Reveal>
-        </div>
+      {/* ── HERO — MASTER /journal/[slug] DÜZENİ ──────────────────────────
+          Revize dökümanı: "Blog detay sayfası yukarıdaki gibi olmayacak.
+          Bloglarda detay sayfaları örnek temadaki efekt ile açılmalı, SLIDER
+          ALANINI GÖRSEL FULL KAPLAMALI."
 
-        <div className="mt-12 md:mt-16">
-          <MediaReveal>
-            {/* Blog görsellerinin 6'sı kare (1080x1080), 2'si geniş
-                (blog-1 ve blog-8: 1920x1080). Tam genişlikte h-auto verilirse
-                kareler ekran boyu bir duvar oluyor; sabit 16/9 banner oranı +
-                object-cover ile hepsi aynı yükseklikte ve öngörülebilir olur
-                (dvh kullanılmadı: iOS'ta adres çubuğu açılıp kapanırken
-                bandın yüksekliği zıplıyordu). */}
-            <Image
-              src={blog.image}
-              alt={blog.title}
-              width={1920}
-              height={1080}
-              priority
-              className="aspect-[16/9] w-full object-cover"
-              sizes="100vw"
-            />
-          </MediaReveal>
-        </div>
+          ÖNCEKİ HÂL: başlık + özet + tarih beyaz zeminde, LACİVERT yazıyla,
+          900px'lik metin kolonunda duruyordu; görsel onların ALTINDA ayrı bir
+          16/9 bant olarak geliyordu. Master'da bunun tam tersi.
 
+          MASTER ÖLÇÜMÜ (1440px, canlı, 2026-09-11):
+            hero  → görsel kabı boydan boya kaplıyor, `object-fit: cover`
+            H1    → 72px/600, BEYAZ, x=40, y=376
+            özet  → 28px/500, beyaz, x=40, y=559
+            metin bloğu hero'nun dikey ORTASINDA (merkez ~480, hero ~934px)
+
+          `data-koyu-bolum` → üst bar bu bölümde saydam kalıp yazılarını beyaz
+          bassın (components/Header.tsx ölçüyor).
+          `data-imlec-koyu` → özel imleç fotoğrafın parlaklığını CSS'ten
+          okuyamıyor; işaret olmadan lacivert nokta koyu görselde kaybolur
+          (bkz. components/Imlec.tsx). */}
+      <section
+        data-koyu-bolum
+        data-imlec-koyu
+        className="relative h-[78vh] min-h-[480px] overflow-hidden bg-navy"
+      >
+        {/* Açılışta 1.28 ölçekten oturur — sitenin hero kalıbı. Dökümanın
+            "örnek temadaki efekt ile açılmalı" maddesi bu. */}
+        <HeroZoom className="absolute inset-0">
+          <Image
+            src={blog.image}
+            alt=""
+            width={1920}
+            height={1080}
+            priority
+            className="h-full w-full object-cover"
+            sizes="100vw"
+          />
+        </HeroZoom>
+
+        {/* Okunurluk örtüsü: master'da da var, metinler onun üzerinde. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-navy/55"
+        />
+
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10">
+            <Reveal mask>
+              {/* `font-semibold` (600): master'da H1 72px/600 ölçüldü, 700 değil. */}
+              <h1 className="text-[30px] font-semibold leading-[1.1] tracking-tight text-white md:text-[50px] xl:text-[72px]">
+                {blog.title}
+              </h1>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-4xl text-[16px] font-medium leading-snug text-white/95 md:text-[21px] xl:text-[28px]">
+                {blog.excerpt}
+              </p>
+            </Reveal>
+            {/* Döküman: "Yazan yerinde tellers yazacak ve blogların eklenme
+                tarihi yer alacak." */}
+            <Reveal delay={0.1}>
+              <p className="mt-5 text-[13px] text-white/80 md:text-[15px]">
+                Yazan: tellers — {blog.date}
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ÜST DOLGU YOK: hero artık header'ın altından başlıyor ve barı
+          kendisi kapatıyor. */}
+      <article className="pb-20">
         <div className="mx-auto max-w-[900px] px-5 md:px-10">
           <div className="mt-12 flex flex-col gap-6 text-lg text-navy/75 md:mt-16">
             {renderBody(blog.body)}
