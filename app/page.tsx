@@ -588,13 +588,22 @@ export default function HomePage() {
           revize talebinde o şekilde değil"). Üç eşit sütun yan yanaydı ve
           kartların içi boştu.
 
-          DOĞRUSU — master temanın PORTFOLYO sayfasından ölçüldü
-          (arpeggio.framer.website/work, 1440px):
-            · kart 674x800 → oran 0,84 (`aspect-[674/800]`)
-            · İKİ sütunlu ızgara, 12px ara; üç kart olunca ikisi üstte biri altta
-            · kartın İÇİNDE bilgi var: üstte açıklama 35px/500, sol altta
-              müşteri 19px/500 + hizmet 21px/500, sağ altta tarih 17px/400
-          Bizde puntolar sitenin ölçeğine oturtuldu (28/19/17/15).
+          DOĞRUSU — ekibin ekran görüntüsündeki alan master temanın PORTFOLYO
+          DETAY sayfası (arpeggio.framer.website/work/velocity-motors). Yakup'un
+          tarayıcısında canlı ölçüldü (2026-09-10, 1440px):
+            · kart 427x940 → oran 0,454 (`aspect-[427/940]`) — çok uzun ve dar
+            · ÜÇ EŞİT sütun, hepsi aynı hizada, 40px ara
+            · (1440 - 80 kenar - 80 ara) / 3 = 426,7 ✔ birebir tutuyor
+
+          ⚠️ EKRAN GÖRÜNTÜSÜNDEKİ "KADEMELİ" GÖRÜNTÜ YANILTICI: kartlar aslında
+          eşit ve hizalı. Kaymış görünmelerinin sebebi parallax — `<img>`ler
+          kaplarından büyük (555px) ve kap içinde kayıyorlar. Bir ara bu
+          görüntüye bakıp 2 sütunlu (2+1) düzen kurulmuştu, yanlıştı.
+
+          KART İÇİ YAZI: master'da bu kartların üstünde HİÇ YAZI YOK (ölçüldü,
+          kesişen metin sayısı 0; tek metin kısa kartın ALTINDAKİ teknoloji
+          listesi). Bizde yazı KALIYOR — Yakup 2026-09-10: "yoksa da eğer bizde
+          olsun, sadece ölçüleri bu şekilde yap." Bilinçli sapma.
 
           ÜZERİNE GELİNCE: bilgi bloğu sönüyor, yerini lacivert karartma + logo
           alıyor. Karartma dökümanın ayrı bir isteği ve Yakup 2026-09-10'da
@@ -606,7 +615,7 @@ export default function HomePage() {
           ⚠️ Savronik ve Atlantis'in DİKEY görseli yok; yatay kaynaklar
           kırpılıyor. Dikey çekim gelince `gorsel`/`odak` güncellenecek. */}
         <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-3 md:gap-10">
             {(
               [
                 {
@@ -620,10 +629,12 @@ export default function HomePage() {
                     "savronik",
                     "Savunma sektöründe yaratıcı marka tanıtım filmi.",
                   ),
-                  // Kart 674px, kaynak 2:1 → kutuyu doldurmak için 674/0,84x2
-                  // ≈ 1600px gerekiyor; kaynak 1774px, tam yetiyor.
+                  // Kart 427x940. `object-cover` kutuyu doldurmak için görselin
+                  // BOYUNU esas alıyor: gereken genişlik = 940 x kaynak oranı.
+                  // Savronik 2:1 → 1880px gerekiyor, kaynak 1774px (%94) —
+                  // 2x retinada bir tık yumuşak kalır, dikey çekim gelince biter.
                   sizes:
-                    "(min-width: 1440px) 1600px, (min-width: 768px) 111vw, 238vw",
+                    "(min-width: 1440px) 1880px, (min-width: 768px) 123vw, 250vw",
                 },
                 {
                   slug: "atlantis",
@@ -635,8 +646,9 @@ export default function HomePage() {
                     "atlantis",
                     "Akıllı sulama sistemlerinde dijital pazarlama operasyonu.",
                   ),
+                  // 940 x 1,5 = 1410px gerekiyor; kaynak 1536px, yetiyor.
                   sizes:
-                    "(min-width: 1440px) 1200px, (min-width: 768px) 83vw, 179vw",
+                    "(min-width: 1440px) 1410px, (min-width: 768px) 93vw, 188vw",
                 },
                 {
                   slug: "bfit",
@@ -655,9 +667,9 @@ export default function HomePage() {
                     "bfit",
                     "Türkiye'nin en büyük spor franchise markasına markalama.",
                   ),
-                  // Kaynak 0,80, kart 0,84 → neredeyse birebir, kırpma yok.
+                  // 940 x 1,5 = 1410px gerekiyor; kaynak TAM 1410px — birebir.
                   sizes:
-                    "(min-width: 1440px) 674px, (min-width: 768px) 47vw, 100vw",
+                    "(min-width: 1440px) 1410px, (min-width: 768px) 93vw, 188vw",
                 },
               ] satisfies OnizlemeVerisi[]
             ).map((m, i) => (
@@ -665,7 +677,7 @@ export default function HomePage() {
                 <PortfolyoOnizleme
                   {...m}
                   {...olcu(m.gorsel)}
-                  className="aspect-[674/800]"
+                  className="aspect-[4/5] md:aspect-[427/940]"
                 />
               </Reveal>
             ))}

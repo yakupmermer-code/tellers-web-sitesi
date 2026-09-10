@@ -110,23 +110,23 @@ export default function PortfolyoOnizleme({
           {/* `md:` tek başına yetmiyordu: 767→768'de kart 2,15 kat KÜÇÜLÜRKEN
               punto 1,4 kat BÜYÜYOR, yani yazı/kart oranı üçe katlanıyordu.
               Ara kademeler eklendi. */}
-          <p className="absolute inset-x-0 top-0 px-5 pt-6 text-[18px] font-medium leading-[1.15] tracking-[-0.03em] text-white md:px-8 md:pt-8 md:text-[20px] lg:text-[24px] xl:text-[28px]">
+          <p className="absolute inset-x-0 top-0 px-5 pt-6 text-[17px] font-medium leading-[1.15] tracking-[-0.03em] text-white md:px-7 md:pt-7 md:text-[18px] lg:text-[20px] xl:text-[23px]">
             {bilgi.baslik}
           </p>
           {/* Punto hiyerarşisi master temadan: müşteri 19/500, HİZMET 21/500 —
               yani hizmet müşteriden BÜYÜK (arpeggio /work'te ölçüldü). Bir ara
               hizmet 17/400 yazılmıştı, hiyerarşi ters dönüyordu. */}
-          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-5 pb-6 md:px-8 md:pb-8">
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 px-5 pb-6 md:px-7 md:pb-7">
             <div className="min-w-0">
-              <p className="text-[14px] font-medium text-white/80 md:text-[16px] lg:text-[19px]">
+              <p className="text-[13px] font-medium text-white/80 md:text-[14px] lg:text-[16px]">
                 {bilgi.musteri}
               </p>
-              <p className="mt-0.5 text-[15px] font-medium text-white md:text-[17px] lg:text-[21px]">
+              <p className="mt-0.5 text-[14px] font-medium text-white md:text-[15px] lg:text-[18px]">
                 {bilgi.hizmet}
               </p>
             </div>
             {bilgi.yil && (
-              <p className="shrink-0 text-[12px] text-white/70 md:text-[14px] lg:text-[17px]">
+              <p className="shrink-0 text-[11px] text-white/70 md:text-[12px] lg:text-[14px]">
                 {bilgi.yil}
               </p>
             )}
