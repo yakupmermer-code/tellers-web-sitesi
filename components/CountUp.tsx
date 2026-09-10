@@ -36,6 +36,16 @@ export default function CountUp({
   // "22.872.000" gibi noktalı binlik bloklarını tek sayı olarak yakala
   const match = value.match(/\d[\d.]*/);
 
+  /*
+   * HİDRASYON İŞARETİ. Sunucuda basılan çıktı ile ilk istemci render'ı birebir
+   * aynı olmak zorunda; sayaç ancak istemcide bağlandıktan SONRA çalışabilir.
+   * Bunun standart yolu mount'ta bir bayrak kurmaktır.
+   * `react-hooks/set-state-in-effect` kuralı effect içinde `setState`i genel
+   * olarak uyarıyor (haklı: çoğu durumda cascading render doğurur) ama bu
+   * kalıp o istisnaya giriyor — bayrak bir kez kuruluyor, döngü yok.
+   * Direktif olmadan `npm run lint` HATA ile dönüyordu.
+   */
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setBagli(true), []);
 
   useEffect(() => {

@@ -303,7 +303,6 @@ export default function Imlec() {
      * `false` görürdü. (Bir tur guard gerçekten bayattı; zararsızdı ama
      * kaydırma tazelemesi eklenince ref'e ihtiyaç doğdu.)
      */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const v = etiket === null ? null : (VARYANTLAR[etiket] ?? VARSAYILAN);

@@ -170,7 +170,7 @@ export default function HeroYouTube({ className }: { className?: string }) {
    * postMessage dinleyicisini kurduğunu değil. Erken giden mesaj sessizce
    * düşer, `onStateChange` hiç gelmez ve JS döngüsü ölür — video bir kez
    * oynayıp donar, üstelik HATA DA VERMEZ (sessiz bozulma).
-   * Oyuncudan ilk cevap gelir gelmez duruyoruz; en fazla 10 deneme.
+   * Oyuncudan ilk cevap gelir gelmez duruyoruz; en fazla 20 deneme (10 sn).
    * (Denetimde yakalandı, 2026-09-10.)
    */
   useEffect(() => {
@@ -213,7 +213,12 @@ export default function HeroYouTube({ className }: { className?: string }) {
    * kopduğunda videonun donmasını engelliyor.
    */
   useEffect(() => {
-    const id = window.setInterval(uygula, 3000);
+    const id = window.setInterval(() => {
+      /* Hero ekran dışındayken zaten duraklamış bir oynatıcıya komut yollamanın
+         anlamı yok; IntersectionObserver çıkışta bir kez `pauseVideo` yolluyor. */
+      if (!heroGorunur.current) return;
+      uygula();
+    }, 3000);
     return () => window.clearInterval(id);
   }, [uygula]);
 
@@ -287,7 +292,14 @@ export default function HeroYouTube({ className }: { className?: string }) {
        * kullanıcı yukarı dönünce onu görüyor. İframe'i saydamlaştırmak işareti
        * de birlikte gizliyor; video yeniden oynayınca (durum 1) geri açılıyor.
        */
-      if (durum === 2) {
+      /*
+       * `!elleDurduruldu` ŞART. Gizleme, KAYDIRINCA otomatik duraklatmada
+       * YouTube'un ortadaki pause ikonunu saklamak için. Kullanıcı duraklat
+       * düğmesine bastığındaysa donmuş kareyi GÖRMEK istiyor; orada da
+       * gizlenince hero ~5,7 sn boyunca boş degradeye dönüp sonra zaten
+       * gizlenmek istenen pause ikonuyla geri geliyordu. (Denetimde yakalandı.)
+       */
+      if (durum === 2 && !elleDurduruldu.current) {
         setOynuyor(false);
         /*
          * 🔴 GİZLEME TEK YÖNLÜ KALMAMALI. `oynuyor` bayrağını false'a çekmek

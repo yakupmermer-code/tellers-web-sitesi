@@ -69,10 +69,10 @@ export default function BlogIkili() {
   }, []);
 
   /*
-   * `ilk` BAĞIMLILIKTA — göstergeye basınca sayaç SIFIRLANIR.
-   * Bir tur bağımlılıkta yoktu ve kullanıcının açık seçimi 466 ms sonra
-   * zamanlayıcı tarafından sessizce geri alınabiliyordu (denetimde deterministik
-   * olarak üretildi).
+   * `ilk` BAĞIMLILIKTA. Özgün gerekçesi "göstergeye basınca sayaç sıfırlansın"
+   * idi; göstergeler kaldırıldığı için o gerekçe düştü. Bugünkü etkisi: her
+   * adımda interval yeniden kuruluyor, yani bekleme süresi her kaymadan sonra
+   * baştan sayılıyor. Davranış doğru ve zararsız — bağımlılık bilerek duruyor.
    */
   /*
    * 🔴 "HAREKETİ AZALT" AÇIKKEN DE DÖNÜYOR, YALNIZ KAYMIYOR.
@@ -115,11 +115,25 @@ export default function BlogIkili() {
     return () => window.clearTimeout(t);
   }, [ilk]);
 
-  /* Başa alma bittikten sonra geçişi bir kare sonra geri aç. */
+  /*
+   * Başa alma bittikten sonra geçişi geri aç — ÇİFT rAF ile.
+   * "transform'u sıfırla → transition'ı geri aç" kalıbının güvenli hâli budur:
+   * tek rAF'ta `setGecisli(true)` commit'i tarayıcının stil hesabından ÖNCE
+   * gelirse şerit dört ekran boyunca GERİYE kayarak dönerdi. React'in
+   * zamanlayıcısı bugün büyük ihtimalle araya giriyor ama bu, sürüm
+   * davranışına bağlı ince bir varsayım; ikinci kare bedava sigorta.
+   * (Denetimde işaretlendi.)
+   */
   useEffect(() => {
     if (gecisli) return;
-    const r = requestAnimationFrame(() => setGecisli(true));
-    return () => cancelAnimationFrame(r);
+    let ic = 0;
+    const dis = requestAnimationFrame(() => {
+      ic = requestAnimationFrame(() => setGecisli(true));
+    });
+    return () => {
+      cancelAnimationFrame(dis);
+      cancelAnimationFrame(ic);
+    };
   }, [gecisli]);
 
   /*
@@ -135,7 +149,20 @@ export default function BlogIkili() {
     }
   }, [ilk]);
 
-  /* Liste iki kez basılı — sonsuz akışın sıçramasız dönüşü için (yukarı bak). */
+  /*
+   * Liste iki kez basılı — sonsuz akışın sıçramasız dönüşü için (yukarı bak).
+   *
+   * ⚠️ `BLOGS.length` ÇİFT OLMAK ZORUNDA (ADIM = 2). Tek sayıda `ilk` sarma
+   * noktasını tam tutturamaz: 7 yazıda `ilk` 8'e çıkar, ekranda BLOGS[1],[2]
+   * olur ama başa dönüşte BLOGS[0],[1] gelir — görünür bir geri sıçrama.
+   * Bugün 8 yazı var; bir yazı eklenip/silinince sessizce bozulmasın diye
+   * geliştirmede uyarı basılıyor. (Denetimde işaretlendi.)
+   */
+  if (process.env.NODE_ENV !== "production" && BLOGS.length % ADIM !== 0) {
+    console.warn(
+      `BlogIkili: BLOGS.length (${BLOGS.length}) ADIM'ın (${ADIM}) katı değil — şerit başa dönerken sıçrar.`,
+    );
+  }
   const SERIT = [...BLOGS, ...BLOGS];
 
   // İki karta bölünemeyecek kadar az yazı varsa karusel anlamsız.
@@ -189,10 +216,19 @@ export default function BlogIkili() {
           {SERIT.map((b, i) => (
             <div
               key={i}
+              /*
+               * İKİNCİ KOPYA YARDIMCI TEKNOLOJİLERE GÖRÜNMEZ. Şerit sonsuz
+               * akış için listeyi iki kez basıyor; işaretlenmeseydi ekran
+               * okuyucu her yazıyı İKİ KEZ okur, klavyeyle Tab'layan kullanıcı
+               * da ekranın dışındaki kopyalara odaklanıp odak halkasını
+               * kaybederdi. (Denetimde yakalandı.)
+               */
+              aria-hidden={i >= BLOGS.length ? true : undefined}
               className="px-3 md:px-5"
               style={{ width: `${100 / SERIT.length}%` }}
             >
               <Link
+                tabIndex={i >= BLOGS.length ? -1 : undefined}
                 href={`/blog/${b.slug}`}
                 aria-label={`${b.title} — yazıyı oku`}
                 data-imlec="Oku"
@@ -264,9 +300,22 @@ export default function BlogIkili() {
    isteyen de tüm yazılara tıklayabilir").
    Burada görünür bir duraklat düğmesi ve durak göstergeleri vardı.
 
-   🟠 BUNUN BİR BEDELİ VAR: WCAG 2.2.2 (Duraklat/Durdur/Gizle), 5 saniyeden
-   uzun süren ve kendiliğinden hareket eden içerik için GÖRÜNÜR bir kontrol
-   ister. Üzerine gelince ve klavyeyle odaklanınca dönme hâlâ duruyor, ayrıca
-   `prefers-reduced-motion` açıksa şerit hiç kaymıyor — yani mekanizma var ama
-   keşfedilebilir değil. Bilinçli bir sapma; bildirildi.
+   🟠 BUNUN BİR BEDELİ VAR ve bugün İLK YAZILDIĞINDAN DAHA BÜYÜK. WCAG 2.2.2
+   (Duraklat/Durdur/Gizle) 5 saniyeden uzun süren, kendiliğinden hareket eden
+   içerik için GÖRÜNÜR bir kontrol ister. Bu yorum bir tur "üzerine gelince ve
+   klavyeyle odaklanınca duruyor, reduced-motion'da hiç kaymıyor" diyordu;
+   ikisi de artık DOĞRU DEĞİL — sonraki turlarda fareyle duraklatma kaldırıldı
+   (Yakup "kaymıyor" diye bildirdiği için) ve `prefers-reduced-motion`
+   dönmeyi durdurmaktan çıkarıldı (o makinede alan tamamen ölü görünüyordu).
+
+   BUGÜN GEÇERLİ DURUM:
+     · görünür duraklat kontrolü → YOK
+     · fareyle duraklatma        → YOK
+     · klavye odağıyla duraklatma → VAR (tek kalan mekanizma)
+     · "hareketi azalt" açıkken   → içerik 4,5 sn'de bir ANİDEN değişiyor
+       (kayma yok ama sıçrama var; vestibüler hassasiyette bu yumuşak
+       kaymadan daha rahatsız edici olabilir)
+
+   Bilinçli bir sapma ve Yakup'a bildirildi; ama gerekçesi yukarıdaki gibi
+   OLDUĞU HÂLİYLE yazılmalı, olmadığı hâliyle değil. (Denetimde yakalandı.)
 */

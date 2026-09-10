@@ -65,20 +65,24 @@ export default function ClosingCta({
                     `cizgi-alt` aynı çizgiyi konumlandırmaya karışmadan verir.
                     `text-white` şart — çizgi `currentColor` kullanıyor ve bu
                     alanların içinde metin yok (yazı görselin İÇİNDE basılı).
-                    KUTU METNE OTURTULDU: yazı görselin %75,0-77,8 aralığında;
+                    KUTU YAZIYA TAM OTURTULDU — yatayda da: kutular bir tur
+                    %32-49 ve %51-67 idi, oysa yazılar %33,8-47,1 ve %51,8-65,4.
+                    Çizgi hover'da kutunun tamamına uzadığı için 1440px'lik
+                    görselde her iki yandan ~26px taşıyordu (denetimde yakalandı).
+                    Dikeyde: yazı görselin %75,0-77,8 aralığında;
                     çizgi `bottom: -4px`'te bittiği için kutu da %74,5-78,5
                     yapıldı, yoksa çizgi yazıdan ~20px aşağıda havada kalıyordu. */}
                 <a
                   href={`tel:${SITE.phone}`}
                   aria-label="Görüşme planlayın — bizi arayın"
-                  className="cizgi-alt absolute left-[32%] top-[74.5%] h-[4%] w-[17%] text-white"
+                  className="cizgi-alt absolute left-[33.8%] top-[74.5%] h-[4%] w-[13.3%] text-white"
                 />
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp'tan yazın"
-                  className="cizgi-alt absolute left-[51%] top-[74.5%] h-[4%] w-[16%] text-white"
+                  className="cizgi-alt absolute left-[51.8%] top-[74.5%] h-[4%] w-[13.6%] text-white"
                 />
               </>
             )}

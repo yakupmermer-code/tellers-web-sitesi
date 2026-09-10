@@ -82,6 +82,32 @@ export default function SmoothScroll() {
     if (gezinme?.type === "reload") {
       if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       window.scrollTo(0, 0);
+
+      /*
+       * 🔴 "manual" GERİ ALINMAK ZORUNDA. `history.scrollRestoration` bir kez
+       * "manual" yapıldığında aynı sekmedeki SONRAKİ geçmiş girişlerine miras
+       * kalıyor (yeni giriş, mevcut girişin modunu kopyalayarak doğuyor) ve
+       * Next bu değere hiç dokunmuyor — denetimde `node_modules/next` taranıp
+       * doğrulandı, `popstate`te kaydırmayı tamamen TARAYICI geri yüklüyor.
+       *
+       * Yani bir kez F5'e basmak, o sekmede geri/ileri tuşunu KALICI olarak
+       * bozuyordu: kullanıcı bir yazıyı okuyup geri geldiğinde kaldığı yeri
+       * değil sayfa başını görüyordu. Bu satırların ilk hâlindeki yorum tam
+       * tersini iddia ediyordu ("geri/ileri bozulmasın diye yalnız yenilemede")
+       * — kod, yazılı gerekçesinin tersini yapıyordu. (Denetimde yakalandı.)
+       *
+       * `load`'DA GERİ VERİLİYOR, HEMEN DEĞİL: tarayıcı kaydırmayı bu effect
+       * çalıştıktan sonra da geri yükleyebilir; "auto"ya erken dönmek başa
+       * dönme düzeltmesini iptal ederdi.
+       */
+      const tarayiciyaBirak = () => {
+        if ("scrollRestoration" in history) history.scrollRestoration = "auto";
+      };
+      if (document.readyState === "complete") {
+        window.setTimeout(tarayiciyaBirak, 0);
+      } else {
+        window.addEventListener("load", tarayiciyaBirak, { once: true });
+      }
     }
 
     const azalt = window.matchMedia("(prefers-reduced-motion: reduce)");
