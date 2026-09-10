@@ -97,30 +97,39 @@ export default function PortfolyoOnizleme({
           Üzerine gelince SÖNÜYOR: yerini karartma + logo alıyor, iki katman
           üst üste binmesin. */}
       {bilgi && (
-        <div className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-0">
-          <div
-            aria-hidden
-            className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-navy/75 to-transparent"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-navy/80 to-transparent"
-          />
-          <p className="absolute inset-x-0 top-0 px-5 pt-6 text-[20px] font-medium leading-[1.15] tracking-[-0.03em] text-white md:px-8 md:pt-8 md:text-[28px]">
+        <div className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-500 ease-[var(--ease-lux)] group-hover:opacity-0 group-focus-visible:opacity-0">
+          {/* Perde yüksekliği 45→55: degrade KART YÜKSEKLİĞİNİN yüzdesi, başlık
+              ise sabit piksel. Kart daralınca degrade küçülüyor ama başlık satır
+              sayısı artarak BÜYÜYOR — ters yönde hareket ediyorlardı. 768px'te
+              Atlantis başlığı 4 satıra çıkıp degradenin dışına taşıyordu; son
+              satırda alfa 0,09'a düşüyor ve beyaz laptop görselinin üstünde
+              kontrast 1,21'e iniyordu (denetimde 13 ekran genişliğinde ölçüldü).
+              Punto kademesi de aşağıda düzeltildi — iki taraftan birden. */}
+          <div className="absolute inset-x-0 top-0 h-[55%] bg-gradient-to-b from-navy/75 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-navy/80 to-transparent" />
+          {/* `md:` tek başına yetmiyordu: 767→768'de kart 2,15 kat KÜÇÜLÜRKEN
+              punto 1,4 kat BÜYÜYOR, yani yazı/kart oranı üçe katlanıyordu.
+              Ara kademeler eklendi. */}
+          <p className="absolute inset-x-0 top-0 px-5 pt-6 text-[18px] font-medium leading-[1.15] tracking-[-0.03em] text-white md:px-8 md:pt-8 md:text-[20px] lg:text-[24px] xl:text-[28px]">
             {bilgi.baslik}
           </p>
+          {/* Punto hiyerarşisi master temadan: müşteri 19/500, HİZMET 21/500 —
+              yani hizmet müşteriden BÜYÜK (arpeggio /work'te ölçüldü). Bir ara
+              hizmet 17/400 yazılmıştı, hiyerarşi ters dönüyordu. */}
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 px-5 pb-6 md:px-8 md:pb-8">
-            <div>
-              <p className="text-[15px] font-medium text-white md:text-[19px]">
+            <div className="min-w-0">
+              <p className="text-[14px] font-medium text-white/80 md:text-[16px] lg:text-[19px]">
                 {bilgi.musteri}
               </p>
-              <p className="mt-1 text-[13px] text-white/70 md:text-[17px]">
+              <p className="mt-0.5 text-[15px] font-medium text-white md:text-[17px] lg:text-[21px]">
                 {bilgi.hizmet}
               </p>
             </div>
-            <p className="shrink-0 text-[12px] text-white/70 md:text-[15px]">
-              {bilgi.yil}
-            </p>
+            {bilgi.yil && (
+              <p className="shrink-0 text-[12px] text-white/70 md:text-[14px] lg:text-[17px]">
+                {bilgi.yil}
+              </p>
+            )}
           </div>
         </div>
       )}

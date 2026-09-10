@@ -15,6 +15,7 @@ import { SITE } from "@/content/site";
 import JsonLd from "@/components/JsonLd";
 import { grafik, sayfaSemasi, paylasim } from "@/lib/seo";
 import { gorselOlcu } from "@/lib/gorsel";
+import { getBrand } from "@/content/brands";
 import type { Metadata } from "next";
 
 /**
@@ -66,6 +67,33 @@ const olcu = (src: string) => {
  *  kullanmak zorunda — ayrışırsa `gorselOlcu` sessizce 16:9 varsayılanına
  *  düşer, ne derleme hatası ne uyarı verir (denetimde yakalandı). */
 const MYNOVA_GORSEL = "/assets/brands/mynova/gorsel-3.png";
+
+/**
+ * Kart içi bilgi bloğunu `content/brands.ts`ten üretir — TEK KAYNAK.
+ *
+ * Bir tur elle yazılmıştı ve daha yazılırken ayrışmıştı: yıl `brands.ts`te
+ * "2022-2023" (düz tire), kartta "2022–2023" (uzun tire) — aynı yıl sitenin iki
+ * yerinde iki farklı karakterle çıkıyordu.
+ *
+ * 🔴 ASIL SEBEP `tarihTeyitsiz` KALKANI: `app/portfolyo/page.tsx` teyit
+ * edilmemiş tarihleri BASMIYOR (security-auditor bulgusu). Elle yazınca ana
+ * sayfa bu kalkanı baypas ediyordu; ekip yarın bir markayı teyitsiz işaretlese
+ * ana sayfa doğrulanmamış tarihi göstermeye devam ederdi. Anayasa: "Doğrulanamayan
+ * alan hiç basılmaz."
+ *
+ * `baslik` hâlâ elle: `brands.ts`teki `headline` SEO başlığı (Başlık Düzeni,
+ * uzun); kartta cümle gerekiyor. Ekleneceği yer belli olunca oraya taşınır.
+ */
+const kartBilgisi = (slug: string, baslik: string) => {
+  const m = getBrand(slug);
+  if (!m) throw new Error(`Bilinmeyen marka: ${slug}`);
+  return {
+    baslik,
+    musteri: m.name,
+    hizmet: m.listService,
+    yil: m.tarihTeyitsiz ? "" : m.year,
+  };
+};
 
 const ANA_ACIKLAMA =
   "Mastercard, Bardahl, Konica Minolta ve Fairmont'un tercih ettiği ajans. 3 kıta, 15 ülkede performans pazarlama, dijital pazarlama, markalama ve kreatif tasarım.";
@@ -588,12 +616,10 @@ export default function HomePage() {
                   aciklama: "yaratıcı marka tanıtım filmi",
                   logo: "savronik",
                   odak: "object-center",
-                  bilgi: {
-                    baslik: "Savunma sektöründe yaratıcı marka tanıtım filmi.",
-                    musteri: "Savronik",
-                    hizmet: "Yaratıcı Marka Tanıtım Filmi",
-                    yil: "2022–2023",
-                  },
+                  bilgi: kartBilgisi(
+                    "savronik",
+                    "Savunma sektöründe yaratıcı marka tanıtım filmi.",
+                  ),
                   // Kart 674px, kaynak 2:1 → kutuyu doldurmak için 674/0,84x2
                   // ≈ 1600px gerekiyor; kaynak 1774px, tam yetiyor.
                   sizes:
@@ -605,30 +631,30 @@ export default function HomePage() {
                   marka: "Atlantis",
                   aciklama: "tarım sulama teknolojilerinde dijital pazarlama",
                   odak: "object-[35%_50%]",
-                  bilgi: {
-                    baslik:
-                      "Akıllı sulama sistemlerinde dijital pazarlama operasyonu.",
-                    musteri: "Atlantis Center Pivot",
-                    hizmet: "Performans Pazarlama & Dijital Pazarlama",
-                    yil: "2024",
-                  },
+                  bilgi: kartBilgisi(
+                    "atlantis",
+                    "Akıllı sulama sistemlerinde dijital pazarlama operasyonu.",
+                  ),
                   sizes:
                     "(min-width: 1440px) 1200px, (min-width: 768px) 83vw, 179vw",
                 },
                 {
                   slug: "bfit",
-                  gorsel: "/assets/brands/bfit/g1.jpg",
+                  // g1.jpg DEĞİL: o görselin İÇİNE "TÜRKİYE'NİN EN BÜYÜK SPOR
+                  // FRANCHISE MARKASI" + "KENDİN İÇİN BAŞLA." + bfit wordmark'ı
+                  // basılı. Bizim başlığımız neredeyse aynı cümle olduğu için
+                  // üst üste biniyordu ve kartta üç ayrı bfit işareti çıkıyordu
+                  // (denetimde yakalandı). banner.jpg temiz: yalnız stüdyo
+                  // cephesi ve tabela.
+                  gorsel: "/assets/brands/bfit/banner.jpg",
                   marka: "bfit",
                   aciklama: "markalama ve performans pazarlama",
                   logo: "bfit",
                   odak: "object-center",
-                  bilgi: {
-                    baslik:
-                      "Türkiye'nin en büyük spor franchise markasına markalama.",
-                    musteri: "bfit",
-                    hizmet: "Markalama & Performans Pazarlama",
-                    yil: "2023–Devam ediyor",
-                  },
+                  bilgi: kartBilgisi(
+                    "bfit",
+                    "Türkiye'nin en büyük spor franchise markasına markalama.",
+                  ),
                   // Kaynak 0,80, kart 0,84 → neredeyse birebir, kırpma yok.
                   sizes:
                     "(min-width: 1440px) 674px, (min-width: 768px) 47vw, 100vw",
