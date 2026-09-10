@@ -21,7 +21,14 @@ export default function ClosingCta({
 }) {
   return (
     <>
-      <section aria-label="Bizimle çalışın" className="relative">
+      {/* `data-imlec-koyu`: bu bölümün zemini KOYU BİR FOTOĞRAF. Özel imleç
+          zemin parlaklığını CSS'ten okuyor ve fotoğraflarda okuyamıyor — işaret
+          olmadan lacivert nokta karanlık görselde kayboluyordu. */}
+      <section
+        aria-label="Bizimle çalışın"
+        data-imlec-koyu
+        className="relative"
+      >
         <Reveal>
           <div className="relative">
             <Image
@@ -42,17 +49,31 @@ export default function ClosingCta({
                     "görüşme planlayın."  x %33.8-47.1 · y %75.0-77.8
                     "whatsapp'tan yazın." x %51.8-65.4 · y %75.0-77.8
                     Görsel değişirse bu yüzdeler yeniden ölçülmeli. */}
+                {/* ⚠️ HOVER'DA KUTU DEĞİL ÇİZGİ (2026-09-10, Yakup: "görüşme
+                    planlayın ve whatsapp yazın kısmında önceden üzerine gelince
+                    altında çizgi oluşuyordu, onu değiştirmişsin, düzelt").
+                    Burada `hover:bg-white/10` vardı — yazının arkasını hafifçe
+                    aydınlatan bir DİKDÖRTGEN. Revize dökümanı bunun tam tersini
+                    istiyor: "rect içine alınmayacak, temadaki örnekteki gibi
+                    çizgisel olarak kullanılacak."
+                    `link-grow` sitenin her yerindeki kalıp: 14px'lik kısa çizgi
+                    hover'da tam genişliğe uzuyor. `text-white` şart — çizgi
+                    `currentColor` kullanıyor ve bu alanların içinde metin yok
+                    (yazı görselin İÇİNDE basılı), renk mirasla geliyor.
+                    KUTU METNE OTURTULDU: yazı görselin %75,0-77,8 aralığında;
+                    çizgi `bottom: -4px`'te bittiği için kutu da %74,5-78,5
+                    yapıldı, yoksa çizgi yazıdan ~20px aşağıda havada kalıyordu. */}
                 <a
                   href={`tel:${SITE.phone}`}
                   aria-label="Görüşme planlayın — bizi arayın"
-                  className="absolute left-[32%] top-[73%] h-[7%] w-[17%] rounded-full transition-colors duration-500 hover:bg-white/10"
+                  className="link-grow absolute left-[32%] top-[74.5%] h-[4%] w-[17%] text-white"
                 />
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp'tan yazın"
-                  className="absolute left-[51%] top-[73%] h-[7%] w-[16%] rounded-full transition-colors duration-500 hover:bg-white/10"
+                  className="link-grow absolute left-[51%] top-[74.5%] h-[4%] w-[16%] text-white"
                 />
               </>
             )}

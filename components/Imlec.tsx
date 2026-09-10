@@ -137,6 +137,16 @@ const RGB =
 const OKL = /^okl(?:ab|ch)\(\s*([\d.]+)(%?)[^/)]*(?:\/\s*([\d.]+))?/;
 
 function zeminKoyuMu(baslangic: Element | null): boolean {
+  /*
+   * ELLE İŞARETLEME KAÇIŞ KAPISI. Aşağıdaki otomatik ölçüm yalnız CSS arka
+   * planlarını görür; KOYU BİR FOTOĞRAFIN üstünde arka plan şeffaftır ve ata
+   * zincirinde beyaz `bg-paper` bulunur — yani karanlık bir görselin üstünde
+   * imleç "açık zemin" sanıp lacivert kalıyor ve kayboluyordu (ekip görselinde
+   * yakalandı, 2026-09-10). Fotoğrafın gerçek parlaklığını CSS'ten okumanın
+   * yolu yok; o alanlar `data-imlec-koyu` ile elle işaretleniyor.
+   */
+  if (baslangic?.closest?.("[data-imlec-koyu]")) return true;
+
   let n: Element | null = baslangic;
   while (n && n !== document.documentElement) {
     const bg = getComputedStyle(n).backgroundColor;
