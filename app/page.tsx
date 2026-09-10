@@ -38,8 +38,6 @@ type OnizlemeVerisi = {
   aciklama?: string;
   logo?: string;
   odak?: string;
-  /** Kartın md üstündeki en-boy oranı sınıfı (kademeli düzen için). */
-  oran?: string;
   bilgi?: { baslik: string; musteri: string; hizmet: string; yil: string };
   /**
    * ZORUNLU (isteğe bağlı değil): bileşenin varsayılanı `100vw` ve bu, çok
@@ -597,21 +595,14 @@ export default function HomePage() {
             · ÜÇ EŞİT sütun, hepsi aynı hizada, 40px ara
             · (1440 - 80 kenar - 80 ara) / 3 = 426,7 ✔ birebir tutuyor
 
-          KADEMELİ — SOL KART KISA (2026-09-10, Yakup: "3'lü kısmı yan yana
-          hepsi aynı boyutta yapmışsın, revize notundakini gerçekleştiremedin").
-          Bir tur bu kademeyi "parallax artefaktı" sanıp üç kartı eşitlemiştim;
-          YANLIŞTI. Master'da kapların boyu eşit (427x940) ama SOL kartın
-          `<img>`i kabını doldurmuyor (555x721), yani görünen kart gerçekten
-          kısa kalıyor — ekibin ekran görüntüsü de bunu gösteriyor.
-
-          Ekran görüntüsünden ölçülen oranlar: sol 213x210, orta 216x370,
-          sağ 214x365 → sol kartın boyu ortadakinin %57'si.
-          Bize uyarlaması: uzun kartlar 427x940 (0,454), kısa kart 427x534
-          (0,800) — aynı %57 oranı. Üçü de DİKEY, döküman da öyle diyor.
-
-          KISA SLOTTA SAVRONİK: kaynağı 2:1 (en yatık olan). Kısa kartta
-          genişliğinin %40'ı görünüyor, uzun kartta %23'ü olurdu — yani
-          kademe teknik olarak da bu markaya yarıyor.
+          ÜÇ KART EŞİT (2026-09-10, Yakup: "3'ünün görselini birbirine
+          eşitleyelim, eskiye döndürelim"). Bir ara sol kart kısa yapılmıştı;
+          ekibin ekran görüntüsündeki kademeli görüntü oradan geliyordu. Ama o
+          kademe SABİT BİR DÜZEN DEĞİL — master'da kaplar eşit (427x940) ve
+          kaymış görüntü PARALAKSTAN doğuyor: görseller kaplarından büyük ve
+          kaydırdıkça kap içinde hareket ediyorlar.
+          Doğru çözüm kapları eşitleyip paralaksı açmak; ikisi birden yapıldı
+          (paralaks `components/PortfolyoOnizleme.tsx` içinde `MediaReveal`).
 
           KART İÇİ YAZI: master'da bu kartların üstünde HİÇ YAZI YOK (ölçüldü,
           kesişen metin sayısı 0; tek metin kısa kartın ALTINDAKİ teknoloji
@@ -638,18 +629,16 @@ export default function HomePage() {
                   aciklama: "yaratıcı marka tanıtım filmi",
                   logo: "savronik",
                   odak: "object-center",
-                  // KISA KART — gerekçe yukarıdaki blokta.
-                  oran: "md:aspect-[427/534]",
                   bilgi: kartBilgisi(
                     "savronik",
                     "Savunma sektöründe yaratıcı marka tanıtım filmi.",
                   ),
-                  // KISA kart 427x534. Gereken genişlik = 534 x 2,0 = 1068px;
-                  // kaynak 1774px — rahat yetiyor. (Uzun kartta 1880px
-                  // gerekiyordu ve kaynak %94'te kalıyordu; kademe bunu da
-                  // düzeltti.)
+                  // Kart 427x940 (kartlar eşitlendi). `object-cover` kutuyu
+                  // BOYA göre dolduruyor: gereken genişlik = 940 x 2,0 = 1880px.
+                  // Kaynak 1774px (%94) — 2x retinada bir tık yumuşak kalır,
+                  // dikey çekim gelince biter.
                   sizes:
-                    "(min-width: 1440px) 1068px, (min-width: 768px) 70vw, 250vw",
+                    "(min-width: 1440px) 1880px, (min-width: 768px) 123vw, 250vw",
                 },
                 {
                   slug: "atlantis",
@@ -692,7 +681,7 @@ export default function HomePage() {
                 <PortfolyoOnizleme
                   {...m}
                   {...olcu(m.gorsel)}
-                  className={`aspect-[4/5] ${m.oran ?? "md:aspect-[427/940]"}`}
+                  className="aspect-[4/5] md:aspect-[427/940]"
                 />
               </Reveal>
             ))}

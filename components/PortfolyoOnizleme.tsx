@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import MediaReveal from "@/components/MediaReveal";
 
 /**
  * Portfolyo ön izleme kartı — ana sayfada marka görselinin üstüne gelince
@@ -82,14 +83,28 @@ export default function PortfolyoOnizleme({
       aria-label={`${marka} çalışmasını görüntüle`}
       className={`group relative block overflow-hidden ${className}`}
     >
-      <Image
-        src={gorsel}
-        alt={aciklama ? `${marka} — ${aciklama}` : marka}
-        width={genislik}
-        height={yukseklik}
-        sizes={sizes}
-        className={`h-full w-full object-cover ${odak} transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]`}
-      />
+      {/* KAYDIRMAYA BAĞLI YAKLAŞMA (2026-09-10, Yakup: "ana temadaki gibi
+          aşağı kayarken ki yaklaşma animasyonları oynasın mutlaka").
+          Master temada bu kartların görselleri kaplarından BÜYÜK (427'lik kabın
+          içinde 555px'lik görsel) ve kaydırdıkça kap içinde kayıyorlar — üçlünün
+          "kademeli" görünmesinin sebebi de buydu.
+          Yeni bir şey yazılmadı: `MediaReveal` bu davranışı referans temanın
+          paketinden birebir çıkarılmış hâliyle zaten taşıyor
+          (scrollYProgress, y: -%amount → +%amount, scale: taban → scaleTo →
+          taban). Genlik burada 5: kartlar dar olduğu için 6 fazla geliyordu.
+
+          Bilgi ve karartma katmanları BİLEREK dışarıda: içeri alınsalardı
+          yazılar da görselle birlikte kayardı. */}
+      <MediaReveal className="h-full w-full" amount={5} scaleTo={1.08}>
+        <Image
+          src={gorsel}
+          alt={aciklama ? `${marka} — ${aciklama}` : marka}
+          width={genislik}
+          height={yukseklik}
+          sizes={sizes}
+          className={`h-full w-full object-cover ${odak} transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]`}
+        />
+      </MediaReveal>
 
       {/* Kart içi bilgi bloğu — master temanın /work kartlarındaki yerleşim.
           Okunurluk için üstten ve alttan yumuşak lacivert degrade; görselin
