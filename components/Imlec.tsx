@@ -51,51 +51,53 @@ type Varyant = {
 };
 
 /*
- * Portfolyo/proje kartlarının varyantı — hem haritada hem VARSAYILAN'da.
- * Etiket "Ziyaret Et" (Yakup 2026-09-10: "ana sayfada ziyaret et yazacak,
- * VISIT'in karşı anlamı olarak"). İki kelime 76px'lik daireye TEK satır
- * sığmıyor; ortalanıp iki satıra sarılıyor, punto master'daki 12'de kalıyor.
+ * ETİKETLİ HÂL — İKİ ETİKET DE AYNI GÖRÜNÜMÜ KULLANIYOR.
+ *
+ * Yakup 2026-09-10: "mouse imleci aşağıdaki blog kısmında yaptığın gibi BEYAZ
+ * olsun ve içine BİZİM RENGİMİZ ile ziyaret et yaz, bu da BOLD olsun.
+ * Yuvarlağın boyutu da ana sayfadaki blog kısmında olduğu büyüklükte olsun."
+ * Yani "Ziyaret Et", blog kartındaki "Oku" ile aynı kutuya girdi.
+ *
+ * ⚠️ MASTER'DAN BİLİNÇLİ SAPMA — master'da ölçülen değerler şunlardı:
+ *   blog kartı      → 120px, beyaz %60 + blur(8px), "READ"  12px/400
+ *   portfolyo kartı →  76px, marka rengi, bulanıklık yok, "VISIT" 12px/400
+ * Bizde daire 120px'te sabit ("yuvarlağı büyütme"), etiket 20px/700
+ * ("içindeki oku yazısını bol yap ve büyüt"). Portfolyo varyantının 76px'lik
+ * marka renkli hâli tamamen bırakıldı.
+ *
+ * TEK SABİT, İKİ ANAHTAR: bir tur iki ayrı nesne literali vardı ve altı alanı
+ * da birebir aynıydı. Kopya bırakmanın bedeli sessiz sapmadır — biri `blur`u
+ * değiştirir, diğeri eski kalır, kimse fark etmez. Ayrışmaları gerekirse
+ * literali bölmek tek satırlık iş. (Denetimde yakalandı, 2026-09-10.)
+ *
+ * "ZİYARET ET" iki kelime ve 20px/700 + `uppercase` + harf aralığıyla 120px'lik
+ * dairenin iç genişliğini aşıyor; ortalanıp İKİ SATIRA sarıyor. Kırpılmıyor,
+ * görünüm bozulmuyor — `leading-[1.15]` iki satırı sıkıştırmadan tutuyor.
  */
-const ZIYARET: Varyant = {
-  cap: 76,
-  zemin: "var(--navy)",
-  yazi: "#ffffff",
-  punto: 12,
-  // KALIN (700): Yakup 2026-09-10 — "ziyaret et yazısı da bold olsun".
-  // Master'da 400; blog etiketindekiyle aynı gerekçeyle bilinçli sapma.
+const ETIKETLI: Varyant = {
+  cap: 120,
+  zemin: "rgba(255,255,255,0.6)",
+  bulanik: "blur(8px)",
+  yazi: "var(--navy)",
+  punto: 20,
   kalinlik: 700,
 };
 
 /**
- * ETİKET → GÖRÜNÜM. Master'da ölçülen iki durum birebir burada.
- * Haritada olmayan bir etiket gelirse portfolyo varyantına düşer — sessizce
- * 24px'lik noktada kalıp etiketi görünmez kılmaktan iyidir.
+ * ETİKET → GÖRÜNÜM. Haritada olmayan bir etiket gelirse VARSAYILAN'a düşer —
+ * sessizce 24px'lik noktada kalıp etiketi görünmez kılmaktan iyidir.
  */
 const VARYANTLAR: Record<string, Varyant> = {
-  /*
-   * master: 120px, rgba(255,255,255,0.6), blur(8px), etiket "READ" 12px/400.
-   * DAİRE master ölçüsünde (120px) — Yakup 2026-09-10: "yuvarlağı büyütme".
-   * ETİKET master'dan BİLİNÇLİ SAPMA: "içindeki oku yazısını bol yap ve
-   * büyüt" → 20px/700. Tek kelime olduğu için 120px'e rahat sığıyor.
-   */
-  Oku: {
-    cap: 120,
-    zemin: "rgba(255,255,255,0.6)",
-    bulanik: "blur(8px)",
-    yazi: "var(--navy)",
-    punto: 20,
-    kalinlik: 700,
-  },
-  // master: 76px, marka rengi, bulanıklık yok — "VISIT"
-  "Ziyaret Et": ZIYARET,
+  Oku: ETIKETLI,
+  "Ziyaret Et": ETIKETLI,
 };
 
 /*
- * VARSAYILAN doğrudan sabite bağlı, `VARYANTLAR["Ziyaret Et"]` ARAMASINA değil.
+ * VARSAYILAN doğrudan sabite bağlı, `VARYANTLAR[...]` ARAMASINA değil.
  * Aramaya bağlı olsaydı biri anahtarı yeniden adlandırdığında derleme yine
  * geçer, imleç yalnız ÇALIŞMA ANINDA çökerdi (denetimde yakalandı).
  */
-const VARSAYILAN: Varyant = ZIYARET;
+const VARSAYILAN: Varyant = ETIKETLI;
 
 /**
  * İmlecin ALTINDAKİ zemin koyu mu?
@@ -297,9 +299,12 @@ export default function Imlec() {
   const v = etiket === null ? null : (VARYANTLAR[etiket] ?? VARSAYILAN);
   const cap = v ? v.cap : NOKTA;
   /*
-   * KOYU ZEMİNDE TERSLE. Yalnız LACİVERT kullanan durumlar terslenir: boştaki
-   * nokta ve "Ziyaret Et" varyantı. "Oku" varyantı zaten beyaz + bulanık,
-   * koyu zeminde de okunuyor — ona dokunmak master'dan sapma olurdu.
+   * KOYU ZEMİNDE TERSLE. Bugün bu YALNIZ BOŞTAKİ NOKTAYI kapsıyor: iki etiketli
+   * varyant da yarı saydam beyaz zemin + lacivert yazı kullanıyor, koyu zeminde
+   * zaten okunuyorlar, terslenmeleri yanlış olurdu.
+   * `v.zemin === "var(--navy)"` dalı bugün hiç `true` olmuyor — ileride lacivert
+   * zeminli bir varyant eklenirse kendiliğinden korusun diye duruyor. Kırılgan
+   * yanı: string eşitliği, biri `"#0a0a47"` yazarsa sessizce çalışmaz.
    */
   const tersle = koyu && (!v || v.zemin === "var(--navy)");
   const zemin = tersle ? "#ffffff" : v ? v.zemin : "var(--navy)";
@@ -310,10 +315,10 @@ export default function Imlec() {
       ref={el}
       aria-hidden="true"
       /* `overflow-hidden`: "ZİYARET" 12px'te ~54px sürüyor ve 76px'lik
-         dairenin iç genişliği `px-1` ile 68px — pay ~13px. Avenir Next
-         CDN'den gelmezse yedek yazı tipinde bile ~58px sürüyor, yine sığıyor.
-         Yine de emniyet kemeri: taşarsa metin dairenin DIŞINA beyaz olarak
-         çıkardı (denetimde yakalandı). Kırpmak, taşmaktan iyi. */
+         etiket artık 20px/700 ve daire 120px. "ZİYARET ET" bu boyda tek satıra
+         sığmayıp iki satıra sarıyor — sarma normal ve istenen davranış; bu
+         kemer, yazı tipi CDN'den gelmediğinde yedek fontun daha geniş sürüp
+         daireyi taşırma ihtimaline karşı. Kırpmak, taşmaktan iyi. */
       className="imlec pointer-events-none fixed left-0 top-0 z-[60] hidden items-center justify-center overflow-hidden rounded-full transition-[width,height,background-color,backdrop-filter,opacity] duration-300 ease-[var(--ease-lux)]"
       style={{
         width: cap,
@@ -330,7 +335,8 @@ export default function Imlec() {
           ("içindeki oku yazısını bol yap ve büyüt") → 20px/700. Portfolyo
           etiketi de kalınlaştı (12px/700) ama puntosu master'daki 12'de
           kaldı — iki kelime olduğu için daireye ancak o boyda sığıyor.
-          DAİRELER master ölçüsünde (120/76) — "yuvarlağı büyütme".
+          DAİRE 120px'te sabit — "yuvarlağı büyütme". Master'daki 76px'lik
+          portfolyo varyantı artık kullanılmıyor (bkz. ETIKETLI sabiti).
           BÜYÜK HARF: master'ın etiketleri de büyük harf ("READ"/"VISIT").
           Etiket küçükken de basılı kalıyor — metin sonradan doğmuyor, soluyor. */}
       <span

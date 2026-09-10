@@ -83,6 +83,8 @@ export default function HeroYouTube({ className }: { className?: string }) {
   const mesajGeldi = useRef(false);
   /* Son görülen oynatıcı durumu — aynı durumun tekrarını yutar. */
   const sonDurum = useRef<number | null>(null);
+  /* Duraklatınca kurulan geri-açma zamanlayıcısı (aşağıdaki gerekçeye bak). */
+  const gizlemeAgi = useRef<number | null>(null);
 
   /*
    * 🔴 KOMUT DEĞİL, İSTENEN DURUM UYGULANIYOR.
@@ -226,7 +228,37 @@ export default function HeroYouTube({ className }: { className?: string }) {
       if (typeof durum !== "number" || durum === sonDurum.current) return;
       sonDurum.current = durum;
 
-      if (durum === 1) setOynuyor(true);
+      if (durum === 1) {
+        if (gizlemeAgi.current) {
+          window.clearTimeout(gizlemeAgi.current);
+          gizlemeAgi.current = null;
+        }
+        setOynuyor(true);
+      }
+      /*
+       * DURAKLATILINCA GİZLE (2026-09-10, Yakup ekran kaydıyla bildirdi:
+       * "videoda çıkan pause işareti var, onu da kaldırmamız gerekli").
+       * `controls=0` YouTube'un ORTADA bastığı duraklama göstergesini
+       * engellemiyor. En çok şu akışta görünüyor: kullanıcı aşağı kaydırıyor →
+       * biz `pauseVideo` yolluyoruz → YouTube ortaya pause işaretini basıyor →
+       * kullanıcı yukarı dönünce onu görüyor. İframe'i saydamlaştırmak işareti
+       * de birlikte gizliyor; video yeniden oynayınca (durum 1) geri açılıyor.
+       */
+      if (durum === 2) {
+        setOynuyor(false);
+        /*
+         * 🔴 GİZLEME TEK YÖNLÜ KALMAMALI. `oynuyor` bayrağını false'a çekmek
+         * hero'yu degradeye döndürüyor; onu geri açan tek yol `durum === 1`.
+         * Sonraki `playVideo` düşerse (iframe hazır değil, mesaj kayboldu,
+         * otomatik oynatma politikası araya girdi) hero KALICI olarak boş
+         * kalırdı ve iframe `pointer-events-none` olduğu için ziyaretçinin
+         * videoyu açacak doğal bir yolu yok. 5 saniye içinde oynatma
+         * başlamazsa donmuş kareyi göstermek, boş degradeden iyidir.
+         * (Denetimde yakalandı, 2026-09-10.)
+         */
+        if (gizlemeAgi.current) window.clearTimeout(gizlemeAgi.current);
+        gizlemeAgi.current = window.setTimeout(() => setOynuyor(true), 5000);
+      }
       /*
        * 🔴 `uygula()`, `gonder("playVideo")` DEĞİL. Ham komut bu dosyanın kendi
        * kuralını çiğniyordu (yukarıdaki "komut değil, istenen durum" notu):
@@ -241,7 +273,10 @@ export default function HeroYouTube({ className }: { className?: string }) {
       if (durum === 0) uygula();
     };
     window.addEventListener("message", dinle);
-    return () => window.removeEventListener("message", dinle);
+    return () => {
+      window.removeEventListener("message", dinle);
+      if (gizlemeAgi.current) window.clearTimeout(gizlemeAgi.current);
+    };
   }, [uygula]);
 
   /*

@@ -521,7 +521,35 @@ body {
 
 .acilis-perdesi span {
   flex: 1 1 10%;
-  background: var(--navy);
+
+  /*
+   * KIRIK BEYAZ, LACİVERT DEĞİL (2026-09-10, Yakup: "sayfa açılırken yukarı
+   * doğru bir animasyonumuz var, bu hiç belli olmuyor; az beyaz yapsak aksiyonu
+   * belirgin olacak").
+   *
+   * Sebep: ana sayfanın hero'su lacivert ve perde de laciverttti — koyu üstüne
+   * koyu, sıyrılma hiç fark edilmiyordu. (Bileşenin kendi yorumu bunu zaten
+   * "ana sayfada daha sessiz kalır" diye not etmişti.)
+   *
+   * TAM BEYAZ (#fff) DEĞİL `--mist` (#f5f5f2): beyaz zeminli sayfalarda
+   * (blog, portfolyo, hizmetler) tam beyaz perde tam beyaz sayfada TAMAMEN
+   * görünmez olurdu — bir sorunu düzeltip diğerini doğurmak olurdu.
+   *
+   * Şerit ayracı da o yüzden var: `--mist` beyaz zeminde zayıf ayrışıyor,
+   * ama şeritler kayarken bu ince çizgiler hareketi belli ediyor.
+   *
+   * `box-shadow`, `border` DEĞİL: border `flex: 1 1 10%` genişliklerine
+   * eklenip toplamı taşırırdı; box-shadow düzeni hiç etkilemiyor.
+   *
+   * 🔴 `inset` ŞART. Bir tur dış gölge (`1px 0 0`) yazılmıştı ve HİÇBİR ETKİSİ
+   * YOKTU: dış gölge komşu şeridin ilk 1px'ine düşer, kardeşler DOM sırasıyla
+   * boyandığı için sonraki şeridin OPAK zemini gölgeyi üzerine boyayıp
+   * siliyordu. Yani perde kapalıyken dokuz ayracın hiçbiri görünmüyordu.
+   * İç gölge öğenin kendi zemininden SONRA boyanır, kardeş örtemez.
+   * (Denetimde yakalandı, 2026-09-10.)
+   */
+  background: var(--mist);
+  box-shadow: inset -1px 0 0 rgb(10 10 71 / 0.1);
 
   /*
    * 🔴 TABAN DURUM "AÇIK" (denetimde yakalandı, ölçüldü).
