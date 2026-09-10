@@ -1,9 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import BasaDon from "@/components/BasaDon";
 import LiveClock from "@/components/LiveClock";
 import NewsletterForm from "@/components/NewsletterForm";
 import { SERVICES } from "@/content/services";
-import { NAV, PHONE_READY, SITE } from "@/content/site";
+import { NAV, PARTNER_LOGOLARI, PHONE_READY, SITE } from "@/content/site";
 
 /**
  * Footer — referans temanın (arpeggio) üç katlı 12 kolonlu düzeni.
@@ -247,6 +248,32 @@ export default function Footer() {
             <BasaDon />
           </div>
         </div>
+
+        {/* ——— SERTİFİKA / PARTNERLİK ROZETLERİ ———
+            Revize dökümanı: "Bu alana sertifikalarımızı ve partnerlik
+            logolarını ekleyeceğiz, sağ boş alt alana ekleyelim. Küçük ikonlar,
+            minimal gibi."
+            Liste `content/site.ts` → `PARTNER_LOGOLARI`. Boşken bu blok HİÇ
+            basılmaz — eksik dosyaya 404 attırmamak için. Gerekçe (rozetin bir
+            iddia olması) o listenin başında yazılı. */}
+        {PARTNER_LOGOLARI.length > 0 && (
+          <ul
+            aria-label="Sertifikalarımız ve partnerliklerimiz"
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 border-t hairline pt-8 lg:justify-end"
+          >
+            {PARTNER_LOGOLARI.map((l) => (
+              <li key={l.file}>
+                <Image
+                  src={`/assets/partners/${l.file}.png`}
+                  alt={l.name}
+                  width={200}
+                  height={80}
+                  className="h-6 w-auto max-w-[110px] object-contain opacity-60 transition-opacity duration-500 ease-[var(--ease-lux)] hover:opacity-100 md:h-7"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </footer>
   );

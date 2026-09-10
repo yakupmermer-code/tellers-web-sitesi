@@ -20,7 +20,8 @@ export const SITE = {
     "7 yılda, 3 kıta ve 15 ülkede; markaların yalnızca duyulmasını değil gerçekten anlaşılmasını sağlayan anlam mimarisi ajansı.",
   email: "hello@tellers.email",
   instagram: "https://www.instagram.com/tellersturkiye/",
-  linkedin: "https://www.linkedin.com/company/v-v-creative-communication-agency/",
+  linkedin:
+    "https://www.linkedin.com/company/v-v-creative-communication-agency/",
   phone: "+905308176337",
   phoneDisplay: "0530 817 63 37",
   whatsapp: "https://wa.me/905308176337",
@@ -37,14 +38,15 @@ export const SITE = {
    * sayılar sayfa metinlerinde geçiyor, iki yerde tutulup birinin eskimesi
    * istenmiyor.
    */
-  konumCumlesi: "Türkiye merkezliyiz; markalarla uzaktan ve yerinde çalışıyoruz.",
+  konumCumlesi:
+    "Türkiye merkezliyiz; markalarla uzaktan ve yerinde çalışıyoruz.",
   /** Footer alt bandındaki künye satırı. Ticari unvan/sicil bilgisi ekipten gelince genişletilecek. */
   kunyeCumlesi:
     "Marka iletişimi, performans pazarlaması, dijital pazarlama ve kreatif üretim hizmetleri tellers Creative Communications tarafından verilir.",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
     encodeURIComponent(
-      "Ankara Üniversitesi Teknokent A Blok, Kalaba Mahallesi Kütükçü Alibey Caddesi No:2, Keçiören/Ankara"
+      "Ankara Üniversitesi Teknokent A Blok, Kalaba Mahallesi Kütükçü Alibey Caddesi No:2, Keçiören/Ankara",
     ),
 } as const;
 
@@ -60,6 +62,27 @@ export const NAV = [
   { label: "Kariyer", href: "/kariyer" },
   { label: "İletişim", href: "/iletisim" },
 ] as const;
+
+/**
+ * Sertifikalarımız ve partnerlik rozetlerimiz — footer'ın sağ alt alanında,
+ * küçük ve sade (revize dökümanı: "Bu alana sertifikalarımızı ve partnerlik
+ * logolarını ekleyeceğiz, sağ boş alt alana ekleyelim. Küçük ikonlar, minimal
+ * gibi").
+ *
+ * 🔴 LİSTE BİLİNÇLİ OLARAK BOŞ. Dosyalar `public/assets/partners/` altına
+ * konulunca buraya satır eklenecek ve footer'da kendiliğinden görünecek.
+ * Boşken footer'daki blok hiç basılmaz.
+ *
+ * NEDEN OTOMATİK DOLDURULMADI: partnerlik rozeti şirket hakkında bir İDDİADIR.
+ * Sahip olunmayan bir rozeti yayınlamak yanlış beyandır ve anayasadaki
+ * "uydurma veri yazılmaz / doğrulanamayan alan basılmaz" kuralının kapsamına
+ * girer. Yakup'un Drive'ında aday dosyalar bulundu (Google Partner, Google
+ * Cloud Partner, Kommo Partner, TESİAD) ama hangilerinin gerçekten bize ait
+ * olduğu teyit edilmeden basılmıyor.
+ */
+export const PARTNER_LOGOLARI: { file: string; name: string }[] = [
+  // örn. { file: "google-partner", name: "Google Partner" },
+];
 
 /** Lacivert bant üzerindeki referans logoları (beyaz gösterim, dosya + okunur ad). */
 export const REF_LOGOS = [
