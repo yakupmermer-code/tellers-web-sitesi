@@ -91,6 +91,42 @@ export default function RootLayout({
     // data-scroll-behavior: Next 16'da rota geçişlerinde smooth scroll'un
     // doğru yönetilmesi için gerekli (yoksa geçişte sayfa yavaşça kayar)
     <html lang="tr" data-scroll-behavior="smooth">
+      <head>
+        {/* Serif vurgu fontu ÖN YÜKLENİYOR (2026-09-11, Didot geri gelince).
+            `font-display: swap` olduğu için dosya geç inerse vurgulu kelimeler
+            önce gövde fontuyla çizilip sonra serife atlıyor.
+
+            🔴 İKİSİ DE İTALİK, VE `latin-ext` ŞART (denetimde ölçülerek
+            yakalandı — ilk hâlde `latin` + `normal` seçilmişti, ikisi de
+            yanlıştı):
+            · `ğ Ğ ş Ş İ` glifleri YALNIZCA `latin-ext` dosyasında var,
+              `latin`de yok. Footer'daki slogan kök layout'ta ve içinde "ş"
+              geçiyor ("anlaşılan kalır") — yani 34 sayfanın 34'ünde latin-ext
+              gerekiyor. Sadece `latin`i öne almak sıçramayı azaltmıyor,
+              BÜYÜTÜYOR: kısıtlı ağda ölçüldü, ~395 ms boyunca slogan
+              "anla_ılan" diye çiziliyordu (bütün harfler Bodoni, yalnız "ş"
+              yedek fontta).
+            · Düz (italik olmayan) serif sitede sadece ÜÇ yerde var (sıra
+              numaraları "01/02/03"), yani `normal-latin` 34 sayfanın 31'inde
+              indirilip hiç kullanılmıyordu — 46 KB boşa. Tarayıcı gerektiğinde
+              kendisi indiriyor.
+            Kalan üç kesim CSS keşfiyle geliyor; ön yükleme yalnız her sayfada
+            KESİN gereken ikiliye ayrıldı. */}
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/bodoni-moda-italic-latin.woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/bodoni-moda-italic-latin-ext.woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="min-h-[100dvh] flex flex-col">
         {/* Klavye kullanıcıları için: menüyü atlayıp içeriğe git (WCAG 2.4.1).
             <Link>, düz <a> DEĞİL — gerekçesi components/SmoothScroll.tsx'te

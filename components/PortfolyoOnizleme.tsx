@@ -81,7 +81,6 @@ export default function PortfolyoOnizleme({
     <Link
       href={`/portfolyo/${slug}`}
       aria-label={`${marka} çalışmasını görüntüle`}
-      data-imlec="İncele"
       className={`group relative block overflow-hidden ${className}`}
     >
       {/* KAYDIRMAYA BAĞLI YAKLAŞMA (2026-09-10, Yakup: "ana temadaki gibi

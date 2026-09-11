@@ -281,7 +281,6 @@ export default async function BlogDetayPage({
                 <Link
                   href={`/blog/${onceki.slug}`}
                   aria-label={`Önceki yazı: ${onceki.title}`}
-                  data-imlec="Oku"
                   className="flex h-8 w-8 items-center justify-center text-navy transition-opacity duration-500 hover:opacity-55"
                 >
                   <svg
@@ -300,7 +299,6 @@ export default async function BlogDetayPage({
                 <Link
                   href={`/blog/${sonraki.slug}`}
                   aria-label={`Sonraki yazı: ${sonraki.title}`}
-                  data-imlec="Oku"
                   className="flex h-8 w-8 items-center justify-center text-navy transition-opacity duration-500 hover:opacity-55"
                 >
                   <svg

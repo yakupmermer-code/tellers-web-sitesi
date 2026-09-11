@@ -51,6 +51,39 @@ type Varyant = {
 };
 
 /*
+ * 🔴🔴 ETİKETLER ŞU AN HİÇBİR YERDE KULLANILMIYOR (2026-09-11).
+ *
+ * Ekibin 11 Eylül revize dökümanı bunu ALTI yerde istiyor:
+ *   · Genel Notlar: "Slider alanlarına tıkladığımızda oku, ziyaret et gibi
+ *     butonlar çıkıyor onları iptal edelim."
+ *   · Ana sayfa: "İkili slider ve diğer tüm referans işleri gördüğümüz
+ *     alanlarda ziyaret et butonu olmasın, kalksın."
+ *   · Ana sayfa: "Ziyaret et butonu çıkmasın."
+ *   · Ana sayfa: "Blog içeriklerinde de tıkladığımızda OKU butonu çıkmasın,
+ *     TÜM SAYFA İÇİN GEÇERLİDİR."
+ *   · Portfolyo: "Ziyaret et butonu olmayacak."
+ *   · Portfolyo: "Hiçbir slider alanında buton olmamalı."
+ * Yakup 2026-09-11: "imleç etiketlerinden başla."
+ *
+ * ⚠️ BU MASTER'DAN BİLİNÇLİ BİR SAPMADIR. Master temada bu etiketler VAR ve
+ * ölçülmüştü (blog kartı "READ" 120px, portfolyo kartı "VISIT" 76px). Ekip
+ * yine de istemiyor; müşterinin yazılı ve tekrarlanmış talimatı master
+ * benzerliğinin önüne geçiyor.
+ *
+ * KALDIRILAN: 9 adet `data-imlec="..."` niteliği (ana sayfa, blog detay x2,
+ * BlogKart, BlogSlider, BlogIkili, PortfolyoOnizleme, TriSlider,
+ * PortfolyoKart). Geriye kalan `data-imlec-koyu` BAŞKA BİR ŞEY — koyu zeminde
+ * imlecin kaybolmamasını sağlayan işaret, o duruyor.
+ *
+ * NEDEN AŞAĞIDAKİ MAKİNE SİLİNMEDİ: bu proje daha önce tam da böyle bir geri
+ * dönüş yaşadı — 9 Eylül'de serif font kaldırıldı, `.font-didot` sınıfı
+ * "silme, tek satır değiştirmek yeter" diye bırakıldı ve 11 Eylül'de ekip
+ * serifi geri isteyince 31 yerin hiçbirine dokunulmadan geri geldi. Aynı
+ * mantık: etiketler geri istenirse ilgili `<Link>`e `data-imlec="Oku"` /
+ * `data-imlec="İncele"` eklemek yeterli, aşağıdaki ölçüler yeniden
+ * çıkarılmayacak. Etiketsiz imleç zaten master'ın boştaki hâli (24px nokta).
+ *
+ * ─────────────────────────────────────────────────────────────────────────
  * ETİKETLİ HÂL — İKİ ETİKET DE AYNI GÖRÜNÜMÜ KULLANIYOR.
  *
  * Yakup 2026-09-10: "mouse imleci aşağıdaki blog kısmında yaptığın gibi BEYAZ

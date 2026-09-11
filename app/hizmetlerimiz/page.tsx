@@ -82,7 +82,12 @@ export default function HizmetlerimizPage() {
       <h1 className="sr-only">Hizmetlerimiz</h1>
       {/* ── ANA SLIDE — MASTER KALIBI (2026-09-11) ───────────────────────
           Yakup: "hizmetlerimiz kısmının header ve slider alanını da revize et."
-          Hakkımızda ve portfolyo ile birebir aynı kalıp:
+          Hakkımızda ile AYNI SINIF (`hero-oranli`) ama aynı sonuç DEĞİL:
+          hakkımızda ayrıca `hero-kirpma-sinirli` alıyor, bu sayfa almıyor.
+          1440x900'de ikisi de %70; geniş ekranda ayrışıyorlar (1920x955'te
+          hakkımızda %87, burası %70 — ölçüldü). Portfolyo ise bambaşka:
+          `hero-tam-ekran` ile tam ekran.
+          Kalıp:
             · `mt-24` kalktı → hero sayfanın EN ÜSTÜNDEN başlıyor, 70 piksellik
               bar SAYDAM olarak üstüne biniyor (ana sayfa açılışıyla aynı)
             · `h-auto` kalktı → yükseklik artık MEDYADAN BAĞIMSIZ; video
@@ -92,17 +97,16 @@ export default function HizmetlerimizPage() {
             · giriş master'ın hareketi: scale 2 → 1 + soluk açılış
 
           ÖLÇÜ: `services/hero.mp4` 1280x720 (16:9), 252 KB.
-          `--hero-azami-oran` VERİLMİYOR, varsayılan (2,3) kullanılıyor: böylece
-          1440x900'de yükseklik tam 70vh = 630 piksel çıkıyor, yani master'ın
-          ölçüsüyle BİREBİR. Bir tur 2,05 verilmişti; kırpmayı %13'e indiriyordu
-          ama hero'yu 702 piksele (ekranın %78'i) çıkarıp master ölçüsünü
-          bozuyordu — ölçülerek görüldü ve geri alındı.
-          Bedeli: 16:9 medyada dikey kırpma %13 değil %22. Güvenli olduğu
-          ÖLÇÜLDÜ: videodan kareler çıkarıldı, "bilimsel yaratıcılık ve veri
-          uzmanlığı." yazısı kadrajın yüksekliğinin %43-55 bandında duruyor;
-          %22 kırpma üstten ve alttan %11 alıyor, yani yazıya 32 puanlık pay
-          kalıyor. Varsayılan sınır ayrıca kırpmanın geniş ekranda büyümesini
-          de durduruyor (sınır olmasaydı 2560x1080'de %47'ye çıkıyordu).
+          🔴 `hero-kirpma-sinirli` SINIFI BİLEREK YOK — bu sayfa SAF %70
+          kullanıyor, yani master ölçüsüne birebir uyuyor. Sınıfın işi dikey
+          kırpmayı sınırlamak; bu video ona ihtiyaç duymuyor.
+          ÖLÇÜLDÜ (videodan kare çıkarılıp beyaz içeriğin dikey bandı
+          bulunarak, 2026-09-11): "bilimsel yaratıcılık ve veri uzmanlığı."
+          yazısı kadrajın yüksekliğinin %43-58 bandında duruyor — 2560x1080'de
+          bile (%47 kırpma, her yandan %24) yazıya pay kalıyor.
+          Karşılaştırma: hakkımızda hero'sunun yazı halkası kadrajın %94'üne
+          kadar iniyor, orada %13'ten fazla kırpma halkayı kesiyor; o yüzden
+          O sayfa sınıfı alıyor, bu sayfa almıyor.
           Dar/dikey ekranlarda (oran < 1,4) video kendi 16:9 oranında kalıyor —
           orada kırpma sıfır, yükseklik yine medyadan bağımsız. */}
       <section

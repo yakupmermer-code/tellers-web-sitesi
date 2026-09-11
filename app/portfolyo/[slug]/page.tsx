@@ -104,9 +104,10 @@ export default async function MarkaDetayPage({
            `object-cover` kutunun oranını ekranın oranına bağlıyor; dikey
            telefon ekranında yatay hero medyasının %74-85'i kesiliyordu
            (denetimde ölçüldü, 2026-09-11 — Tyre Supply banner'ında marka
-           tanınmaz hâle geliyordu). Masaüstünde `md:h-[100dvh]` ile Yakup'un
-           istediği tam ekran aynen duruyor. */
-        className="relative aspect-video overflow-hidden bg-navy md:aspect-auto md:h-[100dvh]"
+           tanınmaz hâle geliyordu). Yakup'un istediği tam ekran `.hero-tam-ekran`
+           ile duruyor; kırılım GENİŞLİK değil ORAN — gerekçesi
+           `app/globals.css` içinde yazılı. */
+        className="hero-tam-ekran relative aspect-video overflow-hidden bg-navy"
       >
         {brand.hero.type === "video" ? (
             <video

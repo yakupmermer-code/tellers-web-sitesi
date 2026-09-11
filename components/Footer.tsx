@@ -266,9 +266,19 @@ export default function Footer() {
                 <Image
                   src={`/assets/partners/${l.file}.png`}
                   alt={l.name}
-                  width={200}
-                  height={80}
-                  className="h-6 w-auto max-w-[110px] object-contain opacity-60 transition-opacity duration-500 ease-[var(--ease-lux)] hover:opacity-100 md:h-7"
+                  width={l.w}
+                  height={l.h}
+                  /* 🟠 GOOGLE ROZETLERİNİN ALT YAZISI BU ÖLÇÜDE OKUNMUYOR
+                     (denetimde gerçek boyutta render edilip ölçüldü: "Google
+                     Partner" / "Google Cloud Partner" alt yazısı ~4 piksel
+                     çıkıyor, gri leke gibi duruyor). Sebep yapısal: o ikisi
+                     DİKEY kilit (ikon üstte, yazı altta), diğer üçü yatay;
+                     yüksekliğe göre hizalanınca dikey olanın yazısı yok oluyor.
+                     Yükseklik 24→32 pikselle biraz iyileşiyor ama asıl çözüm
+                     ekipten YATAY (lockup) sürümleri istemek. AÇIK İŞ.
+                     Kommo rozeti de diğer dördünden farklı olarak çerçeveli bir
+                     kutu — markanın resmî rozet tasarımı böyle, dokunulmadı. */
+                  className="h-8 w-auto max-w-[110px] object-contain opacity-60 transition-opacity duration-500 ease-[var(--ease-lux)] hover:opacity-100 md:h-9"
                 />
               </li>
             ))}

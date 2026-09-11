@@ -89,10 +89,15 @@ export default function PortfolyoPage() {
            "PORTFOLYO" yazısı telefonda "RTFO" olarak görünüyordu.
            `object-position` bunu ÇÖZMEZ; sorun hizalama değil kutunun oranı.
            Yakup'un isteği ("video ekrana tam otursun") masaüstü gözlemiydi,
-           orada `md:h-[100dvh]` ile birebir karşılanıyor. Telefonda kadraj
+           orada `.hero-tam-ekran` ile birebir karşılanıyor.
+           🔴 KIRILIM GENİŞLİK DEĞİL ORAN (denetimde yakalandı, 2026-09-11):
+           önce `md:h-[100dvh]` yazılmıştı; iPad Pro 12.9" DİKEY (1024x1366,
+           oran 0,75) genişlik eşiğini geçip tam ekran oluyor ve videonun
+           ENİNİN %58'i kesiliyordu. Kural artık `app/globals.css` içinde
+           `min-aspect-ratio: 7/5` ile yazılı. Telefonda kadraj
            bütün kalıyor ve yükseklik yine MEDYADAN BAĞIMSIZ (56,25vw), yani
            yüklenirken kayma da olmuyor. */
-        className="relative aspect-video overflow-hidden bg-navy md:aspect-auto md:h-[100dvh]"
+        className="hero-tam-ekran relative aspect-video overflow-hidden bg-navy"
       >
         {/* 🔴 HERO VİDEOSU `MediaReveal` İLE SARILMAZ (2026-09-10, Yakup:
           "üst kısmında video olan sayfalarda video 1-2 saniye gecikmeli

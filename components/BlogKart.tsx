@@ -51,9 +51,6 @@ export default function BlogKart({
     <Link
       href={`/blog/${b.slug}`}
       aria-label={`${b.title} — yazıyı oku`}
-      /* Etiket İMLECİN kendisinde (master'daki gibi), kartın köşesinde sabit
-         rozet değil. Bkz. `components/Imlec.tsx`. */
-      data-imlec="Oku"
       className={`group relative block overflow-hidden ${className}`}
     >
       {/* Kaydırmaya bağlı yaklaşma — sitenin her yerindeki `MediaReveal`,

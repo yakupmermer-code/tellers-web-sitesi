@@ -815,10 +815,6 @@ export default function HomePage() {
               <div className="relative aspect-[6/5] overflow-hidden md:aspect-[27/10]">
                 <Link
                   href="/hizmetlerimiz"
-                  /* Yakup 2026-09-10: "4'lü hizmetlerimiz alanında hiç
-                     değişmiyor, ziyaret et yazısı yok." Kartlar tıklanabilirdi
-                     ama imleç etiketi hiç verilmemişti. */
-                  data-imlec="İncele"
                   className="group relative block h-full w-full overflow-hidden"
                 >
                   {/* KAYDIRMA PARALAKSI — master'ın kurulumu birebir.

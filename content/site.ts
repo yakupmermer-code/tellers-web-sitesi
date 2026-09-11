@@ -80,8 +80,30 @@ export const NAV = [
  * Cloud Partner, Kommo Partner, TESİAD) ama hangilerinin gerçekten bize ait
  * olduğu teyit edilmeden basılmıyor.
  */
-export const PARTNER_LOGOLARI: { file: string; name: string }[] = [
-  // örn. { file: "google-partner", name: "Google Partner" },
+export const PARTNER_LOGOLARI: {
+  file: string;
+  name: string;
+  /** Kırpılmış dosyanın GERÇEK ölçüsü. Sabit 200x80 verilince tarayıcı beş
+      rozete de aynı yeri ayırıyor, dosyalar gelince şerit sağa kayıyordu
+      (denetimde ölçüldü: 70px yer ayrılıyor, gerçek genişlikler 26-110px). */
+  w: number;
+  h: number;
+}[] = [
+  /*
+   * Ekibin Drive klasöründen indirildi (2026-09-11, Yakup linki verdi):
+   * 11 Eylül revize dökümanı → FOOTER ALANI, "sertifikalarımızı ve partnerlik
+   * logolarını ekleyeceğiz, sağ boş alt alana. Küçük ikonlar, minimal gibi."
+   * Beş dosya da 1920x1080 geldi, yani logonun etrafı boştu; footer'da 24-28
+   * piksel yükseklikte basıldıkları için boşluk kırpıldı (aksi hâlde logo
+   * görünmeyecek kadar küçülüyordu).
+   * ⚠️ Bunlar BİR İDDİADIR: rozet basmak "bu kurumla resmî ortağız" demektir.
+   * Listeyi ekip verdi, doğruluğu onların beyanına dayanıyor.
+   */
+  { file: "google-partner", name: "Google Partner" , w: 733, h: 729 },
+  { file: "google-cloud-partner", name: "Google Cloud Partner" , w: 505, h: 553 },
+  { file: "kommo-partner", name: "Kommo Partner" , w: 1059, h: 407 },
+  { file: "teknokent", name: "Ankara Üniversitesi Teknokent" , w: 1155, h: 275 },
+  { file: "teknogirisim-rozeti", name: "Teknogirişim Rozeti" , w: 1137, h: 409 },
 ];
 
 /** Lacivert bant üzerindeki referans logoları (beyaz gösterim, dosya + okunur ad). */

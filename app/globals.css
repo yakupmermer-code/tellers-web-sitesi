@@ -139,22 +139,27 @@
 @custom-variant ustte-sabit (@media (min-width: 1440px) and (min-height: 700px));
 
 /*
- * TEK FONT: AVENIR NEXT (2026-09-09, Yakup: "Avenir next olsun tüm font").
+ * İKİ FONT: AVENIR NEXT (gövde) + BODONI MODA (serif vurgu).
  *
- * Sitede artık tek bir aile var. Önceden serif vurgu için Bodoni Moda
- * kullanılıyordu (kendi sunucumuzda, 4 adet @font-face); o bloklar ve
- * layout.tsx'teki iki `preload` KALDIRILDI — kullanılmayan font indirmek
- * her sayfa yüklemesine boşuna yük bindiriyordu.
+ * 🔴 KARAR GEÇMİŞİ — iki kez yön değişti, ikisi de Yakup'un talimatı:
+ *   2026-09-09  "Avenir next olsun tüm font" → serif kaldırıldı, `.font-didot`
+ *               gövde fontuna düşürüldü (sınıf 31 yerde silinmeden bırakıldı).
+ *   2026-09-11  "didot sorusunu da dökümanda ne şekilde söylendiyse o şekilde
+ *               uygula" → SERİF GERİ GELDİ. Ekibin 11 Eylül revize dökümanı,
+ *               ANASAYFA sekmesinin başındaki "Genel Notlar" listesinde
+ *               "Sitede metinler didot ve avenir fontunda olmalı" diyor;
+ *               ayrıca üç yerde daha ("Bütçe alt açıklama metnindeki el yazısı
+ *               didot olacak", "Veri anlamın kökeni kısmında font avenir &
+ *               didot olmalı", "Alt metin el yazı didot olmalı"). Ekibin
+ *               indirilen tasarım dosyalarında da italik serif görülüyor.
  *
- * `.font-didot` sınıfı 31 yerde duruyor ve BİLEREK silinmedi: artık gövde
- * fontunu gösteriyor (aşağıdaki --font-didot değişkeni --font-sans ile aynı
- * zinciri işaret ediyor), yani görsel olarak etkisiz. Serif vurgu geri
- * istenirse tek satır değiştirmek yetiyor; 31 yeri tek tek geri koymak
- * gerekmiyor. Bodoni'nin .woff2 dosyaları da public/fonts altında duruyor.
+ * 2026-09-09'daki "sınıfı silme, tek satır değiştirmek yeter" kararı bugün
+ * işe yaradı: 31 yerin hiçbirine dokunulmadı, yalnızca --font-didot değişti.
  *
- * İTALİK KONTROL EDİLDİ: Avenir Next LT Pro'nun CDN'inde 9 GERÇEK italik
- * kesim var (font-face'ler sayıldı), yani 28 yerdeki italik vurgular
- * tarayıcının uydurduğu sahte eğim değil, fontun kendi italiği.
+ * DIDOT DEĞİL BODONI MODA: gerçek Didot ticari bir font; cdnfonts'taki
+ * sürümünde gerçek italik/bold kesim yoktu (denendi). Bodoni Moda aynı
+ * neoklasik serif ailesinden, SIL OFL lisanslı ve kendi sunucumuzda —
+ * .woff2 dosyaları `public/fonts/` altında hiç silinmemişti.
  */
 
 /*
@@ -170,6 +175,42 @@
  * Ders: renk değişkenlerini derleme çıktısında da doğrula — `tsc`/`build`
  * bir CSS değişkeninin çözülüp çözülmediğine BAKMAZ.
  */
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-italic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-normal-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Bodoni Moda";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/bodoni-moda-normal-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --navy: #0a0a47;
   --ink: #111114;
@@ -186,9 +227,16 @@
   --color-mist: var(--mist);
   --font-sans:
     "Avenir Next LT Pro", "Avenir Next", Avenir, system-ui, sans-serif;
-  /* Serif vurgu KALDIRILDI — artık gövde fontuyla aynı (bkz. yukarıdaki not).
-     Serif geri istenirse yalnızca bu satır değişir. */
-  --font-didot: var(--font-sans);
+  /* Serif vurgu (`.font-didot`, 31 kullanım). Tek kaynak burası; yön
+     değişirse yalnızca bu satır değişir — sınıfların hiçbirine dokunulmaz. */
+  /* 🔴 ZİNCİRDE `Didot` / `Bodoni 72` YOK — bilerek (denetimde yakalandı).
+     İkisi de macOS'ta KURULU sistem fontu. Zincire konursa Bodoni Moda
+     yüklenemediğinde (404, CSP, yol hatası) Yakup'un ekranında yine güzel bir
+     serif görünür ve hata FARK EDİLMEZ; Windows/Android ziyaretçi Georgia
+     görür. Bu proje tam da böyle sessiz bir hatayla yandı (2026-09-09, renk
+     değişkenleri silindi, tsc/build/13 sayfa hepsi geçti). Yedek yalnız
+     Georgia: bozulma her platformda aynı anda görünür. */
+  --font-didot: "Bodoni Moda", Georgia, serif;
 }
 
 html {
@@ -234,15 +282,6 @@ body {
 ::selection {
   background: var(--navy);
   color: #fff;
-}
-
-/*
- * Eskiden serif vurgu sınıfıydı; artık gövde fontunu gösteriyor (2026-09-09).
- * Silinmedi çünkü 31 yerde kullanılıyor ve serif geri istenirse yalnızca
- * --font-didot değişkenini değiştirmek yetiyor.
- */
-.font-didot {
-  font-family: var(--font-didot);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -698,28 +737,70 @@ body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-cizgi] {
    Tailwind v4 yardımcı sınıfları katman (`@layer`) içinde; katmansız kurallar
    katmanlıları her hâlükârda geçer, o yüzden sıralamaya bağlı değil. */
 @media (min-aspect-ratio: 7/5) {
+  /* MASTER ÖLÇÜSÜ — ekranın %70'i, hiçbir şey eklenmeden. */
   .hero-oranli {
     aspect-ratio: auto;
     height: 70vh;
-    /*
-     * 🔴 `min-height` DİKEY KIRPMAYI SINIRLIYOR (denetimde yakalandı,
-     * 2026-09-11). Yukarıdaki oran eşiği YATAY kırpmayı engelliyor ama dikey
-     * kırpma ekran genişledikçe büyüyor: 1920x955'te (1080p'de tam ekran
-     * tarayıcı — en yaygın masaüstü) %70 yükseklik 669 piksel, kutu oranı 2,87
-     * oluyor ve 2:1 medyanın boyunun %30'u kesiliyordu. 1440x900'de %13'tü,
-     * yani hata yalnız GENİŞ ekranda ortaya çıkıyor ve 1440'ta test edilirse
-     * hiç görülmüyor.
-     * Genişlik / AZAMİ ORAN → kutu oranı o değeri hiçbir ekranda geçmiyor,
-     * dikey kırpma sınırlı kalıyor.
-     * 1440x900'de hesap 626 piksel çıkıyor, 70vh ise 630 — yani master'ın
-     * referans ölçüsünde hiçbir şey değişmiyor; kural yalnız daha geniş
-     * ekranlarda devreye giriyor.
-     *
-     * AZAMİ ORAN MEDYAYA GÖRE DEĞİŞİR, o yüzden değişken: bir sayfanın hero
-     * medyası 2:1 ise 2,3 (%13 dikey kırpma), 16:9 ise 2,05 aynı kırpmayı
-     * verir. Sayfa kendi değerini `style={{ "--hero-azami-oran": "..." }}` ile
-     * geçiyor; geçmezse 2,3 varsayılıyor.
-     */
-    min-height: calc(100vw / var(--hero-azami-oran, 2.3));
+  }
+
+  /*
+   * KIRPMAYA DAYANIKSIZ MEDYA İÇİN EK SINIR.
+   *
+   * %70 yükseklik ekran genişledikçe kutuyu yatay yayıyor ve `object-cover`
+   * dikey kırpmayı artırıyor: 1440x900'de %13, 1920x955'te %30, 2560x1080'de
+   * %47. Medyanın içeriği kenara yakınsa bu kesilme demek.
+   *
+   * SADECE GEREKEN SAYFA ALIR. Ölçüldü (videodan kare çıkarılıp beyaz içeriğin
+   * dikey bandı bulunarak, 2026-09-11):
+   *   · `about/hero.mp4`    → yazı halkası kadrajın %94'üne kadar iniyor;
+   *     %13'ten fazla kırpma halkayı KESİYOR → bu sınıf ŞART
+   *   · `services/hero.mp4` → yazı %43-58 bandında; %47 kırpmada bile güvenli
+   *     → sınıf GEREKMEZ, sayfa saf %70 ile master'a birebir uyuyor
+   *
+   * 🔴 `clamp`ın ÜST SINIRI (100vh) ŞART: bir tur yalnız `min-height` vardı ve
+   * üst sınırı yoktu — 2560x1080'de hero 1113 piksel (ekranın %103'ü),
+   * 3440x1440'ta %104 oluyor, yani hero EKRANDAN TAŞIYORDU (denetimde gerçek
+   * tarayıcıda ölçüldü). Artık hiçbir ekranda taşmıyor.
+   *
+   * NEDEN CSS DEĞİŞKENİ DEĞİL: bir tur `var(--hero-azami-oran, 2.3)` denendi.
+   * Değer yanlış yazılınca (Türkçe virgül "2,05", birimli "2.05px", boş metin)
+   * CSS hata vermeden `min-height`i `auto`ya düşürüyor, yani kural SESSİZCE
+   * yok oluyor ve hata 1440'ta test edilirse hiç görünmüyor. Sınıf ya var ya
+   * yok — sessiz çökme yolu kapalı.
+   */
+  .hero-oranli.hero-kirpma-sinirli {
+    height: clamp(70vh, calc(100vw / 2.3), 100vh);
+  }
+
+  /*
+   * TAM EKRAN HERO (portfolyo listesi ve referans detayları).
+   * Kırılım GENİŞLİK değil ORAN: `md:h-[100dvh]` yazılırsa iPad Pro 12.9"
+   * DİKEY (1024x1366, oran 0,75) genişlik eşiğini geçip tam ekran oluyor ve
+   * 16:9 videonun ENİNİN %58'i kesiliyordu (denetimde yakalandı, 2026-09-11).
+   * Eşiğin altında hero medyanın kendi oranında kalır.
+   */
+  .hero-tam-ekran {
+    aspect-ratio: auto;
+    height: 100dvh;
+  }
+}
+
+/*
+ * TAM EKRAN HERO'NUN EŞİĞİ DAHA DÜŞÜK (5/4 = 1,25).
+ *
+ * Yukarıdaki 7/5 (1,4) eşiği %70'lik hero için türetilmişti; tam ekran hero'da
+ * fazla katı kalıyordu. Denetimde ölçüldü: 7/5 ile iPad Pro 12.9 YATAY
+ * (1366x1024, oran 1,33), 5:4 masaüstü (1280x1024), 4:3 masaüstü (1024x768) ve
+ * iPad 10.2 yatay — dördü de tam ekranı KAYBEDİP %70-75'e düşmüştü. Yakup o
+ * sayfada "video ekrana tam otursun" demişti, yani sessiz bir gerileme.
+ *
+ * 1,25 eşiği iPad Pro DİKEY'i (0,75) yine dışarıda bırakıyor — asıl korunmak
+ * istenen durum oydu (orada videonun eninin %58'i kesiliyordu). 1,33'te yatay
+ * kırpma yalnız %11, 1,25'te %17; ikisi de kabul edilebilir.
+ */
+@media (min-aspect-ratio: 5/4) and (max-aspect-ratio: 7/5) {
+  .hero-tam-ekran {
+    aspect-ratio: auto;
+    height: 100dvh;
   }
 }

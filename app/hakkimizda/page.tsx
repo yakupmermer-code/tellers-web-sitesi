@@ -155,7 +155,7 @@ export default function HakkimizdaPage() {
         /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada saydam
            açılsın diye. Bkz. `app/globals.css` → "ÜST BAR AÇILIŞ RENGİ". */
         data-koyu-acilis
-        className="hero-oranli relative aspect-[2/1] overflow-hidden bg-navy"
+        className="hero-oranli hero-kirpma-sinirli relative aspect-[2/1] overflow-hidden bg-navy"
       >
         {/* Master'ın giriş hareketi: scale 2'den 1'e + soluk açılış.
             `hemen` → görünür alan beklenmiyor; ilk ekranda gecikme olmaz. */}

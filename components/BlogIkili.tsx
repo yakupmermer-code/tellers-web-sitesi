@@ -231,7 +231,6 @@ export default function BlogIkili() {
                 tabIndex={i >= BLOGS.length ? -1 : undefined}
                 href={`/blog/${b.slug}`}
                 aria-label={`${b.title} — yazıyı oku`}
-                data-imlec="Oku"
                 className="group relative block aspect-[4/3] overflow-hidden"
               >
                 <Image

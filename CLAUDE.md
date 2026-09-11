@@ -12,19 +12,31 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 ## Marka Kuralları (değişmez)
 
 - Kurumsal renk: `#0a0a47` (lacivert) — turuncu/kırmızı YOK
-- Font: **TEK AİLE — Avenir Next LT Pro** (2026-09-09, Yakup: "Avenir next
-  olsun tüm font"). Serif vurgu fontu KALDIRILDI.
+- Font: **İKİ AİLE — Avenir Next LT Pro (gövde) + Bodoni Moda (serif vurgu)**.
+  Karar iki kez döndü: 2026-09-09'da Yakup "Avenir next olsun tüm font" deyince
+  serif kaldırılmıştı; **2026-09-11'de geri geldi** (Yakup: "didot sorusunu da
+  dökümanda ne şekilde söylendiyse o şekilde uygula" — ekibin 11 Eylül revize
+  dökümanı "Sitede metinler didot ve avenir fontunda olmalı" diyor).
   - Hâlâ `fonts.cdnfonts.com`'dan geliyor. Ticari bir Monotype fontu; bu CDN
     bir satıcı değil. Lisans riski Yakup tarafından kabul edildi (2026-08-13).
     AÇIK KONU: web lisansı alınacak mı, ücretsiz alternatife mi geçilecek?
   - CDN'de 9 gerçek italik kesim var (sayıldı) — italik vurgular sahte eğim
     değil.
-  - Serif geçmişi: Didot istenmişti, cdnfonts'taki Didot'ta gerçek italik/bold
-    yoktu; Bodoni Moda denendi (self-host, SIL OFL) ve 2026-09-09'da tamamen
-    kaldırıldı. `.font-didot` sınıfı 31 yerde DURUYOR ama artık gövde fontunu
-    gösteriyor; serif geri istenirse `app/globals.css`'teki `--font-didot`
-    satırını değiştirmek yeterli. Bodoni .woff2 dosyaları `public/fonts/`
-    altında duruyor, silinmedi.
+  - **Serif = Bodoni Moda, gerçek "Didot" DEĞİL.** Gerçek Didot ticari bir font;
+    cdnfonts'taki sürümünde gerçek italik/bold kesim yoktu (denendi). Bodoni
+    Moda aynı neoklasik aileden, **SIL OFL** lisanslı ve kendi sunucumuzda
+    (`public/fonts/`, 4 kesim + `OFL.txt`). Ekip "didot" derken bu görünümü
+    kastediyor.
+  - Tek kaynak `app/globals.css` → `--font-didot`. `.font-didot` sınıfı 31
+    yerde geçiyor; yön değişirse **yalnız o bir satır** değişir, sınıflara
+    dokunulmaz. (2026-09-09'da "sınıfı silme" kararı verilmişti; 2026-09-11'de
+    serif geri gelince 31 yerin hiçbirine dokunmadan çalıştı.)
+  - Yedek zincir bilerek `Georgia, serif` — `Didot`/`Bodoni 72` YAZILMAZ: ikisi
+    de macOS'ta kurulu, zincire konursa font yüklenemediğinde hata Mac'te
+    görünmez olur.
+  - Ön yükleme yalnız **italik latin + latin-ext**: `ğ Ğ ş Ş İ` sadece
+    latin-ext'te ve footer sloganı ("anlaşılan") her sayfada. Düz kesim üç
+    yerde geçtiği için ön yüklenmiyor.
 - Logo: `tellers_logo` her yerde; `tellers_icon` ("t" amblemi) SADECE favicon
 - Slogan: "Duyulan unutulur, anlaşılan kalır."
 - Referans logo bandı: lacivert fon, beyaz logolar, çift genişlik

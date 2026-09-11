@@ -39,7 +39,6 @@ export default function PortfolyoKart({
   return (
     <Link
       href={`/portfolyo/${b.slug}`}
-      data-imlec="İncele"
       aria-label={`${b.name} — ${b.listService}`}
       className={`group relative block overflow-hidden ${
         genis

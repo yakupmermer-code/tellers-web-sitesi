@@ -70,7 +70,6 @@ export default function TriSlider({ items }: { items: Item[] }) {
             <Link
               key={item.src}
               href={item.href}
-              data-imlec="İncele"
               data-card
               className="group w-[85vw] flex-none snap-start overflow-hidden md:w-[calc((100%-120px)/3)]"
             >
