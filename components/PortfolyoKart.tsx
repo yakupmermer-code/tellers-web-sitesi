@@ -73,8 +73,10 @@ export default function PortfolyoKart({
           görüntü flu oluyor"): karartma koyulaşıyor VE arkadaki görsel
           bulanıklaşıyor — üstte beliren iç detay yazısı böyle okunuyor.
           `backdrop-blur`, görsele doğrudan `blur` vermekten iyi: görselin
-          kenarları kartın dışına taşmıyor ve `object-cover` kırpması bozulmuyor. */}
-      <div className="pointer-events-none absolute inset-0 bg-navy/30 backdrop-blur-none transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/70 group-hover:backdrop-blur-md" />
+          kenarları kartın dışına taşmıyor ve `object-cover` kırpması bozulmuyor.
+          BULANIKLIK 12px → 9px (%25 az; Yakup 2026-09-11: "flu oluyor fakat
+          bunu %25 azalt, arka kısım hiç belli olmuyor"). */}
+      <div className="pointer-events-none absolute inset-0 bg-navy/30 backdrop-blur-none transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/70 group-hover:backdrop-blur-[9px]" />
 
       {/* ÜST — iç detay yazısı. Master'da boşta gizli, üzerine gelince çıkar.
           `hover-gizli` gizlemeyi ekran genişliğine değil FARE YETENEĞİNE

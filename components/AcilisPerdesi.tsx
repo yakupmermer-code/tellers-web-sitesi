@@ -1,3 +1,7 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 /**
  * AÇILIŞ PERDESİ — referans temanın (arpeggio.framer.website) imza girişi.
  *
@@ -29,6 +33,19 @@
  * hizmetler) güçlü okunur; lacivert hero'lu ana sayfada daha sessiz kalır.
  */
 export default function AcilisPerdesi() {
+  /*
+   * 🔴 YALNIZ ANA SAYFADA (2026-09-11, Yakup: "My Nova sayfası açılırken ana
+   * ekrandaki animasyon oynuyor hâlâ").
+   * Perde `app/layout.tsx`te duruyor, yani HER TAM SAYFA YÜKLEMESİNDE
+   * oynuyordu — bir iç sayfayı doğrudan açan ya da yenileyen kullanıcı, ana
+   * sayfaya ait sandığı bu şeritli girişi orada da görüyordu.
+   * `usePathname` ilk yüklemedeki yolu veriyor; kök layout istemci
+   * gezinmelerinde yeniden bağlanmadığı için bu kontrol yalnızca tam sayfa
+   * yüklemesinde çalışır — yani zaten perdenin oynadığı tek durumda.
+   */
+  const yol = usePathname();
+  if (yol !== "/") return null;
+
   return (
     <div className="acilis-perdesi" aria-hidden="true">
       {Array.from({ length: 10 }, (_, i) => (

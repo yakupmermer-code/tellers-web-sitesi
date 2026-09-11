@@ -39,7 +39,13 @@ export default function YatayAcilis({
     <div className={`overflow-hidden ${className ?? ""}`}>
       <motion.div
         className="reveal h-full w-full"
-        initial={reduced ? false : { scaleX: 1.28 }}
+        /* 1.28 → 1.45 (2026-09-11, Yakup: "senin yaptım dediğin animasyon
+           portfolyo referanslar açılırken gözükmüyor"). Kod çalışıyordu —
+           canlıda sarmal `matrix(1.28, 0, 0, 1, 0, 0)` ölçüldü — ama yatayda
+           %28'lik daralma `object-cover` kırpmasının içinde neredeyse fark
+           edilmiyordu. Dikeydeki 1.28 gözle görülüyor çünkü hero tam ekran;
+           dar bir kartta aynı oran çok daha az yol demek. */
+        initial={reduced ? false : { scaleX: 1.45 }}
         whileInView={reduced ? undefined : { scaleX: 1 }}
         viewport={GORUNUR}
         transition={{ duration: SURE.heroZoom, ease: EASE }}

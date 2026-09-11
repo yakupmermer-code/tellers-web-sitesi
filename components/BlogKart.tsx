@@ -73,10 +73,14 @@ export default function BlogKart({
         />
       </MediaReveal>
 
-      {/* KOYU ÖRTÜ — master'da da var; metinler hep görünür olduğu için
-          okunurluk buna bağlı. Hover'da bir tık koyulaşıyor: master'da kart
-          üzerinde başka bir hover göstergesi yok, bu da fazla değil. */}
-      <div className="pointer-events-none absolute inset-0 bg-navy/50 transition-colors duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/60" />
+      {/* KOYU ÖRTÜ + BULANIKLIK. Örtü master'da da var; metinler hep görünür
+          olduğu için okunurluk buna bağlı.
+          ÜZERİNE GELİNCE BULANIKLAŞIYOR (2026-09-11, Yakup: "aynısını blog
+          sayfası içinde uygula, makale üzerine gelince aynı oranda flu
+          olsun") — portfolyo kartlarıyla birebir aynı değer: 9px.
+          O anda tarih ve içeriğin ilk cümleleri de beliriyor; bulanıklık tam
+          da onların okunması için. */}
+      <div className="pointer-events-none absolute inset-0 bg-navy/50 backdrop-blur-none transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/60 group-hover:backdrop-blur-[9px]" />
 
       {/* ÜST BLOK — tarih (sol) · "Yazan: tellers" (sağ) · başlık · açıklama.
           Master'da dördü de kartın üst kısmında ve HEP GÖRÜNÜR. */}
