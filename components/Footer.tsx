@@ -109,11 +109,18 @@ export default function Footer() {
             className="grid grid-cols-2 gap-x-10 gap-y-3 py-16 lg:col-span-5 lg:pr-10"
           >
             <ul className="space-y-3 text-[16px] font-medium text-navy">
+              {/* `py-1.5 -my-1.5`: GÖRÜNÜM DEĞİL DOKUNMA HEDEFİ. Canlıda
+                  ölçüldü (390px telefon): footer bağlantıları 16 piksel
+                  yüksekliğindeydi — WCAG 2.5.8'in 24 piksellik asgarisinin
+                  altında, parmakla yanlış satıra basılıyordu. Dolgu kutuyu
+                  28 piksele çıkarıyor, negatif dış boşluk yerleşimi geri
+                  alıyor: sayfada hiçbir şey kaymıyor. `inline-block` şart,
+                  satır içi öğede dikey dolgu kutuyu büyütmez. */}
               {NAV.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="link-grow transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
+                    className="link-grow -my-1.5 inline-block py-1.5 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
                   >
                     {item.label}
                   </Link>
@@ -134,7 +141,7 @@ export default function Footer() {
                 <li key={s.slug}>
                   <Link
                     href="/hizmetlerimiz"
-                    className="link-grow transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
+                    className="link-grow -my-1.5 inline-block py-1.5 transition-colors duration-500 ease-[var(--ease-lux)] hover:text-navy"
                   >
                     {s.titleTr}
                   </Link>

@@ -72,17 +72,29 @@ export default function ClosingCta({
                     Dikeyde: yazı görselin %75,0-77,8 aralığında;
                     çizgi `bottom: -4px`'te bittiği için kutu da %74,5-78,5
                     yapıldı, yoksa çizgi yazıdan ~20px aşağıda havada kalıyordu. */}
+                {/* 🔴 `before:` İLE GENİŞLETİLMİŞ DOKUNMA HEDEFİ (2026-09-11).
+                    Kutular görsele ORANSAL oturuyor (`h-[4%]`) — 1440px'lik
+                    masaüstünde ~32 piksel, ama 390 piksellik telefonda görsel
+                    küçüldüğü için SADECE 9 PİKSEL kalıyordu (canlıda ölçüldü:
+                    52x9). Sitenin iki ana iletişim eylemi parmakla
+                    tıklanamıyordu.
+                    Yüzdeyi büyütmek ÇÖZÜM DEĞİL: kutu yazıya birebir
+                    oturtulmuş ve alt çizgi ona bağlı, büyütülürse çizgi
+                    yazıdan kopar. `::before` görünmez bir alan ekleyerek
+                    tıklanabilir bölgeyi dikeyde ±18 piksel genişletiyor
+                    (telefonda ~45 piksel) — çizgi ve kutu yerinde kalıyor.
+                    Yatayda genişletilmedi: iki kutu yan yana, çakışırlardı. */}
                 <a
                   href={`tel:${SITE.phone}`}
                   aria-label="Görüşme planlayın — bizi arayın"
-                  className="cizgi-alt absolute left-[33.8%] top-[74.5%] h-[4%] w-[13.3%] text-white"
+                  className="cizgi-alt absolute left-[33.8%] top-[74.5%] h-[4%] w-[13.3%] text-white before:absolute before:inset-x-0 before:-bottom-[18px] before:-top-[18px] before:content-['']"
                 />
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp'tan yazın"
-                  className="cizgi-alt absolute left-[51.8%] top-[74.5%] h-[4%] w-[13.6%] text-white"
+                  className="cizgi-alt absolute left-[51.8%] top-[74.5%] h-[4%] w-[13.6%] text-white before:absolute before:inset-x-0 before:-bottom-[18px] before:-top-[18px] before:content-['']"
                 />
               </>
             )}
