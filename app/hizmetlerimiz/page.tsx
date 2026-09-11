@@ -158,7 +158,13 @@ export default function HizmetlerimizPage() {
                   Asıl boşluk `mt-*`lerden değil başlığın satır yüksekliğinden
                   geliyordu: 64px başlıkta varsayılan ~1,2 satır yüksekliği 77
                   piksellik kutu yapıyor. `leading-[1.02]` onu kapatıyor. */}
-              <h2 className="mt-1 text-3xl font-bold leading-[1.02] tracking-tight text-navy md:text-[64px]">
+              {/* 1.02 DEĞİL 1.05: `app/globals.css`'te `.t-dev` için aynı tuzak yazılı —
+                  Türkçede ç/ğ/ş alt uzantıları bir üst satırın harfleriyle
+                  çakışıyor (orada ölçülmüş: en kötü -7,3px). Mevcut dört hizmet
+                  adı 1.02'de şans eseri güvenliydi; yeni bir ad eklendiğinde
+                  sessizce bozulurdu (denetimde test edildi: "Sağlığı Yönetimi
+                  Çözümü" yazınca Ç'nin sedillası alt metne giriyor). */}
+              <h2 className="mt-1 text-3xl font-bold leading-[1.05] tracking-tight text-navy md:text-[64px]">
                 {s.titleTr}
               </h2>
               <p className="mt-1 text-lg font-bold text-navy">{s.tagline}</p>

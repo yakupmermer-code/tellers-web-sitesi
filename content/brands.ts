@@ -66,18 +66,29 @@ export type Brand = {
     /**
      * Eşit kutulu grid.
      *
-     * 🔴 SÜTUN SAYISI ARTIK HEP 3 (2026-09-11) — ekibin 11 Eylül dökümanı:
-     * "Dikey görseller yan yana grid şeklinde 3'LÜ DİKEY olacak şekilde, kare
-     * görseller ise KARE 3'LÜ grid sisteminde yerleştirilmeli." Tek istisna
-     * iki öğeli Bardahl ızgarası (3 kolonda yanında boşluk kalırdı).
+     * SÜTUN SAYISI 3 (2026-09-11) — ekibin 11 Eylül dökümanı: "Dikey görseller
+     * yan yana grid şeklinde 3'LÜ DİKEY olacak şekilde, kare görseller ise
+     * KARE 3'LÜ grid sisteminde yerleştirilmeli."
      *
-     * `kare` BAYRAĞI ÖLÇÜLEREK KONDU: her ızgaranın öğelerinin gerçek en-boy
-     * oranı dosyalardan okundu (görsellerde `sips`, videolarda MP4 `tkhd`
-     * kutusu). Kare çıkanlar: Raymond Weil 1.00 · BNI 1.00 · Qui Privé 0.93.
-     * Geri kalan on ızgara dikey (0.56-0.85) ve `aspect-[4/5]` ile basılıyor.
-     * Not: dökümanın "kare" örneği Tyre Supply ekran görüntüsüydü ama o
-     * markanın öğeleri ölçülünce DİKEY çıktı (0.76) — ekran görüntüsünde
-     * görseller alttan kesildiği için kare görünüyordu.
+     * 🔴 İKİ İSTİSNA: `dedebio` ve `anatolian-stars` ızgaralarında YALNIZ İKİ
+     * ÖĞE var, 2 kolonda kalıyorlar. 3 kolona konsalardı satırın üçte biri
+     * (1440px'te 437 piksel) bomboş kalırdı. Bir tur 3'e çevrilmişlerdi ve
+     * buradaki yorum "iki öğeli tek ızgara Bardahl" diyordu — ÜÇÜ DE YANLIŞTI:
+     * Bardahl'ın galerisinde hiç `grid` bloğu yok, iki öğeli olanlar bunlar ve
+     * ikisi de yanlışlıkla 3'e çevrilmişti (denetimde ölçülerek yakalandı).
+     *
+     * `kare` BAYRAĞI ÖĞE ÖĞE ÖLÇÜLDÜ (görsellerde `sips`, videolarda MP4
+     * `tkhd` kutusu). Izgaralar KARIŞIK olabiliyor, o yüzden kural ÇOĞUNLUK:
+     *   raymond-weil  3/3 kare (1.00)          → kare
+     *   bni           4/4 kare (1.00)          → kare
+     *   qui-prive     2/3 kare                 → kare (biri kırpılıyor)
+     *   utkan-yildirim 6/9 kare (1080x1080)    → kare (üç dikey kırpılıyor)
+     *   atlantis      2/6 kare                 → dikey (iki kare kırpılıyor)
+     *   premium-gym   1/8 kare                 → dikey
+     *   kalanlar      0 kare (0.56-0.80)       → dikey
+     * ⚠️ Karışık ızgarada birileri mutlaka kırpılıyor; azınlık kırpılsın diye
+     * çoğunluğa göre seçildi. Bir tur ORTALAMA orana bakılmıştı ve bu yüzden
+     * utkan-yildirim'in altı kare görseli %20 kırpılıyordu.
      */
     | {
         kind: "grid";
@@ -650,7 +661,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 3,
+        cols: 2,
         items: [
           { type: "image", src: "/assets/brands/dedebio/g1.jpg" },
           { type: "image", src: "/assets/brands/dedebio/g2.jpg" },
@@ -766,7 +777,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 3,
+        cols: 2,
         items: [
           { type: "image", src: "/assets/brands/anatolianstars/g1.jpg" },
           { type: "image", src: "/assets/brands/anatolianstars/g2.jpg" },
@@ -797,6 +808,7 @@ export const BRANDS: Brand[] = [
       {
         kind: "grid",
         cols: 3,
+        kare: true,
         items: [
           { type: "image", src: "/assets/brands/utkanyildirim/g1.png" },
           { type: "image", src: "/assets/brands/utkanyildirim/g2.jpg" },

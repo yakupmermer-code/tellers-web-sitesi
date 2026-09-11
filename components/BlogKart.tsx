@@ -28,6 +28,11 @@ import { ilkCumleler } from "@/lib/ozet";
  *   ilk cümleler  sol 36 · ALT bölgede · 17px/400 · rgb(230,230,230)
  *   kart üstünde tam boy koyu bir örtü var — metinler onun üzerinde okunuyor
  *
+ * ⚠️ YUKARIDAKİ ÖLÇÜM MASTER'IN DAVRANIŞIDIR, BİZİMKİ ARTIK FARKLI: bizde
+ * TARİH ve "Yazan: tellers" üzerine gelmeden GÖRÜNMÜYOR (ekibin 11 Eylül
+ * dökümanı: "Detaylar tıkladığımızda çıksın, tıklamadan yazan görünmesin").
+ * Aşağıdaki `hover-gizli` kullanımlarının gerekçesi kendi satırlarında.
+ *
  * Bizde örtü SİYAH DEĞİL LACİVERT: marka kuralı (`CLAUDE.md`), master'ın
  * siyahı yerine kurumsal renk. Yakup'un tek istisnası zaten "renkler ve
  * kurumsal font harici birebir".

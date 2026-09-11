@@ -49,7 +49,28 @@ export default function YakinAcilis({
   hemen?: boolean;
 }) {
   const reduced = useReducedMotion();
-  const bitis = { scale: 1, opacity: 1 };
+  /*
+   * 🔴 `hemen` MODUNDA OPAKLIK ANİMASYONU YOK (2026-09-11, Yakup: "ilk site
+   * açılırken slider da mavi oluyor sonra video geliyor, diğer içerik
+   * kısımları da aynı, bunun sebebi nedir").
+   *
+   * Sebep buydu: hero bölümlerinin zemini `bg-navy` (video yüklenirken boş
+   * kutu görünmesin, sayfa zıplamasın diye). Giriş `opacity: 0`dan başlayınca
+   * medya saydam kalıyor ve arkasındaki LACİVERT görünüyor — izleyici önce
+   * mavi, sonra videoyu görüyor. Master'da bu göze batmıyor çünkü onun
+   * hero'sunun arkası beyaz; bizde kurumsal renk olduğu için belirgin.
+   *
+   * Çözüm zemini beyaza çevirmek DEĞİL (o zaman yüklenirken beyaz parlama
+   * olurdu ve koyu hero'nun üzerindeki saydam bar okunmaz hâle gelirdi):
+   * ilk ekrandaki hero'da opaklık animasyonunu hiç yapmamak. Poster/ilk kare
+   * en baştan görünür, yalnızca ölçek 2'den 1'e oturur — yani Yakup'un
+   * istediği "yakından gelip uzaklaşma" aynen duruyor, mavi flaş yok.
+   *
+   * GÖRÜNÜR ALANA GİRİNCE tetiklenen (hemen=false) iç görseller opaklıkla
+   * gelmeye DEVAM EDİYOR: onların arkası beyaz, mavi flaş sorunu yok ve
+   * master'da ölçülen davranış bu.
+   */
+  const bitis = hemen ? { scale: 1 } : { scale: 1, opacity: 1 };
 
   return (
     /* `overflow-hidden` ŞART: giriş sırasında içerik kutudan taşıyor. Master'da
@@ -59,7 +80,7 @@ export default function YakinAcilis({
         /* `reveal` sınıfı: `prefers-reduced-motion` kapalıyken bile içeriğin
            görünür kalmasını garantileyen ortak kaçış yolu (globals.css). */
         className="reveal h-full w-full"
-        initial={reduced ? false : { scale: olcek, opacity: 0 }}
+        initial={reduced ? false : hemen ? { scale: olcek } : { scale: olcek, opacity: 0 }}
         {...(hemen
           ? { animate: bitis }
           : { whileInView: bitis, viewport: GORUNUR })}

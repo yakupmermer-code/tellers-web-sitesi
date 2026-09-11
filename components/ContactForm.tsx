@@ -256,7 +256,13 @@ export default function ContactForm({
           Ok işareti korundu (master'da da var), yuvarlak dolgusu kalktı. */}
       <button
         type="submit"
-        className="link-grow group mt-10 flex w-max items-center gap-3 text-[18px] font-medium text-navy transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
+        /* `py-3`: GÖRÜNÜM değil DOKUNMA HEDEFİ. Çizgisel hâle geçince düğme
+           mobilde 105x27 piksele düşmüştü (denetimde ölçüldü) — WCAG 2.5.8'in
+           24px asgarisini 3 piksel farkla geçiyordu, tavsiye edilen 44px'in
+           çok altında. Bu sitenin TEK dönüşüm eylemi; parmakla ıskalanan her
+           tıklama kaybedilen müşteri adayı. Dolgu görünümü değiştirmiyor,
+           yalnız tıklanabilir alanı 27→51 piksele çıkarıyor. */
+        className="link-grow group mt-10 flex w-max items-center gap-3 py-3 text-[18px] font-medium text-navy transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
       >
         {isKariyer ? "Başvurunuzu Gönderin" : "Gönderin"}
         <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">

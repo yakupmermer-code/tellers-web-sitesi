@@ -63,23 +63,7 @@ export const NAV = [
   { label: "İletişim", href: "/iletisim" },
 ] as const;
 
-/**
- * Sertifikalarımız ve partnerlik rozetlerimiz — footer'ın sağ alt alanında,
- * küçük ve sade (revize dökümanı: "Bu alana sertifikalarımızı ve partnerlik
- * logolarını ekleyeceğiz, sağ boş alt alana ekleyelim. Küçük ikonlar, minimal
- * gibi").
- *
- * 🔴 LİSTE BİLİNÇLİ OLARAK BOŞ. Dosyalar `public/assets/partners/` altına
- * konulunca buraya satır eklenecek ve footer'da kendiliğinden görünecek.
- * Boşken footer'daki blok hiç basılmaz.
- *
- * NEDEN OTOMATİK DOLDURULMADI: partnerlik rozeti şirket hakkında bir İDDİADIR.
- * Sahip olunmayan bir rozeti yayınlamak yanlış beyandır ve anayasadaki
- * "uydurma veri yazılmaz / doğrulanamayan alan basılmaz" kuralının kapsamına
- * girer. Yakup'un Drive'ında aday dosyalar bulundu (Google Partner, Google
- * Cloud Partner, Kommo Partner, TESİAD) ama hangilerinin gerçekten bize ait
- * olduğu teyit edilmeden basılmıyor.
- */
+
 export const PARTNER_LOGOLARI: {
   file: string;
   name: string;

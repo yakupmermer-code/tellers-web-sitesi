@@ -215,7 +215,7 @@ export default async function BlogDetayPage({
           <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10">
             <Reveal mask>
               {/* `font-semibold` (600): master'da H1 600 ölçüldü, 700 değil. */}
-              <h1 className="text-[24px] font-semibold leading-[1.1] tracking-tight text-white md:text-[36px] xl:text-[48px]">
+              <h1 className="max-w-3xl text-[24px] font-semibold leading-[1.1] tracking-tight text-white md:text-[36px] xl:text-[48px]">
                 {blog.title}
               </h1>
             </Reveal>

@@ -387,7 +387,12 @@ body {
 /* Referans logo bandı — sürekli kayan slider (marquee).
    SÜRE 32s -> 55s (2026-09-09, Yakup: "çok hızlı bir tık yavaş olsun").
    Süre listenin TAMAMI için; logo sayısı değişirse hız da değişir
-   (33 logo -> 55s ≈ logo başına 1,7s). */
+   (33 logo -> 55s ≈ logo başına 1,7s).
+   🔴 2026-09-11: liste 32'den 35 logoya çıktı (ekipten üç yeni marka) ve süre
+   55s'de kalınca bant %9 HIZLANMIŞTI — Yakup'un "bir tık yavaş olsun" ayarı
+   sessizce geri sarılıyordu. Yukarıdaki uyarı tam bunun içindi; süre logo
+   başına 1,7s oranı korunacak şekilde 58s'e çekildi. Liste bir daha değişirse
+   bu satır da değişmeli. */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -397,7 +402,7 @@ body {
   }
 }
 .animate-marquee {
-  animation: marquee 55s linear infinite;
+  animation: marquee 58s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
@@ -472,6 +477,7 @@ body {
 }
 .link-grow:hover::after,
 .cizgi-alt:hover::after,
+.link-grow:focus-visible::after,
 .cizgi-alt:focus-visible::after,
 .group:hover .link-grow::after {
   width: 100%;
