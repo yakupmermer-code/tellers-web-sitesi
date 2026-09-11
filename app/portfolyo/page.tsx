@@ -7,10 +7,8 @@ import {
   listeSemasi,
   paylasim,
 } from "@/lib/seo";
-import Image from "next/image";
-import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { ilkCumleler } from "@/lib/ozet";
+import PortfolyoKart from "@/components/PortfolyoKart";
 import KapanisSection from "@/components/KapanisSection";
 import { BRANDS } from "@/content/brands";
 
@@ -142,61 +140,25 @@ export default function PortfolyoPage() {
             geçti, kilitlenme riski kalktı. Yine de UZUN ızgaralarda kart başına
             Reveal doğru desen: tek Stagger olsaydı alttaki kartlar, kullanıcı
             oraya varmadan görünmeden animasyonlarını bitirirdi. */}
-        <div className="flex flex-col gap-6">
-          {BRANDS.map((b) => (
+        {/* İLK ÜÇÜ YATAY, KALANI 2'Lİ KARE (2026-09-11, Yakup: "work
+            kısmında ilk 3 kısım yatay, sonrası 2'li kare şekilde aşağı
+            ilerliyor").
+            MASTER ÖLÇÜMÜ: ilk dört kart 1360x622 ve ARALARINDA BOŞLUK YOK
+            (y = 70, 692, 1315, 1937 — tam 622'şer); sonraki üçü 674x622,
+            iki sütun, 12px ara (x = 40 ve 726, y = 3030 ve 3664).
+            Bizde yatay sayısı ÜÇ: Yakup'un tarifi bu. */}
+        <div className="flex flex-col">
+          {BRANDS.slice(0, 3).map((b) => (
             <Reveal key={b.slug}>
-              <Link
-                href={`/portfolyo/${b.slug}`}
-                data-imlec="Ziyaret Et"
-                aria-label={`${b.name} — ${b.listService}`}
-                className="group relative block aspect-[4/3] overflow-hidden md:aspect-[1360/622]"
-              >
-                <Image
-                  src={b.banner}
-                  alt=""
-                  width={1360}
-                  height={622}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]"
-                  sizes="(min-width: 1440px) 1360px, 100vw"
-                />
+              <PortfolyoKart marka={b} genis />
+            </Reveal>
+          ))}
+        </div>
 
-                {/* "Banner alanları bu kadar açık olmayacak" — dökümanın açık
-                    isteği. Master'da da kart üzerinde koyu bir örtü var; bizde
-                    lacivert (marka kuralı). Üzerine gelince koyulaşıyor. */}
-                <div className="pointer-events-none absolute inset-0 bg-navy/45 transition-colors duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/65" />
-
-                {/* ÜST — açıklama. Master'da boşta gizli, üzerine gelince
-                    çıkıyor. `hover-gizli` gizlemeyi ekran genişliğine değil
-                    fare yeteneğine bağlar (dokunmatikte hep açık). */}
-                <p className="hover-gizli pointer-events-none absolute inset-x-8 top-8 line-clamp-3 text-[15px] font-medium leading-snug text-white md:top-14 md:text-[22px] xl:text-[35px] xl:leading-[1.2]">
-                  {ilkCumleler(b.intro, b.headline, 150)}
-                </p>
-
-                {/* ALT — sektör · tarih (sağda) · isim · hizmet. Master'da
-                    dördü de HEP GÖRÜNÜR. */}
-                {/* `bottom-[52px]`: `bottom-16` (64px) ile blok master'dakinden
-                    12px yukarıda kalıyordu (bizde sektör satırı üst 427, master
-                    439). Ölçülerek oturtuldu. */}
-                <div className="pointer-events-none absolute inset-x-6 bottom-6 md:inset-x-14 md:bottom-[52px]">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <p className="text-[13px] font-medium text-white/95 md:text-[16px] xl:text-[19px]">
-                      {b.sektor}
-                    </p>
-                    {/* Ekip teyidi beklenen tarih hiç gösterilmez — dökümanda
-                        XXXX/?? yazıyordu, yer tutucu değer ekranda "gerçek"
-                        gibi duruyordu (security-auditor bulgusu). */}
-                    <p className="shrink-0 text-[12px] text-white md:text-[15px] xl:text-[17px]">
-                      {b.tarihTeyitsiz ? "" : b.year}
-                    </p>
-                  </div>
-                  <p className="mt-2 font-medium leading-[1.1] tracking-[-0.02em] text-white text-[24px] md:mt-3 md:text-[34px] xl:text-[48px]">
-                    {b.name}
-                  </p>
-                  <p className="mt-1.5 text-[13px] font-medium text-white/95 md:text-[17px] xl:text-[21px]">
-                    {b.listService}
-                  </p>
-                </div>
-              </Link>
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          {BRANDS.slice(3).map((b, i) => (
+            <Reveal key={b.slug} delay={0.05 * (i % 2)}>
+              <PortfolyoKart marka={b} />
             </Reveal>
           ))}
         </div>

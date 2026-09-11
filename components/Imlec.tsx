@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from "react";
  *   blog kartı      → 120x120, zemin rgba(255,255,255,0.6), backdrop blur(8px),
  *                     etiket "READ" 12px / 400
  *   portfolyo kartı → 76x76, zemin MARKA RENGİ, bulanıklık YOK,
- *                     etiket "VISIT" 12px / 400  (bizde "Ziyaret Et")
+ *                     etiket "VISIT" 12px / 400  (bizde "İncele")
  *   ortak           → position fixed, pointer-events none, z-index 13
  *
  * Yani master'da tek bir "büyük hâl" yok: alan türüne göre HEM ÇAP HEM ZEMİN
@@ -56,7 +56,11 @@ type Varyant = {
  * Yakup 2026-09-10: "mouse imleci aşağıdaki blog kısmında yaptığın gibi BEYAZ
  * olsun ve içine BİZİM RENGİMİZ ile ziyaret et yaz, bu da BOLD olsun.
  * Yuvarlağın boyutu da ana sayfadaki blog kısmında olduğu büyüklükte olsun."
- * Yani "Ziyaret Et", blog kartındaki "Oku" ile aynı kutuya girdi.
+ * Yani "İncele", blog kartındaki "Oku" ile aynı kutuya girdi.
+ * Etiket 2026-09-11'de "Ziyaret Et"ten "İncele"ye çevrildi (Yakup: "portfolyoda
+ * veya referansların üzerine mouse geldiği zaman beyaz arka fon, içi bold,
+ * kurumsal rengimizde İNCELE yazmalı") — tek kelime olduğu için artık iki
+ * satıra da sarmıyor.
  *
  * ⚠️ MASTER'DAN BİLİNÇLİ SAPMA — master'da ölçülen değerler şunlardı:
  *   blog kartı      → 120px, beyaz %60 + blur(8px), "READ"  12px/400
@@ -89,7 +93,7 @@ const ETIKETLI: Varyant = {
  */
 const VARYANTLAR: Record<string, Varyant> = {
   Oku: ETIKETLI,
-  "Ziyaret Et": ETIKETLI,
+  İncele: ETIKETLI,
 };
 
 /*
@@ -352,8 +356,9 @@ export default function Imlec() {
         /* RENK DE GEÇİŞTE: blog kartından portfolyo kartına doğrudan
            geçildiğinde zemin 300 ms'de değişirken yazı rengi anında
            zıplıyordu; o aralıkta beyaz yazı açık zeminde okunmuyordu.
-           ORTALI + SARMALI: "Ziyaret Et" iki kelime, 76px daireye tek satır
-           sığmıyor; `leading-[1.15]` iki satırı sıkıştırmadan tutuyor.
+           ORTALI: etiketler ("OKU" / "İNCELE") tek kelime ve 120px daireye
+           rahat sığıyor; `leading-[1.15]` yedek yazı tipinde sarma olursa iki
+           satırı sıkıştırmadan tutuyor.
            `px-1` (px-2 DEĞİL): etiket kalınlaşınca "ZİYARET" ~%7 daha geniş
            sürüyor. px-2'de iç genişlik 60px kalıyor ve pay 2px'e iniyordu;
            px-1 ile iç genişlik 68px, pay ~10px. */

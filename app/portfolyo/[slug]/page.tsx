@@ -431,7 +431,7 @@ export default async function MarkaDetayPage({
             <Reveal key={b.slug} delay={0.05 * i}>
               <Link
                 href={`/portfolyo/${b.slug}`}
-                data-imlec="Ziyaret Et"
+                data-imlec="İncele"
                 className="group block"
               >
                 <div className="relative overflow-hidden">

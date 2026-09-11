@@ -405,6 +405,34 @@ body {
   }
 }
 
+/*
+ * ÜZERİNE GELİNCE ALTTAN AÇILAN ÇİZGİ — kart içindeki metinler için.
+ * `link-grow`dan farkı: boşta HİÇ çizgi yok (o, 14px'lik bir izle bekler) ve
+ * tetikleyici öğenin kendisi değil `.group` atası. Portfolyo kartlarında
+ * kullanılıyor: Yakup 2026-09-11 "mouse üzerine gelince yazıların ALTINDA
+ * çizgiler çıkıyor".
+ * Ölçek dönüşümü kullanıyor, genişlik değil: düzen tetiklemez, 60fps akar.
+ */
+.cizgi-hover {
+  position: relative;
+}
+.cizgi-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-lux);
+}
+.group:hover .cizgi-hover::after,
+.group:focus-visible .cizgi-hover::after {
+  transform: scaleX(1);
+}
+
 /* Temanın imza link hover'ı: kısa alt çizgi hover'da tam genişliğe uzar */
 .link-grow {
   position: relative;
