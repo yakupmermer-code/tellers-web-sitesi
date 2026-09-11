@@ -15,9 +15,14 @@ import { SITE } from "@/content/site";
  * görselleri 404 veriyordu. Tek kaynağa indirildi (2026-08-26).
  *
  * Öncelik sırası:
+ * 🔴 SON ÇARE ADRESİ DEĞİŞTİ (2026-09-11, Yakup: "adresimiz
+ * https://tellers.com.tr/ olacak"). Eskiden `tellers.email` yazıyordu — o
+ * ajansın E-POSTA alanı, sitenin adresi değil. Yanlış kök, canonical ve
+ * sitemap'i var olmayan bir siteye işaret ettirirdi.
+ *
  *   1) NEXT_PUBLIC_SITE_URL   → alan adı bağlanınca Railway'de bu ayarlanır
  *   2) RAILWAY_PUBLIC_DOMAIN  → Railway otomatik verir (şu anki geçici adres)
- *   3) https://tellers.email  → son çare
+ *   3) https://tellers.com.tr → son çare (SİTENİN GERÇEK ADRESİ)
  */
 function cozSiteUrl(): string {
   const acik = process.env.NEXT_PUBLIC_SITE_URL?.trim();
@@ -34,13 +39,13 @@ function cozSiteUrl(): string {
         ? `[seo] NEXT_PUBLIC_SITE_URL tanımlı değil — geçici adres kullanılıyor: https://${railway}\n` +
             `      Gerçek alan adı bağlanınca bu değişkeni ayarla, yoksa canonical'lar geçici adresi gösterir.`
         : `[seo] UYARI: NEXT_PUBLIC_SITE_URL ve RAILWAY_PUBLIC_DOMAIN'in İKİSİ DE yok.\n` +
-            `      Tüm canonical / sitemap / OG adresleri https://tellers.email'e düşecek —\n` +
+            `      Tüm canonical / sitemap / OG adresleri https://tellers.com.tr'ye düşecek —\n` +
             `      o alan adı web olarak YAYINDA DEĞİL, yani site indekslenemez.`
     );
   }
 
   if (railway) return `https://${railway.replace(/\/+$/, "")}`;
-  return "https://tellers.email";
+  return "https://tellers.com.tr";
 }
 
 export const SITE_URL = cozSiteUrl();

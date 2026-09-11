@@ -72,14 +72,20 @@ Bu projede AI runtime yok (statik site) — model tanımı gerekmez.
 ## SEO / GEO — bilinmesi zorunlu
 
 **Site adresi tek kaynaktan gelir:** `lib/seo.ts` → `SITE_URL`.
-Öncelik: `NEXT_PUBLIC_SITE_URL` → `RAILWAY_PUBLIC_DOMAIN` → `https://tellers.email`.
+Öncelik: `NEXT_PUBLIC_SITE_URL` → `RAILWAY_PUBLIC_DOMAIN` → `https://tellers.com.tr`.
+**Sitenin gerçek adresi `https://tellers.com.tr` (2026-09-11, Yakup).** `tellers.email`
+AJANSIN E-POSTA ALANI, sitenin adresi DEĞİL — kodda son çare olarak o yazılıydı,
+düzeltildi.
 Adresi hiçbir dosyaya elle yazma; `mutlak()` / `SITE_URL` kullan.
 
 **Üç değişken de DERLEME anında okunur** (sayfalar statik). Railway'de değeri
 değiştirmek tek başına yetmez — **yeniden deploy** şart. Ayrıntı: `.env.example`.
 
-- `NEXT_PUBLIC_SITE_URL` — gerçek alan adı bağlanınca ayarlanacak. Ayarlanmazsa
-  canonical'lar geçici Railway adresini gösterir (Google onu asıl sayar).
+- `NEXT_PUBLIC_SITE_URL` — Railway'de `https://tellers.com.tr` olarak AYARLANDI
+  (2026-09-11). Alan adı henüz yapım aşamasında; canonical'lar şimdiden doğru kökü
+  gösteriyor, böylece geçici Railway adresi asıl site sanılmıyor.
+- `NEXT_PUBLIC_NOINDEX=1` — Railway'de AÇIK (2026-09-11, Yakup: "şuan indekslemesin").
+  Alan adı yayına girip site onaylanınca KALDIRILACAK, yoksa site hiç indekslenmez.
 - `NEXT_PUBLIC_NOINDEX=1` — önizleme kilidi. robots.txt yine `Allow: /` der;
   bu bilinçlidir (tarama kapalıysa bot noindex etiketini göremez).
 
