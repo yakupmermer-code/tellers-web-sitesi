@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import PortfolyoKart from "@/components/PortfolyoKart";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
 import CountUp from "@/components/CountUp";
@@ -56,10 +56,12 @@ export default async function MarkaDetayPage({
   if (!brand) notFound();
   const aciklama = kisalt(brand.intro);
 
-  // Mevcut markadan sonraki 3 marka (dairesel) — her sayfada farklı öneri çıkar
+  /* Mevcut markadan sonraki 4 marka (dairesel) — her sayfada farklı öneri
+     çıkar. DÖRT: master'ın /work/velocity-motors sayfasındaki "More Projects"
+     alanı dört kart gösteriyor (ölçüldü, 2026-09-11). */
   const idx = BRANDS.findIndex((b) => b.slug === brand.slug);
   const others = Array.from(
-    { length: 3 },
+    { length: 4 },
     (_, i) => BRANDS[(idx + 1 + i) % BRANDS.length],
   );
 
@@ -323,6 +325,28 @@ export default async function MarkaDetayPage({
             const k =
               ustOlcu.height / ustOlcu.width + altOlcu.height / altOlcu.width;
             const solPay = (solOran * k) / (1 + solOran * k);
+
+            /*
+             * 🔴 `flip` GENİŞLİKLERİ DE ÇEVİRMEK ZORUNDA.
+             * `solPay` her zaman UZUN ALANIN (tall) payıdır. Aşağıda `flip`
+             * true iken kolonların SIRASI değişiyordu ama `--sol`/`--sag`
+             * değerleri olduğu gibi kalıyordu: dolayısıyla sol kolona (artık
+             * `pair`) uzun alanın payı, sağ kolona (artık `tall`) çiftin payı
+             * gidiyordu — tam ters.
+             *
+             * ÖLÇÜLEN SONUÇ (canlı, /portfolyo/my-nova, 1440px, 2026-09-11):
+             *   sol kolon (2 görsel) → 891px geniş, 2543px yüksek
+             *   sağ kolon (1 görsel) → 445px geniş,  630px yüksek
+             *   yani iki kolon 1913px HİZASIZ.
+             * Revize dökümanı bunu şöyle tarif etmiş: "Bu alanda soldaki ikili
+             * alan çok dar kalmış. Sağdaki alan aşağıya uzayıp gidiyor,
+             * soldakiler yarıda kesiliyor. Onlar da uzatılmalı ve sağdakinin
+             * bitişiyle HİZALANMALI."
+             *
+             * Hesabın tamamı zaten "iki kolon aynı yükseklikte bitsin" diye
+             * kurulmuştu; tek eksik payların da yer değiştirmesiydi.
+             */
+            const ilkKolonPayi = g.flip ? 1 - solPay : solPay;
             const tall = (
               <div className="overflow-hidden">
                 {g.left.type === "video" ? (
@@ -378,8 +402,8 @@ export default async function MarkaDetayPage({
                   className="grid items-start gap-6 md:grid-cols-[var(--sol)_var(--sag)]"
                   style={
                     {
-                      "--sol": `${(solPay * 100).toFixed(2)}fr`,
-                      "--sag": `${((1 - solPay) * 100).toFixed(2)}fr`,
+                      "--sol": `${(ilkKolonPayi * 100).toFixed(2)}fr`,
+                      "--sag": `${((1 - ilkKolonPayi) * 100).toFixed(2)}fr`,
                     } as React.CSSProperties
                   }
                 >
@@ -426,35 +450,27 @@ export default async function MarkaDetayPage({
             Diğer Projeler
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map((b, i) => (
-            <Reveal key={b.slug} delay={0.05 * i}>
-              <Link
-                href={`/portfolyo/${b.slug}`}
-                data-imlec="İncele"
-                className="group block"
-              >
-                <div className="relative overflow-hidden">
-                  <Image
-                    src={b.banner}
-                    alt={b.name}
-                    width={760}
-                    height={950}
-                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.04]"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
-                  <p className="absolute bottom-5 left-5 text-xl font-bold tracking-tight text-white md:text-[28px]">
-                    {b.name}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-baseline justify-between border-t hairline pt-3">
-                  <p className="text-sm text-navy/70">{b.listService}</p>
-                  <p className="text-sm text-navy/50">
-                    {b.tarihTeyitsiz ? "" : b.year}
-                  </p>
-                </div>
-              </Link>
+        {/* ── DİĞER PROJELER — MASTER /work/velocity-motors DÜZENİ ──────
+            Revize dökümanı: "Diğer projeleri gördüğümüz bu alan yukarıdaki gibi
+            olmayacak, aşağıdaki örnekteki gibi olmalı" +
+            https://arpeggio.framer.website/work/velocity-motors#top
+
+            MASTER ÖLÇÜMÜ (1440px, canlı): o sayfadaki "More Projects" alanı
+            DÖRT kart, hepsi 1440x800 ve TAM GENİŞLİK, art arda (mutlak y =
+            13645 / 14445 / 15245 / 16045, yani tam 800'er — aralarında boşluk
+            yok). Üç sütunlu küçük kart ızgarası değil.
+
+            ÖNCEKİ HÂLİMİZ: 3 sütunlu 4/5 kartlar; marka adı görselde, hizmet
+            ve yıl KARTIN ALTINDA çizgiyle ayrılmış bir satırdaydı — dökümanın
+            portfolyo listesi için "iptal edilecek" dediği yerleşimin aynısı.
+
+            Artık `PortfolyoKart` (yatay biçim): liste sayfasıyla aynı bileşen,
+            yani sektör/tarih/isim/hizmet dörtlüsü, sabit ayraç çizgisi,
+            üzerine gelince bulanıklık + iç detay yazısı hepsi aynı davranıyor. */}
+        <div className="mt-12 flex flex-col">
+          {others.map((b) => (
+            <Reveal key={b.slug}>
+              <PortfolyoKart marka={b} genis />
             </Reveal>
           ))}
         </div>
