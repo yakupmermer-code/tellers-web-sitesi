@@ -440,7 +440,7 @@ export default async function MarkaDetayPage({
                     zemin medyaların dibine yapışırsa bant değil kenarlık gibi
                     görünüyor. */}
                 <div
-                  className={`grid items-start gap-6 md:grid-cols-[var(--sol)_var(--sag)] ${
+                  className={`grid items-stretch gap-6 md:grid-cols-[var(--sol)_var(--sag)] ${
                     g.gri ? "bg-mist p-6 md:p-10" : ""
                   }`}
                   style={
