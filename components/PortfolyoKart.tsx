@@ -62,7 +62,13 @@ export default function PortfolyoKart({
       {/* "Banner alanları bu kadar açık olmayacak" — dökümanın açık isteği.
           Master'da da kart üzerinde koyu örtü var; bizde lacivert (marka
           kuralı). Üzerine gelince koyulaşıyor. */}
-      <div className="pointer-events-none absolute inset-0 bg-navy/45 transition-colors duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/65" />
+      {/* ÖRTÜ + BULANIKLIK. Üzerine gelince iki şey birden oluyor (Yakup'un
+          ekran görüntüsü ve notu, 2026-09-11: "bu metinler çıkarken arka
+          görüntü flu oluyor"): karartma koyulaşıyor VE arkadaki görsel
+          bulanıklaşıyor — üstte beliren iç detay yazısı böyle okunuyor.
+          `backdrop-blur`, görsele doğrudan `blur` vermekten iyi: görselin
+          kenarları kartın dışına taşmıyor ve `object-cover` kırpması bozulmuyor. */}
+      <div className="pointer-events-none absolute inset-0 bg-navy/30 backdrop-blur-none transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] group-hover:bg-navy/70 group-hover:backdrop-blur-md" />
 
       {/* ÜST — iç detay yazısı. Master'da boşta gizli, üzerine gelince çıkar.
           `hover-gizli` gizlemeyi ekran genişliğine değil FARE YETENEĞİNE
@@ -81,6 +87,12 @@ export default function PortfolyoKart({
           HEP GÖRÜNÜR. Üzerine gelince isim ve hizmetin ALTINDA çizgi çıkar
           (Yakup'un tarifi; master'da ölçülemedi). */}
       <div className="pointer-events-none absolute inset-x-6 bottom-6 md:inset-x-14 md:bottom-[52px]">
+        {/* ⚠️ ÇİZGİ HOVER'DA DEĞİL, HEP GÖRÜNÜR — Yakup'un ekran görüntüsünden
+            (2026-09-11). Bir tur ismin ve hizmetin ALTINDA, üzerine gelince
+            açılan çizgiler yapılmıştı; görüntüde çizgi SEKTÖR/TARİH satırının
+            ALTINDA, ismin ÜSTÜNDE ve fare kartın üzerinde OLMADIĞI karede de
+            duruyor. Yakup "yazıların altında çizgiler çıkıyor" derken bu sabit
+            ayracı tarif etmiş; ben hover efekti sanmıştım. */}
         <div className="flex items-baseline justify-between gap-4">
           <p
             className={`font-medium text-white/95 ${
@@ -105,10 +117,10 @@ export default function PortfolyoKart({
           </p>
         </div>
 
-        {/* `cizgi-hover`: boşta yok, üzerine gelince soldan sağa açılır.
-            `app/globals.css` içinde tanımlı. */}
+        <div className="mt-2 h-px w-full bg-white/45 md:mt-3" />
+
         <p
-          className={`cizgi-hover mt-2 inline-block font-medium leading-[1.1] tracking-[-0.02em] text-white md:mt-3 ${
+          className={`mt-3 font-medium leading-[1.1] tracking-[-0.02em] text-white md:mt-4 ${
             genis
               ? "text-[24px] md:text-[34px] xl:text-[48px]"
               : "text-[20px] md:text-[26px] xl:text-[34px]"
@@ -117,7 +129,7 @@ export default function PortfolyoKart({
           {b.name}
         </p>
         <p
-          className={`cizgi-hover mt-1.5 inline-block font-medium text-white/95 ${
+          className={`mt-1.5 font-medium text-white/95 ${
             genis
               ? "text-[13px] md:text-[17px] xl:text-[21px]"
               : "text-[12px] md:text-[15px] xl:text-[18px]"
