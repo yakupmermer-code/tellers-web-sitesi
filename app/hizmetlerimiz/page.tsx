@@ -150,11 +150,19 @@ export default function HizmetlerimizPage() {
               <span className="text-[11px] uppercase tracking-[0.22em] text-navy/40">
                 {s.eyebrow}
               </span>
-              <h2 className="mt-1.5 text-3xl font-bold tracking-tight text-navy md:text-[64px]">
+              {/* SIKI ARALIK (11 Eylül dökümanı): "Alt açıklama 'Veri …' ve
+                  alt kısımdaki 'Ölçülebilir….' Performans Pazarlama başlığına
+                  daha yakın olmalı, satır araları bu kadar fazla olmasın.
+                  Yukarıdaki revize notum TÜM HİZMETLER için geçerli."
+                  Bu blok `SERVICES.map` içinde, yani dört hizmete de uyuyor.
+                  Asıl boşluk `mt-*`lerden değil başlığın satır yüksekliğinden
+                  geliyordu: 64px başlıkta varsayılan ~1,2 satır yüksekliği 77
+                  piksellik kutu yapıyor. `leading-[1.02]` onu kapatıyor. */}
+              <h2 className="mt-1 text-3xl font-bold leading-[1.02] tracking-tight text-navy md:text-[64px]">
                 {s.titleTr}
               </h2>
-              <p className="mt-2 text-lg font-bold text-navy">{s.tagline}</p>
-              <p className="mt-4 text-lg leading-relaxed text-navy/80">
+              <p className="mt-1 text-lg font-bold text-navy">{s.tagline}</p>
+              <p className="mt-3 text-lg leading-relaxed text-navy/80">
                 {s.detail}
               </p>
             </Reveal>

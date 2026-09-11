@@ -70,9 +70,32 @@ export default function BlogPage() {
           GÖRSELİ vardı (blog/hero.png); döküman "blog sayfası yukarıdaki gibi
           olmayacak" diyordu. Görsel yerine canlı metin: arama motoru okuyor,
           ölçekleniyor, retina'da bulanıklaşmıyor. */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-12 pt-32 md:px-10 md:pb-16 md:pt-40">
+      {/* EKİBİN TASARIMI (11 Eylül dökümanı: "Blog slider alanı yanlış
+          eklenmiş, linktekini tasarımı kullanalım" → `blog_ana_slide.png`).
+          Tasarım dosyası indirilip ölçüldü: beyaz zeminde ORTALANMIŞ metin
+          bloğu — üstte küçük "BLOG" etiketi, altında iki satırlık büyük başlık
+          ("netlik" italik serif), en altta iki satırlık ortalanmış alt metin.
+          Önceki hâl yalnız 130px'lik "Blog" kelimesiydi.
+          `<h1>` artık tam cümle: hem tasarımın istediği bu, hem de arama/GEO
+          tarafında "Blog" tek kelimesinden çok daha anlamlı. Kelime yine
+          sayfada — üstteki etikette. */}
+      <section className="mx-auto max-w-[1440px] px-5 pb-12 pt-32 text-center md:px-10 md:pb-16 md:pt-40">
+        <Reveal>
+          <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-navy/60">
+            Blog
+          </p>
+        </Reveal>
         <Reveal mask>
-          <h1 className="t-dev text-center text-navy">Blog</h1>
+          <h1 className="t-buyuk mx-auto mt-6 max-w-[820px] font-bold text-navy">
+            Aklınızdaki sorular için{" "}
+            <em className="font-didot font-normal italic">netlik</em> zamanı.
+          </h1>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mx-auto mt-5 max-w-[560px] text-lg leading-relaxed text-navy/70">
+            Küresel pazar dinamikleri, konumlandırma disiplini ve kitle
+            davranışını yönlendiren netlik üzerine uzman yazıları.
+          </p>
         </Reveal>
       </section>
 

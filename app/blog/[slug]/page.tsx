@@ -203,16 +203,24 @@ export default async function BlogDetayPage({
           className="pointer-events-none absolute inset-0 bg-navy/55"
         />
 
-        <div className="absolute inset-0 flex items-center">
+        {/* SOL ALT KÖŞE + KÜÇÜK PUNTO (11 Eylül dökümanı): "Sayfa detayına
+            girdiğimizde üst slider alanında başlık ve alt açıklama BU KADAR
+            BÜYÜK ve tüm görseli kaplayacak şekilde konumlandırılmasın. SOL ALT
+            KÖŞEYE hizalı olacak şekilde konumlandıralım ve başlık ve alt
+            açıklama metninin PUNTOLARINI BİRAZ DAHA KÜÇÜLTELİM."
+            Dikeyde ortalıydı ve xl'de 72/28px'ti; artık alta hizalı, 48/20px
+            ve alt metnin genişliği `max-w-4xl`den `max-w-2xl`e indi — görselin
+            tamamını kaplamıyor. */}
+        <div className="absolute inset-0 flex items-end pb-12 md:pb-16">
           <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10">
             <Reveal mask>
-              {/* `font-semibold` (600): master'da H1 72px/600 ölçüldü, 700 değil. */}
-              <h1 className="text-[30px] font-semibold leading-[1.1] tracking-tight text-white md:text-[50px] xl:text-[72px]">
+              {/* `font-semibold` (600): master'da H1 600 ölçüldü, 700 değil. */}
+              <h1 className="text-[24px] font-semibold leading-[1.1] tracking-tight text-white md:text-[36px] xl:text-[48px]">
                 {blog.title}
               </h1>
             </Reveal>
             <Reveal delay={0.05}>
-              <p className="mt-6 max-w-4xl text-[16px] font-medium leading-snug text-white/95 md:text-[21px] xl:text-[28px]">
+              <p className="mt-3 max-w-2xl text-[14px] font-medium leading-snug text-white/95 md:text-[17px] xl:text-[20px]">
                 {blog.excerpt}
               </p>
             </Reveal>

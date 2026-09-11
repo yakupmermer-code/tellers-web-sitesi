@@ -318,7 +318,7 @@ export default async function MarkaDetayPage({
                             loop
                             playsInline
                             preload="metadata"
-                            className="aspect-[4/5] w-full object-cover"
+                            className={`${g.kare ? "aspect-square" : "aspect-[4/5]"} w-full object-cover`}
                             aria-label={`${brand.name} video çalışması ${j + 1}`}
                           />
                         ) : (
@@ -327,7 +327,7 @@ export default async function MarkaDetayPage({
                             alt={`${brand.name} çalışması ${j + 1}`}
                             width={1080}
                             height={1350}
-                            className="aspect-[4/5] w-full object-cover"
+                            className={`${g.kare ? "aspect-square" : "aspect-[4/5]"} w-full object-cover`}
                             sizes={
                               g.cols === 3
                                 ? "(min-width: 768px) 33vw, 100vw"
@@ -434,8 +434,15 @@ export default async function MarkaDetayPage({
               <Reveal key={i}>
                 {/* items-start: kolonlar birbirine esnetilMEZ. Esnetilince sol
                     görsel sağ çiftin yüksekliğine zorlanıp kırpılıyordu. */}
+                {/* `gri` → blok mist zemine oturur. Gerekçe `content/brands.ts`
+                    içindeki tip tanımında yazılı (ekip: "2 alanın da fonu beyaz
+                    kalmış, bir alanın arka tarafı gri olmalı"). Dolgu şart:
+                    zemin medyaların dibine yapışırsa bant değil kenarlık gibi
+                    görünüyor. */}
                 <div
-                  className="grid items-start gap-6 md:grid-cols-[var(--sol)_var(--sag)]"
+                  className={`grid items-start gap-6 md:grid-cols-[var(--sol)_var(--sag)] ${
+                    g.gri ? "bg-mist p-6 md:p-10" : ""
+                  }`}
                   style={
                     {
                       "--sol": `${(ilkKolonPayi * 100).toFixed(2)}fr`,

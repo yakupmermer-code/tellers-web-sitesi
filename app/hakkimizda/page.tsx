@@ -543,7 +543,7 @@ export default function HakkimizdaPage() {
       {/* ── Recognition & Impact ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
         <div className="grid gap-12 md:grid-cols-2 md:gap-20">
-          <div>
+          <div className="flex flex-col">
             <Reveal mask>
               <h2 className="text-4xl font-bold leading-[1.08] tracking-tight text-navy md:text-[96px]">
                 Veriyle şekillenen{" "}
@@ -571,7 +571,15 @@ export default function HakkimizdaPage() {
                 sitede vardı ama yalnızca ana sayfada ve portfolyo detayında
                 kullanılıyordu — sayfanın en güçlü kanıt bloğu hareketsiz
                 duruyordu. Hareket azaltma tercihinde sayaç devre dışı kalır. */}
-            <div className="mt-14 flex flex-col gap-10">
+            {/* "MADDELER KARŞILIKLI AYNI HİZADA OLSUN" (11 Eylül dökümanı).
+                Sol kolonda istatistikler başlık + iki paragrafın altından,
+                sağ kolonda görselin altından başlıyordu; ikisi farklı
+                yüksekliklerde olduğu için karşılıklı maddeler kaymış duruyordu.
+                `mt-auto` ikisini de KENDİ kolonunun ALTINA yaslıyor — kolon
+                yükseklikleri grid tarafından eşitlendiği için maddeler
+                karşılıklı hizalanıyor. Sabit bir `mt-*` değeriyle hizalamak
+                içerik uzunluğu değişince sessizce bozulurdu. */}
+            <div className="mt-14 flex flex-col gap-10 md:mt-auto md:pt-14">
               {STATS.slice(0, 3).map((s, i) => (
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">
@@ -590,7 +598,7 @@ export default function HakkimizdaPage() {
               ))}
             </div>
           </div>
-          <div>
+          <div className="flex flex-col">
             <Reveal delay={0.1}>
               <Image
                 src="/assets/about/5-creative.png"
@@ -601,8 +609,9 @@ export default function HakkimizdaPage() {
                 sizes="(min-width: 768px) 50vw, 100vw"
               />
             </Reveal>
-            {/* Son 3 istatistik sağdaki görselin altında */}
-            <div className="mt-14 flex flex-col gap-10">
+            {/* Son 3 istatistik sağdaki görselin altında.
+                `mt-auto` — karşılıklı hizalama; gerekçe sol kolonda yazılı. */}
+            <div className="mt-14 flex flex-col gap-10 md:mt-auto md:pt-14">
               {STATS.slice(3).map((s, i) => (
                 <Reveal key={s.value} delay={0.05 * i}>
                   <div className="border-t hairline pt-6">

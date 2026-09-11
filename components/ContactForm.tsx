@@ -246,12 +246,20 @@ export default function ContactForm({
           className={`${inputCls} resize-none`}
         />
       </div>
+      {/* ÇİZGİSEL, DOLU HAP DEĞİL (11 Eylül dökümanı, iki yerde: "Genel
+          başvuru yap'a ve WhatsApp'a tıkladığımızda RECT ÇIKMAYACAK, ÇİZGİSEL
+          olacak, ana sayfada yazdığım revize notu geçerli" · "Temadaki gibi
+          butonlara tıkladığımızda çizgisel görünsün").
+          `<button>` OLARAK KALDI, linke çevrilmedi: form gönderimi bir eylem,
+          ekran okuyucu ve klavye için düğme olması gerekiyor. Değişen yalnız
+          görünüm — sitenin her yerinde kullanılan `link-grow` alt çizgisi.
+          Ok işareti korundu (master'da da var), yuvarlak dolgusu kalktı. */}
       <button
         type="submit"
-        className="group mt-10 flex items-center gap-3 rounded-full bg-navy px-8 py-4 text-sm text-white transition-transform duration-500 ease-[var(--ease-lux)] active:scale-[0.98]"
+        className="link-grow group mt-10 flex w-max items-center gap-3 text-[18px] font-medium text-navy transition-opacity duration-500 hover:opacity-70 md:text-[24px]"
       >
         {isKariyer ? "Başvurunuzu Gönderin" : "Gönderin"}
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
+        <span className="transition-transform duration-500 ease-[var(--ease-lux)] group-hover:-translate-y-px group-hover:translate-x-1">
           ↗
         </span>
       </button>

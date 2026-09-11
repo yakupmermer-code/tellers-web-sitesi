@@ -4,6 +4,7 @@ import { grafik, sayfaSemasi, kirintiSemasi, paylasim } from "@/lib/seo";
 import Reveal from "@/components/Reveal";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import ClosingCta from "@/components/ClosingCta";
+import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { SITE } from "@/content/site";
 
@@ -159,6 +160,37 @@ export default function IletisimPage() {
           </Reveal>
         </section>
       </div>
+
+      {/* ── "DAHA FAZLASINI GÖRÜN" — EKİP NOTU (11 Eylül dökümanı) ────────
+          "Hemen bu doldurulan alanın alt kısmına, ekip görselinden ÖNCE
+          örnekteki gibi (aşağıda iletiyorum)" + iki metin değişimi:
+            "Best part of your" → "daha fazlasını görün"
+            "View"              → "portfolyomuzu inceleyin"
+          Dökümanın gömülü örneği master temanın iletişim sayfasından: solda
+          SERİF bir cümle, ortada dikey ince çizgi, sağda altı çizili bağlantı.
+          (Ekip "Best part of your" diye not almış; örnekteki asıl cümle "Be
+          part of our journey" — yerine geçecek metni zaten kendileri verdi.)
+          Master'da iki bağlantı var ("membership plans" + "view projects");
+          bizde üyelik yok, o yüzden tek bağlantı. */}
+      <section className="mx-auto max-w-[1440px] px-5 pb-16 md:px-10 md:pb-20">
+        <Reveal>
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-12">
+            <p className="font-didot text-[28px] leading-tight text-navy md:text-[46px]">
+              daha fazlasını görün
+            </p>
+            <span
+              aria-hidden
+              className="hidden h-[72px] w-px bg-navy/15 md:block"
+            />
+            <Link
+              href="/portfolyo"
+              className="link-grow w-max text-[20px] font-medium text-navy transition-opacity duration-500 hover:opacity-70 md:text-[30px]"
+            >
+              portfolyomuzu inceleyin
+            </Link>
+          </div>
+        </Reveal>
+      </section>
 
       {/* ── Sayfa bitiş imajı + lacivert referans logo bandı ── */}
       <ClosingCta />

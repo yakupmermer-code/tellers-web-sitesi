@@ -52,15 +52,38 @@ export type Brand = {
         rightBottom: string;
         /** true → uzun alan sağda (My Nova ikinci grid) */
         flip?: boolean;
+        /**
+         * true → blok GRİ zemine oturur (`bg-mist`).
+         * 11 Eylül revize dökümanı, My Nova: "2 alanın da fonu beyaz kalmış,
+         * bir alanın arka tarafı gri olmalı." Yakup 2026-09-11: "ayrım olması
+         * açısından birisinin arka fonunu grileştirelim demek istemiş."
+         * Sayfada üst üste iki `tri` bloğu var ve ikisi de beyaz zeminde
+         * duruyordu; ikincisi griye alındı, böylece iki blok birbirinden
+         * ayrışıyor.
+         */
+        gri?: boolean;
       }
     /**
-     * Eşit kutulu grid — içerik dökümanı her marka için farklı sütun sayısı
-     * istiyor (Atlantis 2'li, Sua Horeca 2'li, Utkan Yıldırım 3'lü).
-     * Kutular aynı en-boy oranında olur, medya object-cover ile oturur.
+     * Eşit kutulu grid.
+     *
+     * 🔴 SÜTUN SAYISI ARTIK HEP 3 (2026-09-11) — ekibin 11 Eylül dökümanı:
+     * "Dikey görseller yan yana grid şeklinde 3'LÜ DİKEY olacak şekilde, kare
+     * görseller ise KARE 3'LÜ grid sisteminde yerleştirilmeli." Tek istisna
+     * iki öğeli Bardahl ızgarası (3 kolonda yanında boşluk kalırdı).
+     *
+     * `kare` BAYRAĞI ÖLÇÜLEREK KONDU: her ızgaranın öğelerinin gerçek en-boy
+     * oranı dosyalardan okundu (görsellerde `sips`, videolarda MP4 `tkhd`
+     * kutusu). Kare çıkanlar: Raymond Weil 1.00 · BNI 1.00 · Qui Privé 0.93.
+     * Geri kalan on ızgara dikey (0.56-0.85) ve `aspect-[4/5]` ile basılıyor.
+     * Not: dökümanın "kare" örneği Tyre Supply ekran görüntüsüydü ama o
+     * markanın öğeleri ölçülünce DİKEY çıktı (0.76) — ekran görüntüsünde
+     * görseller alttan kesildiği için kare görünüyordu.
      */
     | {
         kind: "grid";
         cols: 2 | 3;
+        /** true → kutular KARE basılır (varsayılan dikey 4/5). */
+        kare?: boolean;
         items: Array<{ type: "image" | "video"; src: string }>;
       }
   >;
@@ -68,6 +91,19 @@ export type Brand = {
   results?: Array<{ value: string; label: string }>;
 };
 
+/*
+ * 🔴 GALERİ IZGARALARI 2'Lİ DEĞİL 3'LÜ (2026-09-11).
+ * Ekibin 11 Eylül revize dökümanı: "Genel olarak marka sayfa detaylarında
+ * görseller ve videolar AŞIRI BÜYÜK ve nizami bir şekilde yerleştirilmemiş,
+ * dağınık ve büyük duruyorlar" + "Dikey görseller yan yana grid şeklinde
+ * 3'LÜ DİKEY olacak şekilde, kare görseller ise kare 3'lü grid sisteminde
+ * yerleştirilmeli." Dökümandaki ekran görüntüsü bfit sayfasından: iki kolonlu
+ * ızgarada videolar ekranın yarısını kaplıyordu.
+ * Üç ve daha fazla öğesi olan sekiz ızgara `cols: 3` oldu; iki öğeli tek
+ * ızgara (Bardahl) 2'de bırakıldı — 3 kolona konsa yanında boşluk kalırdı.
+ * AÇIK İŞ: "kare görseller kare 3'lü grid" kısmı için öğe başına yön bilgisi
+ * gerekiyor; şu an tüm ızgara öğeleri `aspect-[4/5]` (dikey) basılıyor.
+ */
 export const BRANDS: Brand[] = [
   {
     slug: "mastercard",
@@ -197,6 +233,7 @@ export const BRANDS: Brand[] = [
         rightTop: "/assets/brands/mynova/shakespeare.jpg",
         rightBottom: "/assets/brands/mynova/sherlock.jpg",
         flip: true,
+        gri: true,
       },
       // Döküman: 3 kreatif reels (Allen Eric Marshall / Theodor / Engin Yücetaş).
       // NOT: dökümanda bu blok Performance Results'ın ALTINDA; sayfa şablonunda
@@ -333,7 +370,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "video", src: "/assets/brands/tyresupply/g1.mp4" },
           { type: "image", src: "/assets/brands/tyresupply/g2.jpg" },
@@ -409,7 +446,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/atlantis/g1.jpg" },
           { type: "video", src: "/assets/brands/atlantis/g2.mp4" },
@@ -445,6 +482,7 @@ export const BRANDS: Brand[] = [
       {
         kind: "grid",
         cols: 3,
+        kare: true,
         items: [
           { type: "video", src: "/assets/brands/raymondweil/g1.mp4" },
           { type: "video", src: "/assets/brands/raymondweil/g2.mp4" },
@@ -490,7 +528,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/bfit/g1.jpg" },
           { type: "image", src: "/assets/brands/bfit/g2.jpg" },
@@ -526,7 +564,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/sua/g1.png" },
           { type: "video", src: "/assets/brands/sua/g2.mp4" },
@@ -576,7 +614,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/premiumgym/g1.jpg" },
           { type: "video", src: "/assets/brands/premiumgym/g2.mp4" },
@@ -612,7 +650,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/dedebio/g1.jpg" },
           { type: "image", src: "/assets/brands/dedebio/g2.jpg" },
@@ -650,7 +688,8 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
+        kare: true,
         items: [
           { type: "image", src: "/assets/brands/bni/g1.jpg" },
           { type: "image", src: "/assets/brands/bni/g2.jpg" },
@@ -727,7 +766,7 @@ export const BRANDS: Brand[] = [
     gallery: [
       {
         kind: "grid",
-        cols: 2,
+        cols: 3,
         items: [
           { type: "image", src: "/assets/brands/anatolianstars/g1.jpg" },
           { type: "image", src: "/assets/brands/anatolianstars/g2.jpg" },
@@ -806,6 +845,7 @@ export const BRANDS: Brand[] = [
       {
         kind: "grid",
         cols: 3,
+        kare: true,
         items: [
           { type: "video", src: "/assets/brands/quiprive/g1.mp4" },
           { type: "image", src: "/assets/brands/quiprive/g2.jpg" },

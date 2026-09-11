@@ -99,9 +99,15 @@ export default function BlogKart({
           <p className="hover-gizli text-[13px] font-medium text-white/95 md:text-[16px] xl:text-[19px]">
             {b.date}
           </p>
-          {/* Döküman: "Yazan yerinde tellers yazacak." Master'da bu köşede
-              "Written by [isim]" duruyor; bizde yazar hep ajansın kendisi. */}
-          <p className="shrink-0 text-right text-[12px] text-white md:text-[15px] xl:text-[17px]">
+          {/* "YAZAN" ARTIK ÜZERİNE GELMEDEN GÖRÜNMÜYOR (11 Eylül dökümanı:
+              "Detaylar tıkladığımızda çıksın tıklamadan, YAZAN GÖRÜNMESİN").
+              Master'da bu köşede "Written by [isim]" sabit duruyor — bu ondan
+              bilinçli bir sapma, ekibin yazılı isteği.
+              `hover-gizli` sınıfı tarih ve ilk cümlelerle aynı grubu kullanıyor,
+              yani üçü birlikte beliriyor. Dokunmatikte gizlenmiyor (sınıf
+              `(hover:hover) and (pointer:fine)` içinde) — telefonda hover
+              olmadığı için orada kalıcı görünmez kalması içerik kaybı olurdu. */}
+          <p className="hover-gizli shrink-0 text-right text-[12px] text-white md:text-[15px] xl:text-[17px]">
             Yazan: tellers
           </p>
         </div>

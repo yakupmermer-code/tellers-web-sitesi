@@ -253,8 +253,13 @@ export default function HomePage() {
             label="Global devlerin tercihi, tellers."
             lines={["Global devlerin", "tercihi, tellers."]}
           />
+          {/* EKİP NOTU (11 Eylül dökümanı): "Global devlerin tercih… başlığının
+              altındaki metin ile satır aralığı bu kadar fazla olmayacak,
+              başlığa daha yakın olacak." Tasarım dosyası (`1 (1).png`) ölçüldü:
+              alt metin başlığın hemen altında, arada boşluk yok. `mt-1.5`
+              kaldırıldı — Tailwind preflight `p`ye zaten margin vermiyor. */}
           <Reveal delay={0.2}>
-            <p className="t-govde mt-1.5 text-navy">
+            <p className="t-govde text-navy">
               Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
             </p>
           </Reveal>
@@ -312,7 +317,9 @@ export default function HomePage() {
               <h2 className="t-buyuk text-navy">
                 <CountUp value="22.872.000 $" />
               </h2>
-              <p className="t-govde mt-1.5 text-navy">
+              {/* "22… rakamın hemen altındaki metin satır arası azaltsın,
+                  birbirine yaklaşsın" (11 Eylül dökümanı). */}
+              <p className="t-govde text-navy">
                 Bugüne kadar <em className="font-didot italic">yönettiğimiz</em>{" "}
                 toplam reklam bütçesi.
               </p>
@@ -328,8 +335,10 @@ export default function HomePage() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
+                      {/* "Alt açıklama metni ana metinden ÇOK UZAK, daha yakın
+                          olmalı" (11 Eylül dökümanı) — 12px'ten 4px'e. */}
                       <h3 className="t-alt text-navy">{s.titleTr}</h3>
-                      <p className="mt-3 max-w-xl leading-relaxed text-navy/60">
+                      <p className="mt-1 max-w-xl leading-relaxed text-navy/60">
                         {s.homeBlurb}
                       </p>
                     </div>
@@ -355,12 +364,29 @@ export default function HomePage() {
           />
         </MediaReveal>
 
-        {/* ── SLOGAN + ANLAM FELSEFESİ ── */}
-        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-2 md:gap-24 md:px-10 md:py-24">
+        {/* ── SLOGAN + ANLAM FELSEFESİ ──
+            Izgara 1fr/1fr DEĞİL 1.25fr/1fr: gerekçe aşağıda, slogan başlığında. */}
+        <section className="mx-auto grid max-w-[1440px] gap-16 px-5 py-20 md:grid-cols-[1.25fr_1fr] md:gap-24 md:px-10 md:py-24">
           <div className="md:sticky md:top-32 md:self-start">
             <MaskLines
               as="h2"
-              className="t-dev text-navy"
+              /* 🔴 `t-dev` (130px) DEĞİL `t-buyuk` (84px) + kalınlık korundu.
+                 Ekip notu: "Duyulan unutulur, anlaşılan kalır ÇOK BÜYÜK ve
+                 yerleşim olarak tasarımdaki ile aynı değil."
+                 Ölçüldü (1440x900): 130px, 632 piksellik kolonda DÖRT satıra
+                 sarıyordu (kutu 632x605); tasarım dosyası (`slogan.png`) İKİ
+                 satır gösteriyor. 84px'te "Duyulan unutulur," satırı kolona
+                 sığıyor ve iki satır oluyor.
+                 SONRA BİR KADEME DAHA İNDİ (ölçüldü): 84px'te "Duyulan
+                 unutulur," satırı 793 piksel, 72px'te 680 piksel — kolon ise
+                 632 piksel. Yani 84 de 72 de tek başına sığmıyordu. İki taraflı
+                 çözüldü: punto sayfanın h2 ölçeğine (`t-orta`, 72px) indi VE
+                 bölümün ızgarası 1fr/1fr yerine 1.25fr/1fr oldu — slogan kolonu
+                 702 piksele çıkıp 680'lik satırı alıyor, sağdaki metin kolonu
+                 562 pikselle rahat kalıyor.
+                 `font-extrabold`: `t-orta` 600 taşıyor, tasarımdaki ağırlık
+                 ise `t-dev`inki (800) — punto küçüldü, kalınlık korundu. */
+              className="t-orta font-extrabold text-navy"
               label="Duyulan unutulur, anlaşılan kalır."
               lines={[
                 "Duyulan unutulur,",
@@ -752,7 +778,14 @@ export default function HomePage() {
           NOT: eski yorumda "üstteki gri bandın kenarına yapışmasın" yazıyordu;
           o gri bant 2026-09-02'de kaldırıldı. Üstte artık tam genişlik slogan
           banner'ı var, dolgu ondan ayrılmak için duruyor. */}
-        <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-24">
+        {/* İKİ KOLON — EKİP NOTU (11 Eylül dökümanı): "Veri anlamın kökeni
+            kısmında font avenir & didot olmalı. Direkt tasarımı ekleyelim.
+            ALT PARAGRAF YERLEŞİMİ İSE TEMADAKİ GİBİ HEMEN BAŞLIĞIN YAN
+            TARAFINDA OLMALI."
+            Başlık zaten avenir + didot karışımıydı; 2026-09-11'de serif geri
+            gelince tasarımdaki görünüme kavuştu. Kalan iş paragrafın yerleşimi:
+            başlığın ALTINDAN yan tarafına alındı. */}
+        <section className="mx-auto grid max-w-[1440px] gap-10 px-5 pb-20 pt-20 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-20 md:px-10 md:pb-24 md:pt-24">
           <Reveal mask>
             <h2 className="t-orta text-navy">
               Veri; <em className="font-didot font-normal italic">anlamın</em>
@@ -761,7 +794,7 @@ export default function HomePage() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="mt-10 flex max-w-none flex-col gap-6 text-lg leading-relaxed text-navy/75 md:text-[22px]">
+            <div className="flex max-w-none flex-col gap-6 text-lg leading-relaxed text-navy/75 md:text-[22px]">
               <p>
                 tellers, veriye yalnızca bir sayı dizisi olarak bakmaz. Veri,
                 insan davranışının sessiz hikâyesidir. Rakamların ardındaki

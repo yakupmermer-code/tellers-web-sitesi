@@ -100,7 +100,6 @@ export const PARTNER_LOGOLARI: {
    * Listeyi ekip verdi, doğruluğu onların beyanına dayanıyor.
    */
   { file: "google-partner", name: "Google Partner" , w: 733, h: 729 },
-  { file: "google-cloud-partner", name: "Google Cloud Partner" , w: 505, h: 553 },
   { file: "kommo-partner", name: "Kommo Partner" , w: 1059, h: 407 },
   { file: "teknokent", name: "Ankara Üniversitesi Teknokent" , w: 1155, h: 275 },
   { file: "teknogirisim-rozeti", name: "Teknogirişim Rozeti" , w: 1137, h: 409 },
@@ -109,6 +108,8 @@ export const PARTNER_LOGOLARI: {
 /** Lacivert bant üzerindeki referans logoları (beyaz gösterim, dosya + okunur ad). */
 export const REF_LOGOS = [
   { file: "airbus", name: "Airbus" },
+  { file: "akdenizsifa", name: "Akdeniz Şifa" },
+  { file: "askon", name: "ASKON" },
   { file: "atasaglik", name: "Ata Sağlık" },
   { file: "bardahl", name: "Bardahl" },
   { file: "baush", name: "Bausch + Lomb" },
@@ -136,6 +137,7 @@ export const REF_LOGOS = [
   { file: "raymondveil", name: "Raymond Weil" },
   { file: "savron", name: "Savron" },
   { file: "savronik", name: "Savronik" },
+  { file: "tesiad", name: "TESİAD" },
   { file: "thelifeco", name: "TheLifeCo" },
   { file: "tyresupply", name: "Tyre Supply" },
   { file: "ugfarma", name: "UG Farma" },
