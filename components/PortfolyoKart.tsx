@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Brand } from "@/content/brands";
 import { ilkCumleler } from "@/lib/ozet";
+import YatayAcilis from "@/components/YatayAcilis";
 
 /**
  * Portfolyo listesi kartı — master temanın (arpeggio.framer.website/work)
@@ -46,18 +47,23 @@ export default function PortfolyoKart({
           : "aspect-[4/3] md:aspect-[674/622]"
       }`}
     >
-      <Image
-        src={b.banner}
-        alt=""
-        width={genis ? 1360 : 674}
-        height={622}
-        className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]"
-        sizes={
-          genis
-            ? "(min-width: 1440px) 1360px, 100vw"
-            : "(min-width: 1440px) 674px, (min-width: 768px) 47vw, 100vw"
-        }
-      />
+      {/* Yatay açılış — Yakup'un tarifi: "ana sayfa slider animasyonunun
+          yatay olanı". Bkz. components/YatayAcilis.tsx. Yalnız GÖRSELİ sarıyor;
+          kart metinleri sabit kalıyor. */}
+      <YatayAcilis className="h-full w-full">
+        <Image
+          src={b.banner}
+          alt=""
+          width={genis ? 1360 : 674}
+          height={622}
+          className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-lux)] group-hover:scale-[1.03]"
+          sizes={
+            genis
+              ? "(min-width: 1440px) 1360px, 100vw"
+              : "(min-width: 1440px) 674px, (min-width: 768px) 47vw, 100vw"
+          }
+        />
+      </YatayAcilis>
 
       {/* "Banner alanları bu kadar açık olmayacak" — dökümanın açık isteği.
           Master'da da kart üzerinde koyu örtü var; bizde lacivert (marka
