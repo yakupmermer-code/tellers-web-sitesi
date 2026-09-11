@@ -44,14 +44,26 @@ const BAR_YUKSEKLIGI = 70;
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [koyuZemin, setKoyuZemin] = useState(pathname === "/");
+  /*
+   * `null` = "HENÜZ ÖLÇÜLMEDİ". Eskiden başlangıç `pathname === "/"` idi:
+   * yani "en üstte koyu bölümü olan tek sayfa ana sayfadır" varsayımı. Bu
+   * varsayım bir rota LİSTESİydi ve koyu hero'lu her yeni sayfada sessizce
+   * bayatlıyordu — portfolyo ve referans detaylarında sunucudan beyaz bar +
+   * lacivert logo geliyor, JS ölçümü gelince gözle görülür biçimde saydama
+   * dönüyordu (denetimde sunucu HTML'i ölçülerek yakalandı, 2026-09-11).
+   * Artık liste yok: `null` iken barın açılış rengine sayfanın KENDİ DOM'u
+   * karar veriyor (`data-koyu-acilis` → `app/globals.css`). Tek kaynak
+   * hero'nun kendisi.
+   */
+  const [koyuZemin, setKoyuZemin] = useState<boolean | null>(null);
 
   /*
    * Rota değişince menüyü kapat VE koyu-zemin varsayımını sıfırla
    * (render sırasında state ayarlama deseni — efekt içinde senkron setState
    * cascading render üretir, lint de haklı olarak engelliyor).
-   * Varsayılan `pathname === "/"`: en üstte koyu bölümü olan tek sayfa ana
-   * sayfa. Yanılırsa aşağıdaki gözlemci ilk çağrısında zaten düzeltir.
+   * Varsayılan artık `null` ("bilinmiyor"): açılış rengini CSS, sayfanın
+   * kendi `data-koyu-acilis` hero'suna bakarak veriyor; aşağıdaki gözlemci
+   * ilk karede kesin değeri koyuyor.
    */
   const dialogRef = useRef<HTMLDivElement>(null);
   const butonRef = useRef<HTMLButtonElement>(null);
@@ -60,7 +72,7 @@ export default function Header() {
   if (prevPath !== pathname) {
     setPrevPath(pathname);
     setOpen(false);
-    setKoyuZemin(pathname === "/");
+    setKoyuZemin(null);
   }
 
   /*
@@ -225,7 +237,7 @@ export default function Header() {
    * örtü KOYU ve saydam (siyah %80 + blur 6px), yazılar beyaz. Örtümüz de
    * koyulaşınca (lacivert %80) bar yazıları yeniden beyaz olmak zorunda.
    */
-  const acikRenk = koyuZemin || open;
+  const acikRenk = koyuZemin === true || open;
 
   const sosyal = [
     { k: "WA", href: SITE.whatsapp, dis: true },
@@ -251,6 +263,11 @@ export default function Header() {
         referansın görünümü, en çok göründüğü yerde birebir korunuyor.
       */}
       <header
+        /* "auto" = JS ölçümü henüz gelmedi → açılış rengini CSS, sayfanın
+           `data-koyu-acilis` işaretli hero'suna bakarak veriyor. Ölçüm
+           gelince bu değer "koyu"/"acik" olur ve o CSS kuralları eşleşmeyi
+           bırakır. Bkz. `app/globals.css` → "ÜST BAR AÇILIŞ RENGİ". */
+        data-bar={koyuZemin === null ? "auto" : koyuZemin ? "koyu" : "acik"}
         className={`fixed inset-x-0 top-0 z-40 transition-[background-color,backdrop-filter] duration-500 ease-[var(--ease-lux)] ${
           acikRenk || open ? "" : "bg-white/80 backdrop-blur-md"
         }`}
@@ -263,6 +280,7 @@ export default function Header() {
         >
           {/* SOL — sosyal kısaltmalar (referans: WA X IG LI EMAIL) */}
           <div
+            data-bar-yazi
             /* `font-bold` (2026-09-10, Yakup: "soldaki sosyal medya kısmı da
                bold olsun"). */
             className={`hidden items-center gap-5 text-[13px] font-bold tracking-[0.02em] transition-colors duration-500 sm:flex ${
@@ -300,6 +318,7 @@ export default function Header() {
                 denendi). `brightness-0 invert` SVG'de de çalışır. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              data-bar-logo
               src="/assets/logo/tellers-logo.svg"
               alt="tellers"
               width={775}
@@ -329,11 +348,13 @@ export default function Header() {
                 Düğmenin dokunma hedefi 44px olduğu gibi kalıyor (h-11 w-11);
                 çizgi `absolute` olduğu için kutuyu büyütmüyor. */}
             <span
+              data-bar-cizgi
               className={`absolute h-0.5 w-[42px] transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
               } ${open ? "rotate-45" : "-translate-y-[5px]"}`}
             />
             <span
+              data-bar-cizgi
               className={`absolute h-0.5 w-[42px] transition-[transform,background-color] duration-500 ease-[var(--ease-lux)] ${
                 acikRenk ? "bg-white" : "bg-navy"
               } ${open ? "-rotate-45" : "translate-y-[5px]"}`}

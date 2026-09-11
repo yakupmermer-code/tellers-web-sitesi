@@ -631,3 +631,44 @@ body {
     display: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ÜST BAR — AÇILIŞ RENGİ (sunucudan gelen ilk boyama)
+   ─────────────────────────────────────────────────────────────────────────
+   Bar, arkasını koyu bir bölüm TAM kapatıyorsa saydam + beyaz yazı olur.
+   Bu ölçüm JavaScript'te yapılıyor (`components/Header.tsx`) ve ancak sayfa
+   hidrate olup bir kare geçtikten SONRA çalışıyor. Sunucudan gelen HTML'de
+   bar hep AÇIK RENK basılıyordu: koyu hero'lu sayfalar (portfolyo, referans
+   detayları, blog yazısı) beyaz örtü + lacivert logoyla açılıp yarım saniyede
+   gözle görülür biçimde saydama dönüyordu.
+   (2026-09-11, Yakup: "portfolyo sayfasının açılışındaki header alanı, ana
+   sayfadaki açılış anındaki header ile aynı olsun." — denetimde sunucu
+   HTML'i ölçülerek doğrulandı: `/portfolyo` → `bg-white/80` + lacivert logo,
+   `/` → saydam + beyaz logo.)
+
+   NEDEN ROTA LİSTESİ DEĞİL: "şu yolların hero'su koyudur" diye bir dizi
+   tutmak ikinci bir doğru kaynak yaratırdı — koyu hero'lu yeni bir sayfa
+   eklenince liste sessizce bayatlar, hata da ancak gözle fark edilirdi.
+   Burada sayfa KENDİ hero'sunu `data-koyu-acilis` ile işaretliyor, bar da
+   ilk boyamada DOM'a bakıp karar veriyor. Tek kaynak hero'nun kendisi.
+
+   `data-bar="auto"` = "JS henüz ölçmedi". Ölçüm gelince Header bu değeri
+   "koyu"/"acik" yapıyor ve aşağıdaki kurallar eşleşmeyi bırakıyor; ikisi
+   aynı sonucu verdiği için geçişte sıçrama olmuyor.
+
+   Özgüllük: `:has()` en özgül argümanı kadar sayılır, yani bu seçiciler
+   (0,2,2) — Tailwind'in tek sınıflı `bg-white/80`, `text-navy/75` vb.
+   kurallarını (0,1,0) geçiyorlar. */
+body:has([data-koyu-acilis]) header[data-bar="auto"] {
+  background-color: transparent;
+  backdrop-filter: none;
+}
+body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-yazi] {
+  color: rgb(255 255 255 / 0.75);
+}
+body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-logo] {
+  filter: brightness(0) invert(1);
+}
+body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-cizgi] {
+  background-color: #fff;
+}

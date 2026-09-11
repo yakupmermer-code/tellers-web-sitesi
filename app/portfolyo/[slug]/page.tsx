@@ -84,33 +84,68 @@ export default async function MarkaDetayPage({
           ]),
         )}
       />
-      {/* ── Ana slide + sağ altta proje detayları ── */}
-      <section className="relative mt-24 overflow-hidden bg-navy">
-        <Reveal>
-          {brand.hero.type === "video" ? (
+      {/* ── HERO — ANA SAYFA KALIBI (2026-09-11) ─────────────────────────
+          Liste sayfasıyla aynı gerekçe: `mt-24` videoyu barın altından
+          başlatıyordu, `data-koyu-bolum` olmadığı için bar beyaz örtüye
+          geçiyordu ve `max-h-[82dvh]` + `Reveal` ikilisi videonun geç
+          görünmesine yol açıyordu ("alttaki yazılar bir anlık gözüküyor").
+          `Reveal` KALDIRILDI: opacity 0→1 hero'da gecikme demek; bölüm zaten
+          ilk ekranda, giriş yumuşaklığını sayfa geçişi veriyor.
+          `preload` da `metadata` → `auto`. */}
+      <section
+        data-koyu-bolum
+        data-imlec-koyu
+        /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada
+           (JS ölçümü gelmeden) saydam açılsın diye. Bkz. `app/globals.css`
+           → "ÜST BAR AÇILIŞ RENGİ". */
+        data-koyu-acilis
+        /* 🔴 TELEFONDA TAM EKRAN DEĞİL, 16/9 — gerekçesi liste sayfasında
+           (`app/portfolyo/page.tsx`) ayrıntılı yazılı. Özet: `h-[100dvh]` +
+           `object-cover` kutunun oranını ekranın oranına bağlıyor; dikey
+           telefon ekranında yatay hero medyasının %74-85'i kesiliyordu
+           (denetimde ölçüldü, 2026-09-11 — Tyre Supply banner'ında marka
+           tanınmaz hâle geliyordu). Masaüstünde `md:h-[100dvh]` ile Yakup'un
+           istediği tam ekran aynen duruyor. */
+        className="relative aspect-video overflow-hidden bg-navy md:aspect-auto md:h-[100dvh]"
+      >
+        {brand.hero.type === "video" ? (
             <video
-              src={brand.hero.src}
-              poster={brand.hero.poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="max-h-[82dvh] w-full object-cover"
-              aria-label={`${brand.name} tanıtım videosu`}
-            />
-          ) : (
-            <Image
-              src={brand.hero.src}
-              alt={`${brand.name} — ${brand.headline}`}
-              width={1920}
-              height={1000}
-              priority
-              className="max-h-[82dvh] w-full object-cover"
-              sizes="100vw"
-            />
-          )}
-        </Reveal>
+            src={brand.hero.src}
+            poster={brand.hero.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            /* 🟠 `preload="auto"` BURADA BEDELSİZ DEĞİL: liste sayfasındaki
+               hero 1 MB'ın altında ama marka hero videoları 3,1-8,7 MB
+               (Atlantis 8,7 · bfit 6,8 · BNI 5,6 · Minousha 3,1).
+               `autoPlay` zaten indirtiyor, `preload` çoğu tarayıcıda eziliyor;
+               asıl etkisi otomatik oynatmanın kapalı olduğu durumda (iOS Düşük
+               Güç Modu, veri tasarrufu) görünüyor. AÇIK İŞ: hero videolarının
+               sıkıştırılması — bu değişiklikten önce de vardı, ayrı bir iş. */
+            preload="auto"
+            className="h-full w-full object-cover"
+            aria-label={`${brand.name} tanıtım videosu`}
+          />
+        ) : (
+          <Image
+            src={brand.hero.src}
+            alt={`${brand.name} — ${brand.headline}`}
+            width={1920}
+            height={1000}
+            priority
+            className="h-full w-full object-cover"
+            /* 🔴 `md:` ÜSTÜNDE `100vw` YANLIŞ OLUR: `object-cover` görseli
+               artık EKRAN YÜKSEKLİĞİNE göre büyütüyor, yani çizilen genişlik
+               pencere genişliğini aşıyor (2400x760'lık Tyre Supply banner'ı
+               1440x900 pencerede 2842 piksele yayılıyor). Next indirilecek
+               dosyayı `sizes`e bakarak seçtiği için 100vw diyip geçmek çok
+               küçük dosya indirtiyor ve görsel bulanıklaşıyordu (denetimde
+               ölçüldü: telefonda ~6,7 kat büyütme). En büyük hero kaynağımız
+               2400 piksel; onun üstünü istemenin faydası yok. */
+            sizes="(min-width: 768px) 2400px, 100vw"
+          />
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/70 to-transparent pb-8 pt-24">
           <div className="mx-auto flex max-w-[1440px] justify-end px-5 md:px-10">
             {/* KADEMELİ (2026-09-07): hero üzerindeki hizmet listesi hiç

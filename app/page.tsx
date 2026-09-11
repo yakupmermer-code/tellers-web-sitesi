@@ -137,6 +137,10 @@ export default function HomePage() {
           components/Header.tsx yapar. */}
       <section
         data-koyu-bolum
+        /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada
+           (JS ölçümü gelmeden) saydam açılsın diye. Bkz. `app/globals.css`
+           → "ÜST BAR AÇILIŞ RENGİ". */
+        data-koyu-acilis
         className="relative flex min-h-[100dvh] items-end overflow-hidden bg-navy"
       >
         {/* Marka tanıtım filmi (YouTube gömme). Açılıştaki 1.28 ölçek

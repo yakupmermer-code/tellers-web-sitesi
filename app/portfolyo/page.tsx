@@ -52,18 +52,58 @@ export default function PortfolyoPage() {
           ]),
         )}
       />
-      {/* ── Ana slide: marka ismi/detay yok ── */}
-      <section className="relative mt-24">
+      {/* ── HERO — ANA SAYFA KALIBI (2026-09-11) ─────────────────────────
+          Yakup üç şey bildirdi ve üçü de AYNI KÖKTEN geliyordu:
+            (a) "portfolyo sayfasının açılışındaki header alanı, ana sayfadaki
+                açılış anındaki header ile aynı olsun"
+            (b) "videosu olanlar geç açılıyor, alttaki yazılar bir anlık da
+                olsa gözüküyor"
+            (c) "video, üst header alanı dahil edildiğinde ekrana tam otursun;
+                videonun bir kısmı aşağıda kalıyor"
+
+          ESKİ HÂL: `mt-24` (header payı) + video `h-auto`.
+            · `mt-24` videoyu barın ALTINDAN başlatıyordu → (c)
+            · bar hero'yu kapatmadığı için `data-koyu-bolum` yoktu; Header ince
+              beyaz örtüye geçip yazılarını lacivert basıyordu → (a)
+            · `h-auto` yüksekliği VİDEODAN alıyordu: video çözülene kadar
+              bölüm tarayıcının varsayılan video kutusu kadardı (300x150),
+              altındaki içerik yukarı çıkıp video gelince aşağı itiliyordu → (b)
+
+          YENİ HÂL ana sayfa hero'sunun birebir kalıbı: tam ekran yükseklik,
+          lacivert zemin, `object-cover`. Yükseklik artık videodan bağımsız
+          olduğu için yüklenme sırasında hiçbir şey kaymıyor; video gelene
+          kadar lacivert zemin duruyor.
+          `data-koyu-bolum` → bar saydam kalıp yazılarını beyaz basar.
+          `data-imlec-koyu` → özel imleç koyu görselde kaybolmasın. */}
+      <section
+        data-koyu-bolum
+        data-imlec-koyu
+        /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada
+           (JS ölçümü gelmeden) saydam açılsın diye. Bkz. `app/globals.css`
+           → "ÜST BAR AÇILIŞ RENGİ". */
+        data-koyu-acilis
+        /* 🔴 TELEFONDA TAM EKRAN DEĞİL, 16/9 (denetimde ölçülerek yakalandı,
+           2026-09-11). `h-[100dvh]` + `object-cover`, kutunun oranını EKRANIN
+           oranına bağlıyor: telefon dikey (390x844 = 0,46), hero videoları
+           yatay (16/9 = 1,78). Sonuç kadrajın eninin %74'ünün kesilmesiydi —
+           "PORTFOLYO" yazısı telefonda "RTFO" olarak görünüyordu.
+           `object-position` bunu ÇÖZMEZ; sorun hizalama değil kutunun oranı.
+           Yakup'un isteği ("video ekrana tam otursun") masaüstü gözlemiydi,
+           orada `md:h-[100dvh]` ile birebir karşılanıyor. Telefonda kadraj
+           bütün kalıyor ve yükseklik yine MEDYADAN BAĞIMSIZ (56,25vw), yani
+           yüklenirken kayma da olmuyor. */
+        className="relative aspect-video overflow-hidden bg-navy md:aspect-auto md:h-[100dvh]"
+      >
         {/* 🔴 HERO VİDEOSU `MediaReveal` İLE SARILMAZ (2026-09-10, Yakup:
           "üst kısmında video olan sayfalarda video 1-2 saniye gecikmeli
           geliyor, sebebini kontrol et").
-          Sebep üç animasyonun üst üste binmesiydi:
-            · `app/template.tsx` sayfa geçişi — 0,25 sn bekleme + 0,8 sn
+          Sebep iki animasyonun üst üste binmesiydi:
+            · `app/template.tsx` sayfa geçişi — opacity 0→1, 0,5 sn
             · `MediaReveal sabit` — opacity 0→1, 0,9 sn, üstelik `whileInView`
               tetikli (görünürlük gözlemcisi ateşleyene kadar hiç başlamıyor)
-          Toplam ~1,9 sn ve bu sürede video alanı BOŞ; poster bile görünmüyor,
-          çünkü o da opacity 0'ın arkasında. Video dosyaları küçük (252-572 KB),
-          yani sorun indirme değildi.
+          Bu sürede video alanı BOŞ; poster bile görünmüyor, çünkü o da
+          opacity 0'ın arkasında. Video dosyası küçük (bu sayfada 1 MB'ın
+          altında), yani sorun indirme değildi.
           Hero zaten sayfanın ilk ekranında: "görünür alana girince göster"
           beklemenin anlamı yok. Giriş yumuşaklığını `template.tsx` zaten
           veriyor. `preload` da `metadata`dan `auto`ya alındı — ilk ekrandaki
@@ -77,7 +117,7 @@ export default function PortfolyoPage() {
           playsInline
           preload="auto"
           aria-label="tellers portfolyo"
-          className="h-auto w-full"
+          className="h-full w-full object-cover"
         />
       </section>
 

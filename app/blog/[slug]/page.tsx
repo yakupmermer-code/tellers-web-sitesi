@@ -168,6 +168,10 @@ export default async function BlogDetayPage({
       <section
         data-koyu-bolum
         data-imlec-koyu
+        /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada
+           (JS ölçümü gelmeden) saydam açılsın diye. Bkz. `app/globals.css`
+           → "ÜST BAR AÇILIŞ RENGİ". */
+        data-koyu-acilis
         className="relative h-[78vh] min-h-[480px] overflow-hidden bg-navy"
       >
         {/* ⚠️ `HeroZoom` KALDIRILDI (2026-09-11, Yakup: "açılma animasyonunu
