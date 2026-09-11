@@ -161,6 +161,19 @@ export default function HakkimizdaPage() {
             `hemen` → görünür alan beklenmiyor; ilk ekranda gecikme olmaz. */}
         <YakinAcilis hemen olcek={2} className="h-full w-full">
           <video
+            /* 🔴 EKİBİN YENİ GIF'İ BURAYA KONMADI — AŞAĞIDAKİ MANİFESTO
+               ALANINA KONDU (denetimde yakalandı, 2026-09-11).
+               `tellers_hakkimizda_slider1_gif.mp4` bir tur bu hero'ya konmuştu;
+               iki ayrı ölçüm bunun yanlış olduğunu gösterdi:
+                 · videonun KARELERİ sayfanın ortasındaki `hakkimizda-metni.png`
+                   ile BİREBİR AYNI slayt — aynı başlık, aynı üç paragraf, sağda
+                   aynı gezegen. Hero'ya konunca aynı metin sayfada İKİ KEZ
+                   görünüyordu.
+                 · o video kenardan kenara METİN içeriyor; %70 ekran + kırpma
+                   kuralıyla 1920x955'te 243 piksel (boyun %30'u) kesiliyor ve
+                   başlık satırı ortadan ikiye bölünüyordu.
+               Bu hero'nun videosu (dairesel yazı halkalı kare) kenarlarda boşluk
+               bıraktığı için kırpmaya dayanıklı; o yüzden burada kaldı. */
             src="/assets/about/hero.mp4"
             poster="/assets/about/hero-poster.jpg"
             autoPlay
@@ -176,11 +189,18 @@ export default function HakkimizdaPage() {
 
       {/* ── Global devlerin tercihi ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
+        {/* EKİP TASARIMINA GÖRE (11 Eylül dökümanı: "Global devlerin tercihi bu
+            şekilde yerleştirilmeyecek, alt metin de başlığa yakın olacak").
+            Tasarım dosyası indirilip ölçüldü (`1 (1).png`, 1080x970): başlık İKİ
+            SATIR, satır aralığı ~1,03 ve alt metin başlığın hemen altında —
+            aradaki boşluk neredeyse sıfır. Bizde başlık tek satıra sığıyordu ve
+            altında 6 piksel boşluk vardı. `max-w` başlığı tasarımdaki gibi
+            "Global devlerin / tercihi, tellers." diye kırıyor. */}
         <Reveal mask>
-          <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
+          <h1 className="max-w-[860px] text-4xl font-bold leading-[1.02] tracking-tight text-navy md:text-[96px]">
             Global devlerin tercihi, tellers.
           </h1>
-          <p className="mt-1.5 text-lg text-navy/70 md:text-[22px]">
+          <p className="text-lg text-navy/70 md:text-[22px]">
             Mastercard, Konica Minolta, Bardahl ve Fairmont Hotels.
           </p>
         </Reveal>
@@ -193,7 +213,13 @@ export default function HakkimizdaPage() {
       <div className="bg-mist">
         <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
           <Reveal>
-            <p className="max-w-5xl text-2xl font-bold leading-snug tracking-tight text-navy md:text-[48px]">
+            {/* EKİP NOTU (11 Eylül): "7 yılda.. üst başlık metni ÇOK BOLD
+                yazılmış ve başlığı SOLA DAYAMIŞIZ, örnekteki gibi
+                yerleştirilmeli." Dökümandaki örnek master'ın About sayfasından:
+                aynı blok orada BOLD DEĞİL (orta kalınlık) ve `max-w` ile
+                daraltılmamış, kabın genişliğini kullanıyor — dar kolon olduğu
+                için "sola dayalı" duruyordu. İkisi de düzeltildi. */}
+            <p className="max-w-[1180px] text-2xl font-medium leading-snug tracking-tight text-navy md:text-[48px]">
               7 yılda, 3 kıta, 15 ülkede Sağlık, Tarım, Savunma, Otomotiv, Spor
               ve Kozmetik sektörlerindeki ortaklarıyla onlarca iletişim
               stratejisi ve kampanyaya imza atan tellers, Birleşik Krallık,
@@ -241,14 +267,30 @@ export default function HakkimizdaPage() {
           uçları görünmüyor, sonra oturuyor. Bu, İSTENEN efektin kendisi (master
           böyle yapıyor, Yakup "birebir aynı olsun" dedi) — hata değil, bilinçli
           taviz. Kabul edilmezse yazılı medyalarda `olcek={1.15}` kesmiyor. */}
+      {/* EKİBİN YENİ TASARIMI — `tellers_hakkimizda_slider1_gif.mp4`
+          (11 Eylül dökümanı, Drive'dan indirildi). Statik `hakkimizda-metni.png`
+          yerine geçti: videonun kareleri o görselle BİREBİR aynı slayt, tek
+          farkı sağdaki gezegenin hafif hareket etmesi. İkisini birden bırakmak
+          aynı metni sayfada iki kez göstermek olurdu.
+          ⚠️ Dosya adı "slider1" olduğu için bir tur hero'ya konmuştu; içerik
+          eşleşmesi ve hero'daki kırpma (1920'de başlık ortadan kesiliyordu)
+          doğru yerin burası olduğunu gösterdi. Yakup'un teyidi bekleniyor.
+          ÖLÇÜ: 1600x800 (2:1). Burada `h-auto w-full` ile kırpılmadan basılıyor
+          — kenardan kenara metni olan bir slayt için tek doğru yerleşim.
+          BOYUT: ham dosya 14,1 MB geldi; projedeki `ffmpeg-static` ile
+          yeniden kodlandı (crf 24, aynı çözünürlük) → 930 KB, gözle fark yok.
+          Ham dosya git'e HİÇ girmedi. */}
       <YakinAcilis>
-        <Image
-          src="/assets/about/hakkimizda-metni.png"
-          alt="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"
-          width={1920}
-          height={1080}
+        <video
+          src="/assets/about/slider1-gif.mp4"
+          poster="/assets/about/slider1-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"
           className="h-auto w-full"
-          sizes="100vw"
         />
       </YakinAcilis>
 
@@ -262,7 +304,11 @@ export default function HakkimizdaPage() {
           Turbopack derlemeyi asıyor. Ayrıca bu JSX yorumunun İÇİNE de blok
           yorum kapatma dizisi yazma, yorumu erken kapatır. Bugün her iki
           tuzağa da düşüldü. */}
-      <section className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
+      {/* `items-center` → `items-start` (11 Eylül dökümanı: "Yan taraftaki imaj
+          görseli örnekteki gibi yan taraftaki metinle hizalı olmalı"). Dökümanın
+          gömülü örneğinde görselin ÜST kenarı başlığın üst kenarıyla aynı
+          hizada; bizde dikeyde ortalanıyordu. */}
+      <section className="mx-auto grid max-w-[1440px] items-start gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-24">
         <Reveal mask>
           <h2 className="text-3xl font-bold leading-[1.12] tracking-tight text-navy md:text-[64px]">
             Eski kafalı dinozor ajanslara veda edin.
@@ -272,7 +318,9 @@ export default function HakkimizdaPage() {
             </em>{" "}
             tellers ile tanışın.
           </h2>
-          <p className="mt-4 text-base text-navy/50">
+          {/* Tasarım dosyası (`1.png`) indirilip ölçüldü: alt metin başlığın
+              hemen altında. "Alt metin ve başlık satır arası daha yakın olmalı." */}
+          <p className="mt-1 text-base text-navy/50">
             tellers, gerçek bir ajans deneyimi.
           </p>
         </Reveal>
@@ -289,22 +337,37 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── Vizyon ── */}
-      <section className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
+      {/* İKİ KOLON — EKİP NOTU (11 Eylül dökümanı):
+          · "Yakın gelecekte tellers bu başlık tasarımdaki gibi olmalı"
+          · "Başlığın YAN TARAFINA alt 2 paragraf ise YAN YANA eklenecek"
+          · (Misyon için) "Alt paragraf yukarıda açıkladığım gibi başlığın yan
+            tarafına eklenmeli"
+          Eskiden başlık üstte, üç metin bloğu altında tek kolonda alt alta
+          diziliydi (`max-w-3xl`). Şimdi başlık SOLDA, alıntı + iki paragraf
+          SAĞDA; iki paragraf da kendi içinde yan yana.
+          `Stagger` İKİYE BÖLÜNDÜ (tek `Stagger` içine düz `<div>` koyulamaz:
+          framer-motion varyantları yalnızca motion bileşenleri üzerinden
+          iniyor, araya giren düz div zinciri kırıp kademeli girişi öldürür). */}
+      <section className="mx-auto grid max-w-[1440px] gap-10 px-5 pb-20 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-20 md:px-10 md:pb-24">
         <Reveal mask>
           <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
             Yakın gelecekte tellers.
           </h2>
-          <p className="mt-1 text-base text-navy/50">Vizyonumuz.</p>
+          <p className="text-base text-navy/50">Vizyonumuz.</p>
         </Reveal>
-        <Stagger className="mt-8 max-w-3xl">
+        <div>
+        <Stagger>
           <StaggerItem>
             <p className="text-xl font-bold leading-relaxed text-navy">
               “Bilim, strateji ve kültür üzerine inşa edilmiş iletişimin,
               referans temsilcilerinden bir tanesi olmak.”
             </p>
           </StaggerItem>
+        </Stagger>
+        {/* "alt 2 paragraf YAN YANA" — dar ekranda yine alt alta. */}
+        <Stagger className="mt-8 grid gap-8 sm:grid-cols-2 sm:gap-10">
           <StaggerItem>
-            <p className="mt-6 text-lg leading-relaxed text-navy/80">
+            <p className="text-lg leading-relaxed text-navy/80">
               Geleceğin en etkili sesine sahip markalar, şüphesiz en çok bağıran
               değil <em className="font-didot italic">en net konuşanlar</em>{" "}
               olacaktır. tellers, küresel ölçekte markaların iletişim
@@ -314,7 +377,7 @@ export default function HakkimizdaPage() {
             </p>
           </StaggerItem>
           <StaggerItem>
-            <p className="mt-6 text-lg leading-relaxed text-navy/80">
+            <p className="text-lg leading-relaxed text-navy/80">
               Vizyonumuz, iletişimin yalnızca duygu ya da estetik değil, aynı
               zamanda stratejik netlik üzerine kurulduğu bir ekosistem
               yaratmaktır. Bu ekosistemde her marka, kendi anlamını inşa eder;
@@ -323,10 +386,15 @@ export default function HakkimizdaPage() {
             </p>
           </StaggerItem>
         </Stagger>
-        {/* Eskiden burada `Reveal` (opaklık + kayma) vardı; `YakinAcilis` zaten
+        </div>
+        {/* Görsel iki kolonun ALTINDA, tam genişlikte kalıyor.
+            Eskiden burada `Reveal` (opaklık + kayma) vardı; `YakinAcilis` zaten
             soluk açıyor, üstüne `template.tsx` sayfa geçişi de bindiğinde üç
             opaklık çarpılıyordu (denetimde yakalandı). Kutu kalsın diye düz div. */}
-        <div className="mt-12">
+        {/* `mt-12` KALDIRILDI: bölüm artık grid, satır arasını `md:gap-20`
+            veriyor; ikisi üst üste binince 128 piksel oluyordu (denetimde
+            ölçüldü), sitenin geri kalanında bölüm içi ayrım 80 piksel. */}
+        <div className="md:col-span-2">
           <YakinAcilis>
             <Image
               src="/assets/about/vizyon.png"
@@ -344,16 +412,19 @@ export default function HakkimizdaPage() {
           Gri fon (ekip notu 2026-08-14): hemen üstündeki Vizyon metin
           alanından ayrılsın — iki uzun metin bloğu üst üste gelmesin. */}
       <div className="bg-mist">
-        <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
+        {/* Vizyon ile aynı iki kolonlu düzen — 11 Eylül dökümanı: "Bugün
+            tellers başlığı tasarımdaki gibi eklenmeli... Alt paragraf yukarıda
+            açıkladığım gibi başlığın YAN TARAFINA eklenmeli." */}
+        <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-20 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-20 md:px-10 md:py-24">
           <Reveal mask>
             <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-navy md:text-[96px]">
               Bugün tellers.
             </h2>
-            <p className="mt-1 text-base text-navy/50">
+            <p className="text-base text-navy/50">
               Misyonumuz / Bugün ne yapıyoruz?
             </p>
           </Reveal>
-          <Stagger className="mt-8 max-w-3xl">
+          <Stagger>
             <StaggerItem>
               <p className="text-xl font-bold leading-relaxed text-navy">
                 “İletişimin gürültüye dönüştüğü 21. yüzyılda, markaların
@@ -361,7 +432,7 @@ export default function HakkimizdaPage() {
               </p>
             </StaggerItem>
             <StaggerItem>
-              <p className="mt-6 text-lg leading-relaxed text-navy/80">
+              <p className="mt-8 text-lg leading-relaxed text-navy/80">
                 Amacımız basit ama radikaldir:{" "}
                 <em className="font-didot italic">
                   “İletişimi, yüzyılın ses yarışından çıkarıp, anlam ilişkisine
@@ -478,7 +549,10 @@ export default function HakkimizdaPage() {
                 Veriyle şekillenen{" "}
                 <em className="font-didot font-normal italic">küresel</em> etki.
               </h2>
-              <p className="mt-4 text-lg text-navy/60">
+              {/* "Veriyi.. cümlesi ana başlığa daha yakın olmalı" (11 Eylül).
+                  Tasarım dosyası `5.png` ile birebir: alt metin başlığın hemen
+                  altında, arada boşluk yok. */}
+              <p className="text-lg text-navy/60">
                 Veriyi yorumlar, sistematik düşünür; sonuç odaklı net çözümler
                 üretiriz.
               </p>

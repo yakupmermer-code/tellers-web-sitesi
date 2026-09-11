@@ -701,5 +701,19 @@ body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-cizgi] {
   .hero-oranli {
     aspect-ratio: auto;
     height: 70vh;
+    /*
+     * 🔴 `min-height` DİKEY KIRPMAYI SINIRLIYOR (denetimde yakalandı,
+     * 2026-09-11). Yukarıdaki oran eşiği YATAY kırpmayı engelliyor ama dikey
+     * kırpma ekran genişledikçe büyüyor: 1920x955'te (1080p'de tam ekran
+     * tarayıcı — en yaygın masaüstü) %70 yükseklik 669 piksel, kutu oranı 2,87
+     * oluyor ve 2:1 medyanın boyunun %30'u kesiliyordu. 1440x900'de %13'tü,
+     * yani hata yalnız GENİŞ ekranda ortaya çıkıyor ve 1440'ta test edilirse
+     * hiç görülmüyor.
+     * 43,5vw = genişlik / 2,3 → kutu oranı hiçbir ekranda 2,3'ü geçmiyor,
+     * dikey kırpma her yerde ~%13'te kalıyor.
+     * 1440x900'de 43,5vw=626 < 70vh=630, yani master'ın referans ölçüsünde
+     * hiçbir şey değişmiyor; kural yalnız daha geniş ekranlarda devreye giriyor.
+     */
+    min-height: 43.5vw;
   }
 }
