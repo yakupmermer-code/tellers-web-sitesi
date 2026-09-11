@@ -56,8 +56,21 @@ export default function RefLogoBand({
                   // opaklıkta. (Daha önce h-7'ye çıkarılmıştı çünkü ince ve iki
                   // satırlı logolar — Fairmont, Konica Minolta, The London
                   // Clinic — küçükken okunmuyordu; bu büyütme onu da pekiştirir.)
-                  "h-8 max-w-[150px] opacity-85 md:h-10"
-                : "h-8 max-w-[140px] opacity-90 md:h-10"
+                  //
+                  // 🔴 GENİŞLİK SINIRI 140/150 → 190/200 (2026-09-11).
+                  // 35 logonun hepsi tek kırpma standardına (6 piksel pay)
+                  // getirilince UZUN kelime işaretlerinin oranı genişledi ve
+                  // sınıra takılmaya başladılar: 40 piksellik bantta ölçüldü,
+                  // 15 logo takılıyordu ve Bausch+Lomb (oran 10,9) yalnızca
+                  // 12,9 PİKSEL yüksekliğinde çiziliyordu — yanındaki kare
+                  // logolar 40 pikselken okunmuyordu.
+                  // Yeni sınırla takılan sayısı 8'e, en küçüğü 17,4 piksele
+                  // indi. Sınır TAMAMEN kaldırılmadı çünkü kaldırılırsa
+                  // Bausch+Lomb 436 piksel genişliğinde çizilip bandı tek
+                  // başına domine ederdi — bant logoları OPTİK olarak eşitler,
+                  // yalnız yüksekliği değil.
+                  "h-8 max-w-[200px] opacity-85 md:h-10"
+                : "h-8 max-w-[190px] opacity-90 md:h-10"
             }`}
           />
         ))}

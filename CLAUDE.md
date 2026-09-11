@@ -54,7 +54,9 @@ revize dökümanı (Google Doc `1Pxl1uNXg2pnKRPSlCQXFoB0e_ihyWW3Pg3AcO0iF5OA`) �
 - Marka videosu (ana sayfa slogan bandı) — yerine `slogan-banner.png` duruyor;
   gerçek video gelince onun yerini alacak (2026-09-02'de kaldırılan "İletişim;
   anlamın dolaşımı" bölümünde de geçici bir video vardı, o tamamen çıkarıldı)
-- Raymond Weil, Minousha, Qui Prive operasyon tarihleri (XXXX/????)
+- ~~Raymond Weil, Minousha, Qui Prive operasyon tarihleri~~ — **TAMAMLANDI**
+  (2026-09-11 doğrulandı): 17 markanın operasyon tarihi ve süresi içerik
+  dökümanıyla BİREBİR tutuyor, hiçbirinde yer tutucu kalmadı.
 - **Hizmet slide videoları en az 1920 genişlikte** (`public/assets/services/*.mp4`).
   Dördü de bugün **1280x854**. Ana sayfada kart 1440x800 ve `object-cover`
   videoyu zaten 1,125x büyütüyordu; 2026-09-10'da master temanın paralaksı
