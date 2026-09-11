@@ -709,11 +709,17 @@ body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-cizgi] {
      * oluyor ve 2:1 medyanın boyunun %30'u kesiliyordu. 1440x900'de %13'tü,
      * yani hata yalnız GENİŞ ekranda ortaya çıkıyor ve 1440'ta test edilirse
      * hiç görülmüyor.
-     * 43,5vw = genişlik / 2,3 → kutu oranı hiçbir ekranda 2,3'ü geçmiyor,
-     * dikey kırpma her yerde ~%13'te kalıyor.
-     * 1440x900'de 43,5vw=626 < 70vh=630, yani master'ın referans ölçüsünde
-     * hiçbir şey değişmiyor; kural yalnız daha geniş ekranlarda devreye giriyor.
+     * Genişlik / AZAMİ ORAN → kutu oranı o değeri hiçbir ekranda geçmiyor,
+     * dikey kırpma sınırlı kalıyor.
+     * 1440x900'de hesap 626 piksel çıkıyor, 70vh ise 630 — yani master'ın
+     * referans ölçüsünde hiçbir şey değişmiyor; kural yalnız daha geniş
+     * ekranlarda devreye giriyor.
+     *
+     * AZAMİ ORAN MEDYAYA GÖRE DEĞİŞİR, o yüzden değişken: bir sayfanın hero
+     * medyası 2:1 ise 2,3 (%13 dikey kırpma), 16:9 ise 2,05 aynı kırpmayı
+     * verir. Sayfa kendi değerini `style={{ "--hero-azami-oran": "..." }}` ile
+     * geçiyor; geçmezse 2,3 varsayılıyor.
      */
-    min-height: 43.5vw;
+    min-height: calc(100vw / var(--hero-azami-oran, 2.3));
   }
 }

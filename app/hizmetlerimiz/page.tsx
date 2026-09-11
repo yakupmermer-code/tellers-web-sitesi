@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import YakinAcilis from "@/components/YakinAcilis";
 import { Stagger, StaggerItem } from "@/components/Stagger";
 import KapanisSection from "@/components/KapanisSection";
 import BlogSlider from "@/components/BlogSlider";
@@ -79,33 +80,50 @@ export default function HizmetlerimizPage() {
         )}
       />
       <h1 className="sr-only">Hizmetlerimiz</h1>
-      {/* ── Ana slide ── */}
-      <section className="relative mt-24">
-        {/* 🔴 HERO VİDEOSU `MediaReveal` İLE SARILMAZ (2026-09-10, Yakup:
-          "üst kısmında video olan sayfalarda video 1-2 saniye gecikmeli
-          geliyor, sebebini kontrol et").
-          Sebep üç animasyonun üst üste binmesiydi:
-            · `app/template.tsx` sayfa geçişi — 0,25 sn bekleme + 0,8 sn
-            · `MediaReveal sabit` — opacity 0→1, 0,9 sn, üstelik `whileInView`
-              tetikli (görünürlük gözlemcisi ateşleyene kadar hiç başlamıyor)
-          Toplam ~1,9 sn ve bu sürede video alanı BOŞ; poster bile görünmüyor,
-          çünkü o da opacity 0'ın arkasında. Video dosyaları küçük (252-572 KB),
-          yani sorun indirme değildi.
-          Hero zaten sayfanın ilk ekranında: "görünür alana girince göster"
-          beklemenin anlamı yok. Giriş yumuşaklığını `template.tsx` zaten
-          veriyor. `preload` da `metadata`dan `auto`ya alındı — ilk ekrandaki
-          videonun verisi sayfa açılır açılmaz inmeye başlasın. */}
-        <video
-          src="/assets/services/hero.mp4"
-          poster="/assets/services/hero-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-label="tellers hizmetleri"
-          className="h-auto w-full"
-        />
+      {/* ── ANA SLIDE — MASTER KALIBI (2026-09-11) ───────────────────────
+          Yakup: "hizmetlerimiz kısmının header ve slider alanını da revize et."
+          Hakkımızda ve portfolyo ile birebir aynı kalıp:
+            · `mt-24` kalktı → hero sayfanın EN ÜSTÜNDEN başlıyor, 70 piksellik
+              bar SAYDAM olarak üstüne biniyor (ana sayfa açılışıyla aynı)
+            · `h-auto` kalktı → yükseklik artık MEDYADAN BAĞIMSIZ; video
+              çözülene kadar bölüm tarayıcının varsayılan video kutusu kadar
+              kalıp sonra zıplamıyor, altındaki içerik yerinde duruyor
+            · yükseklik master'ın About sayfasındaki ölçü: ekranın %70'i
+            · giriş master'ın hareketi: scale 2 → 1 + soluk açılış
+
+          ÖLÇÜ: `services/hero.mp4` 1280x720 (16:9), 252 KB.
+          `--hero-azami-oran` VERİLMİYOR, varsayılan (2,3) kullanılıyor: böylece
+          1440x900'de yükseklik tam 70vh = 630 piksel çıkıyor, yani master'ın
+          ölçüsüyle BİREBİR. Bir tur 2,05 verilmişti; kırpmayı %13'e indiriyordu
+          ama hero'yu 702 piksele (ekranın %78'i) çıkarıp master ölçüsünü
+          bozuyordu — ölçülerek görüldü ve geri alındı.
+          Bedeli: 16:9 medyada dikey kırpma %13 değil %22. Güvenli olduğu
+          ÖLÇÜLDÜ: videodan kareler çıkarıldı, "bilimsel yaratıcılık ve veri
+          uzmanlığı." yazısı kadrajın yüksekliğinin %43-55 bandında duruyor;
+          %22 kırpma üstten ve alttan %11 alıyor, yani yazıya 32 puanlık pay
+          kalıyor. Varsayılan sınır ayrıca kırpmanın geniş ekranda büyümesini
+          de durduruyor (sınır olmasaydı 2560x1080'de %47'ye çıkıyordu).
+          Dar/dikey ekranlarda (oran < 1,4) video kendi 16:9 oranında kalıyor —
+          orada kırpma sıfır, yükseklik yine medyadan bağımsız. */}
+      <section
+        data-koyu-bolum
+        data-imlec-koyu
+        data-koyu-acilis
+        className="hero-oranli relative aspect-video overflow-hidden bg-navy"
+      >
+        <YakinAcilis hemen olcek={2} className="h-full w-full">
+          <video
+            src="/assets/services/hero.mp4"
+            poster="/assets/services/hero-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="tellers hizmetleri"
+            className="h-full w-full object-cover"
+          />
+        </YakinAcilis>
       </section>
 
       {/* ── 4 hizmet bloğu ── */}
