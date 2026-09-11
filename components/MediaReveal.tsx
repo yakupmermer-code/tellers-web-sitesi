@@ -19,6 +19,15 @@ import { EASE, SURE, GORUNUR } from "./motion";
  * Medya SOLMAZ — referansın sunucu çıktısında paralaks katmanlarında
  * `opacity:0` yok, yalnızca translateY var. Yani perde/fade girişi yok.
  *
+ * ⚠️ BU CÜMLE `components/YakinAcilis.tsx` İLE ÇELİŞİYOR GİBİ DURUYOR
+ * (denetimde işaretlendi, 2026-09-11). Orada master'ın About sayfasındaki iç
+ * görsellerde `opacity: 0.001` ölçüldü, yani ORADA soluyor. İkisi de doğru
+ * olabilir: burada ölçülen PARALAKS katmanı (sürekli, kaydırmaya bağlı),
+ * orada ölçülen GİRİŞ katmanı (bir kez oynar). Ama iki kayıt yan yana
+ * okununca çelişkili görünüyor; hangisinin nerede geçerli olduğu tek tek
+ * doğrulanmadan sitedeki diğer `MediaReveal` kullanımları (4 dosya)
+ * `YakinAcilis`e çevrilmemeli.
+ *
  * ÖNCEKİ HÂLİ (2026-08-31'de değişti): clip-path perde açılışı + elle yazılmış
  * scroll dinleyicisi vardı; hareket ±6px'ti, yani neredeyse hissedilmiyordu.
  * Referansta clip-path hiç kullanılmıyor. Kullanılmayan `kenburns` modu da

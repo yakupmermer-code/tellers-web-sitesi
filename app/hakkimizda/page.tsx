@@ -8,7 +8,7 @@ import { Stagger, StaggerItem } from "@/components/Stagger";
 import { gorselOlcu } from "@/lib/gorsel";
 import KapanisSection from "@/components/KapanisSection";
 import TriSlider from "@/components/TriSlider";
-import MediaReveal from "@/components/MediaReveal";
+import YakinAcilis from "@/components/YakinAcilis";
 
 const ACIKLAMA =
   "Mastercard, Konica Minolta ve Fairmont'un tercih ettiği ajans. 7 yılda 3 kıta, 15 ülkede marka iletişimi, markalama ve performans pazarlama.";
@@ -98,39 +98,80 @@ export default function HakkimizdaPage() {
           ]),
         )}
       />
-      {/* ── Ana slide ──
-          sabit + h-auto: videonun İÇİNDE "BAŞARI TESADÜF DEĞİLDİR" yazısı var
-          ve kareyi dolduruyor; her kırpma yazıyı kesiyordu (Yakup bildirdi,
-          2026-09-02: iki yandan kesik görünüyordu). İki kırpma kaynağı vardı:
-          MediaReveal'ın %12 paralaks büyütmesi (yandan) ve
-          max-h-[64dvh]+object-cover (üstten-alttan). İkisi de kaldırıldı;
-          video 1600x800 doğal oranıyla tam görünüyor. */}
-      <section className="relative mt-24 overflow-hidden">
-        {/* 🔴 HERO MEDYASI `MediaReveal` İLE SARILMAZ (2026-09-10, Yakup:
-          "üst kısmında video olan sayfalarda video 1-2 saniye gecikmeli
-          geliyor, sebebini kontrol et").
-          Sebep üç animasyonun üst üste binmesiydi:
-            · `app/template.tsx` sayfa geçişi — 0,25 sn bekleme + 0,8 sn
-            · `MediaReveal sabit` — opacity 0→1, 0,9 sn, üstelik `whileInView`
-              tetikli (görünürlük gözlemcisi ateşleyene kadar hiç başlamıyor)
-          Toplam ~1,9 sn ve bu sürede medya alanı BOŞ; poster bile görünmüyor,
-          çünkü o da opacity 0'ın arkasında. Video dosyaları küçük (252-572 KB),
-          yani sorun indirme değildi.
-          Hero zaten sayfanın ilk ekranında: "görünür alana girince göster"
-          beklemenin anlamı yok. Giriş yumuşaklığını `template.tsx` zaten
-          veriyor. `preload` da `metadata`dan `auto`ya alındı — ilk ekrandaki
-          videonun verisi sayfa açılır açılmaz inmeye başlasın. */}
-        <video
-          src="/assets/about/hero.mp4"
-          poster="/assets/about/hero-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-label="tellers hakkında"
-          className="h-auto w-full"
-        />
+      {/* ── ANA SLIDE — MASTER TEMANIN "ABOUT US" KALIBI (2026-09-11) ────
+          Yakup: "o kısım sayfanın içine tam otursun... arkadaşların referans
+          aldıkları nokta master tema about us kısmı, bunu göz önünde bulundur."
+
+          MASTER ÖLÇÜMÜ — `arpeggio.framer.website/about`, canlı:
+            hero bloğu   genişlik tam · yükseklik **%70 ekran** (900px ekranda
+                         630, 700px ekranda 490, 390x844 telefonda 591 — üç
+                         ölçüde de tam 0,70 çıktı, yani sabit piksel değil)
+            konum        sayfanın EN ÜSTÜ (y=0); 70px'lik bar SAYDAM ve
+                         görselin ÜZERİNDE duruyor, üstünde beyaz şerit yok
+            görsel       `object-fit: cover`, blokta `overflow: hidden`
+            giriş        `scale(2)` + `opacity: 0` → 1 / 1
+
+          ÖNCEKİ HÂLİN ÜÇ HATASI (üçünü de Yakup bildirdi, ölçülerek doğrulandı):
+            · `mt-24` üstte 96 piksel beyaz şerit bırakıyordu (bar 70 piksel)
+              → "header alanındaki beyaz kısım az yüksek"
+            · video 1440x720'de bitip ekranın altında 84 piksel bırakıyordu ve
+              alttaki bölüm oraya sızıyordu → "video tam oturmuyor"
+            · `h-auto` yüksekliği MEDYADAN alıyordu: poster gelene kadar bölüm
+              **150 piksel**, sonra birden 720 piksel. "Global devlerin tercihi"
+              sloganı önce ekranın ortasında belirip 570 piksel aşağı itiliyordu
+              → "ilk kez girince önce alttaki slogan gelir gibi oluyor, sonra
+              video geliyor". Yükseklik artık medyadan bağımsız, kayma bitti.
+
+          🔴 TELEFON/TABLETTE %70 DEĞİL, VİDEONUN KENDİ 2:1 ORANI. Master burada
+          da %70 kullanıyor ama onun hero'su düz bir fotoğraf; bizim videomuzda
+          kareyi neredeyse boydan boya dolduran DAİRESEL bir yazı halkası var
+          ("tellers yaratıcı reklam ajansı · the creative agency"). Bu sayfada
+          kırpma bir kez zaten sorun olmuştu (Yakup 2026-09-02: "hakkımızda
+          kısmı ekrana tam oturmuyor", yazı iki yandan kesikti).
+          ⚠️ Eski yorum bu videonun içinde "BAŞARI TESADÜF DEĞİLDİR" yazdığını
+          söylüyordu; 15 saniyelik videodan 4 kare örneklendi (0,1 · 5,3 · 10,5
+          · 14,3 sn) ve o yazı GÖRÜLMEDİ — o metin `hakkimizda-imaj-1`de.
+          Masaüstündeki %13 dikey kırpma halkayı kesmiyor, gözle doğrulandı
+          (`object-contain` ile yan yana karşılaştırıldı).
+          Hesap: kutu oranı = genişlik / (0,70 x yükseklik). Yazının kesilmemesi
+          için kutunun 2,0'dan geniş olması, yani EKRAN oranının 1,4'ten büyük
+          olması gerekiyor. 1440x900 = 1,6 ✓ (yalnız %12,5 dikey kırpma, yazı
+          ortada, güvenli) · 768x1024 tablet = 0,75 ✗ (%46 yatay kırpma) ·
+          390x844 telefon = 0,46 ✗ (%67). Bu yüzden %70 yalnız `lg:` üstünde;
+          altında video kendi oranıyla tam görünüyor ve yükseklik yine medyadan
+          bağımsız olduğu için kayma da yok.
+          🔴 KIRILIM GENİŞLİK DEĞİL **ORAN** (denetimde yakalandı, 2026-09-11):
+          önce `lg:` (1024 piksel genişlik) yazılmıştı ama kuralın kendisi oran
+          cinsinden. iPad Pro 12.9" DİKEY 1024x1366 (oran 0,75) genişlik eşiğini
+          geçiyor, kutu 1024x956 oluyor ve %46 yatay kırpma yiyordu — yorumun
+          "✗" diye işaretlediği durumun ta kendisi. Artık kuralı birebir ifade
+          eden `.hero-oranli` sınıfı kullanılıyor (`app/globals.css`,
+          `min-aspect-ratio: 7/5` = 1,4). Kod ile yorum bir daha ayrışmaz.
+          ⚠️ Video değişirse (döküman yeni bir slider gif'i istiyor) buradaki
+          `aspect-[2/1]` yeni dosyanın oranına göre güncellenmeli. */}
+      <section
+        data-koyu-bolum
+        data-imlec-koyu
+        /* Sayfanın EN ÜSTÜNDEKİ koyu hero — üst bar daha ilk boyamada saydam
+           açılsın diye. Bkz. `app/globals.css` → "ÜST BAR AÇILIŞ RENGİ". */
+        data-koyu-acilis
+        className="hero-oranli relative aspect-[2/1] overflow-hidden bg-navy"
+      >
+        {/* Master'ın giriş hareketi: scale 2'den 1'e + soluk açılış.
+            `hemen` → görünür alan beklenmiyor; ilk ekranda gecikme olmaz. */}
+        <YakinAcilis hemen olcek={2} className="h-full w-full">
+          <video
+            src="/assets/about/hero.mp4"
+            poster="/assets/about/hero-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="tellers hakkında"
+            className="h-full w-full object-cover"
+          />
+        </YakinAcilis>
       </section>
 
       {/* ── Global devlerin tercihi ── */}
@@ -185,9 +226,22 @@ export default function HakkimizdaPage() {
       </div>
 
       {/* ── Manifesto görseli (netlik) ──
-          sabit: içinde YAZI var; paralaks büyütüp kaydırdığı için kenardaki
-          metin kesiliyordu (Yakup bildirdi 2026-09-01). */}
-      <MediaReveal sabit>
+          MASTER'IN GİRİŞ HAREKETİ — görsel scale 1.4'ten 1'e oturur + soluk
+          açılır (master'ın About sayfasındaki beş iç görselinde bu değer
+          ölçüldü). Kaydırmaya bağlı sürekli paralaksın yerini aldı: master'da
+          görsel oturduktan sonra sarmalayıcıda hiç dönüşüm kalmıyor.
+          İçinde YAZI olan görsellerde DURAN HÂLDE güvenli: hareket ölçek 1'de
+          bitiyor, yani yerine oturduğunda hiçbir şey kırpılmıyor — eski `sabit`
+          kısıtının sebebi olan KALICI büyütme ortadan kalktı.
+          🟠 AMA GİRİŞ SIRASINDA KIRPIYOR (denetimde ölçüldü, 2026-09-11): bu
+          sayfadaki yazılı medyaların metni kenara dayanıyor
+          (`hakkimizda-imaj-1-yerlesik.mp4`te "TESADÜF" tam x=0'dan başlıyor).
+          1.4 ölçekle her kenardan kesilen pay: 0 sn'de %14,3 · 0,08 sn'de %10,7
+          · 0,21 sn'de %6,0 · 0,38 sn'de %2,4. Yani ilk ~0,3 saniye harflerin
+          uçları görünmüyor, sonra oturuyor. Bu, İSTENEN efektin kendisi (master
+          böyle yapıyor, Yakup "birebir aynı olsun" dedi) — hata değil, bilinçli
+          taviz. Kabul edilmezse yazılı medyalarda `olcek={1.15}` kesmiyor. */}
+      <YakinAcilis>
         <Image
           src="/assets/about/hakkimizda-metni.png"
           alt="Bilginin saniyelerle çoğaldığı çağda yüzyılın iletişim standartı netlik olacaktır — tellers bu soruya cevap üretmek için doğdu"
@@ -196,7 +250,7 @@ export default function HakkimizdaPage() {
           className="h-auto w-full"
           sizes="100vw"
         />
-      </MediaReveal>
+      </YakinAcilis>
 
       {/* ── Dinozor ajanslara veda + kreatif görsel ──
           Görsel ölçüleri gorselOlcu ile DOSYADAN okunuyor: kodda 1-creative
@@ -269,8 +323,11 @@ export default function HakkimizdaPage() {
             </p>
           </StaggerItem>
         </Stagger>
-        <Reveal delay={0.1} className="mt-12">
-          <MediaReveal>
+        {/* Eskiden burada `Reveal` (opaklık + kayma) vardı; `YakinAcilis` zaten
+            soluk açıyor, üstüne `template.tsx` sayfa geçişi de bindiğinde üç
+            opaklık çarpılıyordu (denetimde yakalandı). Kutu kalsın diye düz div. */}
+        <div className="mt-12">
+          <YakinAcilis>
             <Image
               src="/assets/about/vizyon.png"
               alt="tellers vizyonu"
@@ -279,8 +336,8 @@ export default function HakkimizdaPage() {
               className="h-auto w-full"
               sizes="100vw"
             />
-          </MediaReveal>
-        </Reveal>
+          </YakinAcilis>
+        </div>
       </section>
 
       {/* ── Misyon ──
@@ -399,7 +456,7 @@ export default function HakkimizdaPage() {
           Video yazının yerleştiği andan başlatıldı; özgün dosya SİLİNMEDİ.
           NOT: aynı giriş animasyonu 5 hero videosunda da var ama onlar sayfa
           başında olduğu için kasıtlı durabilir — ekip kararına bırakıldı. */}
-      <MediaReveal sabit>
+      <YakinAcilis>
         <video
           src="/assets/about/hakkimizda-imaj-1-yerlesik.mp4"
           autoPlay
@@ -410,7 +467,7 @@ export default function HakkimizdaPage() {
           aria-label="tellers ekibinden bir kare"
           className="h-auto w-full"
         />
-      </MediaReveal>
+      </YakinAcilis>
 
       {/* ── Recognition & Impact ── */}
       <section className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-24">
@@ -494,7 +551,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* ── İmaj 2 — ekipten gelen gerçek video ── */}
-      <MediaReveal sabit>
+      <YakinAcilis>
         <video
           src="/assets/about/hakkimizda-imaj-2.mp4"
           autoPlay
@@ -505,7 +562,7 @@ export default function HakkimizdaPage() {
           aria-label="tellers stüdyosundan bir kare"
           className="h-auto w-full"
         />
-      </MediaReveal>
+      </YakinAcilis>
 
       {/* ── Kapanış + referans logolar ── */}
       <KapanisSection />

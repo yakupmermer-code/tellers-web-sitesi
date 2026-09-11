@@ -672,3 +672,34 @@ body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-logo] {
 body:has([data-koyu-acilis]) header[data-bar="auto"] [data-bar-cizgi] {
   background-color: #fff;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HERO — "%70 EKRAN" KURALININ EKRAN ORANINA BAĞLANMASI
+   ─────────────────────────────────────────────────────────────────────────
+   Master tema (arpeggio.framer.website/about) hero'yu ekran yüksekliğinin
+   %70'i yapıyor ve medyayı `object-cover` ile kırpıyor. Bizim hero
+   videolarımızın İÇİNDE yazı var, o yüzden kırpmayı ancak yazıyı kesmediği
+   ekranlarda göze alabiliyoruz.
+
+   Hesap: kutu oranı = genişlik / (0,70 x yükseklik). Medya 2:1 olduğuna göre
+   yatay kırpma olmaması için kutunun 2,0'dan geniş olması gerekir:
+       genişlik / (0,70 x yükseklik) > 2  ⟺  EKRAN ORANI > 1,4  ( = 7/5 )
+
+   🔴 NEDEN TAILWIND'İN `lg:` KIRILIMI DEĞİL: `lg:` GENİŞLİĞE bakar, kural ise
+   ORAN cinsinden. iPad Pro 12.9" DİKEY 1024x1366 (oran 0,75) genişlik eşiğini
+   geçiyor ama oran eşiğini geçmiyor — o cihazda kadrajın %46'sı kesiliyordu
+   (denetimde yakalandı, 2026-09-11). Kuralı doğrudan oran olarak yazmak, kod
+   ile gerekçenin bir daha ayrışmamasını sağlıyor.
+
+   Eşiğin altında hero medyanın kendi oranında kalır (`aspect-[2/1]`), yani
+   kırpma sıfır; yükseklik yine medyadan bağımsız olduğu için yükleme kayması
+   da olmaz.
+
+   Tailwind v4 yardımcı sınıfları katman (`@layer`) içinde; katmansız kurallar
+   katmanlıları her hâlükârda geçer, o yüzden sıralamaya bağlı değil. */
+@media (min-aspect-ratio: 7/5) {
+  .hero-oranli {
+    aspect-ratio: auto;
+    height: 70vh;
+  }
+}

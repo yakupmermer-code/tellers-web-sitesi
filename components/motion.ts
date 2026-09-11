@@ -13,6 +13,13 @@ export const SURE = {
   reveal: 0.9,
   maske: 0.95,
   stagger: 0.85,
+  /*
+   * ⚠️ ÜÇ FARKLI GENLİĞİ BİRDEN SÜRÜYOR (denetimde işaretlendi, 2026-09-11):
+   * `HeroZoom` 1.28 · `YatayAcilis` 1.45 · `YakinAcilis` 1.4 ve hero'da 2.0.
+   * Genlik iki katına çıkınca aynı sürede hareket iki kat hızlı olur. Birinin
+   * hızını ayarlamak için buraya dokunan kişi diğerlerini de sessizce
+   * değiştirir — ayırmak gerekirse bileşene kendi süresini geçir.
+   */
   heroZoom: 1.1,
 } as const;
 
